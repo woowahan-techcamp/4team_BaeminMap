@@ -39,6 +39,10 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         location = Location.sharedInstance
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         mapView.camera = camera
-        mapView.isMyLocationEnabled = true
+//        mapView.isMyLocationEnabled = true
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+//        marker.icon = 
+        marker.map = mapView
     }
 }
