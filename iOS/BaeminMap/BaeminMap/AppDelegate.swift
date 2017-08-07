@@ -7,18 +7,29 @@
 //
 
 import UIKit
+import GoogleMaps
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
-
+    let locationManager = CLLocationManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        GMSServices.provideAPIKey(Config.googleMapKey)
+        
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
         
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().barTintColor = UIColor(red: 67/255, green: 61/255, blue: 55/255, alpha: 1)
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        
         return true
     }
 
@@ -42,6 +53,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = manager.location?.coordinate
+        if let currentLocation = location {
+            Location.sharedInstance = Location(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+            // TODO: 현위치 기반으로 networking
+            locationManager.stopUpdatingLocation()
+        }
+        print(Location.sharedInstance.latitude, "Location.sharedInstance")
+        print(Location.sharedInstance.longitude, "Location.sharedInstance")
+        NotificationCenter.default.post(name: NSNotification.Name("finishedCurrentLocation"), object: self)
     }
 
 
