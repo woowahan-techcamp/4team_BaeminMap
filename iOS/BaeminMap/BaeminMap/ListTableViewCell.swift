@@ -23,6 +23,7 @@ class ListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        ratingView.isUserInteractionEnabled = false
         shopImageView.layer.cornerRadius = (shopImageView.frame.size.height) / 2
         shopImageView.layer.masksToBounds = true
     }
