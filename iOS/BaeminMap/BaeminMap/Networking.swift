@@ -36,16 +36,21 @@ class Networking {
         ]
         
         Alamofire.request("\(Config.baeminApiURL)/v2/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
-            let responseDic = response.result.value as! [String:Any]
-            let contents = responseDic["content"] as! [[String:Any]]
-            var beaminInfo = [BaeminInfo]()
-            contents.forEach({ (content) in
-                let shop = BaeminInfo(JSON: content)
-                if let shop = shop {
-                    beaminInfo.append(shop)
-                }
-            })
-            NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self, userInfo: ["BaeminInfo" : beaminInfo])
+            switch response.result {
+            case .success(let value):
+                let responseDic = value as! [String:Any]
+                let contents = responseDic["content"] as! [[String:Any]]
+                var beaminInfo = [BaeminInfo]()
+                contents.forEach({ (content) in
+                    let shop = BaeminInfo(JSON: content)
+                    if let shop = shop {
+                        beaminInfo.append(shop)
+                    }
+                })
+                NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self, userInfo: ["BaeminInfo" : beaminInfo])
+            case .failure(let error):
+                print(String(describing: error))
+            }
         }
     }
     

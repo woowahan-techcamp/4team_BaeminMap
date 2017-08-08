@@ -11,6 +11,8 @@ import UIKit
 class ListViewController: UIViewController {
 
     @IBOutlet weak var listView: UITableView!
+    var baeminInfo: [BaeminInfo]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -11,4 +11,5 @@ import UIKit
 extension UIStoryboard {
     static let ListViewStoryboard = UIStoryboard(name: "ListView", bundle: nil)
     static let MapViewStoryboard = UIStoryboard(name: "MapView", bundle: nil)
+    static let MainContainerViewStoryboard = UIStoryboard(name: "MainContainerView", bundle: nil)
 }
