@@ -14,11 +14,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     var location = Location.sharedInstance
     var locationManager = CLLocationManager()
-    var baeminInfo: [BaeminInfo]? {
-        didSet {
-            self.drawMarker()
-        }
-    }
+    var baeminInfo: [BaeminInfo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,25 +37,25 @@ class MapViewController: UIViewController {
     func recieve(notification: Notification) {
         guard let userInfo = notification.userInfo,
             let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
-            self.baeminInfo = baeminInfo
+        self.baeminInfo = baeminInfo
+        self.redrawMap()
     }
 
 }
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func drawMap() {
-        mapView.clear()
         location = Location.sharedInstance
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         mapView.camera = camera
-        
+    }
+    
+    func drawMarker() {
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: location.latitude-0.00001, longitude: location.longitude)
         marker.icon = #imageLiteral(resourceName: "currentLocation")
         marker.map = mapView
-    }
-    
-    func drawMarker() {
+        
         baeminInfo?.forEach({ (shop) in
             let marker = GMSMarker()
             DispatchQueue.main.async {
@@ -69,4 +65,10 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             }
         })
     }
+    
+    func redrawMap() {
+        mapView.clear()
+        drawMarker()
+    }
+    
 }

@@ -13,6 +13,7 @@ class MainContainerViewController: UIViewController {
 
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     var isMapView = Bool()
+    var baeminInfo = [BaeminInfo]()
     var listViewController = UIStoryboard.ListViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
     var mapViewController = UIStoryboard.MapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     
@@ -32,9 +33,16 @@ class MainContainerViewController: UIViewController {
     }
     
     @IBAction func toggleButtonAction(_ sender: UIBarButtonItem) {
-        toggleButton.image = isMapView ? #imageLiteral(resourceName: "mapicon") : #imageLiteral(resourceName: "listicon")
-        
-        let newView = isMapView ? mapViewController : listViewController
+        let newView: UIViewController
+        if isMapView {
+            newView = mapViewController
+            toggleButton.image = #imageLiteral(resourceName: "mapicon")
+            mapViewController.baeminInfo = baeminInfo
+        } else {
+            newView = listViewController
+            toggleButton.image = #imageLiteral(resourceName: "listicon")
+            listViewController.baeminInfo = baeminInfo
+        }
         let oldView = childViewControllers.last
         
         oldView?.willMove(toParentViewController: nil)
@@ -51,8 +59,7 @@ class MainContainerViewController: UIViewController {
     func receive(notification: Notification) {
         guard let userInfo = notification.userInfo,
         let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
-        mapViewController.baeminInfo = baeminInfo
-        listViewController.baeminInfo = baeminInfo
+        self.baeminInfo = baeminInfo
     }
 
 }
