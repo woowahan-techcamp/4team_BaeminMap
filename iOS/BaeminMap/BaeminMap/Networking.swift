@@ -34,7 +34,7 @@ class Networking {
             "lng": longitude,
             "category": 1
         ]
-        
+        print(Config.token)
         Alamofire.request("\(Config.baeminApiURL)/v2/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
             switch response.result {
             case .success(let value):

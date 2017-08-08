@@ -62,9 +62,11 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func drawMarker() {
         baeminInfo?.forEach({ (shop) in
             let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-            marker.icon = #imageLiteral(resourceName: "markeriocn")
-            marker.map = mapView
+            DispatchQueue.main.async {
+                marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
+                marker.icon = #imageLiteral(resourceName: "markeriocn")
+                marker.map = self.mapView
+            }
         })
     }
 }
