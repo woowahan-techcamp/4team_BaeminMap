@@ -1,8 +1,9 @@
+//Data 클래스 getShopList 프로토타입
 axios.get("../data.json")
     .then(function (response) {
-        console.log(response)
+        const dummyData = response.data.content;
+        Map.prototype.setShopMarker(dummyData);
     });
-
 
 class Map {
     constructor() {
@@ -103,6 +104,15 @@ class Map {
                 }
             });
             map.fitBounds(bounds);
+        });
+    }
+    setShopMarker(arr){
+        arr.forEach((e)=>{
+            console.log(e.location)
+            new google.maps.Marker({
+                position: {"lat": e.location.latitude,"lng": e.location.longitude},
+                map: this.map
+            });
         });
     }
 }
