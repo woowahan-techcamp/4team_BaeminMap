@@ -24,6 +24,7 @@
 		B5562BFA1F381DB200A1BDE2 /* MainContainerView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BF91F381DB200A1BDE2 /* MainContainerView.storyboard */; };
 		B574178D1F384D3700A822EA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574178C1F384D3700A822EA /* Extension.swift */; };
 		B574178F1F3852B300A822EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B574178E1F3852B300A822EA /* Assets.xcassets */; };
+		B57417921F38602200A822EA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57417911F38602200A822EA /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		B5562BF91F381DB200A1BDE2 /* MainContainerView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainContainerView.storyboard; sourceTree = "<group>"; };
 		B574178C1F384D3700A822EA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B574178E1F3852B300A822EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B57417911F38602200A822EA /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		EC3E510CB2473C0F23F76DBC /* Pods-BaeminMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaeminMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaeminMap/Pods-BaeminMap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 				B5562BFD1F381DCD00A1BDE2 /* ListView */,
 				B5562BFB1F381DB800A1BDE2 /* DetailView */,
 				B5562BFC1F381DC500A1BDE2 /* FilterView */,
+				B57417901F38601300A822EA /* Model */,
 				B5562BFF1F381E3500A1BDE2 /* Resource */,
 			);
 			path = BaeminMap;
@@ -158,6 +161,14 @@
 				B5562BDC1F381D2500A1BDE2 /* Info.plist */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		B57417901F38601300A822EA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B57417911F38602200A822EA /* Location.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		BB9660EA9BF8D1E3C16AE620 /* Pods */ = {
@@ -301,6 +312,7 @@
 				B5562BF41F381D6B00A1BDE2 /* ListViewController.swift in Sources */,
 				B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */,
 				B5562BF01F381D6B00A1BDE2 /* DetailViewController.swift in Sources */,
+				B57417921F38602200A822EA /* Location.swift in Sources */,
 				B5562BF21F381D6B00A1BDE2 /* FilterViewController.swift in Sources */,
 				B5562BF51F381D6B00A1BDE2 /* MainContainerViewController.swift in Sources */,
 				B5562BF71F381D6B00A1BDE2 /* MapViewController.swift in Sources */,

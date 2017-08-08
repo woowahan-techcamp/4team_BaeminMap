@@ -7,29 +7,43 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class MapViewController: UIViewController {
 
+    @IBOutlet weak var mapView: GMSMapView!
+    var location = Location.sharedInstance
+    var locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+//        locationManager.delegate = self
+//        mapView.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(drawMap), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        drawMap()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
+    func drawMap() {
+        mapView.clear()
+        location = Location.sharedInstance
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
+        mapView.camera = camera
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: location.latitude-0.00001, longitude: location.longitude)
+        marker.icon = #imageLiteral(resourceName: "currentLocation")
+        marker.map = mapView
     }
-    */
-
 }
