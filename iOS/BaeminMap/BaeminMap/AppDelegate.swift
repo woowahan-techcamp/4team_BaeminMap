@@ -62,8 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             // TODO: 현위치 기반으로 networking
             locationManager.stopUpdatingLocation()
         }
-        print(Location.sharedInstance.latitude, "Location.sharedInstance")
-        print(Location.sharedInstance.longitude, "Location.sharedInstance")
         NotificationCenter.default.post(name: NSNotification.Name("finishedCurrentLocation"), object: self)
     }
 

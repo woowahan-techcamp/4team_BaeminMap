@@ -36,9 +36,15 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func drawMap() {
+        mapView.clear()
         location = Location.sharedInstance
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         mapView.camera = camera
-        mapView.isMyLocationEnabled = true
+//        mapView.isMyLocationEnabled = true
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+        marker.icon = #imageLiteral(resourceName: "currentLocation")
+        marker.map = mapView
     }
 }
