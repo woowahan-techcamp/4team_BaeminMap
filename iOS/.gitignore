@@ -41,6 +41,7 @@ playground.xcworkspace
 .build/
 
 # CocoaPods - Refactored to standalone file
+Pods/
 
 # Carthage - Refactored to standalone file
 
@@ -60,4 +61,5 @@ fastlane/test_output
 Packages
 .build
 xcuserdata
-*.xcodeproj
+#*.xcodeproj
+*Config.plist

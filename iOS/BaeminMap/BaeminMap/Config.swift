@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+class Config {
+    static let googleMapKey: String = {
+        guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+        let plist = NSDictionary(contentsOfFile: path) else { return String() }
+        let key = plist["GoogleMapApiKey"] as! String
+        return key
+    }()
+}
