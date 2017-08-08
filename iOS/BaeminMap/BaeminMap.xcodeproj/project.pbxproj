@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6A60F0918771F9AA2A23E970 /* Pods_BaeminMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED47E52EB023DB9932D51A /* Pods_BaeminMap.framework */; };
 		981CAD1D1F39923D009A6B12 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD1C1F39923D009A6B12 /* Config.plist */; };
+		981CAD241F399309009A6B12 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CAD221F399309009A6B12 /* ListTableViewCell.swift */; };
+		981CAD251F399309009A6B12 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD231F399309009A6B12 /* ListTableViewCell.xib */; };
 		B5562BD11F381D2500A1BDE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BD01F381D2500A1BDE2 /* AppDelegate.swift */; };
 		B5562BDB1F381D2500A1BDE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BD91F381D2500A1BDE2 /* LaunchScreen.storyboard */; };
 		B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BE31F381D6B00A1BDE2 /* Config.swift */; };
@@ -31,6 +33,8 @@
 		0CED47E52EB023DB9932D51A /* Pods_BaeminMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaeminMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C87EA71F5610B9EEE828EC2 /* Pods-BaeminMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaeminMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaeminMap/Pods-BaeminMap.debug.xcconfig"; sourceTree = "<group>"; };
 		981CAD1C1F39923D009A6B12 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Config.plist; path = ../../../../../../../../Downloads/Config.plist; sourceTree = "<group>"; };
+		981CAD221F399309009A6B12 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		981CAD231F399309009A6B12 /* ListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		B5562BCD1F381D2500A1BDE2 /* BaeminMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaeminMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5562BD01F381D2500A1BDE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5562BDA1F381D2500A1BDE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 			children = (
 				B5562BE81F381D6B00A1BDE2 /* ListView.storyboard */,
 				B5562BE91F381D6B00A1BDE2 /* ListViewController.swift */,
+				981CAD221F399309009A6B12 /* ListTableViewCell.swift */,
+				981CAD231F399309009A6B12 /* ListTableViewCell.xib */,
 			);
 			name = ListView;
 			sourceTree = "<group>";
@@ -246,6 +252,7 @@
 				B5562BF61F381D6B00A1BDE2 /* MapView.storyboard in Resources */,
 				B5562BDB1F381D2500A1BDE2 /* LaunchScreen.storyboard in Resources */,
 				B5562BEF1F381D6B00A1BDE2 /* DetailView.storyboard in Resources */,
+				981CAD251F399309009A6B12 /* ListTableViewCell.xib in Resources */,
 				981CAD1D1F39923D009A6B12 /* Config.plist in Resources */,
 				B5562BFA1F381DB200A1BDE2 /* MainContainerView.storyboard in Resources */,
 				B574178F1F3852B300A822EA /* Assets.xcassets in Resources */,
@@ -317,6 +324,7 @@
 				B5562BF51F381D6B00A1BDE2 /* MainContainerViewController.swift in Sources */,
 				B5562BF71F381D6B00A1BDE2 /* MapViewController.swift in Sources */,
 				B574178D1F384D3700A822EA /* Extension.swift in Sources */,
+				981CAD241F399309009A6B12 /* ListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
