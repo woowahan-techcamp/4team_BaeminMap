@@ -9,10 +9,14 @@
 import UIKit
 
 class ListTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet var ShopImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        ShopImageView.layer.cornerRadius = (ShopImageView.frame.size.height) / 2
+        ShopImageView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

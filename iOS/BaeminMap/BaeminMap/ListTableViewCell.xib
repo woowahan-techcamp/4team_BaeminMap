@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="103.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U2O-gF-AEe">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dduck" translatesAutoresizingMaskIntoConstraints="NO" id="U2O-gF-AEe">
                         <rect key="frame" x="8" y="8" width="85" height="85"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -91,6 +91,9 @@
                     </view>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="ShopImageView" destination="U2O-gF-AEe" id="e7d-XY-e6M"/>
+            </connections>
             <point key="canvasLocation" x="172" y="178"/>
         </tableViewCell>
         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PYz-Ub-5Lg">
@@ -105,6 +108,7 @@
         </button>
     </objects>
     <resources>
+        <image name="dduck" width="344" height="236"/>
         <image name="rightArrowicon" width="12" height="22"/>
     </resources>
 </document>
