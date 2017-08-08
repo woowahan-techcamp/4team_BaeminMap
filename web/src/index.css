@@ -115,7 +115,7 @@ body {
 }
 
 .shop-image-wrapper > span {
-    background: url("../static/img-circle-mask@2.png");
+    background: url("/static/img-circle-mask@2.png");
     background-size: 100% auto;
     background-repeat: no-repeat;
     position: absolute;

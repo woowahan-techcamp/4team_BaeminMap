@@ -107,4 +107,4 @@ class Map {
     }
 }
 
-const map = new Map();
+new Map();
