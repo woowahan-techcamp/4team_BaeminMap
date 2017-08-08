@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6A60F0918771F9AA2A23E970 /* Pods_BaeminMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED47E52EB023DB9932D51A /* Pods_BaeminMap.framework */; };
+		9801054E1F397E7100EEC6B9 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9801054D1F397E7100EEC6B9 /* Networking.swift */; };
+		980105501F39A3A500EEC6B9 /* BaeminInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9801054F1F39A3A500EEC6B9 /* BaeminInfo.swift */; };
 		981CAD241F399309009A6B12 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CAD221F399309009A6B12 /* ListTableViewCell.swift */; };
 		981CAD251F399309009A6B12 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD231F399309009A6B12 /* ListTableViewCell.xib */; };
 		981CAD111F394C72009A6B12 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD101F394C72009A6B12 /* Config.plist */; };
@@ -32,6 +34,8 @@
 /* Begin PBXFileReference section */
 		0CED47E52EB023DB9932D51A /* Pods_BaeminMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaeminMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C87EA71F5610B9EEE828EC2 /* Pods-BaeminMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaeminMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaeminMap/Pods-BaeminMap.debug.xcconfig"; sourceTree = "<group>"; };
+		9801054D1F397E7100EEC6B9 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		9801054F1F39A3A500EEC6B9 /* BaeminInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaeminInfo.swift; sourceTree = "<group>"; };
 		981CAD221F399309009A6B12 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		981CAD231F399309009A6B12 /* ListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		981CAD101F394C72009A6B12 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Config.plist; path = ../../../../../../../../Downloads/Config.plist; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				B57417911F38602200A822EA /* Location.swift */,
+				9801054D1F397E7100EEC6B9 /* Networking.swift */,
+				9801054F1F39A3A500EEC6B9 /* BaeminInfo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -317,6 +323,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5562BD11F381D2500A1BDE2 /* AppDelegate.swift in Sources */,
+				9801054E1F397E7100EEC6B9 /* Networking.swift in Sources */,
+				980105501F39A3A500EEC6B9 /* BaeminInfo.swift in Sources */,
 				B5562BF41F381D6B00A1BDE2 /* ListViewController.swift in Sources */,
 				B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */,
 				B5562BF01F381D6B00A1BDE2 /* DetailViewController.swift in Sources */,

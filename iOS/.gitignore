@@ -62,4 +62,4 @@ Packages
 .build
 xcuserdata
 #*.xcodeproj
-*Config.plist
+Config.plist

@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     let locationManager = CLLocationManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+        Networking().getAccessToken()
         GMSServices.provideAPIKey(Config.googleMapKey)
         GMSPlacesClient.provideAPIKey(Config.googleMapKey)
         
