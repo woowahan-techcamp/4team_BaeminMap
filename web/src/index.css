@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: inline;
+    flex: 1;
+}
+
+#map {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: calc(100% - 400px);
+}
+
+#list {
+    position: absolute;
+    right: 0;
+    width: 400px;
+    height: 100%;
+    background-color: grey;
+}
+
+.controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+.pac-container {
+    font-family: Roboto;
+}
+
+#type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.filter-controller {
+    width: 100%;
+    height: 250px;
+    background: #efefef;
+}
+
+.shop-list {
+    width: 100%;
+    height: calc(100% - 250px);
+    overflow: scroll;
+    background: #e9dfcc;
+}
+
+.shop {
+    width: 90%;
+    height: 130px;
+    background: white;
+    margin: 20px auto 0;
+    box-shadow: 0 0 2px 2px #d1caba;
+    position: relative;
+}
+
+.shop-image-wrapper {
+    position: absolute;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    padding-top: 20px;
+    margin-left: 10px;
+}
+
+.shop-abstract-wrapper {
+    position: absolute;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    padding: 5px;
+}
+
+.shop-abstract-wrapper > h2 {
+    font-size: 110%;
+    margin: 15px 0 5px 0;
+}
+
+.shop-image-wrapper > span {
+    background: url("../static/img-circle-mask@2.png");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.shop-image-wrapper > img {
+    z-index: 0;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 20px;
+}
+
+.shop-rating {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 14px;
+}
+
+.img-star {
+    display: block;
+    background: url("https://img.woowahan.com/www/common/img-star@2.png") no-repeat;
+    width: 83px;
+    height: 14px;
+    background-size: 83px 28px;
+}
+
+.star-rate {
+    display: block;
+    line-height: 0;
+    float: left;
+}
+
+.inner-star-rate {
+    float: left;
+    display: block;
+    background-position: 0 100%;
+}
+
+.shop-address {
+    margin: 5px 0 5px;
+    color: darkgrey;
+    font-weight: 200;
+    font-size: 90%;
+}
+
+.shop-review > span {
+    font-size: 90%;
+}
+
+.shop-review > span > span {
+    color: #ff2700
+}

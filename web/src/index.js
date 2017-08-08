@@ -1,7 +1,7 @@
-axios.get("./data.json")
+axios.get("../data.json")
     .then(function (response) {
         console.log(response)
-    })
+    });
 
 
 class Map {
@@ -15,7 +15,7 @@ class Map {
 
     loadPosition() {
         navigator.geolocation.getCurrentPosition((position) => {
-            var pos = {
+            const pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
@@ -24,7 +24,7 @@ class Map {
 
             this.setUserMarker();
 
-            console.log(pos)
+            console.log(pos);
             // infoWindow.setPosition(pos);
             // infoWindow.setContent('Location found.');
             this.map.setCenter(pos);
@@ -46,7 +46,7 @@ class Map {
         })
     }
     searchPosition(){
-        const map = this.map
+        const map = this.map;
         const input = document.getElementById('pac-input');
         const searchBox = new google.maps.places.SearchBox(input);
         this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -56,13 +56,13 @@ class Map {
             searchBox.setBounds(this.map.getBounds());
         });
 
-        var markers = [];
+        let markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', function() {
-            var places = searchBox.getPlaces();
+            const places = searchBox.getPlaces();
 
-            if (places.length == 0) {
+            if (places.length === 0) {
                 return;
             }
 
@@ -73,13 +73,13 @@ class Map {
             markers = [];
 
             // For each place, get the icon, name and location.
-            var bounds = new google.maps.LatLngBounds();
+            const bounds = new google.maps.LatLngBounds();
             places.forEach(function(place) {
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");
                     return;
                 }
-                var icon = {
+                const icon = {
                     url: place.icon,
                     size: new google.maps.Size(71, 71),
                     origin: new google.maps.Point(0, 0),

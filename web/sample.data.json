@@ -1,0 +1,47 @@
+{
+  "shopNumber": 636227,
+  "shopName": "맥켄치킨",
+  "categoryId": 0,
+  "categoryName": "치킨",
+  "categoryEnglishName": "Chicken",
+  "address": "서울 송파구 가락2동 160-7",
+  "addressDetail": null,
+  "phoneNumber": "924096026",
+  "virtualPhoneNumber": null,
+  "franchiseNumber": "2011100264",
+  "shopMenuCount": 0,
+  "franchiseMenuCount": 0,
+  "viewCount": 405,
+  "favoriteCount": 7,
+  "callCount": 31,
+  "orderCount": 16,
+  "shopScore": 0.02,
+  "starPointAverage": 4.43,
+  "reviewCount": 7,
+  "reviewCountCeo": 1,
+  "reviewCountImage": 3,
+  "minimumOrderPrice": 3000,
+  "closeDayDescription": null,
+  "logoDefault": {
+    "blank": "http://woowahan1.vipweb.kr/cache/2011/food_img/01/A_04.jpg",
+    "host": null,
+    "path": null,
+    "file": null
+  },
+  "logoBorder": {
+    "blank": null,
+    "host": "http://woowahan1.vipweb.kr/cache",
+    "path": "usr/shoplogoc/2016/9/13",
+    "file": "636227_201609131550.jpg"
+  },
+  "deliveryInformation": "송파구",
+  "shopIntroduction": null,
+  "useBaropay": true,
+  "shopOpened": false,
+  "location": {
+    "latitude": 37.501152,
+    "longitude": 127.127785
+  },
+  "distance": 2.1912432,
+  "shopLogoImageUrl": "http://woowahan1.vipweb.kr/cache/usr/shoplogoc/2016/9/13/636227_201609131550.jpg"
+}
