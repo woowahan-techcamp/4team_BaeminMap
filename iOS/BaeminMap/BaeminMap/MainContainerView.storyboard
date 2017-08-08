@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="txK-gb-xXy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="txK-gb-xXy">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,20 +22,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hA-hzT">
-                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hA-hzT">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <connections>
                                     <segue destination="Tke-UX-WOr" kind="embed" id="Cog-Oi-dhx"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFh-qm-IHB">
-                                <rect key="frame" x="0.0" y="64" width="375" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.32910415530204773" green="0.3101324737071991" blue="0.29420903325080872" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="top" secondItem="FY3-xD-dl7" secondAttribute="top" constant="64" id="4eg-Nh-P7n"/>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="bottom" secondItem="tFe-n3-k0z" secondAttribute="top" id="EeH-ed-hOX"/>
+                            <constraint firstAttribute="trailing" secondItem="toJ-hA-hzT" secondAttribute="trailing" id="V6N-td-hIj"/>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="lvd-KD-nAy"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="배민여지도" id="SXz-h2-l1u">
                         <rightBarButtonItems>
