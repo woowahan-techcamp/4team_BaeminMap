@@ -1,0 +1,24 @@
+<% _.foreach(this, (shop) => { %>
+<div class="shop">
+    <div class="shop-image-wrapper">
+        <span></span>
+        <img src="<%= shop.shopLogoImageUrl %>" alt="">
+    </div>
+    <div class="shop-abstract-wrapper">
+        <h2><%= shop.shopName %></h2>
+        <span class="shop-rating">
+            <span class="img-star star-rate">
+                <span class="img-star inner-star-rate" style="width: <%= (shop.starPointAverage /5) * 100 %>"></span>
+            </span>
+        </span>
+        <p class="shop-address"><%= shop.address + ' ' + shop.addressDetail %></p>
+        <p class="shop-review">
+            <span>리뷰 <span><%= shop.reviewCount %></span></span>
+            <span>사장님댓글 <span><%= shop.reviewCountCeo %></span></span>
+        </p>
+    </div>
+</div>
+<% }); %>
+
+
+<% _.forEach(this, function(shop) { %><li><%= shop %></li><% }); %>

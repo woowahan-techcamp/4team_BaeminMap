@@ -1,6 +1,9 @@
+import ShopList from './ShopList'
+
 axios.get("../data.json")
     .then(function (response) {
-        console.log(response)
+        console.log(response.data)
+        new ShopList('#shopListTemplate', '#shopList', response.data)
     });
 
 
@@ -108,3 +111,4 @@ class Map {
 }
 
 new Map();
+
