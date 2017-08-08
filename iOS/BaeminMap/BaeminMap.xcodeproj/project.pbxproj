@@ -10,9 +10,12 @@
 		6A60F0918771F9AA2A23E970 /* Pods_BaeminMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED47E52EB023DB9932D51A /* Pods_BaeminMap.framework */; };
 		9801054E1F397E7100EEC6B9 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9801054D1F397E7100EEC6B9 /* Networking.swift */; };
 		980105501F39A3A500EEC6B9 /* BaeminInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9801054F1F39A3A500EEC6B9 /* BaeminInfo.swift */; };
+		981CAD241F399309009A6B12 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CAD221F399309009A6B12 /* ListTableViewCell.swift */; };
+		981CAD251F399309009A6B12 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD231F399309009A6B12 /* ListTableViewCell.xib */; };
+		981CAD111F394C72009A6B12 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD101F394C72009A6B12 /* Config.plist */; };
+		981CAD131F394DFE009A6B12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD121F394DFE009A6B12 /* Assets.xcassets */; };
 		B5562BD11F381D2500A1BDE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BD01F381D2500A1BDE2 /* AppDelegate.swift */; };
 		B5562BDB1F381D2500A1BDE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BD91F381D2500A1BDE2 /* LaunchScreen.storyboard */; };
-		B5562BED1F381D6B00A1BDE2 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5562BE21F381D6B00A1BDE2 /* Config.plist */; };
 		B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BE31F381D6B00A1BDE2 /* Config.swift */; };
 		B5562BEF1F381D6B00A1BDE2 /* DetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BE41F381D6B00A1BDE2 /* DetailView.storyboard */; };
 		B5562BF01F381D6B00A1BDE2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BE51F381D6B00A1BDE2 /* DetailViewController.swift */; };
@@ -25,7 +28,6 @@
 		B5562BF71F381D6B00A1BDE2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BEC1F381D6B00A1BDE2 /* MapViewController.swift */; };
 		B5562BFA1F381DB200A1BDE2 /* MainContainerView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BF91F381DB200A1BDE2 /* MainContainerView.storyboard */; };
 		B574178D1F384D3700A822EA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574178C1F384D3700A822EA /* Extension.swift */; };
-		B574178F1F3852B300A822EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B574178E1F3852B300A822EA /* Assets.xcassets */; };
 		B57417921F38602200A822EA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57417911F38602200A822EA /* Location.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,11 +36,14 @@
 		6C87EA71F5610B9EEE828EC2 /* Pods-BaeminMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaeminMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaeminMap/Pods-BaeminMap.debug.xcconfig"; sourceTree = "<group>"; };
 		9801054D1F397E7100EEC6B9 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		9801054F1F39A3A500EEC6B9 /* BaeminInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaeminInfo.swift; sourceTree = "<group>"; };
+		981CAD221F399309009A6B12 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		981CAD231F399309009A6B12 /* ListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
+		981CAD101F394C72009A6B12 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Config.plist; path = ../../../../../../../../Downloads/Config.plist; sourceTree = "<group>"; };
+		981CAD121F394DFE009A6B12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5562BCD1F381D2500A1BDE2 /* BaeminMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaeminMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5562BD01F381D2500A1BDE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5562BDA1F381D2500A1BDE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5562BDC1F381D2500A1BDE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5562BE21F381D6B00A1BDE2 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		B5562BE31F381D6B00A1BDE2 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		B5562BE41F381D6B00A1BDE2 /* DetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailView.storyboard; sourceTree = "<group>"; };
 		B5562BE51F381D6B00A1BDE2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +56,6 @@
 		B5562BEC1F381D6B00A1BDE2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B5562BF91F381DB200A1BDE2 /* MainContainerView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainContainerView.storyboard; sourceTree = "<group>"; };
 		B574178C1F384D3700A822EA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		B574178E1F3852B300A822EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B57417911F38602200A822EA /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		EC3E510CB2473C0F23F76DBC /* Pods-BaeminMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaeminMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaeminMap/Pods-BaeminMap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,6 +146,8 @@
 			children = (
 				B5562BE81F381D6B00A1BDE2 /* ListView.storyboard */,
 				B5562BE91F381D6B00A1BDE2 /* ListViewController.swift */,
+				981CAD221F399309009A6B12 /* ListTableViewCell.swift */,
+				981CAD231F399309009A6B12 /* ListTableViewCell.xib */,
 			);
 			name = ListView;
 			sourceTree = "<group>";
@@ -158,8 +164,8 @@
 		B5562BFF1F381E3500A1BDE2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				B574178E1F3852B300A822EA /* Assets.xcassets */,
-				B5562BE21F381D6B00A1BDE2 /* Config.plist */,
+				981CAD121F394DFE009A6B12 /* Assets.xcassets */,
+				981CAD101F394C72009A6B12 /* Config.plist */,
 				B5562BE31F381D6B00A1BDE2 /* Config.swift */,
 				B5562BD91F381D2500A1BDE2 /* LaunchScreen.storyboard */,
 				B5562BDC1F381D2500A1BDE2 /* Info.plist */,
@@ -248,13 +254,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5562BED1F381D6B00A1BDE2 /* Config.plist in Resources */,
 				B5562BF31F381D6B00A1BDE2 /* ListView.storyboard in Resources */,
 				B5562BF61F381D6B00A1BDE2 /* MapView.storyboard in Resources */,
+				981CAD131F394DFE009A6B12 /* Assets.xcassets in Resources */,
 				B5562BDB1F381D2500A1BDE2 /* LaunchScreen.storyboard in Resources */,
 				B5562BEF1F381D6B00A1BDE2 /* DetailView.storyboard in Resources */,
+				981CAD251F399309009A6B12 /* ListTableViewCell.xib in Resources */,
+				981CAD1D1F39923D009A6B12 /* Config.plist in Resources */,
 				B5562BFA1F381DB200A1BDE2 /* MainContainerView.storyboard in Resources */,
-				B574178F1F3852B300A822EA /* Assets.xcassets in Resources */,
+				981CAD111F394C72009A6B12 /* Config.plist in Resources */,
 				B5562BF11F381D6B00A1BDE2 /* FilterView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +333,7 @@
 				B5562BF51F381D6B00A1BDE2 /* MainContainerViewController.swift in Sources */,
 				B5562BF71F381D6B00A1BDE2 /* MapViewController.swift in Sources */,
 				B574178D1F384D3700A822EA /* Extension.swift in Sources */,
+				981CAD241F399309009A6B12 /* ListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

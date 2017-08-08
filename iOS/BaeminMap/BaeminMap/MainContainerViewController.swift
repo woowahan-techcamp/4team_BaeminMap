@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GooglePlaces
 
 class MainContainerViewController: UIViewController {
 
@@ -24,6 +25,11 @@ class MainContainerViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func searchLocationButtonAction(_ sender: Any) {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        present(autocompleteController, animated: true, completion: nil)
     }
     
     @IBAction func toggleButtonAction(_ sender: UIBarButtonItem) {
@@ -51,3 +57,18 @@ class MainContainerViewController: UIViewController {
 
 }
 
+extension MainContainerViewController: GMSAutocompleteViewControllerDelegate {
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        Location.sharedInstance = Location(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
