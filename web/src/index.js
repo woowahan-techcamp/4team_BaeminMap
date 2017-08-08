@@ -2,7 +2,7 @@
 axios.get("../data.json")
     .then(function (response) {
         const dummyData = response.data.content;
-        shopMap.setShopMarker(dummyData);
+        newMap.setShopMarker(dummyData);
     });
 
 class Map {
@@ -117,4 +117,4 @@ class Map {
     }
 }
 
-const shopMap = new Map();
+const newMap = new Map();
