@@ -22,15 +22,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hA-hzT">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hA-hzT">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="Tke-UX-WOr" kind="embed" id="Cog-Oi-dhx"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="top" secondItem="FY3-xD-dl7" secondAttribute="top" constant="64" id="4eg-Nh-P7n"/>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="bottom" secondItem="tFe-n3-k0z" secondAttribute="top" id="EeH-ed-hOX"/>
+                            <constraint firstAttribute="trailing" secondItem="toJ-hA-hzT" secondAttribute="trailing" id="V6N-td-hIj"/>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="lvd-KD-nAy"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="배민여지도" id="SXz-h2-l1u">
                         <rightBarButtonItems>
@@ -57,7 +62,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="txK-gb-xXy" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TPD-bd-XrS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TPD-bd-XrS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
