@@ -18,7 +18,6 @@ class SortView: UIView {
     
     override func layoutSubviews() {
         nearButton.titleLabel?.textColor = UIColor.white
-        nearButton.
     }
 
     /*
