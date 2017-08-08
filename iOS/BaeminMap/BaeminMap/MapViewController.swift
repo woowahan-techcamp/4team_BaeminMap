@@ -40,6 +40,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         location = Location.sharedInstance
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         mapView.camera = camera
+//        mapView.frame = CGRect(x: 0, y: navigationController!.navigationBar.frame.height, width: view.frame.width, height: view.frame.height - navigationController!.navigationBar.frame.height)
         
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: location.latitude-0.00001, longitude: location.longitude)
