@@ -61,6 +61,7 @@ extension MainContainerViewController: GMSAutocompleteViewControllerDelegate {
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         Location.sharedInstance = Location(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        Networking().getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
         dismiss(animated: true, completion: nil)
     }
     
