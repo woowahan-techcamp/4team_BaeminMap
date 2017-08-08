@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6A60F0918771F9AA2A23E970 /* Pods_BaeminMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED47E52EB023DB9932D51A /* Pods_BaeminMap.framework */; };
+		980105421F39667300EEC6B9 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980105401F39667300EEC6B9 /* SortView.swift */; };
+		980105431F39667300EEC6B9 /* SortView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 980105411F39667300EEC6B9 /* SortView.xib */; };
 		981CAD0D1F394A41009A6B12 /* SortRangeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD0C1F394A41009A6B12 /* SortRangeView.xib */; };
 		981CAD0F1F394B2C009A6B12 /* SortRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CAD0E1F394B2C009A6B12 /* SortRangeView.swift */; };
 		981CAD111F394C72009A6B12 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD101F394C72009A6B12 /* Config.plist */; };
@@ -32,6 +34,8 @@
 /* Begin PBXFileReference section */
 		0CED47E52EB023DB9932D51A /* Pods_BaeminMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaeminMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C87EA71F5610B9EEE828EC2 /* Pods-BaeminMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaeminMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaeminMap/Pods-BaeminMap.debug.xcconfig"; sourceTree = "<group>"; };
+		980105401F39667300EEC6B9 /* SortView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
+		980105411F39667300EEC6B9 /* SortView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SortView.xib; sourceTree = "<group>"; };
 		981CAD0C1F394A41009A6B12 /* SortRangeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SortRangeView.xib; sourceTree = "<group>"; };
 		981CAD0E1F394B2C009A6B12 /* SortRangeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortRangeView.swift; sourceTree = "<group>"; };
 		981CAD101F394C72009A6B12 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Config.plist; path = ../../../../../../../../Downloads/Config.plist; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 				B5562BEA1F381D6B00A1BDE2 /* MainContainerViewController.swift */,
 				981CAD0C1F394A41009A6B12 /* SortRangeView.xib */,
 				981CAD0E1F394B2C009A6B12 /* SortRangeView.swift */,
+				980105401F39667300EEC6B9 /* SortView.swift */,
+				980105411F39667300EEC6B9 /* SortView.xib */,
 			);
 			name = MainContainerView;
 			sourceTree = "<group>";
@@ -256,6 +262,7 @@
 				B5562BEF1F381D6B00A1BDE2 /* DetailView.storyboard in Resources */,
 				B5562BFA1F381DB200A1BDE2 /* MainContainerView.storyboard in Resources */,
 				981CAD111F394C72009A6B12 /* Config.plist in Resources */,
+				980105431F39667300EEC6B9 /* SortView.xib in Resources */,
 				B5562BF11F381D6B00A1BDE2 /* FilterView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +326,7 @@
 				B5562BF41F381D6B00A1BDE2 /* ListViewController.swift in Sources */,
 				B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */,
 				B5562BF01F381D6B00A1BDE2 /* DetailViewController.swift in Sources */,
+				980105421F39667300EEC6B9 /* SortView.swift in Sources */,
 				981CAD0F1F394B2C009A6B12 /* SortRangeView.swift in Sources */,
 				B57417921F38602200A822EA /* Location.swift in Sources */,
 				B5562BF21F381D6B00A1BDE2 /* FilterViewController.swift in Sources */,
