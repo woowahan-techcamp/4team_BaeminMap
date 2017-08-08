@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import AlamofireObjectMapper
 
 class Networking {
     func getAccessToken() {
@@ -34,9 +35,10 @@ class Networking {
             "category": 1
         ]
         
-        Alamofire.request("\(Config.baeminApiURL)/v2/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseJSON { response in
-            print(response.result.value)
+        Alamofire.request("\(Config.baeminApiURL)/v2/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseObject { (response: DataResponse<BaeminInfo>) in
+            print(response)
         }
+
     }
     
 }
