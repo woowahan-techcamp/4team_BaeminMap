@@ -6,7 +6,7 @@ target 'BaeminMap' do
   use_frameworks!
   pod 'GoogleMaps'
   pod 'Alamofire'
-  pod 'AlamofireObjectMapper'
+  pod 'ObjectMapper'
 
   # Pods for BaeminMap
 

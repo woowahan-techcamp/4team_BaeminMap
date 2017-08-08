@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-import AlamofireObjectMapper
 
 class Networking {
     func getAccessToken() {
@@ -29,16 +28,25 @@ class Networking {
     
     func getBaeminInfo(latitude: Double, longitude: Double) {
         let header = ["Authorization": "Bearer \(Config.token)", "Content-Type": "application/json"]
+        // TODO: size 추가 예정
         let parameters = [
             "lat": latitude,
             "lng": longitude,
             "category": 1
         ]
         
-        Alamofire.request("\(Config.baeminApiURL)/v2/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseObject { (response: DataResponse<BaeminInfo>) in
-            print(response)
+        Alamofire.request("\(Config.baeminApiURL)/v2/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+            let responseDic = response.result.value as! [String:Any]
+            let contents = responseDic["content"] as! [[String:Any]]
+            var beaminInfo = [BaeminInfo]()
+            contents.forEach({ (content) in
+                let shop = BaeminInfo(JSON: content)
+                if let shop = shop {
+                    beaminInfo.append(shop)
+                }
+            })
+            NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self, userInfo: ["BaeminInfo" : beaminInfo])
         }
-
     }
     
 }

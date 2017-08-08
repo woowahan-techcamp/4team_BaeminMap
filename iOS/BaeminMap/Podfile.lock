@@ -1,8 +1,5 @@
 PODS:
   - Alamofire (4.5.0)
-  - AlamofireObjectMapper (4.1.0):
-    - Alamofire (~> 4.1)
-    - ObjectMapper (~> 2.0)
   - GoogleMaps (2.4.0):
     - GoogleMaps/Maps (= 2.4.0)
   - GoogleMaps/Base (2.4.0)
@@ -12,15 +9,14 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - AlamofireObjectMapper
   - GoogleMaps
+  - ObjectMapper
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
   ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
 
-PODFILE CHECKSUM: c830a91cd0a70d991a3e04025aad8fdd9a1ec14a
+PODFILE CHECKSUM: e6139d625a5dbfe9b87cae6fe97a4f767ee1c0ca
 
 COCOAPODS: 1.2.1
