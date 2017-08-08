@@ -31,12 +31,16 @@ class Config {
         return plist?["TokenURL"] as! String
     }()
     
-    static let beaminID: String = {
+    static let baeminID: String = {
         return plist?["BaeminID"] as! String
     }()
     
     static let baeminPassword: String = {
         return plist?["BaeminPassword"] as! String
+    }()
+    
+    static let baeminApiURL: String = {
+        return plist?["BaeminApiURL"] as! String
     }()
     
     static var token = String()

@@ -11,27 +11,32 @@ import Alamofire
 
 class Networking {
     func getAccessToken() {
-        let parameters: Parameters = [
+        let parameters = [
             "grant_type": "password",
             "client_id": Config.clientID,
             "scope": "read",
-            "username": Config.beaminID,
+            "username": Config.baeminID,
             "password": Config.baeminPassword
         ]
         
         Alamofire.request("https://\(Config.clientID):\(Config.clientSecret)@\(Config.tokenURL)", method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
             let result = response.result.value as! [String:Any]
             Config.token = result["access_token"] as! String
+            self.getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
         }
     }
     
-//    func getBaeminInfo(latitude: Double, longitude: Double) {
-//        let parameters: Parameters = [
-//            "lat": latitude,
-//            "lng": longitude
-//        ]
-//        
-//        Alamofire.request(<#T##url: URLConvertible##URLConvertible#>, method: <#T##HTTPMethod#>, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>)
-//    }
+    func getBaeminInfo(latitude: Double, longitude: Double) {
+        let header = ["Authorization": "Bearer \(Config.token)", "Content-Type": "application/json"]
+        let parameters = [
+            "lat": latitude,
+            "lng": longitude,
+            "category": 1
+        ]
+        
+        Alamofire.request("\(Config.baeminApiURL)/v2/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseJSON { response in
+            print(response.result.value)
+        }
+    }
     
 }
