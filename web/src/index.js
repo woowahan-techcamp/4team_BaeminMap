@@ -1,17 +1,19 @@
 import ShopList from './ShopList'
-
-axios.get("../data.json")
-    .then(function (response) {
-        console.log(response.data)
-        new ShopList('#shopListTemplate', '#shopList', response.data)
-    }
+//
+// axios.get("../data.json")
+//     .then(function (response) {
+//         new ShopList('#shopListTemplate', '#shopList', response.data)
+//     })
 
 //Data 클래스 getShopList 프로토타입
 axios.get("../data.json")
     .then(function (response) {
         const dummyData = response.data.content;
         newMap.setShopMarker(dummyData);
-    });
+        return response
+    }).then(function (response) {
+    new ShopList('#shopListTemplate', '#shopList', response.data)
+    })
 
 class Map {
     constructor() {
@@ -33,7 +35,6 @@ class Map {
 
             this.setUserMarker();
 
-            console.log(pos);
             // infoWindow.setPosition(pos);
             // infoWindow.setContent('Location found.');
             this.map.setCenter(pos);
@@ -120,7 +121,6 @@ class Map {
 
     setShopMarker(arr) {
         arr.forEach((e) => {
-            console.log(e.location)
             new google.maps.Marker({
                 position: {"lat": e.location.latitude, "lng": e.location.longitude},
                 map: this.map
@@ -129,4 +129,4 @@ class Map {
     }
 }
 
-new Map();
+const newMap = new Map();
