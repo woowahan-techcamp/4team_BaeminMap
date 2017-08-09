@@ -216,6 +216,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="WyL-Ao-boP" id="lIG-xp-GQt"/>
+                        <outlet property="scrollView" destination="QJ6-OG-ach" id="J6x-4h-S8I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dtq-7x-cpy" userLabel="First Responder" sceneMemberID="firstResponder"/>
