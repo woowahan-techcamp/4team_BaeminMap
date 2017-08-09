@@ -60,7 +60,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             let marker = GMSMarker()
             DispatchQueue.main.async {
                 marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                marker.icon = #imageLiteral(resourceName: "markeriocn")
+                marker.icon = #imageLiteral(resourceName: "chicken")
                 marker.map = self.mapView
             }
         })
