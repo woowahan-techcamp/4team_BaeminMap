@@ -22,7 +22,8 @@ class Networking {
         Alamofire.request("https://\(Config.clientID):\(Config.clientSecret)@\(Config.tokenURL)", method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
             let result = response.result.value as! [String:Any]
             Config.token = result["access_token"] as! String
-            self.getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
+            //DetailView Test 중 오류나서 잠시 주석
+//            self.getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
         }
     }
     
