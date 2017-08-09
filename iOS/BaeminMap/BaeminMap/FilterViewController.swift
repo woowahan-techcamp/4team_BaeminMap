@@ -13,6 +13,8 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var topContainerView: UIView!
     @IBOutlet weak var middleContainerView: UIView!
+    @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var confirmButton: UIButton!
     
     var category = ["전체", "치킨", "중국집", "피자", "한식", "분식", "족발,보쌈", "야식", "찜,탕", "회,돈까스,일식", "도시락", "패스트푸드"]
     
@@ -26,6 +28,10 @@ class FilterViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setScrollView() {
+        
     }
  
 
