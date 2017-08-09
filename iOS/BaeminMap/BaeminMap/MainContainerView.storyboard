@@ -13,7 +13,7 @@
         <!--배민여지도-->
         <scene sceneID="8HV-Ho-GfV">
             <objects>
-                <viewController id="t57-W2-t7k" customClass="MainContainerViewController" customModule="BaeminMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainContainerView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t57-W2-t7k" customClass="MainContainerViewController" customModule="BaeminMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O7q-im-fz3"/>
                         <viewControllerLayoutGuide type="bottom" id="tFe-n3-k0z"/>
