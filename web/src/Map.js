@@ -104,9 +104,13 @@ class Map {
 
     setShopMarker(arr) {
         arr.forEach((e) => {
-            new google.maps.Marker({
-                position: {"lat": e.location.latitude, "lng": e.location.longitude},
+            const position= {"lat": e.location.latitude, "lng": e.location.longitude}
+            let marker = new google.maps.Marker({
+                position: position,
                 map: this.map
+            })
+            marker.addListener('click', function() {
+                this.map.setCenter(marker.getPosition());
             });
         });
     }
