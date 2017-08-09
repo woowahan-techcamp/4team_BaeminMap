@@ -1,0 +1,25 @@
+.shop-detail-wrapper {
+    width: 500px;
+}
+
+.shop-detail-wrapper > h2 {
+    text-align: center;
+}
+
+.shop-detail-wrapper > hr {
+    width: 80%;
+    margin: 0 auto;
+    color: #d1caba;
+}
+
+.dropdown-checkbox {
+    display: none;
+}
+
+.dropdown-detail {
+    display: none;
+}
+
+.dropdown-checkbox:checked ~ .dropdown-detail {
+    display: block;
+}
