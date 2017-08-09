@@ -10,11 +10,15 @@ import UIKit
 
 class FilterViewController: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var topContainerView: UIView!
-    @IBOutlet weak var middleContainerView: UIView!
-    @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var confirmButton: UIButton!
+    lazy var resetButton: UIButton = {
+        var button = UIButton(frame: CGRect(x: 0, y: self.view.frame.maxY-50, width: self.view.frame.width/2, height: 50))
+        button.setTitle("초기화", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        return button
+    }()
     
     var category = ["전체", "치킨", "중국집", "피자", "한식", "분식", "족발,보쌈", "야식", "찜,탕", "회,돈까스,일식", "도시락", "패스트푸드"]
     
@@ -23,17 +27,14 @@ class FilterViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        self.view.addSubview(resetButton)
+        scrollView.contentSize.height = self.view.frame.height + resetButton.frame.height
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func setScrollView() {
-        
-    }
- 
 
 }
 
