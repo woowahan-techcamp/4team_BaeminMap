@@ -14,6 +14,7 @@
 		981CAD131F394DFE009A6B12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD121F394DFE009A6B12 /* Assets.xcassets */; };
 		981CAD241F399309009A6B12 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CAD221F399309009A6B12 /* ListTableViewCell.swift */; };
 		981CAD251F399309009A6B12 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD231F399309009A6B12 /* ListTableViewCell.xib */; };
+		98B06F421F3B2492009CF43E /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B06F401F3B2492009CF43E /* FilterCollectionViewCell.swift */; };
 		B5562BD11F381D2500A1BDE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BD01F381D2500A1BDE2 /* AppDelegate.swift */; };
 		B5562BDB1F381D2500A1BDE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BD91F381D2500A1BDE2 /* LaunchScreen.storyboard */; };
 		B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BE31F381D6B00A1BDE2 /* Config.swift */; };
@@ -40,6 +41,7 @@
 		981CAD121F394DFE009A6B12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		981CAD221F399309009A6B12 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		981CAD231F399309009A6B12 /* ListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
+		98B06F401F3B2492009CF43E /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		B5562BCD1F381D2500A1BDE2 /* BaeminMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaeminMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5562BD01F381D2500A1BDE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5562BDA1F381D2500A1BDE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				B5562BE61F381D6B00A1BDE2 /* FilterView.storyboard */,
 				B5562BE71F381D6B00A1BDE2 /* FilterViewController.swift */,
+				98B06F401F3B2492009CF43E /* FilterCollectionViewCell.swift */,
 			);
 			name = FilterView;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				TargetAttributes = {
 					B5562BCC1F381D2500A1BDE2 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = XT45A6H292;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -332,6 +336,7 @@
 				B5562BF51F381D6B00A1BDE2 /* MainContainerViewController.swift in Sources */,
 				B5562BF71F381D6B00A1BDE2 /* MapViewController.swift in Sources */,
 				B574178D1F384D3700A822EA /* Extension.swift in Sources */,
+				98B06F421F3B2492009CF43E /* FilterCollectionViewCell.swift in Sources */,
 				981CAD241F399309009A6B12 /* ListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -448,6 +453,7 @@
 			baseConfigurationReference = 6C87EA71F5610B9EEE828EC2 /* Pods-BaeminMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XT45A6H292;
 				INFOPLIST_FILE = BaeminMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanna.BaeminMap;
@@ -461,6 +467,7 @@
 			baseConfigurationReference = EC3E510CB2473C0F23F76DBC /* Pods-BaeminMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XT45A6H292;
 				INFOPLIST_FILE = BaeminMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanna.BaeminMap;
