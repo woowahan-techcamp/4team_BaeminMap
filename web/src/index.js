@@ -4,8 +4,14 @@ axios.get("../data.json")
     .then(function (response) {
         console.log(response.data)
         new ShopList('#shopListTemplate', '#shopList', response.data)
-    });
+    }
 
+//Data 클래스 getShopList 프로토타입
+axios.get("../data.json")
+    .then(function (response) {
+        const dummyData = response.data.content;
+        newMap.setShopMarker(dummyData);
+    });
 
 class Map {
     constructor() {
@@ -35,34 +41,37 @@ class Map {
             handleLocationError(true, infoWindow, this.map.getCenter());
         });
     }
+
     initMap() {
         this.map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: this.currentLocation
         });
     }
-    setUserMarker(){
+
+    setUserMarker() {
         new google.maps.Marker({
             position: this.currentLocation,
             map: this.map,
             title: "my location",
         })
     }
-    searchPosition(){
+
+    searchPosition() {
         const map = this.map;
         const input = document.getElementById('pac-input');
         const searchBox = new google.maps.places.SearchBox(input);
         this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         // Bias the SearchBox results towards current map's viewport.
-        this.map.addListener('bounds_changed', ()=> {
+        this.map.addListener('bounds_changed', () => {
             searchBox.setBounds(this.map.getBounds());
         });
 
         let markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
-        searchBox.addListener('places_changed', function() {
+        searchBox.addListener('places_changed', function () {
             const places = searchBox.getPlaces();
 
             if (places.length === 0) {
@@ -70,14 +79,14 @@ class Map {
             }
 
             // Clear out the old markers.
-            markers.forEach(function(marker) {
+            markers.forEach(function (marker) {
                 marker.setMap(null);
             });
             markers = [];
 
             // For each place, get the icon, name and location.
             const bounds = new google.maps.LatLngBounds();
-            places.forEach(function(place) {
+            places.forEach(function (place) {
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");
                     return;
@@ -108,7 +117,16 @@ class Map {
             map.fitBounds(bounds);
         });
     }
+
+    setShopMarker(arr) {
+        arr.forEach((e) => {
+            console.log(e.location)
+            new google.maps.Marker({
+                position: {"lat": e.location.latitude, "lng": e.location.longitude},
+                map: this.map
+            });
+        });
+    }
 }
 
 new Map();
-
