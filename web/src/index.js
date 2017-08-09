@@ -13,8 +13,6 @@ import Data from './Data'
 //     })
 
 const myData = new Data();
-myData.getShopList(myData.categoryArr, function(jsonData){
-    new ShopList('#shopListTemplate', '#shopList', jsonData)
-})
+myData.getShopList([1])
 
 const newMap = new Map();
