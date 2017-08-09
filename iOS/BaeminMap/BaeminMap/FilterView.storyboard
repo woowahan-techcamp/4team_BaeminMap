@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZeF-GR-pmd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZeF-GR-pmd">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -18,20 +18,15 @@
                         <viewControllerLayoutGuide type="bottom" id="Bjy-lm-RPC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zB9-Pb-Yyx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="632"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUv-yt-QiY">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="632"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYW-QM-phK">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfK-DP-PuF">
-                                                <rect key="frame" x="270" y="35" width="25" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="xButtonicon"/>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="조건 선택" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWs-Yc-TJV">
                                                 <rect key="frame" x="128" y="37" width="64" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -39,14 +34,28 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfK-DP-PuF">
+                                                <rect key="frame" x="23" y="35" width="25" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="xButtonicon"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gmY-Sr-Vjb">
+                                                <rect key="frame" x="255" y="32" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <state key="normal" title="적용"/>
+                                            </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="82" id="Jp5-Yp-Qqb"/>
+                                            <constraint firstAttribute="height" constant="82" id="FFS-oW-33d"/>
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UfL-E5-bXB">
                                         <rect key="frame" x="26" y="90" width="269" height="110"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="rvE-YB-mlE"/>
+                                        </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CKs-5k-Oxa">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -119,16 +128,32 @@
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXG-4u-h04">
+                                                <rect key="frame" x="127" y="162" width="68" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <state key="normal" title="인기 많은 순">
+                                                    <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JwW-c1-RY0">
-                                                <rect key="frame" x="101" y="329" width="119" height="30"/>
+                                                <rect key="frame" x="102" y="322" width="119" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <state key="normal" title="멀리까지 (1km)">
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ou-mB-Hik">
+                                                <rect key="frame" x="115" y="200" width="92" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <state key="normal" title="즐겨찾기 많은 순">
+                                                    <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ss-al-wRX">
-                                                <rect key="frame" x="100" y="374" width="119" height="30"/>
+                                                <rect key="frame" x="102" y="360" width="119" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <state key="normal" title="머어얼리까지 (3km)">
@@ -138,28 +163,14 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="424" id="s2r-ai-bXc"/>
+                                            <constraint firstAttribute="height" constant="424" id="axp-GE-pOl"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXG-4u-h04">
-                                        <rect key="frame" x="127" y="369" width="68" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                        <state key="normal" title="인기 많은 순">
-                                            <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ou-mB-Hik">
-                                        <rect key="frame" x="115" y="412" width="92" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                        <state key="normal" title="즐겨찾기 많은 순">
-                                            <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXZ-FZ-HQ3">
-                                        <rect key="frame" x="87" y="493" width="147" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXZ-FZ-HQ3">
+                                        <rect key="frame" x="87" y="492" width="147" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="KId-eE-St1"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <state key="normal" title="근처 업소만 보기 (500m)">
                                             <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -167,33 +178,30 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="DYW-QM-phK" secondAttribute="trailing" id="05x-LF-AFC"/>
-                                    <constraint firstItem="DYW-QM-phK" firstAttribute="leading" secondItem="kUv-yt-QiY" secondAttribute="leading" id="3sv-yK-7Wh"/>
-                                    <constraint firstItem="DYW-QM-phK" firstAttribute="trailing" secondItem="9nU-Px-bNM" secondAttribute="trailing" id="BNj-2e-eEH"/>
-                                    <constraint firstItem="9nU-Px-bNM" firstAttribute="centerX" secondItem="UfL-E5-bXB" secondAttribute="centerX" id="Etq-ya-vBo"/>
-                                    <constraint firstItem="DYW-QM-phK" firstAttribute="centerX" secondItem="UfL-E5-bXB" secondAttribute="centerX" id="Ixm-lz-6IV"/>
-                                    <constraint firstAttribute="bottom" secondItem="DYW-QM-phK" secondAttribute="bottom" constant="618" id="NOQ-lQ-b9H"/>
-                                    <constraint firstItem="DYW-QM-phK" firstAttribute="centerX" secondItem="kUv-yt-QiY" secondAttribute="centerX" id="PP5-GX-4RE"/>
-                                    <constraint firstItem="UfL-E5-bXB" firstAttribute="top" secondItem="DYW-QM-phK" secondAttribute="bottom" constant="8" symbolic="YES" id="UCj-Ly-5Fa"/>
-                                    <constraint firstItem="DYW-QM-phK" firstAttribute="leading" secondItem="9nU-Px-bNM" secondAttribute="leading" id="bH7-St-MKT"/>
-                                    <constraint firstItem="9nU-Px-bNM" firstAttribute="top" secondItem="UfL-E5-bXB" secondAttribute="bottom" constant="8" symbolic="YES" id="fsw-e0-6oc"/>
-                                    <constraint firstAttribute="bottom" secondItem="9nU-Px-bNM" secondAttribute="bottom" constant="68" id="jKB-Rm-rYY"/>
-                                    <constraint firstItem="UfL-E5-bXB" firstAttribute="leading" secondItem="kUv-yt-QiY" secondAttribute="leading" constant="26" id="mWu-Mf-P4a"/>
-                                    <constraint firstItem="DYW-QM-phK" firstAttribute="top" secondItem="kUv-yt-QiY" secondAttribute="top" id="pBW-F8-xHY"/>
-                                    <constraint firstItem="DYW-QM-phK" firstAttribute="centerX" secondItem="UfL-E5-bXB" secondAttribute="centerX" id="qyd-yj-Zyf"/>
+                                    <constraint firstItem="zXZ-FZ-HQ3" firstAttribute="top" secondItem="kUv-yt-QiY" secondAttribute="top" constant="492" id="4hL-h8-bd1"/>
+                                    <constraint firstAttribute="bottom" secondItem="9nU-Px-bNM" secondAttribute="bottom" id="AXU-Uf-O1H"/>
+                                    <constraint firstAttribute="trailing" secondItem="DYW-QM-phK" secondAttribute="trailing" id="BC6-Bg-bwz"/>
+                                    <constraint firstItem="UfL-E5-bXB" firstAttribute="leading" secondItem="kUv-yt-QiY" secondAttribute="leading" constant="26" id="K4P-4F-7u8"/>
+                                    <constraint firstItem="DYW-QM-phK" firstAttribute="leading" secondItem="9nU-Px-bNM" secondAttribute="leading" id="KAF-RM-fRN"/>
+                                    <constraint firstItem="DYW-QM-phK" firstAttribute="leading" secondItem="kUv-yt-QiY" secondAttribute="leading" id="KUt-Lx-PQy"/>
+                                    <constraint firstItem="9nU-Px-bNM" firstAttribute="top" secondItem="UfL-E5-bXB" secondAttribute="bottom" constant="8" symbolic="YES" id="SW8-BZ-UWJ"/>
+                                    <constraint firstItem="DYW-QM-phK" firstAttribute="centerX" secondItem="UfL-E5-bXB" secondAttribute="centerX" id="UhN-Pb-RSb"/>
+                                    <constraint firstItem="9nU-Px-bNM" firstAttribute="centerX" secondItem="zXZ-FZ-HQ3" secondAttribute="centerX" id="VgF-7R-pWp"/>
+                                    <constraint firstItem="DYW-QM-phK" firstAttribute="centerX" secondItem="kUv-yt-QiY" secondAttribute="centerX" id="VzY-Hl-dk1"/>
+                                    <constraint firstItem="DYW-QM-phK" firstAttribute="trailing" secondItem="9nU-Px-bNM" secondAttribute="trailing" id="msW-Xe-dyg"/>
+                                    <constraint firstItem="DYW-QM-phK" firstAttribute="top" secondItem="kUv-yt-QiY" secondAttribute="top" id="oU8-og-krg"/>
+                                    <constraint firstItem="UfL-E5-bXB" firstAttribute="top" secondItem="DYW-QM-phK" secondAttribute="bottom" constant="8" symbolic="YES" id="vPT-uY-Le6"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="kUv-yt-QiY" firstAttribute="top" secondItem="zB9-Pb-Yyx" secondAttribute="top" id="iUv-Ys-hlV"/>
-                            <constraint firstAttribute="trailing" secondItem="kUv-yt-QiY" secondAttribute="trailing" id="kBw-W7-E6F"/>
-                            <constraint firstItem="kUv-yt-QiY" firstAttribute="leading" secondItem="zB9-Pb-Yyx" secondAttribute="leading" id="tcS-Ke-wRn"/>
-                            <constraint firstItem="kUv-yt-QiY" firstAttribute="bottom" secondItem="Bjy-lm-RPC" secondAttribute="top" id="yjG-s6-nXG"/>
+                            <constraint firstItem="kUv-yt-QiY" firstAttribute="leading" secondItem="zB9-Pb-Yyx" secondAttribute="leading" id="jwh-R0-F7t"/>
+                            <constraint firstAttribute="trailing" secondItem="kUv-yt-QiY" secondAttribute="trailing" id="kbz-qJ-zn2"/>
+                            <constraint firstItem="kUv-yt-QiY" firstAttribute="top" secondItem="zB9-Pb-Yyx" secondAttribute="top" constant="20" id="rIm-EF-U0c"/>
+                            <constraint firstItem="kUv-yt-QiY" firstAttribute="bottom" secondItem="Bjy-lm-RPC" secondAttribute="top" id="wvs-Sg-mS4"/>
                         </constraints>
                     </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="632"/>
                     <connections>
                         <outlet property="collectionView" destination="UfL-E5-bXB" id="yUR-7u-7sR"/>
                         <outlet property="scrollView" destination="kUv-yt-QiY" id="wIc-r6-ctC"/>
