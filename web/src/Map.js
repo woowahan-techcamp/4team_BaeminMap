@@ -1,6 +1,7 @@
 class Map {
     constructor() {
         this.map;
+        this.infowindow;
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
         this.loadPosition();
         this.initMap();
@@ -105,12 +106,20 @@ class Map {
     setShopMarker(arr) {
         arr.forEach((e) => {
             const position= {"lat": e.location.latitude, "lng": e.location.longitude}
-            let marker = new google.maps.Marker({
+            const marker = new google.maps.Marker({
                 position: position,
                 map: this.map
             })
-            marker.addListener('click', function() {
+            const infowindow = new google.maps.InfoWindow({
+                content: e.shopName
+            });
+            marker.addListener('click', () => {
+                if (this.infowindow) {
+                    this.infowindow.close();
+                }
                 this.map.setCenter(marker.getPosition());
+                infowindow.open(map, marker);
+                this.infowindow = infowindow
             });
         });
     }
