@@ -1,5 +1,3 @@
-// import _ from 'lodash'
-
 class ShopList {
     constructor(templateSelector, targetSelector, json) {
         console.log('ShopList init!')
