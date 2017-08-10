@@ -90,7 +90,6 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
             collectionView.deselectItem(at: [0, 0], animated: false)
             selectedCategory.append(category[indexPath.item])
         }
-        print(selectedCategory)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -98,11 +97,10 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
             collectionView.selectItem(at: [0, 0], animated: false, scrollPosition: .top)
         } else {
             let item = category[indexPath.item]
-            if let index = category.index(of: item) {
-                 selectedCategory.remove(at: index-1)
+            if let index = selectedCategory.index(of: item) {
+                 selectedCategory.remove(at: index)
             }
         }
-        print(selectedCategory)
     }
     
 }
