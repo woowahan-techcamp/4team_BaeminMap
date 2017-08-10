@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol FilterViewDelegate {
+    func selected(category: [String])
+}
+
 class FilterViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var collectionView: UICollectionView!
+    var delegate: FilterViewDelegate!
     var selectedCategory = [String]()
     
     var category = ["전체", "치킨", "중국집", "피자", "한식", "분식", "족발,보쌈", "야식", "찜,탕", "회,돈까스,일식", "도시락", "패스트푸드"]
@@ -43,7 +48,8 @@ class FilterViewController: UIViewController {
     }
 
     @IBAction func confirmButtonAction(_ sender: Any) {
-        
+        delegate.selected(category: selectedCategory)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelButtonAction(_ sender: Any) {

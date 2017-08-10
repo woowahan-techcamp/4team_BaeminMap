@@ -9,8 +9,7 @@
 import UIKit
 import GooglePlaces
 
-class MainContainerViewController: UIViewController {
-
+class MainContainerViewController: UIViewController, FilterViewDelegate {
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     var isMapView = Bool()
     var baeminInfo = [BaeminInfo]()
@@ -26,6 +25,10 @@ class MainContainerViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func selected(category: [String]) {
+        selectedCategory = category
     }
     
     func receive(notification: Notification) {
@@ -64,6 +67,7 @@ class MainContainerViewController: UIViewController {
     
     @IBAction func filterButtonAction(_ sender: Any) {
         let filterViewController = UIStoryboard.FilterViewStoryboard.instantiateViewController(withIdentifier: "FilterView") as! FilterViewController
+        filterViewController.delegate = self
         filterViewController.selectedCategory = selectedCategory
         present(filterViewController, animated: true, completion: nil)
     }

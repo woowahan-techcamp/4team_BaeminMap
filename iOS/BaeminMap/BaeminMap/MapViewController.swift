@@ -18,13 +18,15 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(drawMap), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        let test = self.parent as! MainContainerViewController
+        print(test.selectedCategory)
         drawMap()
         drawMarker()
     }
