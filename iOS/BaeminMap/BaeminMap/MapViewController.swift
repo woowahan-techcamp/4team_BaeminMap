@@ -18,7 +18,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(drawMap), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
 
@@ -27,10 +27,6 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         drawMap()
         drawMarker()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.removeFromParentViewController()
     }
 
     override func didReceiveMemoryWarning() {

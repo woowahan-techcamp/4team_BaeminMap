@@ -19,10 +19,6 @@ class ListViewController: UIViewController {
         listView.delegate = self
         listView.dataSource = self
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        self.removeFromParentViewController()
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
