@@ -10,19 +10,24 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet var test3: UIView!
+    @IBOutlet var test2: UIImageView!
+    @IBOutlet var test1: UILabel!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
-    
+    var height = CGFloat()
+
+    var test = CGFloat()
     var sections = [Section]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        sections.append(Section(rowCount: 4))
+        sections.append(Section(rowCount: 7))
         sections.append(Section())
-        sections.append(Section(rowCount: 2))
         sections.append(Section())
-        sections.append(Section(rowCount: 5))
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -31,6 +36,9 @@ class DetailViewController: UIViewController {
         
         initView()
 
+        test = test1.frame.height + test2.frame.height + test3.frame.height
+        height = tableView.frame.height
+        scrollView.contentSize.height = test + collectionView.frame.height + tableView.frame.height
         // Do any additional setup after loading the view.
     }
 
@@ -46,26 +54,24 @@ class DetailViewController: UIViewController {
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
-        
+        print(collectionView.frame.maxY, "aaaa")
         //cell의 전체 개수와 cell의 height를 알고 있어 initView에 미리 해놓으려했으나 각 행 사이의 공백의 높이를 알지 못해 유동적으로 height을 변경함
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
-        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: tableView.contentSize.width, height: tableView.contentSize.height)
-        scrollView.contentSize.height = tableView.frame.maxY
+        print(collectionView.frame.maxY, "bbbb")
+        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height)
+        scrollView.contentSize.height = tableView.frame.maxY//collectionView.frame.height + tableView.frame.height
         
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return 4
     }
 }
 
 extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        
-//        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: tableView.contentSize.width, height: tableView.contentSize.height)
-//        scrollView.contentSize.height = tableView.frame.maxY
         
         return cell
     }
@@ -99,13 +105,18 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
-        print("sf")
+        var height: CGFloat
         
         if sections[header.section].open == true {
             sections[header.section].open = false
+            height = tableView.frame.height - 44 * CGFloat(sections[section].rowCount)
         }else {
             sections[header.section].open = true
+            height = tableView.frame.height + 44 * CGFloat(sections[section].rowCount)
         }
+        
+        tableView.frame = CGRect(x: tableView.frame.minX, y: tableView.frame.minY, width: self.view.frame.width, height: height)
+        scrollView.contentSize.height = tableView.frame.maxY
         
         tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
     }
