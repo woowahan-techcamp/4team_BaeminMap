@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol ExpandableTableViewHeaderDelegate {
+    func toggleSection(header: ExpandableTableViewHeader, section: Int)
+}
+
 class ExpandableTableViewHeader: UITableViewHeaderFooterView {
+    
+    var delegate: ExpandableTableViewHeaderDelegate?
+    var section: Int = 0
     
     let titleLabel = UILabel()
     
@@ -32,9 +39,17 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
         titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
         
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ExpandableTableViewHeader.tapHeader(_:))))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func tapHeader(_ gestureRecognizer: UIGestureRecognizer) {
+        guard let cell = gestureRecognizer.view as? ExpandableTableViewHeader else { return }
+        
+        delegate?.toggleSection(header: self, section: cell.section)
+    }
 }
+

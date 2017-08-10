@@ -53,7 +53,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 }
 
-extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
         
@@ -74,23 +74,19 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandableTableViewHeader()
-//            tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpandableTableViewHeader ?? ExpandableTableViewHeader(reuseIdentifier: "header")
-        
         header.titleLabel.text = "section"
+        
+        header.section = section
+        header.delegate = self
         
         return header
     }
-    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleTableViewHeader ?? CollapsibleTableViewHeader(reuseIdentifier: "header")
-//        
-//        header.titleLabel.text = sections[section].name
-//        header.arrowLabel.text = ">"
-//        header.setCollapsed(sections[section].collapsed)
-//        
-//        header.section = section
-//        header.delegate = self
-//        
-//        return header
-//    }
+}
+
+extension DetailViewController: ExpandableTableViewHeaderDelegate {
+    func toggleSection(header: ExpandableTableViewHeader, section: Int) {
+        print("sf")
+//        header.titleLabel.text = "눌림"
+//        tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
+    }
 }
