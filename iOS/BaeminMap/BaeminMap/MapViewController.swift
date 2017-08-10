@@ -28,6 +28,10 @@ class MapViewController: UIViewController {
         drawMap()
         drawMarker()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.removeFromParentViewController()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

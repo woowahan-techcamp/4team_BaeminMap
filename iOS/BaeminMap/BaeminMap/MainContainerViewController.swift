@@ -26,6 +26,13 @@ class MainContainerViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func receive(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
+        self.baeminInfo = baeminInfo
+    }
+    
     @IBAction func searchLocationButtonAction(_ sender: Any) {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
@@ -49,17 +56,15 @@ class MainContainerViewController: UIViewController {
         addChildViewController(newView)
         newView.view.frame = oldView!.view.frame
         
-        transition(from: oldView!, to: newView, duration: 0, options: isMapView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
-            oldView?.removeFromParentViewController()
+        transition(from: oldView!, to: newView, duration: 0.1, options: isMapView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
             newView.didMove(toParentViewController: self)
         }
         isMapView = !isMapView
     }
     
-    func receive(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-        let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
-        self.baeminInfo = baeminInfo
+    @IBAction func filterButtonAction(_ sender: Any) {
+        let filterViewController = UIStoryboard.FilterViewStoryboard.instantiateViewController(withIdentifier: "FilterView") as! FilterViewController
+        present(filterViewController, animated: true, completion: nil)
     }
 
 }
