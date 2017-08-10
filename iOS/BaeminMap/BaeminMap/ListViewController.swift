@@ -20,11 +20,15 @@ class ListViewController: UIViewController {
         listView.dataSource = self
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        self.removeFromParentViewController()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
