@@ -14,6 +14,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     var location = Location.sharedInstance
     var locationManager = CLLocationManager()
+    var parentView: MainContainerViewController!
     var baeminInfo: [BaeminInfo]?
     
     override func viewDidLoad() {
@@ -25,8 +26,7 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let test = self.parent as! MainContainerViewController
-        print(test.selectedCategory)
+        parentView = self.parent as! MainContainerViewController
         drawMap()
         drawMarker()
     }
