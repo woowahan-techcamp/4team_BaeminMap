@@ -23,26 +23,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYW-QM-phK">
-                                <rect key="frame" x="0.0" y="20" width="414" height="54"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="74"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="조건 선택" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWs-Yc-TJV">
-                                        <rect key="frame" x="176" y="16" width="63" height="21"/>
+                                        <rect key="frame" x="176" y="32" width="63" height="29"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsr-VU-d1K">
-                                        <rect key="frame" x="20" y="11" width="30" height="30"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="취소">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButtonAction:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="8VI-JG-wmz"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfL-HJ-LpR">
-                                        <rect key="frame" x="364" y="12" width="30" height="30"/>
+                                        <rect key="frame" x="364" y="31" width="30" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="적용">
                                             <color key="titleColor" red="0.14509803921568626" green="0.71764705882352942" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,10 +41,21 @@
                                             <action selector="confirmButtonAction:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="hUi-ps-eQw"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsr-VU-d1K">
+                                        <rect key="frame" x="20" y="31" width="30" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="취소">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonAction:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="8VI-JG-wmz"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.2627450980392157" green="0.23921568627450979" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="tfL-HJ-LpR" firstAttribute="centerY" secondItem="DYW-QM-phK" secondAttribute="centerY" id="Auc-gz-aga"/>
+                                    <constraint firstItem="tfL-HJ-LpR" firstAttribute="bottom" secondItem="eWs-Yc-TJV" secondAttribute="bottom" id="6N2-nE-CKh"/>
+                                    <constraint firstItem="tfL-HJ-LpR" firstAttribute="centerY" secondItem="DYW-QM-phK" secondAttribute="centerY" constant="9" id="Auc-gz-aga"/>
                                     <constraint firstItem="Zsr-VU-d1K" firstAttribute="leading" secondItem="DYW-QM-phK" secondAttribute="leading" constant="20" id="Fh4-1N-eE7"/>
                                     <constraint firstAttribute="trailing" secondItem="tfL-HJ-LpR" secondAttribute="trailing" constant="20" id="NTP-iI-KdE"/>
                                     <constraint firstItem="Zsr-VU-d1K" firstAttribute="centerY" secondItem="eWs-Yc-TJV" secondAttribute="centerY" id="S4n-kL-Fqp"/>
@@ -256,7 +257,7 @@
                             <constraint firstItem="kUv-yt-QiY" firstAttribute="top" secondItem="DYW-QM-phK" secondAttribute="bottom" constant="1" id="Zeq-3R-I7v"/>
                             <constraint firstItem="DYW-QM-phK" firstAttribute="leading" secondItem="kUv-yt-QiY" secondAttribute="leading" id="iAp-1A-DMh"/>
                             <constraint firstItem="kUv-yt-QiY" firstAttribute="top" secondItem="DYW-QM-phK" secondAttribute="bottom" constant="1" id="lJQ-iT-KbS"/>
-                            <constraint firstItem="DYW-QM-phK" firstAttribute="top" secondItem="Kl9-cc-rsu" secondAttribute="bottom" id="nRd-aQ-Prh"/>
+                            <constraint firstItem="DYW-QM-phK" firstAttribute="top" secondItem="Kl9-cc-rsu" secondAttribute="bottom" constant="-20" id="nRd-aQ-Prh"/>
                             <constraint firstItem="kUv-yt-QiY" firstAttribute="top" secondItem="zB9-Pb-Yyx" secondAttribute="top" constant="75" id="xzv-gv-XL1"/>
                         </constraints>
                     </view>
