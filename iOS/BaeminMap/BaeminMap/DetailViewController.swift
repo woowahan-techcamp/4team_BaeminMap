@@ -10,9 +10,6 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet var test3: UIView!
-    @IBOutlet var test2: UIImageView!
-    @IBOutlet var test1: UILabel!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
@@ -35,10 +32,6 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         
         initView()
-
-        test = test1.frame.height + test2.frame.height + test3.frame.height
-        height = tableView.frame.height
-        scrollView.contentSize.height = test + collectionView.frame.height + tableView.frame.height
         // Do any additional setup after loading the view.
     }
 
@@ -59,7 +52,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
         print(collectionView.frame.maxY, "bbbb")
         tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height)
-        scrollView.contentSize.height = tableView.frame.maxY//collectionView.frame.height + tableView.frame.height
+        scrollView.contentSize.height = tableView.frame.maxY
         
         return cell
     }
