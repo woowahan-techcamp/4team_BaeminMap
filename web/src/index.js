@@ -52,17 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         map.updatePosition(pos)
         data.getShopList([1, 2, 3], pos, token).then((arr) => {
-            function filterList(arr) {
-                let listArr = [];
-                arr.forEach((e) => {
-                    listArr = listArr.concat(e)
-                })
-                return listArr
-            }
-
-            return filterList(arr)
-            //필터 로직 들어갈 부분
+            //필터 로직 들어갈 부분. 필터 이후 소트를 한다.
+            return data.sortList(arr, 2);
         }).then((filteredData) => {
+            console.log(filteredData)
             new ShopList("#shopListTemplate", "#shopList", filteredData)
             map.setShopMarker(filteredData)
         })
