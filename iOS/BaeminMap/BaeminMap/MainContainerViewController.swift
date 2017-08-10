@@ -41,6 +41,7 @@ class MainContainerViewController: UIViewController {
     
     @IBAction func toggleButtonAction(_ sender: UIBarButtonItem) {
         let newView: UIViewController
+        
         if isMapView {
             newView = mapViewController
             toggleButton.image = #imageLiteral(resourceName: "mapicon")
@@ -50,8 +51,9 @@ class MainContainerViewController: UIViewController {
             toggleButton.image = #imageLiteral(resourceName: "listicon")
             listViewController.baeminInfo = baeminInfo
         }
-        let oldView = childViewControllers.last
         
+        let oldView = childViewControllers.last
+
         oldView?.willMove(toParentViewController: nil)
         addChildViewController(newView)
         newView.view.frame = oldView!.view.frame
