@@ -10,9 +10,10 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet var scrollView: UIScrollView!
+//    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
+    var scrollView = DetailScrollView()
     var height = CGFloat()
 
     var test = CGFloat()
@@ -30,18 +31,12 @@ class DetailViewController: UIViewController {
         collectionView.dataSource = self
         tableView.delegate = self
         tableView.dataSource = self
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidLayoutSubviews() {
-        DispatchQueue.main.async {
-            self.tableView.frame.size.height = self.tableView.contentSize.height
-            self.scrollView.contentSize.height = self.tableView.frame.maxY
-        }
     }
 }
 
@@ -66,7 +61,6 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        view.setNeedsLayout()
         return sections[section].open ? sections[section].rowCount : 0
     }
     
@@ -98,6 +92,7 @@ extension DetailViewController: ExpandableTableViewHeaderDelegate {
         
         DispatchQueue.main.async {
             self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
+            self.tableView.sizeToFit()
         }
     }
 }
