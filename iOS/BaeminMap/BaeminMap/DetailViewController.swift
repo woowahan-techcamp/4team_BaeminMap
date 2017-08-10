@@ -14,18 +14,34 @@ class DetailViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var scrollView = DetailScrollView()
     
-    var height = CGFloat()
-
-    var test = CGFloat()
-    var sections = [Section]()
+    var sections: [Section] = [
+        Section(title: "크런치 피자", items: [
+            Item(name: "크런치 치즈 스테이크", price: 30000),
+            Item(name: "크런치 치즈 스테이크", price: 30000),
+            Item(name: "크런치 치즈 스테이크", price: 30000),
+            Item(name: "크런치 치즈 스테이크", price: 30000)
+            ]),
+        Section(title: "핫 피자", items: [
+            Item(name: "핫 치즈 스테이크", price: 20000),
+            Item(name: "핫 치즈 스테이크", price: 20000),
+            Item(name: "핫 치즈 스테이크", price: 330000),
+            Item(name: "핫 치즈 스테이크", price: 304000)
+            ]),
+        Section(title: "ㅇㅇ 피자", items: [
+            Item(name: "ㅇ 치즈 스테이크", price: 30000),
+            Item(name: "ㅇㅇ 치즈 스테이크", price: 300),
+            Item(name: "ㅇㅇ 치즈 스테이크", price: 30000),
+            Item(name: "ㅇㅇㅇ 치즈 스테이크", price: 320000)
+            ])
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sections.append(Section(rowCount: 4))
-        sections.append(Section(rowCount: 7))
-        sections.append(Section())
-        sections.append(Section())
+//        sections.append(Section(rowCount: 4))
+//        sections.append(Section(rowCount: 7))
+//        sections.append(Section())
+//        sections.append(Section())
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -61,7 +77,8 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].open ? sections[section].rowCount : 0
+        return sections[section].open ? sections[section].items.count : 0
+//        return sections[section].open ? sections[section].rowCount : 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -70,7 +87,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandableTableViewHeader()
-        header.titleLabel.text = "section"
+        header.titleLabel.text = sections[section].title
         
         header.section = section
         header.delegate = self
@@ -85,6 +102,9 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
         
+        let item = sections[indexPath.section].items[indexPath.row]
+        cell.textLabel?.text = item.name
+        cell.detailTextLabel?.text = "\(item.price)원"
         return cell
     }
 }
@@ -100,3 +120,14 @@ extension DetailViewController: ExpandableTableViewHeaderDelegate {
         }
     }
 }
+
+public struct Item {
+    var name: String
+    var price: Int
+    
+    public init(name: String, price: Int) {
+        self.name = name
+        self.price = price
+    }
+}
+

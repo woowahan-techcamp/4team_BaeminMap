@@ -61,15 +61,19 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
 class Section {
     var open: Bool
     //TODO: 아래는 테스트 용, 추후 row list 변수로 가지고 있을 예정
-    var rowCount: Int
+//    var rowCount: Int
+    var items: [Item]
+    var title: String
     
-    init(rowCount: Int) {
+    init(title: String, items: [Item]) {
         self.open = false
-        self.rowCount = rowCount
+//        self.rowCount = rowCount
+        self.items = items
+        self.title = title
     }
     
     convenience init() {
-        self.init(rowCount: 1)
+        self.init(title: "Section", items: [Item]())
     }
 }
 
