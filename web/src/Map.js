@@ -89,25 +89,23 @@ class Map {
     }
 
     setShopMarker(arr) {
-        arr.forEach((shopList) => {
-            shopList.forEach((e) => {
-                const position = {"lat": e.location.latitude, "lng": e.location.longitude}
-                const marker = new google.maps.Marker({
-                    position: position,
-                    map: this.map
-                })
-                const infowindow = new google.maps.InfoWindow({
-                    content: e.shopName
-                });
-                marker.addListener('click', () => {
-                    if (this.infowindow) {
-                        this.infowindow.close();
-                    }
-                    this.map.setCenter(marker.getPosition());
-                    infowindow.open(map, marker);
-                    this.infowindow = infowindow
-                });
+        arr.forEach((e) => {
+            const position = {"lat": e.location.latitude, "lng": e.location.longitude}
+            const marker = new google.maps.Marker({
+                position: position,
+                map: this.map
             })
+            const infowindow = new google.maps.InfoWindow({
+                content: e.shopName
+            });
+            marker.addListener('click', () => {
+                if (this.infowindow) {
+                    this.infowindow.close();
+                }
+                this.map.setCenter(marker.getPosition());
+                infowindow.open(map, marker);
+                this.infowindow = infowindow
+            });
         });
     }
 }

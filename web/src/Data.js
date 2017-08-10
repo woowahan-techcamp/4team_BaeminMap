@@ -38,6 +38,7 @@ class Data {
                 console.log(i.data.content)
                 someList.push(i.data.content)
             }
+            console.log("axios all", someList)
             return someList
         }))
     }

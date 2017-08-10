@@ -51,11 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
             lng: position.coords.longitude
         };
         map.updatePosition(pos)
-        data.getShopList([1, 2, 3], pos, token).then((obj) => {
-            console.log(obj)
-            return obj
+        data.getShopList([1, 2, 3], pos, token).then((arr) => {
+            function filterList(arr) {
+                let listArr = [];
+                arr.forEach((e) => {
+                    listArr = listArr.concat(e)
+                })
+                return listArr
+            }
+
+            return filterList(arr)
             //필터 로직 들어갈 부분
         }).then((filteredData) => {
+            new ShopList("#shopListTemplate", "#shopList", filteredData)
             map.setShopMarker(filteredData)
         })
     })
