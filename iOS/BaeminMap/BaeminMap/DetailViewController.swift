@@ -30,9 +30,6 @@ class DetailViewController: UIViewController {
         collectionView.dataSource = self
         tableView.delegate = self
         tableView.dataSource = self
-        
-        initView()
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,19 +37,20 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func initView() {
+    override func viewDidLayoutSubviews() {
+        DispatchQueue.main.async {
+            self.tableView.frame.size.height = self.tableView.contentSize.height
+            self.scrollView.contentSize.height = self.tableView.frame.maxY
+        }
     }
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
-        print(collectionView.frame.maxY, "aaaa")
-        //cell의 전체 개수와 cell의 height를 알고 있어 initView에 미리 해놓으려했으나 각 행 사이의 공백의 높이를 알지 못해 유동적으로 height을 변경함
+
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
-        print(collectionView.frame.maxY, "bbbb")
         tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height)
-        scrollView.contentSize.height = tableView.frame.maxY
         
         return cell
     }
@@ -63,22 +61,13 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        
-        return cell
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if sections[section].open == true {
-            return sections[section].rowCount
-        }else {
-            return 0
-        }
+        view.setNeedsLayout()
+        return sections[section].open ? sections[section].rowCount : 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -94,23 +83,21 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         
         return header
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
+        
+        return cell
+    }
 }
 
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
-        var height: CGFloat
         
-        if sections[header.section].open == true {
-            sections[header.section].open = false
-            height = tableView.frame.height - 44 * CGFloat(sections[section].rowCount)
-        }else {
-            sections[header.section].open = true
-            height = tableView.frame.height + 44 * CGFloat(sections[section].rowCount)
+        sections[header.section].open = !sections[header.section].open
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
         }
-        
-        tableView.frame = CGRect(x: tableView.frame.minX, y: tableView.frame.minY, width: self.view.frame.width, height: height)
-        scrollView.contentSize.height = tableView.frame.maxY
-        
-        tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
     }
 }
