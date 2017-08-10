@@ -49,8 +49,7 @@ class MainContainerViewController: UIViewController {
         addChildViewController(newView)
         newView.view.frame = oldView!.view.frame
         
-        transition(from: oldView!, to: newView, duration: 0, options: isMapView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
-            oldView?.removeFromParentViewController()
+        transition(from: oldView!, to: newView, duration: 0.1, options: isMapView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
             newView.didMove(toParentViewController: self)
         }
         isMapView = !isMapView
