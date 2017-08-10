@@ -103,7 +103,9 @@ class Map {
         });
     }
 
-    setShopMarker(arr) {
+    setShopMarker(obj) {
+        console.log(obj)
+        const arr = obj.content;
         arr.forEach((e) => {
             const position= {"lat": e.location.latitude, "lng": e.location.longitude}
             const marker = new google.maps.Marker({

@@ -8,6 +8,7 @@ class Data {
         this.checkToken();
         this.apiBaseUrl="http://baemin-front-api.ap-northeast-2.elasticbeanstalk.com/"
         this.categoryArr = [1, 2, 3, 4, 5, 6, 7, 9, 10, 32, 33];
+        this.shopListObj = {content: []};
     }
     checkToken(){
         console.log("checkToken")
@@ -27,10 +28,10 @@ class Data {
         console.log(this.apiToken)
     }
     getShopList(arr, loc){
-        const location = {"lat": 37.500465,"lng": 127.1165};
+        const location = loc;
+        let countNo = 0;
         arr.forEach((e)=>{
-            console.log(e)
-            console.log()
+            console.log(e);
             axios({
                 method: 'post',
                 url: this.apiBaseUrl + "v2/shops",
@@ -39,18 +40,20 @@ class Data {
                     'Content-Type':'application/json; charset=utf-8'
                 },
                 params: {
-                    size: '50'
+                    size: '10'
                 },
                 data: {
-                    "lat": 37.500465,"lng": 127.1165,
+                    "lat": location.lat,
+                    "lng": location.lng,
                     "category": e
                 }
             })
-                .then(function(response){
-                    console.log("주변 배달업소를 조회한다(v2/shops)")
-                    console.log(response)
-                    const shopArr = response.data;
-                    new ShopList('#shopListTemplate', '#shopList', shopArr);
+                .then((response)=>{
+                    countNo += 1;
+                    this.shopListObj.content = this.shopListObj.content.concat(response.data.content);
+                    if (countNo === arr.length){
+                        new ShopList('#shopListTemplate', '#shopList', this.shopListObj);
+                    }
                 })
         })
     }
