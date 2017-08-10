@@ -64,6 +64,9 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
         
+//        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: tableView.contentSize.width, height: tableView.contentSize.height)
+//        scrollView.contentSize.height = tableView.frame.maxY
+        
         return cell
     }
     
@@ -72,7 +75,11 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].rowCount
+        if sections[section].open == true {
+            return sections[section].rowCount
+        }else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -93,7 +100,13 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
         print("sf")
-//        header.titleLabel.text = "눌림"
-//        tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
+        
+        if sections[header.section].open == true {
+            sections[header.section].open = false
+        }else {
+            sections[header.section].open = true
+        }
+        
+        tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
     }
 }
