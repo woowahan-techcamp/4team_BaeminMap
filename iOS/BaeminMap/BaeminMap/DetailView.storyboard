@@ -242,6 +242,9 @@
                         <outlet property="collectionView" destination="WyL-Ao-boP" id="lIG-xp-GQt"/>
                         <outlet property="scrollView" destination="HPw-DV-k7v" id="qtI-8y-RMG"/>
                         <outlet property="tableView" destination="dgm-yS-AmO" id="8Wi-WK-R5I"/>
+                        <outlet property="test1" destination="Zmr-lf-6EB" id="udA-A9-akE"/>
+                        <outlet property="test2" destination="XXg-Ax-MtL" id="ZjI-uB-pG6"/>
+                        <outlet property="test3" destination="pUu-Pd-ytH" id="w7p-02-96z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dtq-7x-cpy" userLabel="First Responder" sceneMemberID="firstResponder"/>
