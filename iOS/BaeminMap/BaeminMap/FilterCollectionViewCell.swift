@@ -26,7 +26,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = self.layer.frame.height/2
         self.layer.borderWidth = 1.5
         self.layer.borderColor = standardColor.cgColor
-        foodNameLabel.textColor = standardColor
+        foodNameLabel.textColor = isSelected ? UIColor.white : standardColor
         foodNameLabel.sizeToFit()
     }
 }
