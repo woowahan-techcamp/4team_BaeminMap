@@ -42,13 +42,13 @@
                                                     <color key="titleColor" red="0.14509803921568626" green="0.71764705882352942" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfK-DP-PuF">
-                                                <rect key="frame" x="24" y="20" width="25" height="25"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="25" id="61Y-nB-Yxm"/>
-                                                    <constraint firstAttribute="height" constant="25" id="Blq-Im-7pY"/>
-                                                </constraints>
-                                                <state key="normal" image="xButtonicon"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERU-iT-5MU">
+                                                <rect key="frame" x="23" y="16" width="30" height="33"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <state key="normal" title="취소">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.2627450980392157" green="0.23921568627450979" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
@@ -61,8 +61,6 @@
                                             <constraint firstItem="eWs-Yc-TJV" firstAttribute="centerX" secondItem="DYW-QM-phK" secondAttribute="centerX" id="JtS-mk-Wk2"/>
                                             <constraint firstAttribute="bottom" secondItem="eWs-Yc-TJV" secondAttribute="bottom" constant="21" id="LK1-Cd-hcA"/>
                                             <constraint firstAttribute="trailing" secondItem="gmY-Sr-Vjb" secondAttribute="trailing" constant="23" id="NU8-O3-Mow"/>
-                                            <constraint firstItem="eWs-Yc-TJV" firstAttribute="centerY" secondItem="UfK-DP-PuF" secondAttribute="centerY" id="YfF-zO-UTE"/>
-                                            <constraint firstItem="UfK-DP-PuF" firstAttribute="leading" secondItem="DYW-QM-phK" secondAttribute="leading" constant="24" id="Yl9-eB-928"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9nU-Px-bNM">
@@ -254,7 +252,4 @@
             <point key="canvasLocation" x="-56.25" y="-458.45070422535213"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="xButtonicon" width="36" height="36"/>
-    </resources>
 </document>
