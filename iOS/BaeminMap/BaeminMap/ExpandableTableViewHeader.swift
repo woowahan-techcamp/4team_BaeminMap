@@ -53,3 +53,18 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
     }
 }
 
+class Section {
+    var open: Bool
+    //TODO: 아래는 테스트 용, 추후 row list 변수로 가지고 있을 예정
+    var rowCount: Int
+    
+    init(rowCount: Int) {
+        self.open = false
+        self.rowCount = rowCount
+    }
+    
+    convenience init() {
+        self.init(rowCount: 1)
+    }
+}
+

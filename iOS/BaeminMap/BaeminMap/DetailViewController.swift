@@ -14,8 +14,15 @@ class DetailViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     
+    var sections = [Section]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sections.append(Section())
+        sections.append(Section(rowCount: 2))
+        sections.append(Section())
+        sections.append(Section(rowCount: 5))
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -61,11 +68,11 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return sections[section].rowCount
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
