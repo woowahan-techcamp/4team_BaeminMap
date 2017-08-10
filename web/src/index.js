@@ -51,9 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lng: position.coords.longitude
         };
         map.updatePosition(pos)
-        data.getShopList([1], pos, token).then((obj) => {
+        data.getShopList([1, 2, 3], pos, token).then((obj) => {
             console.log(obj)
-            const obj2 = obj * 2
             return obj
             //필터 로직 들어갈 부분
         }).then((filteredData) => {

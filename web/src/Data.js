@@ -12,6 +12,7 @@ class Data {
         let countNo = 0;
         const iterCall = []
         for (const e of arr) {
+            console.log(e)
             iterCall.push(
                 axios({
                     method: 'post',
@@ -21,7 +22,7 @@ class Data {
                         'Content-Type': 'application/json; charset=utf-8'
                     },
                     params: {
-                        size: '10'
+                        size: '20'
                     },
                     data: {
                         "lat": location.lat,
