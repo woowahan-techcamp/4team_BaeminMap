@@ -1,30 +1,15 @@
 class Map {
     constructor() {
-        this.map;
         this.infowindow;
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
-        this.loadPosition();
         this.initMap();
         this.searchPosition();
     }
 
-    loadPosition() {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-            this.currentLocation = pos;
-
-            this.setUserMarker();
-
-            // infoWindow.setPosition(pos);
-            // infoWindow.setContent('Location found.');
-            this.map.setCenter(pos);
-        }, () => {
-            handleLocationError(true, infoWindow, this.map.getCenter());
-        });
+    updatePosition(position) {
+        this.setUserMarker(position)
+        this.map.setCenter(position)
+        this.currentLocation = position
     }
 
     initMap() {
@@ -34,9 +19,9 @@ class Map {
         });
     }
 
-    setUserMarker() {
+    setUserMarker(position) {
         new google.maps.Marker({
-            position: this.currentLocation,
+            position: position,
             map: this.map,
             title: "my location",
         })
@@ -105,7 +90,7 @@ class Map {
 
     setShopMarker(arr) {
         arr.forEach((e) => {
-            const position= {"lat": e.location.latitude, "lng": e.location.longitude}
+            const position = {"lat": e.location.latitude, "lng": e.location.longitude}
             const marker = new google.maps.Marker({
                 position: position,
                 map: this.map

@@ -1,18 +1,18 @@
 class ShopList {
-    constructor(templateSelector, targetSelector, json) {
+    constructor(templateSelector, targetSelector, arr) {
         console.log('ShopList init!')
-        this.createShopTemplateDOM(templateSelector, targetSelector, json)
+        this.createShopTemplateDOM(templateSelector, targetSelector, arr)
     }
 
-    createShopTemplateDOM(templateSelector, targetSelector, json) {
+    createShopTemplateDOM(templateSelector, targetSelector, arr) {
         axios.get('/src/templates/shop_list.ejs').then((response) => {
             const shopTemplate = _.template(response.data)
-            this.renderTemplate(shopTemplate, targetSelector, json)
+            this.renderTemplate(shopTemplate, targetSelector, arr)
         })
     }
 
-    renderTemplate(shopTemplate, targetSelector, json) {
-        document.querySelector(targetSelector).innerHTML = shopTemplate({data: json.content})
+    renderTemplate(shopTemplate, targetSelector, arr) {
+        document.querySelector(targetSelector).innerHTML = shopTemplate({data: arr})
     }
 }
 
