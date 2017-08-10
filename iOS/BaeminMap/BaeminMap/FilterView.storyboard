@@ -37,6 +37,9 @@
                                         <state key="normal" title="취소">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancelButtonAction:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="8VI-JG-wmz"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfL-HJ-LpR">
                                         <rect key="frame" x="364" y="12" width="30" height="30"/>
@@ -44,6 +47,9 @@
                                         <state key="normal" title="적용">
                                             <color key="titleColor" red="0.14509803921568626" green="0.71764705882352942" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="confirmButtonAction:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="hUi-ps-eQw"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.2627450980392157" green="0.23921568627450979" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
