@@ -18,10 +18,7 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
     var section: Int = 0
     
     let titleLabel = UILabel()
-    
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
+    let arrowImage = UIImageView()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -38,6 +35,14 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
         titleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
+        
+        // Arrow ImageView
+        contentView.addSubview(arrowImage)
+        arrowImage.image = #imageLiteral(resourceName: "arrow_bottom")
+        arrowImage.translatesAutoresizingMaskIntoConstraints = false
+        arrowImage.heightAnchor.constraint(equalToConstant: 5.24)
+        arrowImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        arrowImage.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ExpandableTableViewHeader.tapHeader(_:))))
     }

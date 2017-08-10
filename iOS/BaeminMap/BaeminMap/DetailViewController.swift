@@ -10,10 +10,10 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-//    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     var scrollView = DetailScrollView()
+    
     var height = CGFloat()
 
     var test = CGFloat()
@@ -74,6 +74,10 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         
         header.section = section
         header.delegate = self
+        
+        if sections[header.section].open == true {
+            header.arrowImage.image = #imageLiteral(resourceName: "arrow_top")
+        }
         
         return header
     }
