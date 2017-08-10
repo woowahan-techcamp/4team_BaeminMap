@@ -264,7 +264,6 @@
                     <connections>
                         <outlet property="collectionView" destination="UfL-E5-bXB" id="yUR-7u-7sR"/>
                         <outlet property="scrollView" destination="kUv-yt-QiY" id="wIc-r6-ctC"/>
-                        <outlet property="topContainerView" destination="DYW-QM-phK" id="Cjf-Az-vbW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QLt-NW-r5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
