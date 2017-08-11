@@ -15,7 +15,10 @@ class MapViewController: UIViewController {
     var location = Location.sharedInstance
     var locationManager = CLLocationManager()
     var parentView: MainContainerViewController!
-    var baeminInfo: [BaeminInfo]?
+    lazy var baeminInfo: [BaeminInfo]? = {
+        let parentView = self.parent as! MainContainerViewController
+        return parentView.baeminInfo
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +29,6 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        parentView = self.parent as! MainContainerViewController
         drawMap()
         drawMarker()
     }

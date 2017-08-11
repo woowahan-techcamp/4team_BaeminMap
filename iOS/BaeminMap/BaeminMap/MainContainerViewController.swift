@@ -50,11 +50,9 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         if isMapView {
             newView = mapViewController
             toggleButton.image = #imageLiteral(resourceName: "mapicon")
-            mapViewController.baeminInfo = baeminInfo
         } else {
             newView = listViewController
             toggleButton.image = #imageLiteral(resourceName: "listicon")
-            listViewController.baeminInfo = baeminInfo
         }
         oldView?.willMove(toParentViewController: nil)
         addChildViewController(newView)

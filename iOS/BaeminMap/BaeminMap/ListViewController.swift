@@ -11,11 +11,13 @@ import UIKit
 class ListViewController: UIViewController {
 
     @IBOutlet weak var listView: UITableView!
-    var baeminInfo: [BaeminInfo]?
+    lazy var baeminInfo: [BaeminInfo]? = {
+        let parentView = self.parent as! MainContainerViewController
+        return parentView.baeminInfo
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         listView.delegate = self
         listView.dataSource = self
     }
