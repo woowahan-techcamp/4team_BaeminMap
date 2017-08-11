@@ -1,18 +1,13 @@
 class ShopDetail {
-    constructor(targetSelector, arr) {
+    constructor(obj) {
         console.log('ShopDetail init!')
-        this.createShopTemplateDOM(targetSelector, arr)
+        return this.asyncRenderTempalte(obj)
     }
 
-    createShopTemplateDOM(targetSelector, arr) {
-        axios.get('/src/templates/shop_detail.ejs').then((response) => {
-            const shopTemplate = _.template(response.data)
-            this.renderTemplate(shopTemplate, targetSelector, arr)
+    asyncRenderTempalte(obj) {
+        return axios.get('/src/templates/shop_detail.ejs').then((response) => {
+            return _.template(response.data)(obj)
         })
-    }
-
-    renderTemplate(shopTemplate, targetSelector, arr) {
-        document.querySelector(targetSelector).innerHTML = shopTemplate({data: arr})
     }
 }
 
