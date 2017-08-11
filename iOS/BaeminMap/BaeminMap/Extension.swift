@@ -12,5 +12,6 @@ extension UIStoryboard {
     static let ListViewStoryboard = UIStoryboard(name: "ListView", bundle: nil)
     static let MapViewStoryboard = UIStoryboard(name: "MapView", bundle: nil)
     static let MainContainerViewStoryboard = UIStoryboard(name: "MainContainerView", bundle: nil)
+    static let DetailViewStoryboard = UIStoryboard(name: "DetailView", bundle: nil)
     static let FilterViewStoryboard = UIStoryboard(name: "FilterView", bundle: nil)
 }
