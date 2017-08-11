@@ -11,7 +11,7 @@ import UIKit
 class ListViewController: UIViewController {
 
     @IBOutlet weak var listView: UITableView!
-    lazy var baeminInfo: [BaeminInfo]? = {
+    lazy var baeminInfo: [BaeminInfo] = {
         let parentView = self.parent as! MainContainerViewController
         return parentView.baeminInfo
     }()
@@ -35,12 +35,18 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return baeminInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
-        tableView.rowHeight = cell.frame.height
+//         tableView.rowHeight = cell.frame.height
+        let shop = baeminInfo[indexPath.row]
+        cell.titleLabel.text = shop.shopName
+        cell.reviewLabel.text = "최근리뷰 \(shop.reviewCount)"
+        cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo)"
+        cell.ratingView.rating = shop.shopScore
+        
         return cell
     }
     

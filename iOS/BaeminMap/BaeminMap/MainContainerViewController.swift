@@ -19,6 +19,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
     }
 
