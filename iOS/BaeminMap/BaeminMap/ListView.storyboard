@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,13 +21,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="104" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xh4-RR-gHJ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="104" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xh4-RR-gHJ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Xh4-RR-gHJ" firstAttribute="height" secondItem="HRx-za-USB" secondAttribute="height" id="4x7-zn-KKJ"/>
+                            <constraint firstItem="Xh4-RR-gHJ" firstAttribute="top" secondItem="HRx-za-USB" secondAttribute="top" id="EgG-Qh-xS8"/>
+                            <constraint firstAttribute="trailing" secondItem="Xh4-RR-gHJ" secondAttribute="trailing" id="IOn-eN-oGV"/>
+                            <constraint firstItem="Xh4-RR-gHJ" firstAttribute="width" secondItem="HRx-za-USB" secondAttribute="width" id="PJf-ZU-LOx"/>
+                            <constraint firstItem="Xh4-RR-gHJ" firstAttribute="leading" secondItem="HRx-za-USB" secondAttribute="leading" id="TDz-NB-jdQ"/>
+                            <constraint firstItem="aF4-Ak-e0U" firstAttribute="top" secondItem="Xh4-RR-gHJ" secondAttribute="bottom" id="Wsd-rR-eLQ"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="listView" destination="Xh4-RR-gHJ" id="cWp-el-APP"/>
