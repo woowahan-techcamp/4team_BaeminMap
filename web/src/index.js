@@ -40,33 +40,41 @@ function getToken() {
     return apiToken
 }
 
+function filterEventOn(tar){
+    const eventHTML = document.querySelector(tar);
+    eventHTML.addEventListener("click", function (e) {
+        let target = e.target;
+        if (target.className === "category selected"){
+            target.className = "category"
+        } else if (target.className === "category"){
+            target.className = "category selected"
+        }
+
+    })
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const token = getToken()
     const map = new Map();
     const data = new Data();
+
     navigator.geolocation.getCurrentPosition((position) => {
         const pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
         map.updatePosition(pos)
-        data.getShopList([1, 2, 3], pos, token).then((arr) => {
-            function filterList(arr) {
-                let listArr = [];
-                arr.forEach((e) => {
-                    listArr = listArr.concat(e)
-                })
-                return listArr
-            }
-
-            return filterList(arr)
-            //필터 로직 들어갈 부분
+        data.getShopList(data.categoryArr, pos, token).then((arr) => {
+            //필터 로직 들어갈 부분. 필터 이후 소트를 한다.
+            return data.sortList(arr, 0);
         }).then((filteredData) => {
+            console.log(filteredData)
             new ShopList("#shopListTemplate", "#shopList", filteredData)
             map.setShopMarker(filteredData)
         })
     })
+    filterEventOn(".category-list")
 })
 
 
