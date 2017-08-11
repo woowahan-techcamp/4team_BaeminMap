@@ -9,7 +9,7 @@
 import UIKit
 
 class ListViewController: UIViewController {
-
+    
     @IBOutlet weak var listView: UITableView!
     lazy var baeminInfo: [BaeminInfo] = {
         let parentView = self.parent as! MainContainerViewController
