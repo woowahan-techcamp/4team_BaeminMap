@@ -41,4 +41,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.rowHeight = cell.frame.height
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailViewController = UIStoryboard.DetailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
 }
