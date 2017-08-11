@@ -13,6 +13,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     var scrollView = DetailScrollView()
+    var FoodsList = [String:[Food]]()
     
     var sections: [Section] = [
         Section(title: "크런치 피자", items: [
@@ -47,13 +48,13 @@ class DetailViewController: UIViewController {
         collectionView.dataSource = self
         tableView.delegate = self
         tableView.dataSource = self
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
