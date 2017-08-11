@@ -1,3 +1,5 @@
+import ShopDetail from './ShopDetail'
+
 class Map {
     constructor() {
         this.infowindow;
@@ -96,7 +98,7 @@ class Map {
                 map: this.map
             })
             const infowindow = new google.maps.InfoWindow({
-                content: e.shopName
+                content: '' //new ShopDetail(obj) // TODO: 여기에 template rendering 넣어주기
             });
             marker.addListener('click', () => {
                 if (this.infowindow) {

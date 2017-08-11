@@ -1,4 +1,4 @@
-<% _.forEach(data, (shop) => { %>
+<% _.each(data, (shop) => { %>
 <div class="shop">
     <div class="shop-image-wrapper">
         <span></span>
@@ -8,7 +8,7 @@
         <h2><%= shop.shopName %></h2>
         <span class="shop-rating">
             <span class="img-star star-rate">
-                <span class="img-star inner-star-rate" style="width: <%= (shop.starPointAverage /5) * 100 %>"></span>
+                <span class="img-star inner-star-rate" style="width: <%= (shop.starPointAverage / 5) * 100 %>%"></span>
             </span>
         </span>
         <p class="shop-address"><%= shop.address + ' ' + shop.addressDetail %></p>
@@ -18,4 +18,4 @@
         </p>
     </div>
 </div>
-<% }); %>
+<% }); %>
