@@ -40,12 +40,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
-//         tableView.rowHeight = cell.frame.height
         let shop = baeminInfo[indexPath.row]
         cell.titleLabel.text = shop.shopName
-        cell.reviewLabel.text = "최근리뷰 \(shop.reviewCount)"
-        cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo)"
-        cell.ratingView.rating = shop.shopScore
+        cell.reviewLabel.text = "최근리뷰 \(shop.reviewCount ?? 0)"
+        cell.reviewLabel.sizeToFit()
+        cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
+        cell.ownerReviewLabel.sizeToFit()
+        cell.ratingView.rating = shop.starPointAverage
         
         return cell
     }
