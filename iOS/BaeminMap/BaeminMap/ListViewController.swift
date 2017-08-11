@@ -20,11 +20,20 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         listView.delegate = self
         listView.dataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func recieve(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
+        self.baeminInfo = baeminInfo
+        listView.reloadData()
     }
     
 }
