@@ -22,7 +22,7 @@ class Data {
                         'Content-Type': 'application/json; charset=utf-8'
                     },
                     params: {
-                        size: '20'
+                        size: '10'
                     },
                     data: {
                         "lat": location.lat,
