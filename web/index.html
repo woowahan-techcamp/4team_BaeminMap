@@ -11,7 +11,7 @@
 <div id="list">
     <div class="filter-controller">
         <label>
-            <h4 class="filter-title">조건선택</h4>
+            <h5 class="filter-title">카테고리 선택</h5>
         </label>
 
         <div class="category-fiter-wrapper">
@@ -32,8 +32,11 @@
         </div>
         <hr>
         <div class="sort-option-wrapper">
+            <label>
+                <h5 class="filter-title">정렬방식 설정</h5>
+            </label>
             <select id="sort-option">
-                <option selected>가까운 순</option>
+                <option selected>가까운 거리 순</option>
                 <option>주문많은 순</option>
                 <option>리뷰좋은 순</option>
                 <option>인기많은 순</option>
@@ -41,7 +44,16 @@
             </select>
         </div>
         <div class="distance-option">
-            <input type="range">
+            <label>
+                <h5 class="filter-title">검색반경 설정</h5>
+            </label>
+            <input type="range" min="0" max="2" step="1" value="2" list="search-range">
+            <datalist id="search-range">
+                <option value="0" label="500m">
+                <option value="1" label="1km">
+                <option value="2" label="3km">
+            </datalist>
+
         </div>
     </div>
     <div class="shop-list" id="shopList">
