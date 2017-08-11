@@ -19,6 +19,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
     }
 
@@ -50,11 +51,9 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         if isMapView {
             newView = mapViewController
             toggleButton.image = #imageLiteral(resourceName: "mapicon")
-            mapViewController.baeminInfo = baeminInfo
         } else {
             newView = listViewController
             toggleButton.image = #imageLiteral(resourceName: "listicon")
-            listViewController.baeminInfo = baeminInfo
         }
         oldView?.willMove(toParentViewController: nil)
         addChildViewController(newView)
