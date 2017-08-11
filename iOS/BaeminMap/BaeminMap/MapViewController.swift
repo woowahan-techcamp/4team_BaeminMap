@@ -14,17 +14,19 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     var location = Location.sharedInstance
     var locationManager = CLLocationManager()
+    var parentView: MainContainerViewController!
     var baeminInfo: [BaeminInfo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(drawMap), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        parentView = self.parent as! MainContainerViewController
         drawMap()
         drawMarker()
     }

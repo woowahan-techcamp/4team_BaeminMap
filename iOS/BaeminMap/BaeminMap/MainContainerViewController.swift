@@ -9,11 +9,11 @@
 import UIKit
 import GooglePlaces
 
-class MainContainerViewController: UIViewController {
-
+class MainContainerViewController: UIViewController, FilterViewDelegate {
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     var isMapView = Bool()
     var baeminInfo = [BaeminInfo]()
+    var selectedCategory = [String]()
     var listViewController = UIStoryboard.ListViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
     var mapViewController = UIStoryboard.MapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     
@@ -25,6 +25,10 @@ class MainContainerViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func selected(category: [String]) {
+        selectedCategory = category
     }
     
     func receive(notification: Notification) {
@@ -41,6 +45,7 @@ class MainContainerViewController: UIViewController {
     
     @IBAction func toggleButtonAction(_ sender: UIBarButtonItem) {
         let newView: UIViewController
+        let oldView = childViewControllers.last
         
         if isMapView {
             newView = mapViewController
@@ -51,13 +56,9 @@ class MainContainerViewController: UIViewController {
             toggleButton.image = #imageLiteral(resourceName: "listicon")
             listViewController.baeminInfo = baeminInfo
         }
-        
-        let oldView = childViewControllers.last
-
         oldView?.willMove(toParentViewController: nil)
         addChildViewController(newView)
         newView.view.frame = oldView!.view.frame
-        
         transition(from: oldView!, to: newView, duration: 0.1, options: isMapView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
             newView.didMove(toParentViewController: self)
         }
@@ -66,6 +67,8 @@ class MainContainerViewController: UIViewController {
     
     @IBAction func filterButtonAction(_ sender: Any) {
         let filterViewController = UIStoryboard.FilterViewStoryboard.instantiateViewController(withIdentifier: "FilterView") as! FilterViewController
+        filterViewController.delegate = self
+        filterViewController.selectedCategory = selectedCategory
         present(filterViewController, animated: true, completion: nil)
     }
 
