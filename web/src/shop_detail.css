@@ -1,25 +1,150 @@
 .shop-detail-wrapper {
-    width: 500px;
-}
-
-.shop-detail-wrapper > h2 {
-    text-align: center;
-}
-
-.shop-detail-wrapper > hr {
-    width: 80%;
+    width: 50%;
+    min-width: 480px;
     margin: 0 auto;
-    color: #d1caba;
 }
 
-.dropdown-checkbox {
+.shop-detail-scroll > h2 {
+    text-align: center;
+    font-weight: 800;
+    font-size: 40px;
+    margin: 20px 0 5px;
+}
+
+.shop-detail-scroll > hr {
+    margin: 0 auto 5px;
+    width: 40%;
+    border: none;
+    height: 2px;
+    background-color: #4F3F3F;
+}
+
+.shop-detail-scroll {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.module {
+    border: 1px solid #ccc;
+}
+
+.module > ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    list-style: none outside none;
+}
+
+.module > ul > li {
+    margin: 0;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #4F3F3F;
+}
+
+.module > ul > li:nth-last-child(1) {
+    border-bottom: none;
+}
+
+.module > ul > li > span {
+    float: right;
+}
+
+.checkbox {
     display: none;
 }
 
-.dropdown-detail {
-    display: none;
+.toggle-box {
+    width: calc(100% - 20px);
+    margin: 0 auto;
 }
 
-.dropdown-checkbox:checked ~ .dropdown-detail {
+.toggle-label {
     display: block;
+    cursor: pointer;
+    padding: 12px 17px;
+    color: whitesmoke;
+    background-color: #4F3F3F;
+    font-weight: 600;
+}
+
+.toggle-label:hover {
+    background-color: #554444;
+}
+
+.toggle-label:after {
+    content: '˅';
+    float: right;
+    line-height: 30px;
+    right: 0;
+}
+
+.toggle-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: ease 0.4s;
+}
+
+.checkbox:checked ~ .toggle-content {
+    max-height: 1000px;
+}
+
+.checkbox:checked + .toggle-label:after {
+    content: "˄";
+}
+
+.shop-detail-info {
+    width: calc(100% - 20px);
+    height: 100px;
+    margin: 10px auto 0;
+}
+
+.shop-detail {
+    width: calc((100% - 60px) / 4);
+    height: 100px;
+    float: left;
+    margin: 0 10px;
+    text-align: center;
+    padding: 27px 5px 5px;
+}
+
+.shop-detail:nth-child(1) {
+    margin-left: 0;
+}
+
+.shop-detail:nth-last-child(1) {
+    margin-right: 0;
+}
+
+.shop-detail > span:nth-of-type(2) {
+    font-size: 150%;
+}
+
+.shop-detail.shop-star {
+    padding-top: 15px;
+}
+
+.shop-star > span {
+    font-size: 300%;
+    color: #2abfba;
+}
+
+.shop-phone {
+    margin: 10px auto;
+    text-align: center;
+    color: #aaaaaa;
+}
+
+.shop-link-btn {
+    color: whitesmoke;
+    font-size: 16px;
+    padding: 17px;
+    height: 50px;
+    width: 100%;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0px;
+    background-color: #3b342b;
 }

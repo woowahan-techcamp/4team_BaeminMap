@@ -96,7 +96,7 @@ class Map {
                 map: this.map
             })
             const infowindow = new google.maps.InfoWindow({
-                content: e.shopName
+                content: e.shopName // TODO: 여기에 template rendering 넣어주기 
             });
             marker.addListener('click', () => {
                 if (this.infowindow) {
