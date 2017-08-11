@@ -12,7 +12,15 @@ class ShopList {
     }
 
     renderTemplate(shopTemplate, targetSelector, arr) {
-        document.querySelector(targetSelector).innerHTML = shopTemplate({data: arr})
+        const targetElement = document.querySelector(targetSelector)
+        targetElement.innerHTML = shopTemplate({data: arr})
+        targetElement.addEventListener('click', (e) => {
+            e.preventDefault()
+            if (!e.target.matches('div.shop')) {
+                return false
+            }
+            // TODO: 상점 리스트 클릭시 마커 띄워주기
+        })
     }
 }
 
