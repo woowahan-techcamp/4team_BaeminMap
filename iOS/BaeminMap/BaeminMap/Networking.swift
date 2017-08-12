@@ -20,9 +20,14 @@ class Networking {
         ]
         
         Alamofire.request("https://\(Config.clientID):\(Config.clientSecret)@\(Config.tokenURL)", method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
-            let result = response.result.value as! [String:Any]
-            Config.token = result["access_token"] as! String
-            self.getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
+            switch response.result {
+            case .success(let result):
+                Config.token = (result as! [String:Any])["access_token"] as! String
+                self.getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
+                self.getFoods(shopNo: 521977)
+            case .failure(let error):
+                print(String(describing: error))
+            }
         }
     }
     
@@ -54,4 +59,38 @@ class Networking {
         }
     }
     
+    func getFoods(shopNo: Int) {
+        let header = ["Authorization": "Bearer \(Config.token)", "Content-Type": "application/json"]
+        var parameters: Parameters = ["shopNo": shopNo]
+
+        func getFoodsGroups(completion: @escaping (_ foodsGroup: [String:String]) -> ()) {
+            Alamofire.request("\(Config.baeminApiURL)/v1/shops/\(shopNo)/foods-groups", method: .get, parameters: parameters, encoding: URLEncoding.default, headers: header).responseJSON { (response) in
+                switch response.result {
+                case .success(let foodsGroup):
+                    if let group = foodsGroup as? [[String:String]] {
+                        group.forEach({ (foodGroup) in
+                            completion(foodGroup)
+                        })
+                    }
+                case .failure(let error):
+                    print(String(describing: error))
+                }
+            }
+        }
+        
+        getFoodsGroups { (group) in
+            parameters["shopFoodGrpSeq"] = group["shopFoodGrpSeq"]
+            Alamofire.request("\(Config.baeminApiURL)/v1/shops/\(shopNo)/foods", method: .get, parameters: parameters, encoding: URLEncoding.default, headers: header).responseJSON(completionHandler: { (response) in
+                guard let result = response.result.value as? [String:Any] else { return }
+                let contents = result["content"] as! [[String:Any]]
+                var foodList = [Food]()
+
+                contents.forEach({ (content) in
+                    let food = Food(JSON: content)
+                    foodList.append(food!)
+                })
+                NotificationCenter.default.post(name: NSNotification.Name("finishedFoodList"), object: self, userInfo: ["FoodList": foodList, "key": group["shopFoodGrpNm"]!])
+            })
+        }
+    }
 }
