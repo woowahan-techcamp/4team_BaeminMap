@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -129,17 +129,23 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <state key="normal" title="가까운 순">
-                                                    <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.16470588235294117" green="0.75686274509803919" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="selectedSort:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="W6e-XK-xZE"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rRl-MM-N71">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rRl-MM-N71">
                                                 <rect key="frame" x="173" y="99" width="68" height="41"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <state key="normal" title="주문 많은 순">
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="selectedSort:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="EcZ-a8-uxy"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JwW-c1-RY0">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JwW-c1-RY0">
                                                 <rect key="frame" x="162" y="395" width="91" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="1Wd-P0-Fvc"/>
@@ -159,7 +165,7 @@
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ss-al-wRX">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ss-al-wRX">
                                                 <rect key="frame" x="148" y="445" width="118" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="f2Y-7s-Zn3"/>
@@ -169,7 +175,7 @@
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCP-Z1-iSM">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCP-Z1-iSM">
                                                 <rect key="frame" x="173" y="148" width="68" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="7Ss-os-yoQ"/>
@@ -178,8 +184,11 @@
                                                 <state key="normal" title="리뷰 좋은 순">
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="selectedSort:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="2hA-9q-4ue"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXG-4u-h04">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXG-4u-h04">
                                                 <rect key="frame" x="173" y="196" width="68" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="yVQ-DP-LvM"/>
@@ -188,8 +197,11 @@
                                                 <state key="normal" title="인기 많은 순">
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="selectedSort:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="C2o-Dg-K5c"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ou-mB-Hik">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ou-mB-Hik">
                                                 <rect key="frame" x="161" y="244" width="92" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="v6A-ZH-a9L"/>
@@ -198,7 +210,30 @@
                                                 <state key="normal" title="즐겨찾기 많은 순">
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="selectedSort:" destination="ZeF-GR-pmd" eventType="touchUpInside" id="y0y-ic-5KZ"/>
+                                                </connections>
                                             </button>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="L0C-3N-oC4">
+                                                <rect key="frame" x="153" y="61" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView hidden="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="hRC-6E-Bly">
+                                                <rect key="frame" x="145" y="109" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView hidden="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="z84-3H-Hkr">
+                                                <rect key="frame" x="145" y="158" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView hidden="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="5lQ-bU-S3i">
+                                                <rect key="frame" x="145" y="206" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView hidden="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="Hdv-pQ-fTi">
+                                                <rect key="frame" x="133" y="254" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -264,6 +299,16 @@
                     <connections>
                         <outlet property="collectionView" destination="UfL-E5-bXB" id="yUR-7u-7sR"/>
                         <outlet property="scrollView" destination="kUv-yt-QiY" id="wIc-r6-ctC"/>
+                        <outletCollection property="sortButton" destination="Q0o-MX-fa6" collectionClass="NSMutableArray" id="aue-UI-K1n"/>
+                        <outletCollection property="sortButton" destination="rRl-MM-N71" collectionClass="NSMutableArray" id="H4P-sH-IdS"/>
+                        <outletCollection property="sortButton" destination="oCP-Z1-iSM" collectionClass="NSMutableArray" id="hxZ-cE-ECL"/>
+                        <outletCollection property="sortButton" destination="LXG-4u-h04" collectionClass="NSMutableArray" id="pg2-HU-EQ2"/>
+                        <outletCollection property="checkImageView" destination="L0C-3N-oC4" collectionClass="NSMutableArray" id="Dda-Nw-Su4"/>
+                        <outletCollection property="checkImageView" destination="hRC-6E-Bly" collectionClass="NSMutableArray" id="934-eu-3sV"/>
+                        <outletCollection property="checkImageView" destination="z84-3H-Hkr" collectionClass="NSMutableArray" id="oe0-gl-dOh"/>
+                        <outletCollection property="checkImageView" destination="5lQ-bU-S3i" collectionClass="NSMutableArray" id="rI8-0n-Og1"/>
+                        <outletCollection property="checkImageView" destination="Hdv-pQ-fTi" collectionClass="NSMutableArray" id="8XI-Fl-7R7"/>
+                        <outletCollection property="sortButton" destination="1Ou-mB-Hik" collectionClass="NSMutableArray" id="1j1-d2-2C0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QLt-NW-r5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -271,4 +316,7 @@
             <point key="canvasLocation" x="-56.521739130434788" y="-459.78260869565219"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="check" width="22" height="22"/>
+    </resources>
 </document>
