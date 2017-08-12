@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="txK-gb-xXy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="txK-gb-xXy">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,12 +27,24 @@
                                     <segue destination="Tke-UX-WOr" kind="embed" id="Cog-Oi-dhx"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-he-Rvg">
-                                <rect key="frame" x="207" y="94" width="83" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70i-Jq-OTW">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="필터예정!">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="지번, 도로명, 건물명을 검색하세요." image="findicon">
+                                    <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchLocationButtonAction:" destination="t57-W2-t7k" eventType="touchUpInside" id="kfl-lx-w3n"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-he-Rvg">
+                                <rect key="frame" x="118" y="494" width="84" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="filtericon">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -50,19 +61,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="배민여지도" id="SXz-h2-l1u">
-                        <rightBarButtonItems>
-                            <barButtonItem image="listicon" id="yfS-uM-AAN">
-                                <connections>
-                                    <action selector="toggleButtonAction:" destination="t57-W2-t7k" id="Xvq-Pt-ndL"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="findLocationicon" id="ZM7-6r-TlJ">
-                                <inset key="imageInsets" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
-                                <connections>
-                                    <action selector="searchLocationButtonAction:" destination="t57-W2-t7k" id="vST-iQ-5Rw"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" image="listicon" id="yfS-uM-AAN">
+                            <connections>
+                                <action selector="toggleButtonAction:" destination="t57-W2-t7k" id="Xvq-Pt-ndL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="toggleButton" destination="yfS-uM-AAN" id="gE3-2j-hcg"/>
@@ -70,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OrU-0u-SlF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="317.60000000000002" y="-179.46026986506749"/>
+            <point key="canvasLocation" x="316.875" y="-179.57746478873239"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wy8-Q1-z8l">
@@ -108,7 +111,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="findLocationicon" width="20" height="24"/>
-        <image name="listicon" width="20" height="16"/>
+        <image name="filtericon" width="102" height="48"/>
+        <image name="findicon" width="16" height="15"/>
+        <image name="listicon" width="20" height="19"/>
     </resources>
 </document>

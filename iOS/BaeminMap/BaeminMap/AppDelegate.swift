@@ -28,9 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             locationManager.startUpdatingLocation()
         }
         
-        UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().barTintColor = UIColor(red: 67/255, green: 61/255, blue: 55/255, alpha: 1)
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        UINavigationBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().barTintColor = UIColor.white
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+//        UINavigationBar.appearance().shadowImage = UIImage()
         
         return true
     }

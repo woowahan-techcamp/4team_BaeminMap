@@ -30,7 +30,7 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         drawMap()
-        drawMarker()
+        redrawMap()
     }
 
     override func didReceiveMemoryWarning() {
