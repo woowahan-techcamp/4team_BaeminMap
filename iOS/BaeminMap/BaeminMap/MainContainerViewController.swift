@@ -11,7 +11,7 @@ import GooglePlaces
 
 class MainContainerViewController: UIViewController, FilterViewDelegate {
     @IBOutlet weak var toggleButton: UIBarButtonItem!
-    var isMapView = Bool()
+    var isListView = Bool()
     var baeminInfo = [BaeminInfo]()
     var selectedCategory = [String]()
     var listViewController = UIStoryboard.ListViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
@@ -39,9 +39,20 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     }
     
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {
+        let color = UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1)
         let autocompleteController = GMSAutocompleteViewController()
-        autocompleteController.delegate = self
+        let addressFilter = GMSAutocompleteFilter()
         
+        autocompleteController.delegate = self
+        addressFilter.country = "KR"
+        autocompleteController.autocompleteFilter = addressFilter
+        
+        UISearchBar.appearance().tintColor = color
+        UINavigationBar.appearance().tintColor = color
+        let placeholderAttributes: [String : AnyObject] = [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont.systemFont(ofSize: 13)]
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "지번, 도로명, 건물명을 검색하세요", attributes: placeholderAttributes)
+        autocompleteController.primaryTextHighlightColor = color
+
         present(autocompleteController, animated: false, completion: nil)
     }
     
@@ -49,20 +60,20 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         let newView: UIViewController
         let oldView = childViewControllers.last
         
-        if isMapView {
+        if isListView {
             newView = mapViewController
-            toggleButton.image = #imageLiteral(resourceName: "mapicon")
+            toggleButton.image = #imageLiteral(resourceName: "listicon")
         } else {
             newView = listViewController
-            toggleButton.image = #imageLiteral(resourceName: "listicon")
+            toggleButton.image = #imageLiteral(resourceName: "mapicon")
         }
         oldView?.willMove(toParentViewController: nil)
         addChildViewController(newView)
         newView.view.frame = oldView!.view.frame
-        transition(from: oldView!, to: newView, duration: 0.1, options: isMapView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
+        transition(from: oldView!, to: newView, duration: 0.1, options: isListView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
             newView.didMove(toParentViewController: self)
         }
-        isMapView = !isMapView
+        isListView = !isListView
     }
     
     @IBAction func filterButtonAction(_ sender: Any) {
