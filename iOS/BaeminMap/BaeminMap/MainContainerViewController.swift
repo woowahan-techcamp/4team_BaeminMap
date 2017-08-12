@@ -38,10 +38,11 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         self.baeminInfo = baeminInfo
     }
     
-    @IBAction func searchLocationButtonAction(_ sender: Any) {
+    @IBAction func searchLocationButtonAction(_ sender: UIButton) {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
-        present(autocompleteController, animated: true, completion: nil)
+        
+        present(autocompleteController, animated: false, completion: nil)
     }
     
     @IBAction func toggleButtonAction(_ sender: UIBarButtonItem) {
