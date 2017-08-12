@@ -30,9 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         UINavigationBar.appearance().tintColor = UIColor.black
         UINavigationBar.appearance().barTintColor = UIColor.white
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        UINavigationBar.appearance().shadowImage = UIImage()
-//        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+//        UINavigationBar.appearance().shadowImage = UIImage()
         
         return true
     }
