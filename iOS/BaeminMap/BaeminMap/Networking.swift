@@ -32,10 +32,10 @@ class Networking {
         let parameters = [
             "lat": latitude,
             "lng": longitude,
-            "category": 1
+            "category": 2
         ]
         print(Config.token)
-        Alamofire.request("\(Config.baeminApiURL)/v2/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+        Alamofire.request("\(Config.baeminApiURL)/v2/shops?size=2000", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
             switch response.result {
             case .success(let value):
                 let responseDic = value as! [String:Any]
