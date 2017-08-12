@@ -17,7 +17,9 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var sortButton: [UIButton]!
-    @IBOutlet var checkImageView: [UIImageView]!
+    @IBOutlet var rangeButton: [UIButton]!
+    @IBOutlet var sortCheckImageView: [UIImageView]!
+    @IBOutlet var rangeCheckImageView: [UIImageView]!
     
     var delegate: FilterViewDelegate!
     var selectedCategory = [String]()
@@ -51,15 +53,22 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func selectedSort(_ sender: UIButton) {
-        for i in 0..<sortButton.count {
-            sortButton[i].setTitleColor(UIColor.lightGray, for: .normal)
-            checkImageView[i].isHidden = true
+        if sender == sortButton[sender.tag] {
+            for i in 0..<sortButton.count {
+                sortButton[i].setTitleColor(UIColor.lightGray, for: .normal)
+                sortCheckImageView[i].isHidden = true
+            }
+            sortCheckImageView[sender.tag].isHidden = false
+        } else {
+            for i in 0..<rangeButton.count {
+                rangeButton[i].setTitleColor(UIColor.lightGray, for: .normal)
+                rangeCheckImageView[i].isHidden = true
+            }
+            rangeCheckImageView[sender.tag].isHidden = false
         }
-        
         sender.setTitleColor(UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1), for: .normal)
-        checkImageView[sender.tag].isHidden = false
     }
-
+    
     @IBAction func confirmButtonAction(_ sender: Any) {
         delegate.selected(category: selectedCategory)
         dismiss(animated: true, completion: nil)
