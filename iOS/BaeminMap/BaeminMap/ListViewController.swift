@@ -9,20 +9,31 @@
 import UIKit
 
 class ListViewController: UIViewController {
-
+    
     @IBOutlet weak var listView: UITableView!
-    var baeminInfo: [BaeminInfo]?
+    lazy var baeminInfo: [BaeminInfo] = {
+        let parentView = self.parent as! MainContainerViewController
+        return parentView.baeminInfo
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         listView.delegate = self
         listView.dataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func recieve(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
+        self.baeminInfo = baeminInfo
+        listView.reloadData()
     }
     
 }
@@ -33,12 +44,19 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return baeminInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
-        tableView.rowHeight = cell.frame.height
+        let shop = baeminInfo[indexPath.row]
+        cell.titleLabel.text = shop.shopName
+        cell.reviewLabel.text = "최근리뷰 \(shop.reviewCount ?? 0)"
+        cell.reviewLabel.sizeToFit()
+        cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
+        cell.ownerReviewLabel.sizeToFit()
+        cell.ratingView.rating = shop.starPointAverage
+        
         return cell
     }
     
