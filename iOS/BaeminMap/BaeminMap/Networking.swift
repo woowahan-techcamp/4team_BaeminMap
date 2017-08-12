@@ -20,10 +20,14 @@ class Networking {
         ]
         
         Alamofire.request("https://\(Config.clientID):\(Config.clientSecret)@\(Config.tokenURL)", method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
-            let result = response.result.value as! [String:Any]
-            Config.token = result["access_token"] as! String
-            self.getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
-            self.getFoods(shopNo: 521977)
+            switch response.result {
+            case .success(let result):
+                Config.token = (result as! [String:Any])["access_token"] as! String
+                self.getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
+                self.getFoods(shopNo: 521977)
+            case .failure(let error):
+                print(String(describing: error))
+            }
         }
     }
     
