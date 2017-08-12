@@ -52,9 +52,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let shop = baeminInfo[indexPath.row]
         cell.titleLabel.text = shop.shopName
         cell.reviewLabel.text = "최근리뷰 \(shop.reviewCount ?? 0)"
-        cell.reviewLabel.sizeToFit()
         cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
-        cell.ownerReviewLabel.sizeToFit()
         cell.ratingView.rating = shop.starPointAverage
         
         return cell
