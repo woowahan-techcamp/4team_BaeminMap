@@ -114,6 +114,6 @@
     </scenes>
     <resources>
         <image name="findicon" width="16" height="15"/>
-        <image name="listicon" width="20" height="16"/>
+        <image name="listicon" width="25" height="18"/>
     </resources>
 </document>
