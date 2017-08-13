@@ -9,6 +9,7 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    @IBOutlet weak var constraintHeightCollectionView: NSLayoutConstraint!
 
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
@@ -39,11 +40,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        sections.append(Section(rowCount: 4))
-//        sections.append(Section(rowCount: 7))
-//        sections.append(Section())
-//        sections.append(Section())
-        
         collectionView.delegate = self
         collectionView.dataSource = self
         tableView.delegate = self
@@ -58,11 +54,12 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
-
-        collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
-        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height)
+        
+        constraintHeightCollectionView.constant = collectionView.contentSize.height
+        self.view.setNeedsLayout()
         
         return cell
     }
@@ -79,7 +76,6 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].open ? sections[section].items.count : 0
-//        return sections[section].open ? sections[section].rowCount : 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
