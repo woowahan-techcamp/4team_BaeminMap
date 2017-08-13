@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ListViewController: UIViewController {
     
@@ -50,11 +51,15 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         let shop = baeminInfo[indexPath.row]
+        let distance = shop.distance.convertDistance()
+        if let url = shop.shopLogoImageUrl {
+            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+        }
         cell.titleLabel.text = shop.shopName
         cell.reviewLabel.text = "최근리뷰 \(shop.reviewCount ?? 0)"
         cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
         cell.ratingView.rating = shop.starPointAverage
-        
+        cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         return cell
     }
     

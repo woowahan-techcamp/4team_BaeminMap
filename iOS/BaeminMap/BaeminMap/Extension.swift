@@ -15,3 +15,18 @@ extension UIStoryboard {
     static let DetailViewStoryboard = UIStoryboard(name: "DetailView", bundle: nil)
     static let FilterViewStoryboard = UIStoryboard(name: "FilterView", bundle: nil)
 }
+
+extension Double {
+    func roundTo(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return Darwin.round(self * divisor) / divisor
+    }
+
+    func convertDistance() -> Double {
+        if self > 1 {
+            return self.roundTo(places: 1)
+        } else {
+            return Darwin.round(self * 1000)
+        }
+    }
+}

@@ -9,6 +9,7 @@ target 'BaeminMap' do
   pod 'ObjectMapper'
   pod 'Cosmos'
   pod 'GooglePlaces'
+  pod 'AlamofireImage'
 
   # Pods for BaeminMap
 
