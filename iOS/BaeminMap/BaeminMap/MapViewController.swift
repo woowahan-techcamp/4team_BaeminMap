@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import AlamofireImage
 
 class MapViewController: UIViewController {
     
@@ -22,7 +23,8 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        mapView.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(drawMap), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
 
@@ -66,6 +68,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
                 marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
                 marker.icon = #imageLiteral(resourceName: "chicken")
                 marker.map = self.mapView
+                marker.userData = shop
             }
         })
     }
@@ -73,6 +76,19 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func redrawMap() {
         mapView.clear()
         drawMarker()
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        let view = UIView(frame: CGRect(x: 5, y: mapView.frame.maxY-110, width: mapView.frame.width-10, height: 105))
+        let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
+        let shop = marker.userData as! BaeminInfo
+        if let url = shop.shopLogoImageUrl {
+            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+        }
+        view.backgroundColor = UIColor.white
+        view.addSubview(cell)
+        mapView.addSubview(view)
+        return true
     }
     
 }
