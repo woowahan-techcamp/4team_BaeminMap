@@ -258,13 +258,13 @@
                                 </connections>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="my7-Hp-nZt">
-                                <rect key="frame" x="0.0" y="510" width="320" height="58"/>
+                                <rect key="frame" x="0.0" y="514.5" width="320" height="53.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btm-fn-RAQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="87.5" height="58"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="106.5" height="53.5"/>
                                         <color key="backgroundColor" red="0.14217919109999999" green="0.65654301640000001" blue="0.6296300292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="btm-fn-RAQ" secondAttribute="height" multiplier="3:2" id="ZNz-BI-ENn"/>
+                                            <constraint firstAttribute="width" secondItem="btm-fn-RAQ" secondAttribute="height" multiplier="5:2.5" id="ZNz-BI-ENn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="전화주문">
@@ -272,7 +272,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLc-Op-kYY">
-                                        <rect key="frame" x="87.5" y="0.0" width="232.5" height="58"/>
+                                        <rect key="frame" x="106.5" y="0.0" width="213.5" height="53.5"/>
                                         <color key="backgroundColor" red="0.16470588235294117" green="0.75860267879999999" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="gLc-Op-kYY" secondAttribute="height" multiplier="8:2" id="iCJ-io-uQO"/>
