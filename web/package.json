@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "devserver": "webpack-dev-server"
+    "devserver": "webpack-dev-server --inline"
   },
   "author": "",
   "license": "MIT",
