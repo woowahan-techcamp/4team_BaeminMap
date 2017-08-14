@@ -198,7 +198,8 @@ body {
 }
 
 .filter-controller hr {
-    width: 80%
+    width: 80%;
+    border-color: #f4f4f4;
 }
 
 .filter-button-wrapper{
@@ -211,7 +212,6 @@ body {
 
 .filter-title {
     margin: 0 0 0 0;
-    padding: 10px 0 10px 0;
 }
 
 .category-list {
@@ -220,15 +220,15 @@ body {
 
 .category {
     border-style: solid;
-    border-width: 2px;
-    border-color: #3bc1bb;
+    border-width: 1px;
+    border-color: #acacac;
     background-color: none;
-    color: #3bc1bb;
-    padding: 3px 10px 3px 10px;
+    color: #acacac;
+    padding: 3px 11px 3px 11px;
     margin: 0 2px 10px 2px;
     vertical-align: middle;
-    border-radius: 12px;
-    font-size: 15px;
+    border-radius: 50px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -238,7 +238,8 @@ body {
 }
 
 li.selected {
-    background-color: #3bc1bb;
+    background-color: #35c1bb;
+    border-color: #35c1bb;
     color: white;
 }
 
@@ -246,27 +247,6 @@ li.selected:hover {
     background-color: #a0efec;
     border-color: #a0efec;
     color: white;
-}
-
-.sort-option-wrapper {
-    margin-top: 20px;
-}
-
-.sort-option-wrapper > label {
-    display: inline-block;
-}
-
-.sort-option-wrapper > #sort-option {
-    display: inline-block;
-}
-
-select#sort-option {
-    color: #fff;
-    background-color: #3bc1bb;
-    border-radius: 20px;
-    padding-left: 15px;
-    font-size: 15px;
-    width: 200px;
 }
 
 .distance-option {
@@ -292,4 +272,38 @@ select#sort-option {
     z-index: 0;
     opacity: 0.5;
     transition: 0.3s;
+}
+
+.filter-title-bar {
+    margin-bottom: 20px;
+    padding: 20px 0 10px 0
+}
+
+.inner-filter-button {
+    position: absolute;
+    cursor: pointer;
+}
+
+.cancel-filter-button {
+    left: 15px;
+    font-weight: 500;
+}
+
+.apply-filter-button {
+    right: 15px;
+    color: #00c3c0;
+    font-weight: 500;
+}
+
+.category-fiter-wrapper {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.sort-option-wrapper {
+    color: #acacac;
+    font-size: 16px;
+}
+
+.sort-option {
+    width: 100%;
 }

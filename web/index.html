@@ -12,6 +12,12 @@
     <div id="list">
         <div class="filter-controller">
             <div class="filter-title-bar">
+                <label class="cancel-filter-button inner-filter-button">
+                    취소
+                </label>
+                <label class="apply-filter-button inner-filter-button">
+                    적용
+                </label>
                 <label>
                     <h3 class="filter-title">조건 선택</h3>
                 </label>
@@ -34,16 +40,13 @@
             </div>
             <hr>
             <div class="sort-option-wrapper">
-                <label>
-                    <h5 class="filter-title">정렬방식 설정</h5>
-                </label>
-                <select id="sort-option">
-                    <option selected>가까운 거리 순</option>
-                    <option>주문많은 순</option>
-                    <option>리뷰좋은 순</option>
-                    <option>인기많은 순</option>
-                    <option>즐겨찾기 많은 순</option>
-                </select>
+                <ul class="sort-option-list">
+                    <li class="sort-option">가까운 순</li>
+                    <li class="sort-option">주문 많은 순</li>
+                    <li class="sort-option">리뷰 좋은 순</li>
+                    <li class="sort-option">인기 많은 순</li>
+                    <li class="sort-option">즐겨찾기 많은 순</li>
+                </ul>
             </div>
             <div class="distance-option">
                 <label>
