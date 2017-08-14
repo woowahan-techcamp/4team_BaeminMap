@@ -57,9 +57,9 @@ class FilterViewController: UIViewController {
     
     func checkSelected(sortTag: Int, rangeTag: Int) {
         sortCheckImageView[sortTag].isHidden = false
-        sortButton[sortTag].setTitleColor(UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1), for: .normal)
+        sortButton[sortTag].setTitleColor(UIColor.pointColor, for: .normal)
         rangeCheckImageView[rangeTag].isHidden = false
-        rangeButton[rangeTag].setTitleColor(UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1), for: .normal)
+        rangeButton[rangeTag].setTitleColor(UIColor.pointColor, for: .normal)
     }
     
     @IBAction func selectedSort(_ sender: UIButton) {
