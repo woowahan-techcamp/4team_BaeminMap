@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FilterViewDelegate {
-    func selected(category: [String])
+    func selected(category: [String], selectedSort: UIButton?, selectedRange: UIButton?)
 }
 
 class FilterViewController: UIViewController {
@@ -23,6 +23,8 @@ class FilterViewController: UIViewController {
     
     var delegate: FilterViewDelegate!
     var selectedCategory = [String]()
+    var selectedSort: UIButton?
+    var selectedRange: UIButton?
     
     var category = ["전체", "치킨", "중국집", "피자", "한식", "분식", "족발,보쌈", "야식", "찜,탕", "회,돈까스,일식", "도시락", "패스트푸드"]
     
@@ -35,6 +37,8 @@ class FilterViewController: UIViewController {
         scrollView.contentSize.height = self.view.frame.height
 
         checkSelected()
+        checkSortSelected(sender: selectedSort)
+        checkSortSelected(sender: selectedRange)
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,25 +56,48 @@ class FilterViewController: UIViewController {
         }
     }
     
-    @IBAction func selectedSort(_ sender: UIButton) {
+    func checkSortSelected(sender: UIButton?) {
+        guard let sender = sender else { return }
         if sender == sortButton[sender.tag] {
             for i in 0..<sortButton.count {
                 sortButton[i].setTitleColor(UIColor.lightGray, for: .normal)
                 sortCheckImageView[i].isHidden = true
             }
+            print(selectedSort)
+            print(sender)
+            selectedSort = sender
             sortCheckImageView[sender.tag].isHidden = false
         } else {
             for i in 0..<rangeButton.count {
                 rangeButton[i].setTitleColor(UIColor.lightGray, for: .normal)
                 rangeCheckImageView[i].isHidden = true
             }
+            selectedRange = sender
             rangeCheckImageView[sender.tag].isHidden = false
         }
         sender.setTitleColor(UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1), for: .normal)
     }
     
+    @IBAction func selectedSort(_ sender: UIButton) {
+        checkSortSelected(sender: sender)
+//        if sender == sortButton[sender.tag] {
+//            for i in 0..<sortButton.count {
+//                sortButton[i].setTitleColor(UIColor.lightGray, for: .normal)
+//                sortCheckImageView[i].isHidden = true
+//            }
+//            sortCheckImageView[sender.tag].isHidden = false
+//        } else {
+//            for i in 0..<rangeButton.count {
+//                rangeButton[i].setTitleColor(UIColor.lightGray, for: .normal)
+//                rangeCheckImageView[i].isHidden = true
+//            }
+//            rangeCheckImageView[sender.tag].isHidden = false
+//        }
+//        sender.setTitleColor(UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1), for: .normal)
+    }
+    
     @IBAction func confirmButtonAction(_ sender: Any) {
-        delegate.selected(category: selectedCategory)
+        delegate.selected(category: selectedCategory, selectedSort: selectedSort, selectedRange: selectedRange)
         dismiss(animated: true, completion: nil)
     }
     
