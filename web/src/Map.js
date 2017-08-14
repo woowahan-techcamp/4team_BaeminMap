@@ -13,6 +13,7 @@ class Map {
         this.data = data
         this.token = token
         this.markers = []
+        this.userMarker = null
     }
 
     updatePosition(position) {
@@ -22,7 +23,10 @@ class Map {
     }
 
     setUserMarker(position) {
-        new google.maps.Marker({
+        if (this.userMarker) {
+            this.userMarker.setMap(null)
+        }
+        this.userMarker = new google.maps.Marker({
             position: position,
             map: this.map,
             title: "my location",
