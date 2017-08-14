@@ -30,3 +30,7 @@ extension Double {
         }
     }
 }
+
+extension UIColor {
+    static let pointColor = UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1)
+}
