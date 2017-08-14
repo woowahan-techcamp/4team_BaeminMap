@@ -12,6 +12,8 @@ import GooglePlaces
 class MainContainerViewController: UIViewController, FilterViewDelegate {
 
     @IBOutlet weak var toggleButton: UIBarButtonItem!
+    @IBOutlet weak var filterButton: UIButton!
+    
     var isListView = Bool()
     var baeminInfo = [BaeminInfo]()
     var selectedCategory = [String]()
@@ -46,7 +48,6 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {
         let autocompleteController = GMSAutocompleteViewController()
         let addressFilter = GMSAutocompleteFilter()
-        let color = UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1)
         
         autocompleteController.delegate = self
         addressFilter.country = "KR"
@@ -54,8 +55,8 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         
         let placeholderAttributes: [String : AnyObject] = [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont.systemFont(ofSize: 13)]
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "지번, 도로명, 건물명을 검색하세요", attributes: placeholderAttributes)
-        UISearchBar.appearance().tintColor = color
-        autocompleteController.primaryTextHighlightColor = color
+        UISearchBar.appearance().tintColor = UIColor.pointColor
+        autocompleteController.primaryTextHighlightColor = UIColor.pointColor
 
         present(autocompleteController, animated: false, completion: nil)
     }
@@ -74,7 +75,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         oldView?.willMove(toParentViewController: nil)
         addChildViewController(newView)
         newView.view.frame = oldView!.view.frame
-        transition(from: oldView!, to: newView, duration: 0.1, options: isListView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
+        transition(from: oldView!, to: newView, duration: 0.3, options: isListView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
             newView.didMove(toParentViewController: self)
         }
         isListView = !isListView
