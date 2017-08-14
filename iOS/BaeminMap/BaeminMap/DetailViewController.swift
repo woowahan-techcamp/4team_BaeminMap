@@ -124,26 +124,25 @@ extension DetailViewController: ExpandableTableViewHeaderDelegate {
         
         sections[header.section].open = !sections[header.section].open
         
-        self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
         DispatchQueue.main.async {
-            //여기서는 reload를 한 후여도 contentSize 값이 변경되지 않음
-            self.constraintHeightTableView.constant = self.tableView.contentSize.height
-            self.view.setNeedsLayout()
+            self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
         }
+            //여기서는 reload를 한 후여도 contentSize 값이 변경되지 않음
     }
 }
 
 extension DetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //이 부분도 1번째는 원래, 2번째 부터 변한 값이 불림.
-        constraintHeightTableView.constant = tableView.contentSize.height
-        scrollView.contentSize.height = tableView.frame.maxY
+        if constraintHeightTableView.constant < tableView.contentSize.height {
+            constraintHeightTableView.constant = tableView.contentSize.height
+            scrollView.contentSize.height = tableView.frame.maxY
+        }
     }
 }
 
 extension UIScrollView {
     func scrollToBottom() {
-
         let bottomOffset = CGPoint(x: 0, y: contentSize.height - bounds.size.height + contentInset.bottom)
         if(bottomOffset.y > 0) {
             setContentOffset(bottomOffset, animated: true)
