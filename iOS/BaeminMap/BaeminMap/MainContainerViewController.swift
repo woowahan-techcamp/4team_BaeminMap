@@ -43,7 +43,6 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {
         let autocompleteController = GMSAutocompleteViewController()
         let addressFilter = GMSAutocompleteFilter()
-        let color = UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1)
         
         autocompleteController.delegate = self
         addressFilter.country = "KR"
@@ -51,8 +50,8 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         
         let placeholderAttributes: [String : AnyObject] = [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont.systemFont(ofSize: 13)]
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "지번, 도로명, 건물명을 검색하세요", attributes: placeholderAttributes)
-        UISearchBar.appearance().tintColor = color
-        autocompleteController.primaryTextHighlightColor = color
+        UISearchBar.appearance().tintColor = pointColor
+        autocompleteController.primaryTextHighlightColor = pointColor
 
         present(autocompleteController, animated: false, completion: nil)
     }

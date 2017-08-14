@@ -60,6 +60,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
         cell.ratingView.rating = shop.starPointAverage
         cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
+        cell.isBaropay(baro: shop.useBaropay)
         return cell
     }
     
