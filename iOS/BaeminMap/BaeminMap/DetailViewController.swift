@@ -11,9 +11,11 @@ import UIKit
 class DetailViewController: UIViewController {
     @IBOutlet weak var constraintHeightCollectionView: NSLayoutConstraint!
 
+    @IBOutlet weak var constraintHeightTableView: NSLayoutConstraint!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
-    var scrollView = DetailScrollView()
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     var FoodsList = [String:[Food]]()
     
     var sections: [Section] = [
@@ -44,6 +46,7 @@ class DetailViewController: UIViewController {
         collectionView.dataSource = self
         tableView.delegate = self
         tableView.dataSource = self
+        scrollView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,6 +81,8 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
+        scrollView.contentSize.height = tableView.frame.maxY
+        
         return sections.count
     }
 
@@ -109,6 +114,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         let item = sections[indexPath.section].items[indexPath.row]
         cell.textLabel?.text = item.name
         cell.detailTextLabel?.text = "\(item.price)원"
+        
         return cell
     }
 }
@@ -118,10 +124,36 @@ extension DetailViewController: ExpandableTableViewHeaderDelegate {
         
         sections[header.section].open = !sections[header.section].open
         
+        self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
         DispatchQueue.main.async {
-            self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
-            self.tableView.sizeToFit()
+            //여기서는 reload를 한 후여도 contentSize 값이 변경되지 않음
+            self.constraintHeightTableView.constant = self.tableView.contentSize.height
+            self.view.setNeedsLayout()
         }
+    }
+}
+
+extension DetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //이 부분도 1번째는 원래, 2번째 부터 변한 값이 불림.
+        constraintHeightTableView.constant = tableView.contentSize.height
+        scrollView.contentSize.height = tableView.frame.maxY
+    }
+}
+
+extension UIScrollView {
+    func scrollToBottom() {
+
+        let bottomOffset = CGPoint(x: 0, y: contentSize.height - bounds.size.height + contentInset.bottom)
+        if(bottomOffset.y > 0) {
+            setContentOffset(bottomOffset, animated: true)
+        }
+    }
+    
+    // Bonus: Scroll to top
+    func scrollToTop(animated: Bool) {
+        let topOffset = CGPoint(x: 0, y: -contentInset.top)
+        setContentOffset(topOffset, animated: animated)
     }
 }
 
