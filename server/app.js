@@ -41,3 +41,42 @@ app.post('/shops', (req, res)=> {
     })
   })
 })
+
+app.get('/menu/:shopNo', (req, res)=> {
+  var shopNo = req.params.shopNo
+  config.getToken(()=> {
+    request({
+      url: config.standardUrl+'/v1/shops/'+shopNo+'/foods-groups',
+      method: 'GET',
+      json: true,
+      headers: {
+        'Authorization': 'Bearer '+config.token
+      }
+    }, function(err, res, body) {
+
+      eachAsync(body, function(group, index, done) {
+        request({
+          url: config.standardUrl+'/v1/shops/'+shopNo+'/foods?size=2000',
+
+          method: 'GET',
+          json: true,
+          headers: {
+            'Authorization': 'Bearer '+config.token
+          },
+          parameters: {
+            'shopFoodGrpSeq': group
+          }
+        }, function(err, res, body) {
+          console.log(body)
+          // shopArray = shopArray.concat(body.content)
+          // shops[category] = body.content
+          done()
+        })
+      }, function(err) {
+        if(err) throw err;
+        // res.json({shops: shops, shopArray: shopArray})
+      })
+
+    })
+  })
+})
