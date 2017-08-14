@@ -40,7 +40,7 @@ function getToken() {
     return apiToken
 }
 
-function filterEventOn(tar){
+function categoryFilterEvent(tar){
     const eventHTML = document.querySelector(tar);
     eventHTML.addEventListener("click", function (e) {
         let target = e.target;
@@ -53,14 +53,32 @@ function filterEventOn(tar){
     })
 }
 
-function filterButtonEvent(tar, filter, layer){
+function filterButtonEvent(tar, filter, layer, option){
     const eventTarget = document.querySelector(tar);
     const filterSection = document.querySelector(filter);
     const overLayer = document.querySelector(layer)
-    eventTarget.addEventListener("click", function (e) {
-        filterSection.style.transform = "translateY(calc(100% - 50px))";
-        overLayer.style.zIndex = "1";
+    eventTarget.addEventListener("click", function () {
+        if (option === "on"){
+            filterSection.style.transform = "translateY(calc(100% - 50px))";
+            overLayer.style.zIndex = "1";
+        } else if(option ==="cancel"){
+            filterSection.style.transform = "translateY(calc(-100% - 50px))";
+            overLayer.style.zIndex = "0";
+        }
     })
+}
+
+function sortOptionEvent(tar){
+    const eventTarget = document.querySelector(tar)
+    eventTarget.addEventListener("click", function(e){
+        let target = e.target;
+        console.log(target.tagName)
+        if (target.tagName === "LI" && target.className === "sort-option"){
+            document.querySelector(".sort-option.selected").className = "sort-option";
+            target.className = "sort-option selected"
+        }
+    })
+
 }
 
 
@@ -84,8 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
             map.setShopMarker(filteredData);
         })
     })
-    filterEventOn(".category-list");
-    filterButtonEvent(".filter-button-wrapper", ".filter-controller", ".layer");
+    categoryFilterEvent(".category-list");
+    filterButtonEvent(".filter-button-wrapper", ".filter-controller", ".layer", "on");
+    filterButtonEvent(".cancel-filter-button", ".filter-controller", ".layer", "cancel");
+    sortOptionEvent(".sort-option-list");
 })
 
 

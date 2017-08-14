@@ -185,6 +185,7 @@ body {
     position: relative;
     bottom: 100%;
     transition: 0.3s;
+    overflow: hidden;
 }
 
 .filter-controller ul {
@@ -237,13 +238,13 @@ body {
     color: #a0efec;
 }
 
-li.selected {
+.category-list > li.selected {
     background-color: #35c1bb;
     border-color: #35c1bb;
     color: white;
 }
 
-li.selected:hover {
+.category-list > li.selected:hover {
     background-color: #a0efec;
     border-color: #a0efec;
     color: white;
@@ -297,13 +298,38 @@ li.selected:hover {
 
 .category-fiter-wrapper {
     border-bottom: 1px solid #f4f4f4;
+    margin-bottom: 20px;
 }
 
 .sort-option-wrapper {
     color: #acacac;
-    font-size: 16px;
+    font-size: 18px;
+    border-bottom: 1px solid #f4f4f4;
 }
 
 .sort-option {
     width: 100%;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.sort-option-list > li.sort-option:hover {
+    color: #a0efec;
+}
+
+.sort-option-list > li.selected {
+    color: #35c1bb;
+}
+
+.check-img {
+    width: 17px;
+    height: auto;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    visibility: hidden;
+}
+
+.sort-option-list > .selected > img {
+    visibility: visible;
 }
