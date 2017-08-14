@@ -2,14 +2,6 @@ import ShopList from './ShopList'
 import Map from './Map'
 import Data from './Data'
 
-
-// const myData = new Data();
-// const myMap = new Map();
-// myData.getShopList([1], myMap.currentLocation)
-// myMap.setShopMarker(myData.shopListObj);
-
-``
-
 function getToken() {
     const baseUrl = "http://localhost:8080/";
     const tokenUrl = "http://auth-beta.baemin.com/oauth/authorize?response_type=token&redirect_uri=http://localhost:8080&client_id=techCampTeamB&scope=read";
@@ -40,31 +32,34 @@ function getToken() {
     return apiToken;
 }
 
-function filterReset(targetArr, filterChecker){
-    console.log(filterChecker)
-    if (filterChecker) {
+function filterReset(filterChecker, targetArr){
+    if(!filterChecker){
         return false
-    } else {
-        targetArr.forEach((target) => {
-            const targetAll = document.querySelectorAll("."+target);
-            targetAll.forEach((e)=>{
-                e.classList.remove("selected");
-            })
-            document.querySelector("."+target).classList.add("selected");
-        })
     }
+    const allOption = document.querySelectorAll(".selected");
+    allOption.forEach((e)=>{
+        e.classList.remove("selected")
+    })
+    filterChecker.forEach((e)=>{
+        e.classList.add("selected");
+    });
+}
+
+function filterSaver(){
+    let filteredOption = document.querySelectorAll(".option.selected");
+    return filteredOption;
 }
 
 function categoryFilterEvent(tar){
     const eventHTML = document.querySelector(tar);
-    const categoryAll = document.querySelector("#category-all")
+    const categoryAll = document.querySelector("#category-all");
 
     eventHTML.addEventListener("click", function (e) {
         let target = e.target;
         if (target.tagName !== "LI"){
             return false
         }
-        if (target.id === "category-all" && target.className === "category"){
+        if (target.id === "category-all" && !target.classList.contains("selected")){
             const selectedCategoryArr = document.querySelectorAll(".category.selected");
             selectedCategoryArr.forEach((e)=>{
                 e.classList.remove("selected");
@@ -79,26 +74,29 @@ function categoryFilterEvent(tar){
     })
 }
 
-function filterButtonEvent(tar, filter, layer, option){
-    const eventTarget = document.querySelector(tar);
-    const filterSection = document.querySelector(filter);
-    const overLayer = document.querySelector(layer);
+function filterEvent(arr, filter, layer) {
+    const overLayer = document.querySelector(layer)
+    const filterSection = document.querySelector(filter)
     let filterChecker = false;
-    eventTarget.addEventListener("click", function () {
-        if (option === "on"){
-            filterSection.style.transform = "translateY(calc(100% - 50px))";
-            overLayer.style.zIndex = "1";
-            filterChecker = true;
-        } else if(option ==="cancel"){
-            filterSection.style.transform = "translateY(0)";
-            overLayer.style.zIndex = "0";
-            //필터링 취소버튼을 누르면 필터값이 초기화된다.
-            filterReset(["category", "sort-option", "distance-option"], filterChecker);
-        } else if(option ==="apply"){
-            filterSection.style.transform = "translateY(0)";
-            overLayer.style.zIndex = "0";
-            //TODO : 여기에 필터 적용해서 소트 요청하는 로직 구현
-        }
+    arr.forEach((e)=>{
+        const target = document.querySelector(e)
+        target.addEventListener("click", function(){
+            if (e === arr[0]){
+                filterSection.style.transform = "translateY(calc(100% - 50px))";
+                overLayer.style.zIndex = "1";
+                //현재의 필터/정렬 옵션을 저장한다
+                filterChecker = filterSaver();
+            } else if (e === arr[1]){
+                filterSection.style.transform = "translateY(0)";
+                overLayer.style.zIndex = "0";
+                //필터링 취소버튼을 누르면 필터값이 초기화된다.
+                filterReset(filterChecker, [".category", ".sort-option", "distance-option"]);
+            } else if (e === arr[2]){
+                filterSection.style.transform = "translateY(0)";
+                overLayer.style.zIndex = "0";
+                //TODO : 여기에 필터 적용해서 소트 요청하는 로직 구현
+            }
+        })
     })
 }
 
@@ -106,10 +104,10 @@ function sortOptionEvent(tar, option){
     const eventTarget = document.querySelector(tar)
     eventTarget.addEventListener("click", function(e){
         let target = e.target;
-        if (target.tagName === "LI" && target.className === "sort-option" && option === "sort"){
+        if (target.tagName === "LI" && target.classList.contains("sort-option") && option === "sort"){
             document.querySelector(".sort-option.selected").classList.remove("selected");
             target.classList.add("selected");
-        } else if (target.tagName === "LI" && target.className === "distance-option" && option === "distance") {
+        } else if (target.tagName === "LI" && target.classList.contains("distance-option") && option === "distance") {
             document.querySelector(".distance-option.selected").classList.remove("selected");
             target.classList.add("selected");
         }
@@ -138,11 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
     categoryFilterEvent(".category-list");
-    filterButtonEvent(".filter-button-wrapper", ".filter-controller", ".layer", "on");
-    filterButtonEvent(".cancel-filter-button", ".filter-controller", ".layer", "cancel");
-    filterButtonEvent(".apply-filter-button", ".filter-controller", ".layer", "apply");
     sortOptionEvent(".sort-option-list", "sort");
     sortOptionEvent(".distance-option-list", "distance");
+    filterEvent([".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"], ".filter-controller", ".layer")
+
 })
 
 
