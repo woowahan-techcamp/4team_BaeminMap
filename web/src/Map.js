@@ -44,6 +44,23 @@ class Map {
             searchBox.setBounds(map.getBounds());
         });
 
+        // TODO: on map 'zoom_changed', then change markers!
+        map.addListener('zoom_changed', () => {
+            if (map.zoom > 16) {
+                // 건물수준(좁게보기)
+                this.markers.forEach((marker) => {
+                    console.log('마커 ',marker)
+                    marker.setIcon('https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png')
+                    // TODO: 아이콘 업데이트
+                })
+            } else {
+                // 도로 구 수준(넓게보기)
+                this.markers.forEach((marker) => {
+                    marker.setIcon('https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png')
+                })
+            }
+        })
+
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', () => {
@@ -60,21 +77,6 @@ class Map {
                     console.log("Returned place contains no geometry");
                     return;
                 }
-                const icon = {
-                    url: place.icon,
-                    size: new google.maps.Size(71, 71),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(17, 34),
-                    scaledSize: new google.maps.Size(25, 25)
-                };
-
-                // Create a marker for each place.
-                // this.markers.push(new google.maps.Marker({
-                //     map: map,
-                //     icon: icon,
-                //     title: place.name,
-                //     position: place.geometry.location
-                // }));
 
                 if (place.geometry.viewport) {
                     // Only geocodes have viewport.
@@ -102,7 +104,9 @@ class Map {
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
             const marker = new google.maps.Marker({
                 position: position,
-                map: this.map
+                map: this.map,
+                icon: 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png'
+                // TODO: 기본 아이콘 변경
             })
             const infowindow = new google.maps.InfoWindow({
                 content: '' //new ShopDetail(obj) // TODO: 여기에 template rendering 넣어주기
@@ -120,7 +124,7 @@ class Map {
     }
 
     reloadMap(pos, data, token) {
-        console.log('markers: ',this.markers)
+        console.log('markers: ', this.markers)
         for (let i of this.markers) {
             i.setMap(null)
         }
