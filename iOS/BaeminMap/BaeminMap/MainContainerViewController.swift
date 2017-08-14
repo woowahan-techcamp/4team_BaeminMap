@@ -50,8 +50,8 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         
         let placeholderAttributes: [String : AnyObject] = [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont.systemFont(ofSize: 13)]
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "지번, 도로명, 건물명을 검색하세요", attributes: placeholderAttributes)
-        UISearchBar.appearance().tintColor = pointColor
-        autocompleteController.primaryTextHighlightColor = pointColor
+        UISearchBar.appearance().tintColor = UIColor.pointColor
+        autocompleteController.primaryTextHighlightColor = UIColor.pointColor
 
         present(autocompleteController, animated: false, completion: nil)
     }

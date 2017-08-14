@@ -30,8 +30,8 @@ class ListTableViewCell: UITableViewCell {
     
     func isBaropay(baro: Bool) {
         if baro {
-            baropayLabel.backgroundColor = pointColor
-            meetingpayLabel.backgroundColor = pointColor
+            baropayLabel.backgroundColor = UIColor.pointColor
+            meetingpayLabel.backgroundColor = UIColor.pointColor
         } else {
             baropayLabel.backgroundColor = UIColor.lightGray
             meetingpayLabel.backgroundColor = UIColor.lightGray

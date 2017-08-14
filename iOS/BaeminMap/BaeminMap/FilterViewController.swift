@@ -66,7 +66,7 @@ class FilterViewController: UIViewController {
             }
             rangeCheckImageView[sender.tag].isHidden = false
         }
-        sender.setTitleColor(pointColor, for: .normal)
+        sender.setTitleColor(UIColor.pointColor, for: .normal)
     }
     
     @IBAction func confirmButtonAction(_ sender: Any) {

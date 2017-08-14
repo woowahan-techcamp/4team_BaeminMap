@@ -14,8 +14,8 @@ class FilterCollectionViewCell: UICollectionViewCell {
 
     override var isSelected: Bool {
         didSet {
-            self.backgroundColor = isSelected ? pointColor : UIColor.clear
-            self.layer.borderColor = isSelected ? pointColor.cgColor : UIColor.lightGray.cgColor
+            self.backgroundColor = isSelected ? UIColor.pointColor : UIColor.clear
+            self.layer.borderColor = isSelected ? UIColor.pointColor.cgColor : UIColor.lightGray.cgColor
             foodNameLabel.textColor = isSelected ? UIColor.white : UIColor.lightGray
         }
     }
@@ -24,7 +24,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         self.layer.cornerRadius = self.layer.frame.height/2
         self.layer.borderWidth = 1
-        self.layer.borderColor = isSelected ? pointColor.cgColor : UIColor.lightGray.cgColor
+        self.layer.borderColor = isSelected ? UIColor.pointColor.cgColor : UIColor.lightGray.cgColor
         foodNameLabel.textColor = isSelected ? UIColor.white : UIColor.lightGray
         foodNameLabel.sizeToFit()
     }
