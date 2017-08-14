@@ -12,6 +12,7 @@ class Map {
         this.searchPosition();
         this.data = data
         this.token = token
+        this.markers = []
     }
 
     updatePosition(position) {
@@ -37,14 +38,8 @@ class Map {
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', () => {
             searchBox.setBounds(map.getBounds());
-            const pos = {
-                lat: this.map.center.lat(),
-                lng: this.map.center.lng()
-            };
-            this.reloadMap(pos, this.data, this.token)
         });
 
-        let markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', () => {
@@ -53,12 +48,6 @@ class Map {
             if (places.length === 0) {
                 return;
             }
-
-            // Clear out the old markers.
-            markers.forEach(function (marker) {
-                marker.setMap(null);
-            });
-            markers = [];
 
             // For each place, get the icon, name and location.
             const bounds = new google.maps.LatLngBounds();
@@ -76,12 +65,12 @@ class Map {
                 };
 
                 // Create a marker for each place.
-                markers.push(new google.maps.Marker({
-                    map: map,
-                    icon: icon,
-                    title: place.name,
-                    position: place.geometry.location
-                }));
+                // this.markers.push(new google.maps.Marker({
+                //     map: map,
+                //     icon: icon,
+                //     title: place.name,
+                //     position: place.geometry.location
+                // }));
 
                 if (place.geometry.viewport) {
                     // Only geocodes have viewport.
@@ -91,10 +80,20 @@ class Map {
                 }
             });
             map.fitBounds(bounds);
+            const pos = {
+                lat: this.map.center.lat(),
+                lng: this.map.center.lng()
+            };
+            this.reloadMap(pos, this.data, this.token)
         });
     }
 
     setShopMarker(arr) {
+        this.markers.forEach((i) => {
+            i.setMap(null)
+        })
+        this.markers = []
+
         arr.forEach((e) => {
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
             const marker = new google.maps.Marker({
@@ -112,16 +111,17 @@ class Map {
                 infowindow.open(map, marker);
                 this.infowindow = infowindow
             });
+            this.markers.push(marker)
         });
     }
 
     reloadMap(pos, data, token) {
-        // const pos = {
-        //     lat: this.map.center.lat(),
-        //     lng: this.map.center.lng()
-        // };
+        console.log('markers: ',this.markers)
+        for (let i of this.markers) {
+            i.setMap(null)
+        }
+        this.markers = []
         this.updatePosition(pos)
-        console.log('reloadMap data: ', data)
         data.getShopList(data.categoryArr, pos, token).then((arr) => {
             //필터 로직 들어갈 부분. 필터 이후 소트를 한다.
             return data.sortList(arr, 0);
