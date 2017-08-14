@@ -26,13 +26,16 @@ class ListTableViewCell: UITableViewCell {
         ratingView.isUserInteractionEnabled = false
         shopImageView.layer.cornerRadius = (shopImageView.frame.size.height) / 2
         shopImageView.layer.masksToBounds = true
-//        reviewLabel.sizeToFit()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func isBaropay(baro: Bool) {
+        if baro {
+            baropayLabel.backgroundColor = UIColor.pointColor
+            meetingpayLabel.backgroundColor = UIColor.pointColor
+        } else {
+            baropayLabel.backgroundColor = UIColor.lightGray
+            meetingpayLabel.backgroundColor = UIColor.lightGray
+        }
     }
     
 }
