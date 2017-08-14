@@ -10,12 +10,13 @@ import UIKit
 import GooglePlaces
 
 class MainContainerViewController: UIViewController, FilterViewDelegate {
+
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     var isListView = Bool()
     var baeminInfo = [BaeminInfo]()
     var selectedCategory = [String]()
-    var selectedSort: UIButton?
-    var selectedRange: UIButton?
+    var selectedSortTag = Int()
+    var selectedRangeTag = Int()
     var listViewController = UIStoryboard.ListViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
     var mapViewController = UIStoryboard.MapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     
@@ -30,10 +31,10 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func selected(category: [String], selectedSort: UIButton?, selectedRange: UIButton?) {
+    func selected(category: [String], sortTag: Int, rangeTag: Int) {
         selectedCategory = category
-        self.selectedSort = selectedSort
-        self.selectedRange = selectedRange
+        selectedSortTag = sortTag
+        selectedRangeTag = rangeTag
     }
     
     func receive(notification: Notification) {
@@ -83,8 +84,8 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         let filterViewController = UIStoryboard.FilterViewStoryboard.instantiateViewController(withIdentifier: "FilterView") as! FilterViewController
         filterViewController.delegate = self
         filterViewController.selectedCategory = selectedCategory
-        filterViewController.selectedSort = selectedSort
-        filterViewController.selectedRange = selectedRange
+        filterViewController.selectedSortTag = selectedSortTag
+        filterViewController.selectedRangeTag = selectedRangeTag
         present(filterViewController, animated: true, completion: nil)
     }
 
