@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FilterViewDelegate {
-    func selected(category: [String])
+    func selected(category: [String], sortTag: Int, rangeTag: Int)
 }
 
 class FilterViewController: UIViewController {
@@ -23,6 +23,8 @@ class FilterViewController: UIViewController {
     
     var delegate: FilterViewDelegate!
     var selectedCategory = [String]()
+    var selectedSortTag = Int()
+    var selectedRangeTag = Int()
     
     var category = ["전체", "치킨", "중국집", "피자", "한식", "분식", "족발,보쌈", "야식", "찜,탕", "회,돈까스,일식", "도시락", "패스트푸드"]
     
@@ -35,6 +37,7 @@ class FilterViewController: UIViewController {
         scrollView.contentSize.height = self.view.frame.height
 
         checkSelected()
+        checkSelected(sortTag: selectedSortTag, rangeTag: selectedRangeTag)
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,25 +55,34 @@ class FilterViewController: UIViewController {
         }
     }
     
+    func checkSelected(sortTag: Int, rangeTag: Int) {
+        sortCheckImageView[sortTag].isHidden = false
+        sortButton[sortTag].setTitleColor(UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1), for: .normal)
+        rangeCheckImageView[rangeTag].isHidden = false
+        rangeButton[rangeTag].setTitleColor(UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1), for: .normal)
+    }
+    
     @IBAction func selectedSort(_ sender: UIButton) {
         if sender == sortButton[sender.tag] {
             for i in 0..<sortButton.count {
                 sortButton[i].setTitleColor(UIColor.lightGray, for: .normal)
                 sortCheckImageView[i].isHidden = true
             }
+            selectedSortTag = sender.tag
             sortCheckImageView[sender.tag].isHidden = false
         } else {
             for i in 0..<rangeButton.count {
                 rangeButton[i].setTitleColor(UIColor.lightGray, for: .normal)
                 rangeCheckImageView[i].isHidden = true
             }
+            selectedRangeTag = sender.tag
             rangeCheckImageView[sender.tag].isHidden = false
         }
         sender.setTitleColor(UIColor.pointColor, for: .normal)
     }
     
     @IBAction func confirmButtonAction(_ sender: Any) {
-        delegate.selected(category: selectedCategory)
+        delegate.selected(category: selectedCategory, sortTag: selectedSortTag, rangeTag: selectedRangeTag)
         dismiss(animated: true, completion: nil)
     }
     
