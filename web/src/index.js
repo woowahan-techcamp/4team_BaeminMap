@@ -53,9 +53,19 @@ function filterEventOn(tar){
     })
 }
 
+function filterButtonEvent(tar, filter, layer){
+    const eventTarget = document.querySelector(tar);
+    const filterSection = document.querySelector(filter);
+    const overLayer = document.querySelector(layer)
+    eventTarget.addEventListener("click", function (e) {
+        filterSection.style.transform = "translateY(calc(100% - 50px))";
+        overLayer.style.zIndex = "1";
+    })
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    const token = getToken()
+    const token = getToken();
     const map = new Map();
     const data = new Data();
 
@@ -64,17 +74,18 @@ document.addEventListener('DOMContentLoaded', () => {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
-        map.updatePosition(pos)
+        map.updatePosition(pos);
         data.getShopList(data.categoryArr, pos, token).then((arr) => {
             //필터 로직 들어갈 부분. 필터 이후 소트를 한다.
             return data.sortList(arr, 0);
         }).then((filteredData) => {
             console.log(filteredData)
             new ShopList("#shopListTemplate", "#shopList", filteredData)
-            map.setShopMarker(filteredData)
+            map.setShopMarker(filteredData);
         })
     })
-    filterEventOn(".category-list")
+    filterEventOn(".category-list");
+    filterButtonEvent(".filter-button-wrapper", ".filter-controller", ".layer");
 })
 
 

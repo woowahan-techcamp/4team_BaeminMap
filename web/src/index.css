@@ -8,6 +8,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 body {
@@ -74,9 +75,12 @@ body {
 
 .shop-list {
     width: 100%;
-    height: calc(100% - 250px);
+    height: 100%;
     overflow: scroll;
     background: #e9dfcc;
+    z-index: 1;
+    position: absolute;
+    top: 50px;
 }
 
 .shop {
@@ -174,9 +178,13 @@ body {
 
 .filter-controller {
     width: 100%;
-    height: 250px;
-    background: #f9f9f9;
+    height: calc(100% + 50px);
+    background: white;
     text-align: center;
+    z-index: 50;
+    position: relative;
+    bottom: 100%;
+    transition: 0.3s;
 }
 
 .filter-controller ul {
@@ -191,6 +199,14 @@ body {
 
 .filter-controller hr {
     width: 80%
+}
+
+.filter-button-wrapper{
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    background-color: #2abfba;
+    width: 100%;
 }
 
 .filter-title {
@@ -208,11 +224,11 @@ body {
     border-color: #3bc1bb;
     background-color: none;
     color: #3bc1bb;
-    padding: 3px 7px 3px 7px;
+    padding: 3px 10px 3px 10px;
     margin: 0 2px 10px 2px;
     vertical-align: middle;
     border-radius: 12px;
-    font-size: 13px;
+    font-size: 15px;
     cursor: pointer;
 }
 
@@ -266,3 +282,14 @@ select#sort-option {
     display: inline-block;
 }
 
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #848484;
+    z-index: 0;
+    opacity: 0.5;
+    transition: 0.3s;
+}
