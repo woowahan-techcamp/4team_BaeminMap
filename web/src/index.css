@@ -335,7 +335,7 @@ body {
     margin-bottom: 20px;
 }
 
-.distance-option-list > li.sort-option:hover {
+.distance-option-list > li.distance-option:hover {
     color: #a0efec;
 }
 
@@ -354,4 +354,10 @@ body {
 
 .distance-option-list > .selected > img {
     visibility: visible;
+}
+
+.section-label {
+    color: #acacac;
+    font-size: 18px;
+    margin-bottom: 20px;
 }

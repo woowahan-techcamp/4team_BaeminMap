@@ -18,52 +18,82 @@ function getToken() {
     function checkToken() {
         console.log("checkToken")
         if (document.location.href === baseUrl) {
-            redirectPage(tokenUrl)
+            redirectPage(tokenUrl);
         } else {
-            parseToken()
+            parseToken();
         }
     }
 
     function redirectPage(url) {
         if (apiToken === '') {
-            location.href = url
+            location.href = url;
         }
     }
 
     function parseToken() {
         apiToken = location.href.split("#access_token=")[1].split("&")[0];
-        console.log(apiToken)
+        console.log(apiToken);
     }
 
-    checkToken()
+    checkToken();
 
-    return apiToken
+    return apiToken;
+}
+
+function filterReset(targetArr, filterChecker){
+    console.log(filterChecker)
+    if (filterChecker) {
+        return false
+    } else {
+        targetArr.forEach((target) => {
+            const targetAll = document.querySelectorAll("."+target);
+            targetAll.forEach((e)=>{
+                e.classList.remove("selected");
+            })
+            document.querySelector("."+target).classList.add("selected");
+        })
+    }
 }
 
 function categoryFilterEvent(tar){
     const eventHTML = document.querySelector(tar);
+    const categoryAll = document.querySelector("#category-all")
+
     eventHTML.addEventListener("click", function (e) {
         let target = e.target;
-        if (target.className === "category selected"){
-            target.className = "category"
-        } else if (target.className === "category"){
-            target.className = "category selected"
+        if (target.tagName !== "LI"){
+            return false
         }
-
+        if (target.id === "category-all" && target.className === "category"){
+            const selectedCategoryArr = document.querySelectorAll(".category.selected");
+            selectedCategoryArr.forEach((e)=>{
+                e.classList.remove("selected");
+            });
+            target.classList.add("selected");
+        } else if (target.id !== "category-all" && target.classList.contains("selected")){
+            target.classList.remove("selected");
+        } else if (!target.classList.contains("selected")){
+                categoryAll.classList.remove("selected");
+                target.classList.add("selected");
+        }
     })
 }
 
 function filterButtonEvent(tar, filter, layer, option){
     const eventTarget = document.querySelector(tar);
     const filterSection = document.querySelector(filter);
-    const overLayer = document.querySelector(layer)
+    const overLayer = document.querySelector(layer);
+    let filterChecker = false;
     eventTarget.addEventListener("click", function () {
         if (option === "on"){
             filterSection.style.transform = "translateY(calc(100% - 50px))";
             overLayer.style.zIndex = "1";
+            filterChecker = true;
         } else if(option ==="cancel"){
             filterSection.style.transform = "translateY(0)";
             overLayer.style.zIndex = "0";
+            //필터링 취소버튼을 누르면 필터값이 초기화된다.
+            filterReset(["category", "sort-option", "distance-option"], filterChecker);
         } else if(option ==="apply"){
             filterSection.style.transform = "translateY(0)";
             overLayer.style.zIndex = "0";
@@ -76,13 +106,12 @@ function sortOptionEvent(tar, option){
     const eventTarget = document.querySelector(tar)
     eventTarget.addEventListener("click", function(e){
         let target = e.target;
-        console.log(target.tagName)
         if (target.tagName === "LI" && target.className === "sort-option" && option === "sort"){
-            document.querySelector(".sort-option.selected").className = "sort-option";
-            target.className = "sort-option selected"
+            document.querySelector(".sort-option.selected").classList.remove("selected");
+            target.classList.add("selected");
         } else if (target.tagName === "LI" && target.className === "distance-option" && option === "distance") {
-            document.querySelector(".distance-option.selected").className = "distance-option";
-            target.className = "distance-option selected"
+            document.querySelector(".distance-option.selected").classList.remove("selected");
+            target.classList.add("selected");
         }
     });
 }
