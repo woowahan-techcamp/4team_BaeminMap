@@ -15,10 +15,10 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     var location = Location.sharedInstance
     var locationManager = CLLocationManager()
-    var parentView: MainContainerViewController!
-    lazy var baeminInfo: [BaeminInfo] = {
-        let parentView = self.parent as! MainContainerViewController
-        return parentView.baeminInfo
+    var baeminInfo: [BaeminInfo]?
+    lazy var parentView: MainContainerViewController = {
+        let parent = self.parent as! MainContainerViewController
+        return parent
     }()
     
     override func viewDidLoad() {
@@ -46,10 +46,7 @@ class MapViewController: UIViewController {
         self.baeminInfo = baeminInfo
         self.redrawMap()
     }
-
-}
-
-extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
+    
     func drawMap() {
         location = Location.sharedInstance
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
@@ -62,7 +59,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         marker.icon = #imageLiteral(resourceName: "currentLocation")
         marker.map = mapView
         
-        baeminInfo.forEach({ (shop) in
+        baeminInfo?.forEach({ (shop) in
             let marker = GMSMarker()
             DispatchQueue.main.async {
                 marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
@@ -77,17 +74,24 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         mapView.clear()
         drawMarker()
     }
-    
+
+}
+
+extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let view = UIView(frame: CGRect(x: 5, y: mapView.frame.maxY-110, width: mapView.frame.width-10, height: 105))
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         let shop = marker.userData as! BaeminInfo
         if let url = shop.shopLogoImageUrl {
             cell.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
-        view.backgroundColor = UIColor.white
-        view.addSubview(cell)
-        mapView.addSubview(view)
+        cell.frame = CGRect(x: 5, y: mapView.frame.maxY-110, width: mapView.frame.width-10, height: 105)
+        cell.backgroundColor = UIColor.white
+        
+        UIView.animate(withDuration: 10) {
+            mapView.addSubview(cell)
+        }
+        parentView.filterButton.frame = CGRect(x: parentView.filterButton.frame.minX, y: cell.frame.minY+40, width: parentView.filterButton.frame.width, height: parentView.filterButton.frame.height)
+        
         return true
     }
     

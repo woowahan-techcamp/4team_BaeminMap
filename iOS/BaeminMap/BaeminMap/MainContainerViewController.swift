@@ -11,6 +11,7 @@ import GooglePlaces
 
 class MainContainerViewController: UIViewController, FilterViewDelegate {
     @IBOutlet weak var toggleButton: UIBarButtonItem!
+    @IBOutlet weak var filterButton: UIButton!
     var isListView = Bool()
     var baeminInfo = [BaeminInfo]()
     var selectedCategory = [String]()
