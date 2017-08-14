@@ -6,8 +6,10 @@ class Map {
         this.infowindow;
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
         this.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
-            center: this.currentLocation
+            zoom: 17,
+            center: this.currentLocation,
+            minZoom: 14,
+            maxZoom: 19
         });
         this.searchPosition();
         this.data = data
