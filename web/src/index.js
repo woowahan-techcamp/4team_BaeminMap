@@ -62,23 +62,29 @@ function filterButtonEvent(tar, filter, layer, option){
             filterSection.style.transform = "translateY(calc(100% - 50px))";
             overLayer.style.zIndex = "1";
         } else if(option ==="cancel"){
-            filterSection.style.transform = "translateY(calc(-100% - 50px))";
+            filterSection.style.transform = "translateY(0)";
             overLayer.style.zIndex = "0";
+        } else if(option ==="apply"){
+            filterSection.style.transform = "translateY(0)";
+            overLayer.style.zIndex = "0";
+            //TODO : 여기에 필터 적용해서 소트 요청하는 로직 구현
         }
     })
 }
 
-function sortOptionEvent(tar){
+function sortOptionEvent(tar, option){
     const eventTarget = document.querySelector(tar)
     eventTarget.addEventListener("click", function(e){
         let target = e.target;
         console.log(target.tagName)
-        if (target.tagName === "LI" && target.className === "sort-option"){
+        if (target.tagName === "LI" && target.className === "sort-option" && option === "sort"){
             document.querySelector(".sort-option.selected").className = "sort-option";
             target.className = "sort-option selected"
+        } else if (target.tagName === "LI" && target.className === "distance-option" && option === "distance") {
+            document.querySelector(".distance-option.selected").className = "distance-option";
+            target.className = "distance-option selected"
         }
-    })
-
+    });
 }
 
 
@@ -105,7 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryFilterEvent(".category-list");
     filterButtonEvent(".filter-button-wrapper", ".filter-controller", ".layer", "on");
     filterButtonEvent(".cancel-filter-button", ".filter-controller", ".layer", "cancel");
-    sortOptionEvent(".sort-option-list");
+    filterButtonEvent(".apply-filter-button", ".filter-controller", ".layer", "apply");
+    sortOptionEvent(".sort-option-list", "sort");
+    sortOptionEvent(".distance-option-list", "distance");
 })
 
 

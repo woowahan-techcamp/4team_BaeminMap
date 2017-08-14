@@ -38,7 +38,6 @@
                     <li id="category-7" class="category">패스트푸드</li>
                 </ul>
             </div>
-            <hr>
             <div class="sort-option-wrapper">
                 <ul class="sort-option-list">
                     <li id="sort-option-distance" class="sort-option selected"><img src="./static/check.png" class="check-img">가까운 순</li>
@@ -48,18 +47,13 @@
                     <li id="sort-option-favorite" class="sort-option"><img src="./static/check.png" class="check-img">즐겨찾기 많은 순</li>
                 </ul>
             </div>
-            <div class="distance-option">
-                <label>
-                    <h5 class="filter-title">검색반경 설정</h5>
-                </label>
-                <input type="range" min="0" max="2" step="1" value="2" list="search-range">
-                <datalist id="search-range">
-                    <option value="0" label="500m">
-                    <option value="1" label="1km">
-                    <option value="2" label="3km">
-                </datalist>
-
-            </div>
+                <div class="distance-option-wrapper">
+                    <ul class="distance-option-list">
+                        <li id="distance-option-500" class="distance-option selected"><img src="./static/check.png" class="check-img">근처 업소만 보기 (500m)</li>
+                        <li id="distance-option-1000" class="distance-option"><img src="./static/check.png" class="check-img">멀리까지 (1km)</li>
+                        <li id="distance-option-3000" class="distance-option"><img src="./static/check.png" class="check-img">머어얼리까지 (3km)</li>
+                    </ul>
+                </div>
 
             <div class="filter-button-wrapper">
                 <p>filter</p>

@@ -250,19 +250,6 @@ body {
     color: white;
 }
 
-.distance-option {
-    vertical-align: middle;
-}
-
-.distance-option label {
-    display: inline-block;
-}
-
-.distance-option input {
-    width: 200px;
-    display: inline-block;
-}
-
 .layer {
     position: absolute;
     top: 0;
@@ -299,12 +286,14 @@ body {
 .category-fiter-wrapper {
     border-bottom: 1px solid #f4f4f4;
     margin-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 .sort-option-wrapper {
     color: #acacac;
     font-size: 18px;
     border-bottom: 1px solid #f4f4f4;
+    margin-bottom: 20px;
 }
 
 .sort-option {
@@ -331,5 +320,38 @@ body {
 }
 
 .sort-option-list > .selected > img {
+    visibility: visible;
+}
+
+.distance-option-wrapper {
+    color: #acacac;
+    font-size: 18px;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.distance-option {
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.distance-option-list > li.sort-option:hover {
+    color: #a0efec;
+}
+
+.distance-option-list > li.selected {
+    color: #35c1bb;
+}
+
+.check-img {
+    width: 17px;
+    height: auto;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    visibility: hidden;
+}
+
+.distance-option-list > .selected > img {
     visibility: visible;
 }
