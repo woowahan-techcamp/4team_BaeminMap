@@ -117,9 +117,15 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoViewAnimate(isTap: true)
         
         let shop = marker.userData as! BaeminInfo
+        let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
             infoView.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
+        infoView.titleLabel.text = shop.shopName
+        infoView.reviewLabel.text = "최근리뷰 \(shop.reviewCount ?? 0)"
+        infoView.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
+        infoView.ratingView.rating = shop.starPointAverage
+        infoView.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         return true
     }
     
