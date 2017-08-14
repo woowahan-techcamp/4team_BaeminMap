@@ -12,6 +12,7 @@ import GooglePlaces
 class MainContainerViewController: UIViewController, FilterViewDelegate {
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIButton!
+    
     var isListView = Bool()
     var baeminInfo = [BaeminInfo]()
     var selectedCategory = [String]()
@@ -70,7 +71,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         oldView?.willMove(toParentViewController: nil)
         addChildViewController(newView)
         newView.view.frame = oldView!.view.frame
-        transition(from: oldView!, to: newView, duration: 0.1, options: isListView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
+        transition(from: oldView!, to: newView, duration: 0.3, options: isListView ? .transitionCrossDissolve : .transitionCrossDissolve, animations: nil) { (_) in
             newView.didMove(toParentViewController: self)
         }
         isListView = !isListView

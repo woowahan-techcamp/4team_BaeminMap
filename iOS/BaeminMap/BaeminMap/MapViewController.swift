@@ -15,16 +15,24 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     var location = Location.sharedInstance
     var locationManager = CLLocationManager()
-    var baeminInfo: [BaeminInfo]?
+    lazy var baeminInfo: [BaeminInfo] = {
+        return self.parentView.baeminInfo
+    }()
     lazy var parentView: MainContainerViewController = {
-        let parent = self.parent as! MainContainerViewController
-        return parent
+        return self.parent as! MainContainerViewController
+    }()
+    lazy var infoView: ListTableViewCell = {
+        let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
+        cell.backgroundColor = UIColor.white
+        cell.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
+        return cell
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.delegate = self
+        mapView.addSubview(infoView)
         NotificationCenter.default.addObserver(self, selector: #selector(drawMap), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
 
@@ -34,6 +42,14 @@ class MapViewController: UIViewController {
         drawMap()
         redrawMap()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        infoViewAnimate(isTap: false)
+    }
+    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -59,7 +75,7 @@ class MapViewController: UIViewController {
         marker.icon = #imageLiteral(resourceName: "currentLocation")
         marker.map = mapView
         
-        baeminInfo?.forEach({ (shop) in
+        baeminInfo.forEach({ (shop) in
             let marker = GMSMarker()
             DispatchQueue.main.async {
                 marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
@@ -74,25 +90,40 @@ class MapViewController: UIViewController {
         mapView.clear()
         drawMarker()
     }
+    
+    func infoViewAnimate(isTap: Bool) {
+        let filterButtonFrame = parentView.filterButton.frame
+        if isTap {
+            UIView.animate(withDuration: 0.4) {
+                self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
+                self.infoView.frame = CGRect(x: 5, y: self.mapView.frame.maxY-110, width: self.mapView.frame.width-10, height: 105)
+                self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: self.infoView.frame.minY+50, width: filterButtonFrame.width, height: filterButtonFrame.height)
+                self.mapView.layoutIfNeeded()
+            }
+        } else {
+            UIView.animate(withDuration: 0.4) {
+                self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                self.infoView.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
+                self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: 494, width: filterButtonFrame.width, height: filterButtonFrame.height)
+                self.mapView.layoutIfNeeded()
+            }
+        }
+    }
 
 }
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
+        infoViewAnimate(isTap: true)
+        
         let shop = marker.userData as! BaeminInfo
         if let url = shop.shopLogoImageUrl {
-            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+            infoView.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
-        cell.frame = CGRect(x: 5, y: mapView.frame.maxY-110, width: mapView.frame.width-10, height: 105)
-        cell.backgroundColor = UIColor.white
-        
-        UIView.animate(withDuration: 10) {
-            mapView.addSubview(cell)
-        }
-        parentView.filterButton.frame = CGRect(x: parentView.filterButton.frame.minX, y: cell.frame.minY+40, width: parentView.filterButton.frame.width, height: parentView.filterButton.frame.height)
-        
         return true
     }
     
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        infoViewAnimate(isTap: false)
+    }
 }
