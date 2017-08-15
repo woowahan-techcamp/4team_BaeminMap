@@ -33,6 +33,7 @@
 		B574178D1F384D3700A822EA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574178C1F384D3700A822EA /* Extension.swift */; };
 		B57417921F38602200A822EA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57417911F38602200A822EA /* Location.swift */; };
 		B57F0C611F43575B00EB3C14 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F0C601F43575B00EB3C14 /* TestViewController.swift */; };
+		B57F0C631F435B7D00EB3C14 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F0C621F435B7D00EB3C14 /* TestTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		B574178C1F384D3700A822EA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B57417911F38602200A822EA /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		B57F0C601F43575B00EB3C14 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		B57F0C621F435B7D00EB3C14 /* TestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		EC3E510CB2473C0F23F76DBC /* Pods-BaeminMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaeminMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaeminMap/Pods-BaeminMap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,6 +136,7 @@
 		B5562BFB1F381DB800A1BDE2 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
+				B57F0C621F435B7D00EB3C14 /* TestTableViewCell.swift */,
 				B57F0C601F43575B00EB3C14 /* TestViewController.swift */,
 				B5562BE41F381D6B00A1BDE2 /* DetailView.storyboard */,
 				B5562BE51F381D6B00A1BDE2 /* DetailViewController.swift */,
@@ -337,6 +340,7 @@
 				9827D8B61F3D649E00D4F070 /* Food.swift in Sources */,
 				B57F0C611F43575B00EB3C14 /* TestViewController.swift in Sources */,
 				9801054E1F397E7100EEC6B9 /* Networking.swift in Sources */,
+				B57F0C631F435B7D00EB3C14 /* TestTableViewCell.swift in Sources */,
 				980105501F39A3A500EEC6B9 /* BaeminInfo.swift in Sources */,
 				B5562BF41F381D6B00A1BDE2 /* ListViewController.swift in Sources */,
 				B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */,
