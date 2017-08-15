@@ -33,14 +33,11 @@ function getToken() {
 }
 
 function filterReset(filterChecker, targetArr){
-    if(!filterChecker){
-        return false
-    }
     const allOption = document.querySelectorAll(".selected");
-    allOption.forEach((e)=>{
+    allOption.forEach((e) => {
         e.classList.remove("selected")
     })
-    filterChecker.forEach((e)=>{
+    filterChecker.forEach((e) => {
         e.classList.add("selected");
     });
 }
@@ -77,14 +74,13 @@ function categoryFilterEvent(tar){
 function filterEvent(arr, filter, layer) {
     const overLayer = document.querySelector(layer)
     const filterSection = document.querySelector(filter)
-    let filterChecker = false;
+    let filterChecker;
     arr.forEach((e)=>{
         const target = document.querySelector(e)
         target.addEventListener("click", function(){
             if (e === arr[0]){
                 filterSection.style.transform = "translateY(calc(100% - 50px))";
                 overLayer.style.zIndex = "1";
-                //현재의 필터/정렬 옵션을 저장한다
                 filterChecker = filterSaver();
             } else if (e === arr[1]){
                 filterSection.style.transform = "translateY(0)";
@@ -94,6 +90,8 @@ function filterEvent(arr, filter, layer) {
             } else if (e === arr[2]){
                 filterSection.style.transform = "translateY(0)";
                 overLayer.style.zIndex = "0";
+                //현재의 필터/정렬 옵션을 저장한다
+                filterChecker = filterSaver();
                 //TODO : 여기에 필터 적용해서 소트 요청하는 로직 구현
             }
         })
