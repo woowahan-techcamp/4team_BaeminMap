@@ -121,27 +121,36 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
+        let beforeSectionHeight = tableView.rect(forSection: section).height
         
-        sections[header.section].open = !sections[header.section].open
+        sections[section].open = !sections[section].open
+        self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
         
-        DispatchQueue.main.async {
-            self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
+        var newTableHeight: CGFloat = 0
+        if sections[section].open {
+            let sectionRowHeight = tableView.rect(forSection: section).height - 33
+            newTableHeight = constraintHeightTableView.constant + sectionRowHeight
+        }else {
+            let diff = beforeSectionHeight - tableView.rect(forSection: section).height
+            newTableHeight = constraintHeightTableView.constant - diff
         }
-            //여기서는 reload를 한 후여도 contentSize 값이 변경되지 않음
-    }
-}
 
-extension DetailViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //이 부분도 1번째는 원래, 2번째 부터 변한 값이 불림.
-        if constraintHeightTableView.constant < tableView.contentSize.height {
-            constraintHeightTableView.constant = tableView.contentSize.height
-            scrollView.contentSize.height = tableView.frame.maxY
-        }
+        tableView.frame.size.height = newTableHeight
+        constraintHeightTableView.constant = newTableHeight
+        scrollView.contentSize.height = tableView.frame.maxY
     }
 }
 
 extension UIScrollView {
+    
+    // Scroll to a specific view so that it's top is at the top our scrollview
+    func scrollToView(view:UIView, animated: Bool) {
+        if let origin = view.superview {
+            let childStartPoint = origin.convert(view.frame.origin, to: self)
+            self.scrollRectToVisible(CGRect(x: 0, y: childStartPoint.y, width: 1, height: self.frame.height), animated: animated)
+        }
+    }
+    
     func scrollToBottom() {
         let bottomOffset = CGPoint(x: 0, y: contentSize.height - bounds.size.height + contentInset.bottom)
         if(bottomOffset.y > 0) {
