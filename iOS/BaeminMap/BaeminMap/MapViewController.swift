@@ -46,10 +46,6 @@ class MapViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         infoViewAnimate(isTap: false)
     }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        
-//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -115,6 +111,8 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         infoViewAnimate(isTap: true)
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 15.0)
+        mapView.animate(to: camera)
         
         let shop = marker.userData as! BaeminInfo
         let distance = shop.distance.convertDistance()
@@ -127,6 +125,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoView.ratingView.rating = shop.starPointAverage
         infoView.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         infoView.isBaropay(baro: shop.useBaropay)
+        
         return true
     }
     
