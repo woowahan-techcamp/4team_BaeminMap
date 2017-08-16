@@ -5,6 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 4..
 //  Copyright © 2017년 woowabrothers. All rights reserved.
 //
+// TODO: mapView didChange에 줌기능 디바이스에서만 GCD 적용되어 현재는 주석상태. 추후 주석해제 예정
 
 import UIKit
 import GoogleMaps
@@ -160,12 +161,12 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         if position.zoom < 17 && isZoom {
             isZoom = false
-//            DispatchQueue.main.async {
+//            DispatchQueue.global().async {
                 self.redrawMap()
 //            }
         } else if position.zoom >= 17 && !isZoom {
             isZoom = true
-//            DispatchQueue.main.async {
+//            DispatchQueue.global().async {
                 self.redrawMap()
 //            }
         }
