@@ -151,8 +151,6 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        print(position.zoom)
-        
         if position.zoom < 17 && isZoom {
             isZoom = false
             DispatchQueue.global().async {
