@@ -1,0 +1,45 @@
+<div class="shop-detail-wrapper">
+    <div class="shop-detail-scroll">
+        <h2><%= shopNumber %></h2>
+        <hr>
+        <div class="shop-detail-info">
+            <div class="shop-detail shop-star">
+                <span><%= starPointAverage %></span>
+                <img src="" alt="별점">
+            </div>
+            <div class="shop-detail shop-recent-reviews">
+                <span>최근리뷰</span><br>
+                <span class="shop-comment-counts"><%= reviewCount %></span>
+            </div>
+            <div class="shop-detail shop-ceo-comment">
+                <span>사장님 댓글</span><br>
+                <span class="shop-comment-counts"><%= reviewCountCeo %></span>
+            </div>
+            <div class="shop-detail shop-minimum-order-price">
+                <span>최소주문금액</span><br>
+                <span><%= minimumOrderPrice %></span>
+            </div>
+        </div>
+        <div class="shop-phone">전화번호: virtualPhoneNumber</div>
+
+        <% _.each(allCategoryFoodList, (foodList, idx) => { %>
+        <div class="toggle-box">
+            <input class="checkbox" type="checkbox" id="toggle-<%= idx %>" checked>
+            <label class="toggle-label" for="toggle-<%= idx %>"><%= foodList.category %></label>
+            <div class="toggle-content">
+                <div class="module">
+                    <ul>
+                        <% _.each(foodList, (food) => { %>
+                        <li><%= food.title %> <span><%= food.price %></span></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+
+    </div>
+    <a href="https://www.baemin.com/shop/658472" class="shop-link-btn">
+        <button class="shop-link-btn">주문하러가기</button>
+    </a>
+</div>
