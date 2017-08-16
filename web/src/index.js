@@ -90,12 +90,9 @@ function shopSelectEvent(parent, selectedClass){
             document.querySelector("."+selectedClass).classList.remove(selectedClass)
         }
         target.classList.add(selectedClass);
-        // const position = target.getBoundingClientRect()
-        // console.log(position.pageY)
-        // console.log(position.top)
-        // console.log(shopList.scrollTop)
-        // shopList.scrollTop = shopList.scrollTop + position.top;
-        target.scrollTop = target.getBoundingClientRect();
+        //targetPosition은 선택한 target의 위치를 구한다. 이후 50을 빼주는건 버튼 영역때문에 하드코딩한것
+        const targetPosition = target.getBoundingClientRect().top - 50;
+        shopList.scrollTop += targetPosition;
     })
 }
 
@@ -114,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let condition = 'distance'
         // Get all data and render them
         map.reloadMap(distance, pos, apidata, condition)
+        shopSelectEvent("shop-list", "selected-shop")
         categoryFilterEvent(".category-list");
         sortByOption(".sort-option-list", "sort");
         sortByOption(".distance-option-list", condition);
@@ -127,9 +125,4 @@ document.addEventListener('DOMContentLoaded', () => {
             condition
         );
     })
-    categoryFilterEvent(".category-list");
-    sortOptionEvent(".sort-option-list", "sort");
-    sortOptionEvent(".distance-option-list", "distance");
-    filterEvent([".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"], ".filter-controller", ".layer");
-    shopSelectEvent("shop-list", "selected-shop");
 })
