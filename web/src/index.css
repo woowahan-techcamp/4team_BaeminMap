@@ -88,12 +88,13 @@ body {
 }
 
 .shop {
-    width: 90%;
+    width: 100%;
     height: 130px;
     background: white;
-    margin: 20px auto 0;
-    box-shadow: 0 0 2px 2px #d1caba;
+    margin: 0 auto 0;
+    /*box-shadow: 0 0 2px 2px #d1caba;*/
     position: relative;
+    border-bottom: solid 1px #d1caba;
 }
 
 .shop-image-wrapper {
@@ -111,6 +112,13 @@ body {
     width: 70%;
     height: 100%;
     padding: 5px;
+}
+
+.shop-abstract-wrapper > .shop-distance {
+    position: absolute;
+    right: 5px;
+    color: darkgrey;
+    font-size: 15px;
 }
 
 .shop-abstract-wrapper > h2 {
@@ -166,7 +174,7 @@ body {
 }
 
 .shop-address {
-    margin: 5px 0 5px;
+    margin: 5px 0 0px;
     color: darkgrey;
     font-weight: 200;
     font-size: 90%;
@@ -267,7 +275,7 @@ body {
 }
 
 .filter-title-bar {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 20px 0 10px 0
 }
 
@@ -288,7 +296,7 @@ body {
 }
 
 .category-filter-wrapper {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .sort-option-wrapper {
@@ -367,5 +375,5 @@ body {
     background-color: #f4f4f4;
     display: block;
     text-align: center;
-    margin: 0 auto 30px auto;
+    margin: 10px auto 35px auto;
 }
