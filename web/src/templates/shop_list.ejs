@@ -1,11 +1,16 @@
 <% _.each(data, (shop) => { %>
+<% const defaultImg = "../static/default.png" %>
 <div class="shop" id="<%= shop.shopNumber %>">
     <div class="shop-image-wrapper">
         <span></span>
-        <img src="<%= shop.shopLogoImageUrl %>" alt="">
+        <img src="<%= shop.shopLogoImageUrl %>" onerror="this.src='../static/default.png'" alt="">
     </div>
     <div class="shop-abstract-wrapper">
-        <span class="shop-distance"><%= shop.distance.toFixed(2) %> km</span>
+        <span class="shop-distance">
+            <% if(shop.distance < 1) {%>
+            <%= shop.distance.toFixed(3)*1000 + "m" %><% } else {%>
+            <%= shop.distance.toFixed(1) + "km" %><% } %>
+        </span>
         <h2><%= shop.shopName %></h2>
         <span class="shop-rating">
             <span class="img-star star-rate">
