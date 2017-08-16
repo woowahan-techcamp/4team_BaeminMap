@@ -39,18 +39,21 @@ class Networking {
         
         Alamofire.request("\(Config.standardURL)/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result {
-            case .success(let value):
-                print(123)
-//                let responseDic = value as! [String:Any]
-//                let contents = responseDic["content"] as! [[String:Any]]
-//                var baeminInfo = [BaeminInfo]()
-//                contents.forEach({ (content) in
-//                    let shop = BaeminInfo(JSON: content)
-//                    if let shop = shop {
-//                        baeminInfo.append(shop)
-//                    }
-//                })
-//                NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self, userInfo: ["BaeminInfo" : baeminInfo])
+            case .success(let response):
+                var baeminInfo = [BaeminInfo]()
+                var baeminInfoDic = [Int:[BaeminInfo]]()
+                let contents = response as! [[String:Any]]
+                contents.forEach({ (content) in
+                    let shop = BaeminInfo(JSON: content)
+                    if let shop = shop {
+                        baeminInfo.append(shop)
+                        if let _ = baeminInfoDic[shop.type] {
+                            baeminInfoDic[shop.type]?.append(shop)
+                        } else {
+                            baeminInfoDic[shop.type] = [shop]
+                        }
+                    }
+                })
             case .failure(let error):
                 print(String(describing: error))
             }
