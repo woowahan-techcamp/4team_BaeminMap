@@ -30,6 +30,7 @@ class MapViewController: UIViewController {
         cell.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
         return cell
     }()
+    var isZoom = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,7 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         drawMap()
-        redrawMap(zoom: 15.0)
+        redrawMap()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -65,13 +66,13 @@ class MapViewController: UIViewController {
                 let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
             self.baeminInfo = baeminInfo
             self.baeminInfoDic = baeminInfoDic
-            self.redrawMap(zoom: 15.0)
+            self.redrawMap()
         }
     }
     
     func drawMap() {
         location = Location.sharedInstance
-        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
         mapView.camera = camera
         drawCurrentLocation()
     }
@@ -84,23 +85,23 @@ class MapViewController: UIViewController {
         marker.map = mapView
     }
     
-    func drawMarker(zoom: Float) {
+    func drawMarker() {
         drawCurrentLocation()
         
         for(count, shop) in baeminInfo.enumerated() {
             let marker = GMSMarker()
             DispatchQueue.main.async {
                 marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                marker.icon = count < 30 || zoom > 16 ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
+                marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
                 marker.map = self.mapView
                 marker.userData = shop
             }
         }
     }
     
-    func redrawMap(zoom: Float) {
+    func redrawMap() {
         mapView.clear()
-        drawMarker(zoom: zoom)
+        drawMarker()
     }
     
     func infoViewAnimate(isTap: Bool) {
@@ -127,7 +128,7 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         infoViewAnimate(isTap: true)
-        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 16.0)
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
         mapView.animate(to: camera)
         
         let shop = marker.userData as! BaeminInfo
@@ -151,6 +152,13 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
 
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         print(position.zoom)
-        redrawMap(zoom: position.zoom)
+        
+        if position.zoom < 17 && isZoom {
+            isZoom = false
+            redrawMap()
+        } else if position.zoom >= 17 && !isZoom {
+            isZoom = true
+            redrawMap()
+        }
     }
 }
