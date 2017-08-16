@@ -22,22 +22,21 @@
         </div>
         <div class="shop-phone">전화번호: virtualPhoneNumber</div>
 
-        <% _.each(allCategoryFoodList, (foodList, idx) => { %>
-        <div class="toggle-box">
-            <input class="checkbox" type="checkbox" id="toggle-<%= idx %>" checked>
-            <label class="toggle-label" for="toggle-<%= idx %>"><%= foodList.category %></label>
-            <div class="toggle-content">
-                <div class="module">
-                    <ul>
-                        <% _.each(foodList, (food) => { %>
-                        <li><%= food.title %> <span><%= food.price %></span></li>
-                        <% }) %>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <% }); %>
-
+        <!--<% _.each(allCategoryFoodList, (foodList, idx) => { %>-->
+        <!--<div class="toggle-box">-->
+            <!--<input class="checkbox" type="checkbox" id="toggle-<%= idx %>" checked>-->
+            <!--<label class="toggle-label" for="toggle-<%= idx %>"><%= foodList.category %></label>-->
+            <!--<div class="toggle-content">-->
+                <!--<div class="module">-->
+                    <!--<ul>-->
+                        <!--<% _.each(foodList, (food) => { %>-->
+                        <!--<li><%= food.title %> <span><%= food.price %></span></li>-->
+                        <!--<% }) %>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<% }); %>-->
     </div>
     <a href="https://www.baemin.com/shop/658472" class="shop-link-btn">
         <button class="shop-link-btn">주문하러가기</button>
