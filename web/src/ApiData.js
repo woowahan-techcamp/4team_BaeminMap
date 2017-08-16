@@ -57,17 +57,17 @@ export default class ApiData {
         this.data = response.data
     }
 
-    async getShopListAll(key, order) {
+    async getShopListAll(distance, key, order) {
         while (!this.data) {
             await this.sleep(200)
         }
         console.log(this.data.shopArray)
         const _list = this.data.shopArray
-        const result = _list.sort(this.compareValues(key, order))
+        const result = _list.sort(this.compareValues(key, order)).filter((el) => {return el.distance < distance})
         return result
     }
 
-    async getShopListByCategoryList(categoryList, key, order) {
+    async getShopListByCategoryList(distance, categoryList, key, order) {
         while (!this.data) {
             await this.sleep(200)
         }
@@ -77,6 +77,6 @@ export default class ApiData {
                 _list.push(j)
             }
         }
-        return _list.sort(this.compareValues(key, order))
+        return _list.sort(this.compareValues(key, order)).filter((el) => {return el.distance < distance})
     }
 }
