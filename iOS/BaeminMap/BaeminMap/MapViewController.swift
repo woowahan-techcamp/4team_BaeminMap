@@ -40,7 +40,7 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         drawMap()
-        redrawMap()
+        redrawMap(zoom: 15.0)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,7 +56,7 @@ class MapViewController: UIViewController {
         guard let userInfo = notification.userInfo,
             let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
         self.baeminInfo = baeminInfo
-        self.redrawMap()
+        self.redrawMap(zoom: 15.0)
     }
     
     func drawMap() {
@@ -65,7 +65,7 @@ class MapViewController: UIViewController {
         mapView.camera = camera
     }
     
-    func drawMarker() {
+    func drawMarker(zoom: Float) {
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: location.latitude-0.00001, longitude: location.longitude)
         marker.icon = #imageLiteral(resourceName: "currentLocation")
@@ -75,16 +75,16 @@ class MapViewController: UIViewController {
             let marker = GMSMarker()
             DispatchQueue.main.async {
                 marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                marker.icon = #imageLiteral(resourceName: "chicken")
+                marker.icon = zoom > 16 ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
                 marker.map = self.mapView
                 marker.userData = shop
             }
         })
     }
     
-    func redrawMap() {
+    func redrawMap(zoom: Float) {
         mapView.clear()
-        drawMarker()
+        drawMarker(zoom: zoom)
     }
     
     func infoViewAnimate(isTap: Bool) {
@@ -135,5 +135,6 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
 
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         print(position.zoom)
+        redrawMap(zoom: position.zoom)
     }
 }
