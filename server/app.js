@@ -37,7 +37,11 @@ app.post('/shops', (req, res)=> {
       })
     }, function(err) {
       if(err) throw err;
-      res.json({shops: shops, shopArray: shopArray})
+      if(req.body.type === 1) {
+        res.json({shops: shops, shopArray: shopArray})
+      } else {
+        res.json(shopArray)
+      }
     })
   })
 })
