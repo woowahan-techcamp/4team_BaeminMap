@@ -4,7 +4,9 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var config = require('./config');
 var eachAsync = require('each-async');
+var cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
