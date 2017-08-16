@@ -71,13 +71,15 @@ class MapViewController: UIViewController {
         marker.icon = #imageLiteral(resourceName: "currentLocation")
         marker.map = mapView
         
+        var count = 0
         baeminInfo.forEach({ (shop) in
             let marker = GMSMarker()
             DispatchQueue.main.async {
                 marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                marker.icon = zoom > 16 ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
+                marker.icon = count < 30 || zoom > 16 ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
                 marker.map = self.mapView
                 marker.userData = shop
+                count += 1
             }
         })
     }
