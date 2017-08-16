@@ -1,4 +1,5 @@
 import ShopList from './ShopList'
+import * as _ from "lodash";
 
 class Map {
     constructor(data) {
@@ -74,7 +75,6 @@ class Map {
             if (map.zoom > 16) {
                 // 건물수준(좁게보기)
                 this.markers.forEach((marker) => {
-                    console.log('마커 ', marker)
                     marker.setIcon('https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png')
                     // TODO: 아이콘 업데이트
                 })
@@ -115,7 +115,9 @@ class Map {
                 lat: this.map.center.lat(),
                 lng: this.map.center.lng()
             };
-            this.reloadMap(pos, this.data)
+            const distanceElement = document.querySelector('.distance-option-list > .selected')
+            const distance = parseFloat(distanceElement.dataset['distance'])
+            this.reloadMap(distance, pos, this.data, 'distance')
         });
     }
 
@@ -151,7 +153,7 @@ class Map {
         });
     }
 
-    reloadMap(pos, apidata, key, order, categoryList) {
+    reloadMap(distance, pos, apidata, key, order, categoryList) {
         // Reset markers
         for (let i of this.markers) {
             i.setMap(null)
@@ -165,9 +167,9 @@ class Map {
         apidata.getShopData(pos)
         let sortedData = null
         if (categoryList) {
-            sortedData = apidata.getShopListByCategoryList(key, order, categoryList)
+            sortedData = apidata.getShopListByCategoryList(distance, key, order, categoryList)
         } else {
-            sortedData = apidata.getShopListAll(key, order)
+            sortedData = apidata.getShopListAll(distance, key, order)
         }
         sortedData.then((filteredData) => {
             new ShopList("#shopList", filteredData)
