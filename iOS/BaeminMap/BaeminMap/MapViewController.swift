@@ -30,7 +30,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         mapView.delegate = self
         mapView.addSubview(infoView)
         NotificationCenter.default.addObserver(self, selector: #selector(drawMap), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
@@ -63,14 +63,18 @@ class MapViewController: UIViewController {
         location = Location.sharedInstance
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         mapView.camera = camera
+        drawCurrentLocation()
     }
     
-    func drawMarker() {
+    func drawCurrentLocation() {
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: location.latitude-0.00001, longitude: location.longitude)
         marker.icon = #imageLiteral(resourceName: "currentLocation")
         marker.map = mapView
-        
+    }
+    
+    func drawMarker() {
+        drawCurrentLocation()
         baeminInfo.forEach({ (shop) in
             let marker = GMSMarker()
             DispatchQueue.main.async {

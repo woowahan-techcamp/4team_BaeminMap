@@ -19,29 +19,8 @@ class Config {
         return plist?["GoogleMapApiKey"] as! String
     }()
     
-    static let clientID: String = {
-        return plist?["ClientID"] as! String
+    static let standardURL: String = {
+        return plist?["standardURL"] as! String
     }()
     
-    static let clientSecret: String = {
-        return plist?["ClientSecret"] as! String
-    }()
-    
-    static let tokenURL: String = {
-        return plist?["TokenURL"] as! String
-    }()
-    
-    static let baeminID: String = {
-        return plist?["BaeminID"] as! String
-    }()
-    
-    static let baeminPassword: String = {
-        return plist?["BaeminPassword"] as! String
-    }()
-    
-    static let baeminApiURL: String = {
-        return plist?["BaeminApiURL"] as! String
-    }()
-    
-    static var token = String()
 }
