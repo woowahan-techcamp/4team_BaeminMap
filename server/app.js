@@ -14,7 +14,6 @@ app.listen(3000, ()=> {
   console.log('start 3000port!')
 })
 
-
 app.post('/shops', (req, res)=> {
   var shops = {}
   var shopArray = []
