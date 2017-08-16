@@ -1,6 +1,5 @@
 import ShopList from './ShopList'
 import Map from './Map'
-import Data from './Data'
 import ApiData from './ApiData'
 
 function getToken() {
@@ -50,14 +49,12 @@ function filterEventOn(tar) {
 document.addEventListener('DOMContentLoaded', () => {
     const token = getToken()
     navigator.geolocation.getCurrentPosition((position) => {
-        const data = new Data();
-        const map = new Map(data, token);
         const pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         }
-        console.log('get position: ', pos)
-
+        const data = new ApiData(pos);
+        const map = new Map(data, token);
         map.reloadMap(pos, data, token)
     })
     filterEventOn(".category-list")

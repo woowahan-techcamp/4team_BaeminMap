@@ -132,6 +132,9 @@ class Map {
         }
         this.markers = []
         this.updatePosition(pos)
+        data.getShopData(pos)
+        data.getShopListAll()
+
         data.getShopList(data.categoryArr, pos, token).then((arr) => {
             //필터 로직 들어갈 부분. 필터 이후 소트를 한다.
             return data.sortList(arr, 0);

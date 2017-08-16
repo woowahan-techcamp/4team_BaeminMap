@@ -1,17 +1,21 @@
 import axios from 'axios'
 
 export default class ApiData {
-    constructor() {
+    constructor(position) {
         this.baseURL = "http://baeminmap.testi.kr"
         this.getShopURL = this.baseURL + "/shops"
-        this.init()
+        this.init(position)
     }
 
-    init() {
+    init(position) {
         this.data = null
-        this.position = {
-            lat: '37.5169697',
-            lng: '127.1137412'
+        if (position) {
+            this.position = position
+        } else {
+            this.position = {
+                lat: '37.5169697',
+                lng: '127.1137412'
+            }
         }
         this.getShopData(this.position)
     }
@@ -20,11 +24,35 @@ export default class ApiData {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    compareValues(key, order = 'asc') {
+        return function (a, b) {
+            if (!a.hasOwnProperty(key) ||
+                !b.hasOwnProperty(key)) {
+                return 0;
+            }
+
+            const varA = a[key]
+            const varB = b[key]
+
+            let comparison = 0;
+            if (varA > varB) {
+                comparison = 1;
+            } else if (varA < varB) {
+                comparison = -1;
+            }
+            return (
+                (order === 'desc') ?
+                    (comparison * -1) : comparison
+            );
+        };
+    }
+
     async getShopData(position) {
         this.data = null
+        const body = Object.assign(position, {type: 1})
         const response = await axios.post(
             this.getShopURL,
-            position
+            body
         )
         this.data = response.data
     }
@@ -49,28 +77,5 @@ export default class ApiData {
         const result = _list.sort(this.compareValues(key, order))
         console.log(result)
         return result
-    }
-
-    compareValues(key, order = 'asc') {
-        return function (a, b) {
-            if (!a.hasOwnProperty(key) ||
-                !b.hasOwnProperty(key)) {
-                return 0;
-            }
-
-            const varA = a[key]
-            const varB = b[key]
-
-            let comparison = 0;
-            if (varA > varB) {
-                comparison = 1;
-            } else if (varA < varB) {
-                comparison = -1;
-            }
-            return (
-                (order === 'desc') ?
-                    (comparison * -1) : comparison
-            );
-        };
     }
 }
