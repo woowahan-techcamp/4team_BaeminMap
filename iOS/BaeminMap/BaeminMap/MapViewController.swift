@@ -18,6 +18,9 @@ class MapViewController: UIViewController {
     lazy var baeminInfo: [BaeminInfo] = {
         return self.parentView.baeminInfo
     }()
+    lazy var baeminInfoDic: [Int:[BaeminInfo]] = {
+        return self.parentView.baeminInfoDic
+    }()
     lazy var parentView: MainContainerViewController = {
         return self.parent as! MainContainerViewController
     }()
@@ -54,8 +57,10 @@ class MapViewController: UIViewController {
     
     func recieve(notification: Notification) {
         guard let userInfo = notification.userInfo,
-            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
+            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
+            let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
         self.baeminInfo = baeminInfo
+        self.baeminInfoDic = baeminInfoDic
         self.redrawMap()
     }
     

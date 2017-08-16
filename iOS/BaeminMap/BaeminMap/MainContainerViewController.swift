@@ -16,6 +16,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     
     var isListView = Bool()
     var baeminInfo = [BaeminInfo]()
+    var baeminInfoDic = [Int:[BaeminInfo]]()
     var selectedCategory = [String]()
     var selectedSortTag = Int()
     var selectedRangeTag = Int()
@@ -41,8 +42,10 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     
     func receive(notification: Notification) {
         guard let userInfo = notification.userInfo,
-            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
+            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
+        let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
         self.baeminInfo = baeminInfo
+        self.baeminInfoDic = baeminInfoDic
     }
     
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {

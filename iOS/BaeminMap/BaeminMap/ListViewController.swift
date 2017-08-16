@@ -16,6 +16,10 @@ class ListViewController: UIViewController {
         let parentView = self.parent as! MainContainerViewController
         return parentView.baeminInfo
     }()
+    lazy var baeminInfoDic: [Int:[BaeminInfo]] = {
+        let parentView = self.parent as! MainContainerViewController
+        return parentView.baeminInfoDic
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +36,10 @@ class ListViewController: UIViewController {
     
     func recieve(notification: Notification) {
         guard let userInfo = notification.userInfo,
-            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
+            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
+            let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
         self.baeminInfo = baeminInfo
+        self.baeminInfoDic = baeminInfoDic
         listView.reloadData()
     }
     
