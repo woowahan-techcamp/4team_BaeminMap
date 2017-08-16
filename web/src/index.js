@@ -82,6 +82,25 @@ function sortOptionEvent(tar, option){
     });
 }
 
+function shopSelectEvent(parent, selectedClass){
+    const shopList = document.querySelector("."+parent);
+    shopList.addEventListener("click", function(e){
+        const target = e.target;
+        if (target.classList.contains(parent)){
+            return false
+        } else if(document.querySelector("."+selectedClass)){
+            document.querySelector("."+selectedClass).classList.remove(selectedClass)
+        }
+        target.classList.add(selectedClass);
+        // const position = target.getBoundingClientRect()
+        // console.log(position.pageY)
+        // console.log(position.top)
+        // console.log(shopList.scrollTop)
+        // shopList.scrollTop = shopList.scrollTop + position.top;
+        target.scrollTop = target.getBoundingClientRect();
+    })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     navigator.geolocation.getCurrentPosition((position) => {
         const pos = {
@@ -97,4 +116,5 @@ document.addEventListener('DOMContentLoaded', () => {
     sortOptionEvent(".sort-option-list", "sort");
     sortOptionEvent(".distance-option-list", "distance");
     filterEvent([".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"], ".filter-controller", ".layer");
+    shopSelectEvent("shop-list", "selected-shop");
 })

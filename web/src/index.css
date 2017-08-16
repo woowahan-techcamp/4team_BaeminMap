@@ -111,7 +111,8 @@ body {
     z-index: 20;
 }
 
-.shop-layer .selected{
+.shop-layer.selected-shop{
+    background-color: #a0efec;
     opacity: 0.5;
 }
 
@@ -222,7 +223,7 @@ body {
     position: relative;
     bottom: 100%;
     transition: 0.3s;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .filter-controller ul {
