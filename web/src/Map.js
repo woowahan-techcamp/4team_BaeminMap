@@ -1,8 +1,7 @@
-import ShopDetail from './ShopDetail'
 import ShopList from './ShopList'
 
 class Map {
-    constructor(data, token) {
+    constructor(data) {
         this.infowindow;
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
         this.map = new google.maps.Map(document.getElementById('map'), {
@@ -13,9 +12,33 @@ class Map {
         });
         this.searchPosition();
         this.data = data
-        this.token = token
         this.markers = []
         this.userMarker = null
+        this.shopDetailTemplate = null
+        this.getShopDetailTemplate()
+    }
+
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async getShopData(position) {
+        this.data = null
+        const body = Object.assign(position, {type: 1})
+        const response = await axios.post(
+            this.getShopURL,
+            body
+        )
+        this.data = response.data
+    }
+
+    async getShopDetailTemplate() {
+        if (!this.shopDetailTemplate) {
+            await axios.get('/src/templates/shop_detail.ejs').then((response) => {
+                this.shopDetailTemplate = response.data
+            })
+            return this.shopDetailTemplate
+        }
     }
 
     updatePosition(position) {
@@ -51,7 +74,7 @@ class Map {
             if (map.zoom > 16) {
                 // 건물수준(좁게보기)
                 this.markers.forEach((marker) => {
-                    console.log('마커 ',marker)
+                    console.log('마커 ', marker)
                     marker.setIcon('https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png')
                     // TODO: 아이콘 업데이트
                 })
@@ -92,7 +115,7 @@ class Map {
                 lat: this.map.center.lat(),
                 lng: this.map.center.lng()
             };
-            this.reloadMap(pos, this.data, this.token)
+            this.reloadMap(pos, this.data)
         });
     }
 
@@ -110,10 +133,13 @@ class Map {
                 icon: 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png'
                 // TODO: 기본 아이콘 변경
             })
-            const infowindow = new google.maps.InfoWindow({
-                content: new ShopDetail(e) // TODO: 여기에 template rendering 넣어주기
-            });
-            marker.addListener('click', () => {
+            marker.addListener('click', async () => {
+                while (!this.shopDetailTemplate) {
+                    await this.sleep(200)
+                }
+                const infowindow = new google.maps.InfoWindow({
+                    content: _.template(this.shopDetailTemplate)(e) // TODO: 여기에 template rendering 넣어주기
+                });
                 if (this.infowindow) {
                     this.infowindow.close();
                 }

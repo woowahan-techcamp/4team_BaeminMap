@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lng: position.coords.longitude
         }
         const apidata = new ApiData(pos);
-        const map = new Map(apidata, token);
+        const map = new Map(apidata);
         // Get all data and render them
         map.reloadMap(pos, apidata, 'distance')
     })
