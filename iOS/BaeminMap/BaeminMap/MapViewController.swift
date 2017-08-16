@@ -155,10 +155,14 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         
         if position.zoom < 17 && isZoom {
             isZoom = false
-            redrawMap()
+            DispatchQueue.global().async {
+                self.redrawMap()
+            }
         } else if position.zoom >= 17 && !isZoom {
             isZoom = true
-            redrawMap()
+            DispatchQueue.global().async {
+                self.redrawMap()
+            }
         }
     }
 }
