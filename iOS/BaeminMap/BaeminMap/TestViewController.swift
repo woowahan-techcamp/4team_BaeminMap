@@ -41,14 +41,12 @@ class TestViewController: UIViewController {
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
 extension TestViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -58,8 +56,10 @@ extension TestViewController: UICollectionViewDelegate, UICollectionViewDataSour
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
         topView.frame = CGRect(x: 0, y: 0, width: topView.frame.width, height: collectionView.frame.maxY)
         
-        print(topView.frame, 1)
-//        print(ExpandableTableViewHeader().frame, 2)
+        if indexPath.item == 5 {
+            tableView.reloadData()
+        }
+        
         return cell
     }
     
@@ -109,10 +109,10 @@ extension TestViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
         print(header.frame, 998)
         sections[header.section].open = !sections[header.section].open
-        
+    
         DispatchQueue.main.async {
             self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
-            self.tableView.sizeToFit()
+//            self.tableView.sizeToFit()
         }
     }
 }
