@@ -57,11 +57,14 @@ export default class ApiData {
         this.data = response.data
     }
 
-    async getShopListAll() {
+    async getShopListAll(key, order) {
         while (!this.data) {
             await this.sleep(200)
         }
         console.log(this.data.shopArray)
+        const _list = this.data.shopArray
+        const result = _list.sort(this.compareValues(key, order))
+        return result
     }
 
     async getShopListByCategoryList(categoryList, key, order) {
@@ -74,8 +77,6 @@ export default class ApiData {
                 _list.push(j)
             }
         }
-        const result = _list.sort(this.compareValues(key, order))
-        console.log(result)
-        return result
+        return _list.sort(this.compareValues(key, order))
     }
 }

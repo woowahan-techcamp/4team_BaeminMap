@@ -111,7 +111,7 @@ class Map {
                 // TODO: 기본 아이콘 변경
             })
             const infowindow = new google.maps.InfoWindow({
-                content: '' //new ShopDetail(obj) // TODO: 여기에 template rendering 넣어주기
+                content: new ShopDetail(e) // TODO: 여기에 template rendering 넣어주기
             });
             marker.addListener('click', () => {
                 if (this.infowindow) {
@@ -125,21 +125,26 @@ class Map {
         });
     }
 
-    reloadMap(pos, data, token) {
-        console.log('markers: ', this.markers)
+    reloadMap(pos, apidata, key, order, categoryList) {
+        // Reset markers
         for (let i of this.markers) {
             i.setMap(null)
         }
         this.markers = []
-        this.updatePosition(pos)
-        data.getShopData(pos)
-        data.getShopListAll()
 
-        data.getShopList(data.categoryArr, pos, token).then((arr) => {
-            //필터 로직 들어갈 부분. 필터 이후 소트를 한다.
-            return data.sortList(arr, 0);
-        }).then((filteredData) => {
-            new ShopList("#shopListTemplate", "#shopList", filteredData)
+        // Update my Position
+        this.updatePosition(pos)
+
+        // Get new data from my new position
+        apidata.getShopData(pos)
+        let sortedData = null
+        if (categoryList) {
+            sortedData = apidata.getShopListByCategoryList(key, order, categoryList)
+        } else {
+            sortedData = apidata.getShopListAll(key, order)
+        }
+        sortedData.then((filteredData) => {
+            new ShopList("#shopList", filteredData)
             this.setShopMarker(filteredData)
         })
     }

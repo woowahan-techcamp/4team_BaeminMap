@@ -45,7 +45,6 @@ function filterEventOn(tar) {
     })
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const token = getToken()
     navigator.geolocation.getCurrentPosition((position) => {
@@ -53,9 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         }
-        const data = new ApiData(pos);
-        const map = new Map(data, token);
-        map.reloadMap(pos, data, token)
+        const apidata = new ApiData(pos);
+        const map = new Map(apidata, token);
+        // Get all data and render them
+        map.reloadMap(pos, apidata, 'distance')
     })
     filterEventOn(".category-list")
 })
