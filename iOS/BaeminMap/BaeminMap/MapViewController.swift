@@ -13,6 +13,8 @@ import AlamofireImage
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var currentLocationButton: UIButton!
+    
     var location = Location.sharedInstance
     var locationManager = CLLocationManager()
     lazy var baeminInfo: [BaeminInfo] = {
@@ -39,7 +41,7 @@ class MapViewController: UIViewController {
         mapView.addSubview(infoView)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
-
+        currentLocationButton.addTarget(self, action: #selector(moveToCurrentLocation(_:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +56,11 @@ class MapViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func moveToCurrentLocation(_ btn: UIButton) {
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
+        mapView.camera = camera
     }
     
     func recieve(notification: Notification) {

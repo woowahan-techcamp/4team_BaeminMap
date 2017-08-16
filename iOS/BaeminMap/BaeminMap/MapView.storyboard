@@ -46,6 +46,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="currentLocationButton" destination="K1x-TL-twi" id="HfU-QP-SOh"/>
                         <outlet property="mapView" destination="XYr-eW-xtd" id="6Rv-7N-PiK"/>
                     </connections>
                 </viewController>
