@@ -1,5 +1,4 @@
 # 배민여지도 Server
----
 1. 모든 업소 조회
         URL: http://baeminmap.testi.kr/shops
         HTTP 메소드: POST
