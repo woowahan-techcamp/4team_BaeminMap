@@ -33,10 +33,10 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         mapView.delegate = self
         mapView.addSubview(infoView)
-        NotificationCenter.default.addObserver(self, selector: #selector(drawMap), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
 
     }
@@ -56,12 +56,17 @@ class MapViewController: UIViewController {
     }
     
     func recieve(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
-            let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
-        self.baeminInfo = baeminInfo
-        self.baeminInfoDic = baeminInfoDic
-        self.redrawMap()
+        if notification.name == NSNotification.Name("finishedCurrentLocation") {
+            mapView.clear()
+            drawMap()
+        } else {
+            guard let userInfo = notification.userInfo,
+                let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
+                let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
+            self.baeminInfo = baeminInfo
+            self.baeminInfoDic = baeminInfoDic
+            self.redrawMap()
+        }
     }
     
     func drawMap() {
