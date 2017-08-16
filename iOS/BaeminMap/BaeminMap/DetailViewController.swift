@@ -2,21 +2,17 @@
 //  DetailViewController.swift
 //  BaeminMap
 //
-//  Created by woowabrothers on 2017. 8. 4..
-//  Copyright © 2017년 woowabrothers. All rights reserved.
+//  Created by HannaJeon on 2017. 8. 15..
+//  Copyright © 2017년 HannaJeon. All rights reserved.
 //
 
 import UIKit
 
 class DetailViewController: UIViewController {
-    @IBOutlet weak var constraintHeightCollectionView: NSLayoutConstraint!
 
-    @IBOutlet weak var constraintHeightTableView: NSLayoutConstraint!
-    @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    
-    var FoodsList = [String:[Food]]()
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var topView: UIView!
     
     var sections: [Section] = [
         Section(title: "크런치 피자", items: [
@@ -41,53 +37,48 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
         tableView.delegate = self
         tableView.dataSource = self
-        scrollView.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
-extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
         
-        constraintHeightCollectionView.constant = collectionView.contentSize.height
-        self.view.setNeedsLayout()
+        collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
+        topView.frame = CGRect(x: 0, y: 0, width: topView.frame.width, height: collectionView.frame.maxY)
+        
+        if indexPath.item == 5 {
+            tableView.reloadData()
+        }
         
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = view.frame.width / 2 - 15
-        let height = (width * 151) / 143
-        return CGSize(width: width, height: height)
-    }
 }
 
-extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
+extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        scrollView.contentSize.height = tableView.frame.maxY
-        
         return sections.count
     }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].open ? sections[section].items.count : 0
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
+        let item = sections[indexPath.section].items[indexPath.row]
+        cell.textLabel?.text = item.name
+        cell.detailTextLabel?.text = "\(item.price)원"
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -107,43 +98,19 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         
         return header
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        
-        let item = sections[indexPath.section].items[indexPath.row]
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = "\(item.price)원"
-        
-        return cell
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].open ? sections[section].items.count : 0
     }
+    
 }
 
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
         let headerHeight = header.frame.height
-        let beforeSectionRowHeight = tableView.rect(forSection: section).height - headerHeight
-        
-        sections[section].open = !sections[section].open
-        self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
-        
-        let newSectionRowHeight = tableView.rect(forSection: section).height - headerHeight
-        let newTableHeight = constraintHeightTableView.constant + (sections[section].open ? newSectionRowHeight : -beforeSectionRowHeight)
-        
-        tableView.frame.size.height = newTableHeight
-        constraintHeightTableView.constant = newTableHeight
-        scrollView.contentSize.height = tableView.frame.maxY
-        
-        scrollView.scrollToSection(y: newSectionRowHeight)
-    }
-}
-
-extension UIScrollView {
-    func scrollToSection(y: CGFloat) {
-        let bottomOffset = CGPoint(x: 0, y: contentOffset.y + y)
-        if(bottomOffset.y > 0) {
-            setContentOffset(bottomOffset, animated: true)
-        }
+        sections[header.section].open = !sections[header.section].open
+        self.tableView.reloadData()
+        self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
     }
 }
 
@@ -156,4 +123,3 @@ public struct Item {
         self.price = price
     }
 }
-

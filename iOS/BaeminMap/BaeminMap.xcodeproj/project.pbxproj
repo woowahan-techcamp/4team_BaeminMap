@@ -21,7 +21,6 @@
 		B5562BDB1F381D2500A1BDE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BD91F381D2500A1BDE2 /* LaunchScreen.storyboard */; };
 		B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BE31F381D6B00A1BDE2 /* Config.swift */; };
 		B5562BEF1F381D6B00A1BDE2 /* DetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BE41F381D6B00A1BDE2 /* DetailView.storyboard */; };
-		B5562BF01F381D6B00A1BDE2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BE51F381D6B00A1BDE2 /* DetailViewController.swift */; };
 		B5562BF11F381D6B00A1BDE2 /* FilterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BE61F381D6B00A1BDE2 /* FilterView.storyboard */; };
 		B5562BF21F381D6B00A1BDE2 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BE71F381D6B00A1BDE2 /* FilterViewController.swift */; };
 		B5562BF31F381D6B00A1BDE2 /* ListView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BE81F381D6B00A1BDE2 /* ListView.storyboard */; };
@@ -32,8 +31,7 @@
 		B5562BFA1F381DB200A1BDE2 /* MainContainerView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5562BF91F381DB200A1BDE2 /* MainContainerView.storyboard */; };
 		B574178D1F384D3700A822EA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B574178C1F384D3700A822EA /* Extension.swift */; };
 		B57417921F38602200A822EA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57417911F38602200A822EA /* Location.swift */; };
-		B57F0C611F43575B00EB3C14 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F0C601F43575B00EB3C14 /* TestViewController.swift */; };
-		B57F0C631F435B7D00EB3C14 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F0C621F435B7D00EB3C14 /* TestTableViewCell.swift */; };
+		B57F0C611F43575B00EB3C14 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F0C601F43575B00EB3C14 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,7 +52,6 @@
 		B5562BDC1F381D2500A1BDE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5562BE31F381D6B00A1BDE2 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		B5562BE41F381D6B00A1BDE2 /* DetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailView.storyboard; sourceTree = "<group>"; };
-		B5562BE51F381D6B00A1BDE2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		B5562BE61F381D6B00A1BDE2 /* FilterView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FilterView.storyboard; sourceTree = "<group>"; };
 		B5562BE71F381D6B00A1BDE2 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		B5562BE81F381D6B00A1BDE2 /* ListView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ListView.storyboard; sourceTree = "<group>"; };
@@ -65,8 +62,7 @@
 		B5562BF91F381DB200A1BDE2 /* MainContainerView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainContainerView.storyboard; sourceTree = "<group>"; };
 		B574178C1F384D3700A822EA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B57417911F38602200A822EA /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		B57F0C601F43575B00EB3C14 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		B57F0C621F435B7D00EB3C14 /* TestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
+		B57F0C601F43575B00EB3C14 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		EC3E510CB2473C0F23F76DBC /* Pods-BaeminMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaeminMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaeminMap/Pods-BaeminMap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,10 +132,8 @@
 		B5562BFB1F381DB800A1BDE2 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
-				B57F0C621F435B7D00EB3C14 /* TestTableViewCell.swift */,
-				B57F0C601F43575B00EB3C14 /* TestViewController.swift */,
 				B5562BE41F381D6B00A1BDE2 /* DetailView.storyboard */,
-				B5562BE51F381D6B00A1BDE2 /* DetailViewController.swift */,
+				B57F0C601F43575B00EB3C14 /* DetailViewController.swift */,
 				98365F691F3B2E4B002D4149 /* ExpandableTableViewHeader.swift */,
 			);
 			name = DetailView;
@@ -338,13 +332,11 @@
 			files = (
 				B5562BD11F381D2500A1BDE2 /* AppDelegate.swift in Sources */,
 				9827D8B61F3D649E00D4F070 /* Food.swift in Sources */,
-				B57F0C611F43575B00EB3C14 /* TestViewController.swift in Sources */,
+				B57F0C611F43575B00EB3C14 /* DetailViewController.swift in Sources */,
 				9801054E1F397E7100EEC6B9 /* Networking.swift in Sources */,
-				B57F0C631F435B7D00EB3C14 /* TestTableViewCell.swift in Sources */,
 				980105501F39A3A500EEC6B9 /* BaeminInfo.swift in Sources */,
 				B5562BF41F381D6B00A1BDE2 /* ListViewController.swift in Sources */,
 				B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */,
-				B5562BF01F381D6B00A1BDE2 /* DetailViewController.swift in Sources */,
 				B57417921F38602200A822EA /* Location.swift in Sources */,
 				B5562BF21F381D6B00A1BDE2 /* FilterViewController.swift in Sources */,
 				B5562BF51F381D6B00A1BDE2 /* MainContainerViewController.swift in Sources */,
