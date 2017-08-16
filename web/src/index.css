@@ -24,13 +24,13 @@ body {
     position: absolute;
     left: 0;
     height: 100%;
-    width: calc(100% - 400px);
+    width: calc(100% - 380px);
 }
 
 #list {
     position: absolute;
     right: 0;
-    width: 400px;
+    width: 380px;
     height: 100%;
     background-color: grey;
     box-shadow: -1px 0px 10px grey;
@@ -93,7 +93,6 @@ body {
     height: 130px;
     background: white;
     margin: 0 auto 0;
-    /*box-shadow: 0 0 2px 2px #d1caba;*/
     position: relative;
     border-bottom: solid 1px #d1caba;
 }
@@ -112,6 +111,10 @@ body {
     z-index: 20;
 }
 
+.shop-layer .selected{
+    opacity: 0.5;
+}
+
 .shop-image-wrapper {
     position: absolute;
     left: 0;
@@ -126,8 +129,7 @@ body {
     right: 0;
     width: 70%;
     height: 100%;
-    padding: 5px;
-    padding-left: 10px;
+    padding: 5px 10px 5px 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -199,6 +201,8 @@ body {
     color: darkgrey;
     font-weight: 200;
     font-size: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .shop-review > span {
@@ -242,6 +246,8 @@ body {
     height: 50px;
     background-color: #2ac1bc;
     width: 100%;
+    cursor: pointer;
+    vertical-align: middle;
 }
 
 .filter-title {
@@ -317,7 +323,8 @@ body {
 }
 
 .category-filter-wrapper {
-    margin-bottom: 35px;
+    margin: auto auto 35px auto;
+    width: 90%;
 }
 
 .sort-option-wrapper {

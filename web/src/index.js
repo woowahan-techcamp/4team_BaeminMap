@@ -32,6 +32,15 @@ function getToken() {
     return apiToken;
 }
 
+// function shopClick(tar, list){
+//     const eventTarget = document.querySelector(tar);
+//     const shopList = document.querySelector(list);
+//     eventTarget.addEventListener("click", function(e){
+//         const target = e.target;
+//         shopList.style.overflowScrolling = "300"
+//     })
+// }
+
 function filterReset(filterChecker, targetArr){
     const allOption = document.querySelectorAll(".selected");
     allOption.forEach((e) => {
@@ -129,5 +138,5 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryFilterEvent(".category-list");
     sortOptionEvent(".sort-option-list", "sort");
     sortOptionEvent(".distance-option-list", "distance");
-    filterEvent([".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"], ".filter-controller", ".layer")
+    filterEvent([".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"], ".filter-controller", ".layer");
 })
