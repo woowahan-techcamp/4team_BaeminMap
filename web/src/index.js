@@ -12,11 +12,6 @@ function filterReset(filterChecker, targetArr){
     });
 }
 
-function filterSaver(){
-    let filteredOption = document.querySelectorAll(".option.selected");
-    return filteredOption;
-}
-
 function categoryFilterEvent(tar){
     const eventHTML = document.querySelector(tar);
     const categoryAll = document.querySelector("#category-all");
@@ -41,7 +36,7 @@ function categoryFilterEvent(tar){
     })
 }
 
-function filterEvent(arr, filter, layer) {
+function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
     const overLayer = document.querySelector(layer)
     const filterSection = document.querySelector(filter)
     let filterChecker;
@@ -51,7 +46,7 @@ function filterEvent(arr, filter, layer) {
             if (e === arr[0]){
                 filterSection.style.transform = "translateY(calc(100% - 50px))";
                 overLayer.style.zIndex = "1";
-                filterChecker = filterSaver();
+                filterChecker = document.querySelectorAll(".option.selected");
             } else if (e === arr[1]){
                 filterSection.style.transform = "translateY(0)";
                 overLayer.style.zIndex = "0";
@@ -61,14 +56,17 @@ function filterEvent(arr, filter, layer) {
                 filterSection.style.transform = "translateY(0)";
                 overLayer.style.zIndex = "0";
                 //현재의 필터/정렬 옵션을 저장한다
-                filterChecker = filterSaver();
+                filterChecker = document.querySelectorAll(".option.selected");
                 //TODO : 여기에 필터 적용해서 소트 요청하는 로직 구현
+                const distanceElement = document.querySelector('.distance-option-list > .selected')
+                const distance = parseFloat(distanceElement.dataset['distance'])
+                map.reloadMap(distance, pos, apidata, condition)
             }
         })
     })
 }
 
-function sortOptionEvent(tar, option){
+function sortByOption(tar, option){
     const eventTarget = document.querySelector(tar)
     eventTarget.addEventListener("click", function(e){
         let target = e.target;
@@ -90,11 +88,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const apidata = new ApiData(pos);
         const map = new Map(apidata);
+        // Default search range: 300m(0.3km)
+        const distanceElement = document.querySelector('.distance-option-list > .selected')
+        const distance = parseFloat(distanceElement.dataset['distance'])
+        // Default Condition: distance
+        let condition = 'distance'
         // Get all data and render them
-        map.reloadMap(pos, apidata, 'distance')
+        map.reloadMap(distance, pos, apidata, condition)
+        categoryFilterEvent(".category-list");
+        sortByOption(".sort-option-list", "sort");
+        sortByOption(".distance-option-list", condition);
+        filterEvent(
+            [".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"],
+            ".filter-controller",
+            ".layer",
+            map,
+            pos,
+            apidata,
+            condition
+        );
     })
-    categoryFilterEvent(".category-list");
-    sortOptionEvent(".sort-option-list", "sort");
-    sortOptionEvent(".distance-option-list", "distance");
-    filterEvent([".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"], ".filter-controller", ".layer");
 })
