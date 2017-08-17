@@ -14,6 +14,7 @@ class BaeminInfo: Mappable {
     private(set) var shopName: String!
     private(set) var categoryId: Int?
     private(set) var categoryName: String!
+    private(set) var categoryEnglishName: String!
     private(set) var address: String!
     private(set) var addressDetail: String?
     private(set) var phoneNumber: String?
@@ -49,6 +50,7 @@ class BaeminInfo: Mappable {
         shopName <- map["shopName"]
         categoryId <- map["categoryId"]
         categoryName <- map["categoryName"]
+        categoryEnglishName <- map["categoryEnglishName"]
         address <- map["address"]
         addressDetail <- map["addressDetail"]
         phoneNumber <- map["phoneNumber"]
