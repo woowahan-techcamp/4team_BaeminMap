@@ -126,16 +126,19 @@ class Map {
             i.setMap(null)
         })
         this.markers = []
+        let xMarker;
 
         arr.forEach((e) => {
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
-            const iconImg = '../static/WebMarker/' + e.categoryEnglishName +'.png'
+            const iconImg = '../static/WebMarker/' + e.categoryEnglishName +'.png';
+            const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName +'Fill.png'
             const marker = new google.maps.Marker({
                 position: position,
                 map: this.map,
+                category: e.categoryEnglishName,
                 shopNumber: e.shopNumber,
                 icon: {url: iconImg,
-                    scaledSize: new google.maps.Size(30, 28)
+                    scaledSize: new google.maps.Size(40, 35)
                 }
                 // TODO: 기본 아이콘 변경
             })
@@ -152,6 +155,21 @@ class Map {
                 this.map.setCenter(marker.getPosition());
                 infowindow.open(map, marker);
                 this.infowindow = infowindow;
+                //전에 선택된 마커 초기화
+                if (xMarker){
+                    const xIcon = '../static/WebMarker/' + xMarker.category +'.png';
+                    xMarker.setIcon({
+                        url: xIcon,
+                        scaledSize: new google.maps.Size(40, 35)
+                    })
+                }
+                marker.setIcon({
+                    url: SelectedIconImg,
+                    scaledSize: new google.maps.Size(40, 35)
+                })
+                console.log(marker.zIndex)
+                marker.setZIndex(10);
+                xMarker = marker;
                 //리스트 연동부분
                 if (document.querySelector(".selected-shop")){
                     document.querySelector(".selected-shop").classList.remove("selected-shop");
