@@ -17,15 +17,11 @@ class MapViewController: UIViewController {
     @IBOutlet weak var currentLocationButton: UIButton!
     
     var location = Location.sharedInstance
-    var locationManager = CLLocationManager()
-    lazy var baeminInfo: [BaeminInfo] = {
-        return self.parentView.baeminInfo
-    }()
-    lazy var baeminInfoDic: [Int:[BaeminInfo]] = {
-        return self.parentView.baeminInfoDic
-    }()
     lazy var parentView: MainContainerViewController = {
         return self.parent as! MainContainerViewController
+    }()
+    lazy var baeminInfo: [BaeminInfo] = {
+        return self.parentView.filterBaeminInfo
     }()
     lazy var infoView: ListTableViewCell = {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
@@ -41,8 +37,7 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         mapView.addSubview(infoView)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
-        currentLocationButton.addTarget(self, action: #selector(moveToCurrentLocation(_:)), for: .touchUpInside)
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("filterManager"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,11 +64,7 @@ class MapViewController: UIViewController {
             mapView.clear()
             drawMap()
         } else {
-            guard let userInfo = notification.userInfo,
-                let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
-                let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
-            self.baeminInfo = baeminInfo
-            self.baeminInfoDic = baeminInfoDic
+            self.baeminInfo = parentView.filterBaeminInfo
             self.redrawMap()
         }
     }

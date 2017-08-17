@@ -41,19 +41,20 @@ class Networking {
             switch response.result {
             case .success(let response):
                 var baeminInfo = [BaeminInfo]()
-                var baeminInfoDic = [Int:[BaeminInfo]]()
+                var baeminInfoDic = [String:[BaeminInfo]]()
                 let contents = response as! [[String:Any]]
                 contents.forEach({ (content) in
                     let shop = BaeminInfo(JSON: content)
                     if let shop = shop {
                         baeminInfo.append(shop)
-                        if let _ = baeminInfoDic[shop.type] {
-                            baeminInfoDic[shop.type]?.append(shop)
+                        if let _ = baeminInfoDic[shop.categoryName] {
+                            baeminInfoDic[shop.categoryName]?.append(shop)
                         } else {
-                            baeminInfoDic[shop.type] = [shop]
+                            baeminInfoDic[shop.categoryName] = [shop]
                         }
                     }
                 })
+                
                 NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self, userInfo: ["BaeminInfo": baeminInfo, "BaeminInfoDic": baeminInfoDic])
             case .failure(let error):
                 print(String(describing: error))

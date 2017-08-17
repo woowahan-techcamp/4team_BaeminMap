@@ -12,21 +12,19 @@ import AlamofireImage
 class ListViewController: UIViewController {
     
     @IBOutlet weak var listView: UITableView!
-    lazy var baeminInfo: [BaeminInfo] = {
-        let parentView = self.parent as! MainContainerViewController
-        return parentView.baeminInfo
+    lazy var parentView: MainContainerViewController = {
+        return self.parent as! MainContainerViewController
     }()
-    lazy var baeminInfoDic: [Int:[BaeminInfo]] = {
-        let parentView = self.parent as! MainContainerViewController
-        return parentView.baeminInfoDic
+    lazy var baeminInfo: [BaeminInfo] = {
+        return self.parentView.filterBaeminInfo
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         listView.delegate = self
         listView.dataSource = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("filterManager"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,11 +33,7 @@ class ListViewController: UIViewController {
     }
     
     func recieve(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
-            let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
-        self.baeminInfo = baeminInfo
-        self.baeminInfoDic = baeminInfoDic
+        baeminInfo = parentView.filterBaeminInfo
         listView.reloadData()
     }
     
@@ -67,6 +61,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.ratingView.rating = shop.starPointAverage
         cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         cell.isBaropay(baro: shop.useBaropay)
+        
         return cell
     }
     
