@@ -61,6 +61,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.ratingView.rating = shop.starPointAverage
         cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         cell.isBaropay(baro: shop.useBaropay)
+        
         return cell
     }
     

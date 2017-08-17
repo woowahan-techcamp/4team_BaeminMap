@@ -43,7 +43,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         selectedCategory = category
         selectedSortTag = sortTag
         selectedRangeTag = rangeTag
-        filterBaeminInfo = Filter.filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic, baeminInfo: baeminInfo)
+        filterBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
     }
     
     func receive(notification: Notification) {
@@ -52,7 +52,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         let baeminInfoDic = userInfo["BaeminInfoDic"] as? [String:[BaeminInfo]] else { return }
         self.baeminInfo = baeminInfo
         self.baeminInfoDic = baeminInfoDic
-        filterBaeminInfo = Filter.filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic, baeminInfo: baeminInfo)
+        filterBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
     }
     
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {
