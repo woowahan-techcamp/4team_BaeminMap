@@ -49,12 +49,12 @@ class DetailViewController: UIViewController {
     }
 }
 
-extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
         
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
-        topView.frame = CGRect(x: 0, y: 0, width: topView.frame.width, height: collectionView.frame.maxY)
+        topView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: collectionView.frame.maxY)
         
         if indexPath.item == 5 {
             tableView.reloadData()
@@ -65,6 +65,14 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = (collectionView.bounds.width - 30) / 2
+        let height = ( 15 * width ) / 14
+        
+        return CGSize(width: width, height: height)
     }
 }
 
