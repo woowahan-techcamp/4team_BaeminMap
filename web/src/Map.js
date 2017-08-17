@@ -160,7 +160,7 @@ class Map {
         });
     }
 
-    reloadMap(distance, pos, apidata, key, order = 'asc', categoryList) {
+    reloadMap(distance, pos, apidata, key, order, categoryList) {
         // Reset markers
         for (let i of this.markers) {
             i.setMap(null)
@@ -171,7 +171,9 @@ class Map {
         this.updatePosition(pos)
 
         // if starPointAverage: reverse
-        if (key === 'starPointAverage') {
+        if (key === 'distance') {
+            order = 'asc'
+        } else {
             order = 'desc'
         }
 
