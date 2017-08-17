@@ -134,10 +134,18 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         infoViewAnimate(isTap: true)
-        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
-        mapView.animate(to: camera)
         
         let shop = marker.userData as! BaeminInfo
+        if let selectedMarker = mapView.selectedMarker {
+            let selectedShop = selectedMarker.userData as! BaeminInfo
+            selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
+        }
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
+        mapView.selectedMarker = marker
+        marker.map = mapView
+        marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
+        mapView.animate(to: camera)
+        
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
             infoView.shopImageView.af_setImage(withURL: URL(string: url)!)
