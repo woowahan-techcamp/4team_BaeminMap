@@ -224,13 +224,14 @@ body {
 }
 
 .filter-controller {
-    width: 100%;
+    position: absolute;
+    bottom: calc(100% - 50px);
+    right: 0;
+    width: 380px;
     height: calc(100% + 50px);
     background: white;
     text-align: center;
     z-index: 50;
-    position: relative;
-    bottom: 100%;
     transition: 0.3s;
     overflow: hidden;
 }
@@ -251,7 +252,7 @@ body {
 }
 
 .filter-controller.show {
-    transform: translateY(100%);
+    transform: translateY(calc(100% - 50px));
     height: 100%;
 }
 
@@ -516,6 +517,19 @@ body {
     }
 
     .filter-controller {
+        position: absolute;
+        bottom: calc(100%);
+        right: 0;
+        width: 380px;
         height: 100%;
+        background: white;
+        text-align: center;
+        z-index: 50;
+        transition: 0.3s;
+        overflow: hidden;
+    }
+
+    .filter-controller.show {
+        transform: translateY(calc(100%));
     }
 }
