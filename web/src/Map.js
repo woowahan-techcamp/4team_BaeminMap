@@ -129,11 +129,14 @@ class Map {
 
         arr.forEach((e) => {
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
+            const iconImg = '../static/WebMarker/' + e.categoryEnglishName +'.png'
             const marker = new google.maps.Marker({
                 position: position,
                 map: this.map,
                 shopNumber: e.shopNumber,
-                icon: 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png'
+                icon: {url: iconImg,
+                    scaledSize: new google.maps.Size(30, 28)
+                }
                 // TODO: 기본 아이콘 변경
             })
             marker.addListener('click', async () => {
@@ -186,8 +189,8 @@ class Map {
             sortedData = apidata.getShopListAll(distance, key, order)
         }
         sortedData.then((filteredData) => {
-            new ShopList("#shopList", filteredData)
             this.setShopMarker(filteredData)
+            new ShopList("#shopList", filteredData, this.markers)
         })
     }
 }
