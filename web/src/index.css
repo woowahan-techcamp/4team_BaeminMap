@@ -16,6 +16,10 @@ body {
     flex: 1;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .content {
     user-select: none;
 }
@@ -32,7 +36,6 @@ body {
     right: 0;
     width: 380px;
     height: 100%;
-    background-color: grey;
     box-shadow: -1px 0px 10px grey;
 }
 
@@ -247,6 +250,11 @@ body {
     border-color: #f4f4f4;
 }
 
+.filter-controller.show {
+    transform: translateY(100%);
+    height: 100%;
+}
+
 .filter-content {
     height: 100vh;
     overflow: scroll;
@@ -254,7 +262,6 @@ body {
 
 .filter-button-wrapper{
     position: absolute;
-    bottom: 0;
     height: 50px;
     background-color: #2ac1bc;
     width: 100%;
@@ -420,4 +427,79 @@ body {
     display: block;
     text-align: center;
     margin: 10px auto 35px auto;
+}
+
+.mobile-visible {
+    display: none;
+}
+
+.floating-button {
+    z-index: 20;
+    position: fixed;
+    left: calc(50% - 116px);
+    bottom: 100px;
+    width: 100%;
+    height: 50px;
+}
+
+.floating-button > div {
+    display: inline-block;
+    float: left;
+}
+
+.floating-button > img {
+    float: left;
+}
+
+#flipList {
+    display: none;
+}
+
+#flipList:checked + .floating-button > label > div {
+    background-color: red;
+}
+
+#filterOnOff > img {
+    width: 118px;
+    height: 64px;
+}
+
+#listOnOff > img {
+    width: 115px;
+    height: 64px;
+}
+
+@media (max-width: 480px) {
+    .mobile-hidden {
+        display: none;
+    }
+
+    .mobile-visible {
+        display: inherit;
+    }
+
+    .content {
+        width: 100%;
+        height: 100%;
+    }
+
+    #list {
+        width: 100%;
+        height: 100%;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+    }
+
+    .shop-list {
+        height: 100%;
+        background-color: white;
+        top: 0;
+    }
+
+    .filter-controller {
+        height: 100%;
+    }
 }

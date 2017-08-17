@@ -2,7 +2,7 @@ import ShopList from './ShopList'
 import Map from './Map'
 import ApiData from './ApiData'
 
-function filterReset(filterChecker, targetArr){
+function filterReset(filterChecker, targetArr) {
     const allOption = document.querySelectorAll(".selected");
     allOption.forEach((e) => {
         e.classList.remove("selected")
@@ -12,26 +12,26 @@ function filterReset(filterChecker, targetArr){
     });
 }
 
-function categoryFilterEvent(tar){
+function categoryFilterEvent(tar) {
     const eventHTML = document.querySelector(tar);
     const categoryAll = document.querySelector("#category-all");
 
     eventHTML.addEventListener("click", function (e) {
         let target = e.target;
-        if (target.tagName !== "LI"){
+        if (target.tagName !== "LI") {
             return false
         }
-        if (target.id === "category-all" && !target.classList.contains("selected")){
+        if (target.id === "category-all" && !target.classList.contains("selected")) {
             const selectedCategoryArr = document.querySelectorAll(".category.selected");
-            selectedCategoryArr.forEach((e)=>{
+            selectedCategoryArr.forEach((e) => {
                 e.classList.remove("selected");
             });
             target.classList.add("selected");
-        } else if (target.id !== "category-all" && target.classList.contains("selected")){
+        } else if (target.id !== "category-all" && target.classList.contains("selected")) {
             target.classList.remove("selected");
-        } else if (!target.classList.contains("selected")){
-                categoryAll.classList.remove("selected");
-                target.classList.add("selected");
+        } else if (!target.classList.contains("selected")) {
+            categoryAll.classList.remove("selected");
+            target.classList.add("selected");
         }
     })
 }
@@ -40,21 +40,18 @@ function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
     const overLayer = document.querySelector(layer)
     const filterSection = document.querySelector(filter)
     let filterChecker;
-    arr.forEach((e)=>{
+    arr.forEach((e) => {
         const target = document.querySelector(e)
-        target.addEventListener("click", function(){
-            if (e === arr[0]){
-                filterSection.style.transform = "translateY(calc(100% - 50px))";
-                overLayer.style.zIndex = "1";
+        target.addEventListener("click", function () {
+            if (e === arr[0]) {
+                filterSection.classList.add('show')
                 filterChecker = document.querySelectorAll(".option.selected");
-            } else if (e === arr[1]){
-                filterSection.style.transform = "translateY(0)";
-                overLayer.style.zIndex = "0";
+            } else if (e === arr[1]) {
+                filterSection.classList.remove('show')
                 //필터링 취소버튼을 누르면 필터값이 초기화된다.
                 filterReset(filterChecker, [".category", ".sort-option", "distance-option"]);
-            } else if (e === arr[2]){
-                filterSection.style.transform = "translateY(0)";
-                overLayer.style.zIndex = "0";
+            } else if (e === arr[2]) {
+                filterSection.classList.remove('show')
                 //현재의 필터/정렬 옵션을 저장한다
                 filterChecker = document.querySelectorAll(".option.selected");
                 //TODO : 여기에 필터 적용해서 소트 요청하는 로직 구현
@@ -79,11 +76,11 @@ function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
     })
 }
 
-function sortByOption(tar, option){
+function sortByOption(tar, option) {
     const eventTarget = document.querySelector(tar)
-    eventTarget.addEventListener("click", function(e){
+    eventTarget.addEventListener("click", function (e) {
         let target = e.target;
-        if (target.tagName === "LI" && target.classList.contains("sort-option") && option === "sort"){
+        if (target.tagName === "LI" && target.classList.contains("sort-option") && option === "sort") {
             document.querySelector(".sort-option.selected").classList.remove("selected");
             target.classList.add("selected");
         } else if (target.tagName === "LI" && target.classList.contains("distance-option") && option === "distance") {
@@ -93,19 +90,19 @@ function sortByOption(tar, option){
     });
 }
 
-function shopSelectEvent(parent, selectedClass, mapClass){
+function shopSelectEvent(parent, selectedClass, mapClass) {
     const targetMap = mapClass;
-    const shopList = document.querySelector("."+parent);
-    shopList.addEventListener("click", function(e){
+    const shopList = document.querySelector("." + parent);
+    shopList.addEventListener("click", function (e) {
         const target = e.target;
-        if (target.classList.contains(parent)){
+        if (target.classList.contains(parent)) {
             return false
-        } else if(document.querySelector("."+selectedClass)){
+        } else if (document.querySelector("." + selectedClass)) {
             //기존 선택된 shop의 포커싱을 초기화
-            document.querySelector("."+selectedClass).classList.remove(selectedClass)
+            document.querySelector("." + selectedClass).classList.remove(selectedClass)
         }
         //마커에 입력된 shopNumber 속성을 찾는다
-        const targetMarkerArr = targetMap.markers.filter(function(obj){
+        const targetMarkerArr = targetMap.markers.filter(function (obj) {
             return obj.shopNumber.toString() === target.parentNode.id
         })
         const targetMarker = targetMarkerArr[0];
@@ -114,6 +111,18 @@ function shopSelectEvent(parent, selectedClass, mapClass){
         target.classList.add(selectedClass);
         //targetPosition은 선택한 target의 위치를 구한다. 이후 50을 빼주는건 버튼 영역때문에 하드코딩한것
         shopList.scrollTop += target.getBoundingClientRect().top - 50;
+    })
+}
+
+function toggleCSSOnClick(el, target, css) {
+    document.querySelector(el).addEventListener('click', (e) => {
+        e.preventDefault()
+        const list = document.querySelector(target)
+        if (list.classList.contains(css)) {
+            list.classList.remove(css)
+        } else {
+            list.classList.add(css)
+        }
     })
 }
 
@@ -146,4 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
             condition
         );
     })
+
+    // Add Events on Click
+    // click el, target, css class
+    toggleCSSOnClick('#listOnOff', '#shopList', 'hidden')
+    toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
 })
+
