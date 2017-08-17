@@ -4,8 +4,8 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,16 +22,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hA-hzT">
-                                <rect key="frame" x="0.0" y="108" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="102" width="320" height="466"/>
                                 <connections>
                                     <segue destination="Tke-UX-WOr" kind="embed" id="Cog-Oi-dhx"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70i-Jq-OTW">
-                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="38"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="70i-Jq-OTW" secondAttribute="height" multiplier="80:11" id="Xl1-9f-52i"/>
+                                    <constraint firstAttribute="height" constant="38" id="52K-7v-8Fr"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -44,9 +44,8 @@
                                     <action selector="searchLocationButtonAction:" destination="t57-W2-t7k" eventType="touchUpInside" id="kfl-lx-w3n"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-he-Rvg">
-                                <rect key="frame" x="118" y="494" width="84" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-he-Rvg">
+                                <rect key="frame" x="109" y="486" width="102" height="48"/>
                                 <state key="normal" image="filtericon">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -57,6 +56,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="bhp-he-Rvg" firstAttribute="centerX" secondItem="FY3-xD-dl7" secondAttribute="centerX" id="2y6-mp-Vcj"/>
+                            <constraint firstItem="tFe-n3-k0z" firstAttribute="top" secondItem="bhp-he-Rvg" secondAttribute="bottom" constant="34" id="7BO-zg-Xj3"/>
                             <constraint firstItem="70i-Jq-OTW" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="A1S-NP-uJU"/>
                             <constraint firstAttribute="trailing" secondItem="70i-Jq-OTW" secondAttribute="trailing" id="Twt-Hz-lNB"/>
                             <constraint firstItem="toJ-hA-hzT" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="U8h-ji-mqk"/>
@@ -75,6 +76,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="filterBottomConstraint" destination="7BO-zg-Xj3" id="66T-S1-Hed"/>
                         <outlet property="filterButton" destination="bhp-he-Rvg" id="Qfd-F0-MRN"/>
                         <outlet property="toggleButton" destination="yfS-uM-AAN" id="gE3-2j-hcg"/>
                     </connections>
