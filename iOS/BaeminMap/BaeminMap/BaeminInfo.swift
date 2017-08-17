@@ -37,7 +37,7 @@ class BaeminInfo: Mappable {
     private(set) var useBaropay: Bool!
     private(set) var useMeetPay: Bool!
     private(set) var useCardPay: Bool!
-    private(set) var canDelivery: Bool!
+//    private(set) var canDelivery: Bool!
     private(set) var shopOpened: Bool!
     private(set) var location: [String:Double]!
     private(set) var distance: Double!
@@ -73,7 +73,7 @@ class BaeminInfo: Mappable {
         useBaropay <- map["useBaropay"]
         useMeetPay <- map["useMeetPay"]
         useCardPay <- map["useCardPay"]
-        canDelivery <- map["canDelivery"]
+//        canDelivery <- map["canDelivery"]
         shopOpened <- map["shopOpened"]
         location <- map["location"]
         distance <- map["distance"]

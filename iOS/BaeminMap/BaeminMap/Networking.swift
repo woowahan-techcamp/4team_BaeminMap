@@ -10,27 +10,6 @@ import Foundation
 import Alamofire
 
 class Networking {
-//    func getAccessToken() {
-//        let parameters = [
-//            "grant_type": "password",
-//            "client_id": Config.clientID,
-//            "scope": "read",
-//            "username": Config.baeminID,
-//            "password": Config.baeminPassword
-//        ]
-//        
-//        Alamofire.request("https://\(Config.clientID):\(Config.clientSecret)@\(Config.tokenURL)", method: .post, parameters: parameters, encoding: URLEncoding.default).responseJSON { response in
-//            switch response.result {
-//            case .success(let result):
-//                Config.token = (result as! [String:Any])["access_token"] as! String
-//                self.getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
-//                self.getFoods(shopNo: 521977)
-//            case .failure(let error):
-//                print(String(describing: error))
-//            }
-//        }
-//    }
-    
     func getBaeminInfo(latitude: Double, longitude: Double) {
         let parameters = [
             "lat": latitude,

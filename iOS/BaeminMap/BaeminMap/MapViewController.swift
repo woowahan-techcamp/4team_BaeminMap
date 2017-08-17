@@ -90,17 +90,15 @@ class MapViewController: UIViewController {
     func drawMarker(selectedMarker: GMSMarker?) {
         drawCurrentLocation()
         for(count, shop) in baeminInfo.enumerated() {
-            if shop.canDelivery {
-                let marker = GMSMarker()
-                marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                marker.map = self.mapView
-                marker.userData = shop
-                if let selectedShop = selectedMarker?.userData as? BaeminInfo, shop === selectedShop {
-                    marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
-                    self.mapView.selectedMarker = marker
-                } else {
-                    marker.icon = count < 30 || self.isZoom ? UIImage(named: shop.categoryEnglishName) : #imageLiteral(resourceName: "smallMarker")
-                }
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
+            marker.map = self.mapView
+            marker.userData = shop
+            if let selectedShop = selectedMarker?.userData as? BaeminInfo, shop === selectedShop {
+                marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
+                self.mapView.selectedMarker = marker
+            } else {
+                marker.icon = count < 30 || self.isZoom ? UIImage(named: shop.categoryEnglishName) : #imageLiteral(resourceName: "smallMarker")
             }
         }
     }
