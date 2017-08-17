@@ -30,6 +30,9 @@ class MapViewController: UIViewController {
         return cell
     }()
     var isZoom = true
+    lazy var filterButtonFrameY: CGFloat = {
+        return self.parentView.filterButton.frame.minY
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,12 +92,14 @@ class MapViewController: UIViewController {
         drawCurrentLocation()
         
         for(count, shop) in baeminInfo.enumerated() {
-            let marker = GMSMarker()
-            DispatchQueue.main.async {
-                marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
-                marker.map = self.mapView
-                marker.userData = shop
+            if shop.canDelivery {
+                let marker = GMSMarker()
+                DispatchQueue.main.async {
+                    marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
+                    marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
+                    marker.map = self.mapView
+                    marker.userData = shop
+                }
             }
         }
     }
@@ -110,14 +115,15 @@ class MapViewController: UIViewController {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
                 self.infoView.frame = CGRect(x: 5, y: self.mapView.frame.maxY-110, width: self.mapView.frame.width-10, height: 105)
-                self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: self.infoView.frame.minY+50, width: filterButtonFrame.width, height: filterButtonFrame.height)
+                let y = self.filterButtonFrameY - self.infoView.frame.height+20
+                self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: y, width: filterButtonFrame.width, height: filterButtonFrame.height)
                 self.mapView.layoutIfNeeded()
             }
         } else {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                 self.infoView.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
-                self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: 494, width: filterButtonFrame.width, height: filterButtonFrame.height)
+                self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: self.filterButtonFrameY, width: filterButtonFrame.width, height: filterButtonFrame.height)
                 self.mapView.layoutIfNeeded()
             }
         }
@@ -141,7 +147,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoView.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
         infoView.ratingView.rating = shop.starPointAverage
         infoView.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
-        infoView.isBaropay(baro: shop.useBaropay)
+        infoView.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
         
         return true
     }
