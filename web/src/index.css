@@ -113,7 +113,12 @@ body {
 }
 
 .shop-layer.selected-shop{
-    background-color: #a0efec;
+    background-color: #c6d3e4;
+    opacity: 0.4;
+}
+
+.shop-layer.selected-shop:hover{
+    background-color: #c6d3e4;
     opacity: 0.5;
 }
 
