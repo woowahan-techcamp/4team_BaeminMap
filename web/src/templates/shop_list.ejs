@@ -1,6 +1,6 @@
 <% _.each(data, (shop) => { %>
 <div class="shop" id="<%= shop.shopNumber %>">
-    <a class="shop-layer" href="/#<%= shop.shopNumber %>"></a>
+    <a class="shop-layer" href="<%= shop.shopNumber %>"></a>
     <div class="shop-image-wrapper">
         <span></span>
         <img src="<%= shop.shopLogoImageUrl %>" onerror="this.src='../static/default.png'" alt="">

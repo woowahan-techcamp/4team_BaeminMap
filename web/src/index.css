@@ -86,6 +86,7 @@ body {
     z-index: 1;
     position: absolute;
     top: 50px;
+    transition: 0.3s;
 }
 
 .shop {
@@ -223,7 +224,7 @@ body {
     position: relative;
     bottom: 100%;
     transition: 0.3s;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .filter-controller ul {
@@ -241,6 +242,11 @@ body {
     border-color: #f4f4f4;
 }
 
+.filter-content {
+    height: 100vh;
+    overflow: scroll;
+}
+
 .filter-button-wrapper{
     position: absolute;
     bottom: 0;
@@ -253,6 +259,9 @@ body {
 
 .filter-title {
     margin: 0 0 0 0;
+    position: absolute;
+    left: 40%;
+    right: 40%;
 }
 
 .category-list {
@@ -304,7 +313,8 @@ body {
 
 .filter-title-bar {
     margin-bottom: 30px;
-    padding: 20px 0 10px 0
+    padding: 20px 0 10px 0;
+    position: relative;
 }
 
 .inner-filter-button {

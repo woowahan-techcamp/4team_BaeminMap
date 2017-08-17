@@ -91,8 +91,7 @@ function shopSelectEvent(parent, selectedClass){
         }
         target.classList.add(selectedClass);
         //targetPosition은 선택한 target의 위치를 구한다. 이후 50을 빼주는건 버튼 영역때문에 하드코딩한것
-        const targetPosition = target.getBoundingClientRect().top - 50;
-        shopList.scrollTop += targetPosition;
+        shopList.scrollTop += target.getBoundingClientRect().top - 50;
     })
 }
 
