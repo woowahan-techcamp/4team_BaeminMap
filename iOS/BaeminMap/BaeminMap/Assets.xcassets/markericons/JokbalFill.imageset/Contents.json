@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bossamFill.png",
+      "filename" : "JokbalFill.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bossamFill@2x.png",
+      "filename" : "JokbalFill@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bossamFill@3x.png",
+      "filename" : "JokbalFill@3x.png",
       "scale" : "3x"
     }
   ],

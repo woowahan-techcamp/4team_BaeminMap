@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bunsikFill.png",
+      "filename" : "SnackFill.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bunsikFill@2x.png",
+      "filename" : "SnackFill@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bunsikFill@3x.png",
+      "filename" : "SnackFill@3x.png",
       "scale" : "3x"
     }
   ],
