@@ -24,7 +24,7 @@ export default class ApiData {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    compareValues(key, order = 'asc') {
+    compareValues(key, order) {
         return function (a, b) {
             if (!a.hasOwnProperty(key) ||
                 !b.hasOwnProperty(key)) {
