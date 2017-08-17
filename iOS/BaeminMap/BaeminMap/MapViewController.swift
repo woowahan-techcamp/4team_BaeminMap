@@ -38,6 +38,7 @@ class MapViewController: UIViewController {
         mapView.addSubview(infoView)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("filterManager"), object: nil)
+        currentLocationButton.addTarget(self, action: #selector(moveToCurrentLocation), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
