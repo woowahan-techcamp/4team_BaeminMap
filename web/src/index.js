@@ -133,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
             condition
         );
     })
-
     // Add Events on Click
     // click el, target, css class
     toggleCSSOnClick('#listOnOff', '#list', 'hidden')
