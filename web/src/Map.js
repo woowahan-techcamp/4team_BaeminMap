@@ -163,6 +163,8 @@ class Map {
                         url: xIcon,
                         scaledSize: new google.maps.Size(40, 35)
                     })
+                    //전에 선택된 마커 zindex 값 초기화
+                    xMarker.setZIndex(0);
                 }
                 //선택된 마커를 fill 마커로 변경
                 marker.setIcon({
