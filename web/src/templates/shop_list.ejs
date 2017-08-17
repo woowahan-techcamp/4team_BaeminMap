@@ -1,9 +1,11 @@
-<% _.each(data, (shop) => { %>
+<% _.each(data, (shop) => {
+    const shopLogoImageUrl = shop.shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr')
+%>
 <div class="shop" id="<%= shop.shopNumber %>">
     <a class="shop-layer"></a>
     <div class="shop-image-wrapper">
         <span></span>
-        <img src="<%= shop.shopLogoImageUrl.replace('https://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr') %>" onerror="this.src='../static/default.png'" alt="">
+        <img src="<%= shopLogoImageUrl %>" onerror="this.src='../static/default.png'" alt="">
     </div>
     <div class="shop-abstract-wrapper">
         <span class="shop-distance">
