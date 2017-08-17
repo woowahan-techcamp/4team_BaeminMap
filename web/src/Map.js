@@ -8,7 +8,10 @@ class Map {
             zoom: 17,
             center: this.currentLocation,
             minZoom: 14,
-            maxZoom: 19
+            maxZoom: 19,
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullscreenControl : false
         });
         this.searchPosition();
         this.data = data
