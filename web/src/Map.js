@@ -56,6 +56,7 @@ class Map {
             position: position,
             map: this.map,
             title: "my location",
+            zIndex: 0
         })
     }
 
@@ -74,16 +75,18 @@ class Map {
 
         // TODO: on map 'zoom_changed', then change markers!
         map.addListener('zoom_changed', () => {
-            if (map.zoom > 16) {
+            const overFiftyMarkersArr = this.markers.slice(50)
+            console.log(overFiftyMarkersArr)
+            if (map.zoom >= 17) {
                 // 건물수준(좁게보기)
-                this.markers.forEach((marker) => {
-                    marker.setIcon('https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png')
-                    // TODO: 아이콘 업데이트
+                overFiftyMarkersArr.forEach((marker) => {
+                    marker.setIcon(marker.categoryIcon)
                 })
             } else {
                 // 도로 구 수준(넓게보기)
-                this.markers.forEach((marker) => {
-                    marker.setIcon('https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png')
+                overFiftyMarkersArr.forEach((marker) => {
+                    marker.setIcon(marker.pinIcon)
+                    marker.zIndex = 0;
                 })
             }
         })
@@ -135,9 +138,18 @@ class Map {
             const marker = new google.maps.Marker({
                 position: position,
                 map: this.map,
-                zIndex: 0 ,
+                zIndex: 1 ,
                 category: e.categoryEnglishName,
                 shopNumber: e.shopNumber,
+                categoryIcon : {url: iconImg,
+                    scaledSize: new google.maps.Size(40, 35)
+                },
+                filledIcon: {url: SelectedIconImg,
+                    scaledSize: new google.maps.Size(40, 35)
+                },
+                pinIcon: {url: "./static/pin.png",
+                    scaledSize: new google.maps.Size(10, 10)
+                },
                 icon: {url: iconImg,
                     scaledSize: new google.maps.Size(40, 35)
                 }
@@ -158,23 +170,15 @@ class Map {
                 this.infowindow = infowindow;
                 //전에 선택된 마커 초기화
                 if (xMarker){
-                    const xIcon = '../static/WebMarker/' + xMarker.category +'.png';
-                    xMarker.setIcon({
-                        url: xIcon,
-                        scaledSize: new google.maps.Size(40, 35)
-                    })
+                    xMarker.setIcon((this.map.zoom >= 17)? xMarker.categoryIcon : xMarker.pinIcon)
                     //전에 선택된 마커 zindex 값 초기화
-                    xMarker.setZIndex(0);
+                    xMarker.setZIndex((this.map.zoom >= 17)? 1 : 0);
                 }
-                //선택된 마커를 fill 마커로 변경
-                marker.setIcon({
-                    url: SelectedIconImg,
-                    scaledSize: new google.maps.Size(40, 35)
-                })
-                // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
-                marker.setZIndex(1);
-                console.log(marker.zIndex)
                 xMarker = marker;
+                //선택된 마커를 fill 마커로 변경
+                marker.setIcon(marker.filledIcon);
+                // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                marker.setZIndex(2);
                 //리스트 연동부분
                 if (document.querySelector(".selected-shop")){
                     document.querySelector(".selected-shop").classList.remove("selected-shop");

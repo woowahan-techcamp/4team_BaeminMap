@@ -16,6 +16,10 @@ body {
     flex: 1;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .content {
     user-select: none;
 }
@@ -32,7 +36,6 @@ body {
     right: 0;
     width: 380px;
     height: 100%;
-    background-color: grey;
     box-shadow: -1px 0px 10px grey;
 }
 
@@ -221,13 +224,14 @@ body {
 }
 
 .filter-controller {
-    width: 100%;
+    position: absolute;
+    bottom: calc(100% - 50px);
+    right: 0;
+    width: 380px;
     height: calc(100% + 50px);
     background: white;
     text-align: center;
     z-index: 50;
-    position: relative;
-    bottom: 100%;
     transition: 0.3s;
     overflow: hidden;
 }
@@ -247,6 +251,11 @@ body {
     border-color: #f4f4f4;
 }
 
+.filter-controller.show {
+    transform: translateY(calc(100% - 50px));
+    height: 100%;
+}
+
 .filter-content {
     height: 100vh;
     overflow: scroll;
@@ -254,7 +263,6 @@ body {
 
 .filter-button-wrapper{
     position: absolute;
-    bottom: 0;
     height: 50px;
     background-color: #2ac1bc;
     width: 100%;
@@ -420,4 +428,108 @@ body {
     display: block;
     text-align: center;
     margin: 10px auto 35px auto;
+}
+
+.mobile-visible {
+    display: none;
+}
+
+.floating-button {
+    z-index: 20;
+    position: fixed;
+    left: calc(50% - 116px);
+    bottom: 60px;
+    width: 233px;
+}
+
+.floating-button > div {
+    display: inline-block;
+    float: left;
+}
+
+.floating-button > img {
+    float: left;
+}
+
+#flipList {
+    display: none;
+}
+
+#flipList + .floating-button > label > div {
+    float: left;
+    width: 115px;
+    height: 64px;
+    background-image: url("../static/mapBtn.png");
+    background-size: 115px 64px;
+}
+
+#flipList:checked + .floating-button > label > div {
+    float: left;
+    width: 115px;
+    height: 64px;
+    background-image: url("../static/listBtn.png");
+    background-size: 115px 64px;
+}
+
+#filterOnOff > img {
+    width: 118px;
+    height: 64px;
+}
+
+#listOnOff > img {
+    width: 115px;
+    height: 64px;
+}
+
+@media (max-width: 480px) {
+    .mobile-hidden {
+        display: none;
+    }
+
+    .mobile-visible {
+        display: inherit;
+    }
+
+    .content {
+        width: 100%;
+        height: 100%;
+    }
+
+    #list {
+        width: 100%;
+        height: 100%;
+        top:0;
+    }
+
+    #list.show {
+        z-index: 0;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+    }
+
+    .shop-list {
+        height: 100%;
+        background-color: white;
+        top: 0;
+    }
+
+    .filter-controller {
+        position: absolute;
+        bottom: calc(100%);
+        right: 0;
+        width: 380px;
+        height: 100%;
+        background: white;
+        text-align: center;
+        z-index: 50;
+        transition: 0.3s;
+        overflow: hidden;
+    }
+
+    .filter-controller.show {
+        transform: translateY(calc(100%));
+    }
 }
