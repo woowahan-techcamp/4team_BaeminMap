@@ -58,9 +58,17 @@ function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
                 //현재의 필터/정렬 옵션을 저장한다
                 filterChecker = document.querySelectorAll(".option.selected");
                 //TODO : 여기에 필터 적용해서 소트 요청하는 로직 구현
+                let categoryList = []
+                for (const i of filterChecker) {
+                    const _categoryId = parseInt(i.id.replace('category-', ''))
+                    if (typeof _categoryId === 'number' && !isNaN(_categoryId)) {
+                        categoryList.push(_categoryId)
+                    }
+                }
+                categoryList = (categoryList[0] === undefined) ? null : categoryList
                 const distanceElement = document.querySelector('.distance-option-list > .selected')
                 const distance = parseFloat(distanceElement.dataset['distance'])
-                map.reloadMap(distance, pos, apidata, condition)
+                map.reloadMap(distance, pos, apidata, condition, null, categoryList)
             }
         })
     })
