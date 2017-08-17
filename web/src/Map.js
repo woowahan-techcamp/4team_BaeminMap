@@ -149,7 +149,7 @@ class Map {
                 this.map.setCenter(marker.getPosition());
                 infowindow.open(map, marker);
                 this.infowindow = infowindow;
-                //리스트 연동부분, 현재 하드코딩 되어있음
+                //리스트 연동부분
                 if (document.querySelector(".selected-shop")){
                     document.querySelector(".selected-shop").classList.remove("selected-shop");
                 }
