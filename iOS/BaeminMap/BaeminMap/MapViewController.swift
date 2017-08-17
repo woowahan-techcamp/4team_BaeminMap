@@ -5,7 +5,6 @@
 //  Created by woowabrothers on 2017. 8. 4..
 //  Copyright © 2017년 woowabrothers. All rights reserved.
 //
-// TODO: mapView didChange에 줌기능 디바이스에서만 GCD 적용되어 현재는 주석상태. 추후 주석해제 예정
 
 import UIKit
 import GoogleMaps
@@ -93,16 +92,14 @@ class MapViewController: UIViewController {
         for(count, shop) in baeminInfo.enumerated() {
             if shop.canDelivery {
                 let marker = GMSMarker()
-                DispatchQueue.main.async {
-                    marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                    marker.map = self.mapView
-                    marker.userData = shop
-                    if let selectedShop = selectedMarker?.userData as? BaeminInfo, shop === selectedShop {
-                        marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
-                        self.mapView.selectedMarker = marker
-                    } else {
-                        marker.icon = count < 30 || self.isZoom ? UIImage(named: shop.categoryEnglishName) : #imageLiteral(resourceName: "smallMarker")
-                    }
+                marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
+                marker.map = self.mapView
+                marker.userData = shop
+                if let selectedShop = selectedMarker?.userData as? BaeminInfo, shop === selectedShop {
+                    marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
+                    self.mapView.selectedMarker = marker
+                } else {
+                    marker.icon = count < 30 || self.isZoom ? UIImage(named: shop.categoryEnglishName) : #imageLiteral(resourceName: "smallMarker")
                 }
             }
         }
@@ -140,9 +137,9 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         infoViewAnimate(isTap: true)
         
-        let shop = marker.userData as! BaeminInfo
-        if let selectedMarker = mapView.selectedMarker {
-            let selectedShop = selectedMarker.userData as! BaeminInfo
+        guard let shop = marker.userData as? BaeminInfo else { return false }
+        if let selectedMarker = mapView.selectedMarker,
+            let selectedShop = selectedMarker.userData as? BaeminInfo {
             selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
         }
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
@@ -167,19 +164,16 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         infoViewAnimate(isTap: false)
+        self.redrawMap()
     }
 
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         if position.zoom < 17 && isZoom {
             isZoom = false
-//            DispatchQueue.global().async {
-                self.redrawMap()
-//            }
+            self.redrawMap()
         } else if position.zoom >= 17 && !isZoom {
             isZoom = true
-//            DispatchQueue.global().async {
-                self.redrawMap()
-//            }
+            self.redrawMap()
         }
     }
 }
