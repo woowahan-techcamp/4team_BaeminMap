@@ -3,6 +3,9 @@ import Map from './Map'
 import ApiData from './ApiData'
 
 function filterReset(filterChecker, targetArr) {
+    if (!filterChecker) {
+        return false
+    }
     const allOption = document.querySelectorAll(".selected");
     allOption.forEach((e) => {
         e.classList.remove("selected")
@@ -158,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add Events on Click
     // click el, target, css class
-    toggleCSSOnClick('#listOnOff', '#shopList', 'hidden')
+    toggleCSSOnClick('#listOnOff', '#list', 'hidden')
     toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
 })
 

@@ -437,9 +437,8 @@ body {
     z-index: 20;
     position: fixed;
     left: calc(50% - 116px);
-    bottom: 100px;
-    width: 100%;
-    height: 50px;
+    bottom: 60px;
+    width: 233px;
 }
 
 .floating-button > div {
@@ -455,8 +454,20 @@ body {
     display: none;
 }
 
+#flipList + .floating-button > label > div {
+    float: left;
+    width: 115px;
+    height: 64px;
+    background-image: url("../static/mapBtn.png");
+    background-size: 115px 64px;
+}
+
 #flipList:checked + .floating-button > label > div {
-    background-color: red;
+    float: left;
+    width: 115px;
+    height: 64px;
+    background-image: url("../static/listBtn.png");
+    background-size: 115px 64px;
 }
 
 #filterOnOff > img {
@@ -486,6 +497,11 @@ body {
     #list {
         width: 100%;
         height: 100%;
+        top:0;
+    }
+
+    #list.show {
+        z-index: 0;
     }
 
     #map {
