@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default class ApiData {
     constructor(position) {
-        this.baseURL = "http://baeminmap.testi.kr"
+        this.baseURL = "https://baeminmap2.testi.kr"
         this.getShopURL = this.baseURL + "/shops"
         this.init(position)
     }
