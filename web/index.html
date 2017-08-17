@@ -11,70 +11,77 @@
     <div id="map"></div>
     <div id="list">
         <div class="filter-controller">
-            <div class="filter-title-bar">
-                <label class="cancel-filter-button inner-filter-button">
-                    취소
-                </label>
-                <label class="apply-filter-button inner-filter-button">
-                    적용
-                </label>
-                <label>
-                    <h3 class="filter-title">조건 선택</h3>
-                </label>
-            </div>
-            <div class="category-filter-wrapper">
-                <ul class="category-list">
-                    <li id="category-all" class="option category selected">전체</li>
-                    <li id="category-1" class="option category">치킨</li>
-                    <li id="category-2" class="option category">중국집</li>
-                    <li id="category-3" class="option category">피자</li>
-                    <li id="category-32" class="option category">한식</li>
-                    <li id="category-33" class="option category">분식</li>
-                    <li id="category-4" class="option category">족발, 보쌈</li>
-                    <li id="category-5" class="option category">야식</li>
-                    <li id="category-6" class="option category">찜, 탕</li>
-                    <li id="category-10" class="option category">회, 돈까스, 일식</li>
-                    <li id="category-9" class="option category">도시락</li>
-                    <li id="category-7" class="option category">패스트푸드</li>
-                </ul>
-            </div>
-            <div class="line"></div>
-            <div class="sort-option-wrapper">
-                <ul class="sort-option-list">
-                    <li id="sort-option-distance" class="option sort-option selected"><img src="./static/check.png"
-                                                                                           class="check-img">가까운 순
-                    </li>
-                    <li id="sort-option-orderCount" class="option sort-option"><img src="./static/check.png"
-                                                                               class="check-img">주문 많은 순
-                    </li>
-                    <li id="sort-option-starPointAverage" class="option sort-option"><img src="./static/check.png"
-                                                                                class="check-img">리뷰 좋은 순
-                    </li>
-                    <li id="sort-option-viewCount" class="option sort-option"><img src="./static/check.png"
-                                                                                 class="check-img">인기 많은 순
-                    </li>
-                    <li id="sort-option-favoriteCount" class="option sort-option"><img src="./static/check.png"
-                                                                                  class="check-img">즐겨찾기 많은 순
-                    </li>
-                </ul>
-            </div>
-            <div class="line"></div>
-            <div class="distance-option-wrapper">
-                <ul class="distance-option-list">
-                    <li id="distance-option-300" class="option distance-option selected" data-distance="0.3"><img src="./static/check.png"
-                                                                                              class="check-img">근처 업소만
-                        보기 (300m)
-                    </li>
-                    <li id="distance-option-700" class="option distance-option" data-distance="0.7"><img src="./static/check.png"
-                                                                                      class="check-img">멀리까지 (0.7km)
-                    </li>
-                    <li id="distance-option-1500" class="option distance-option" data-distance="1.5"><img src="./static/check.png"
-                                                                                      class="check-img">머어얼리까지 (1.5km)
-                    </li>
-                </ul>
+            <div class="filter-content">
+                <div class="filter-title-bar">
+                    <label class="cancel-filter-button inner-filter-button">
+                        취소
+                    </label>
+                    <label class="apply-filter-button inner-filter-button">
+                        적용
+                    </label>
+                    <label>
+                        <h3 class="filter-title">조건 선택</h3>
+                    </label>
+                </div>
+                <div class="category-filter-wrapper">
+                    <ul class="category-list">
+                        <li id="category-all" class="option category selected">전체</li>
+                        <li id="category-1" class="option category">치킨</li>
+                        <li id="category-2" class="option category">중국집</li>
+                        <li id="category-3" class="option category">피자</li>
+                        <li id="category-32" class="option category">한식</li>
+                        <li id="category-33" class="option category">분식</li>
+                        <li id="category-4" class="option category">족발, 보쌈</li>
+                        <li id="category-5" class="option category">야식</li>
+                        <li id="category-6" class="option category">찜, 탕</li>
+                        <li id="category-10" class="option category">회, 돈까스, 일식</li>
+                        <li id="category-9" class="option category">도시락</li>
+                        <li id="category-7" class="option category">패스트푸드</li>
+                    </ul>
+                </div>
+                <div class="line"></div>
+                <div class="sort-option-wrapper">
+                    <ul class="sort-option-list">
+                        <li id="sort-option-distance" class="option sort-option selected"><img src="./static/check.png"
+                                                                                               class="check-img">가까운 순
+                        </li>
+                        <li id="sort-option-orderCount" class="option sort-option"><img src="./static/check.png"
+                                                                                        class="check-img">주문 많은 순
+                        </li>
+                        <li id="sort-option-starPointAverage" class="option sort-option"><img src="./static/check.png"
+                                                                                              class="check-img">리뷰 좋은 순
+                        </li>
+                        <li id="sort-option-viewCount" class="option sort-option"><img src="./static/check.png"
+                                                                                       class="check-img">인기 많은 순
+                        </li>
+                        <li id="sort-option-favoriteCount" class="option sort-option"><img src="./static/check.png"
+                                                                                           class="check-img">즐겨찾기 많은 순
+                        </li>
+                    </ul>
+                </div>
+                <div class="line"></div>
+                <div class="distance-option-wrapper">
+                    <ul class="distance-option-list">
+                        <li id="distance-option-300" class="option distance-option selected" data-distance="0.3"><img
+                                src="./static/check.png"
+                                class="check-img">근처 업소만
+                            보기 (300m)
+                        </li>
+                        <li id="distance-option-700" class="option distance-option" data-distance="0.7"><img
+                                src="./static/check.png"
+                                class="check-img">멀리까지 (700m)
+                        </li>
+                        <li id="distance-option-1500" class="option distance-option" data-distance="1.5"><img
+                                src="./static/check.png"
+                                class="check-img">머어얼리까지 (1.5km)
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="filter-button-wrapper">
-                <h2 style="margin-top:10px; color: white;">Filter <img style="position: absolute;height: 17px; width: auto;right:10px; top:14px;" src="./static/angle-down.png"></h2>
+                <h2 style="margin-top:10px; color: white;">Filter <img
+                        style="position: absolute;height: 17px; width: auto;right:10px; top:14px;"
+                        src="./static/angle-down.png"></h2>
             </div>
         </div>
         <div class="shop-list" id="shopList">

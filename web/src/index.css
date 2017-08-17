@@ -86,6 +86,7 @@ body {
     z-index: 1;
     position: absolute;
     top: 50px;
+    transition: 0.3s;
 }
 
 .shop {
@@ -111,7 +112,13 @@ body {
     z-index: 20;
 }
 
-.shop-layer .selected{
+.shop-layer.selected-shop{
+    background-color: #c6d3e4;
+    opacity: 0.4;
+}
+
+.shop-layer.selected-shop:hover{
+    background-color: #c6d3e4;
     opacity: 0.5;
 }
 
@@ -240,6 +247,11 @@ body {
     border-color: #f4f4f4;
 }
 
+.filter-content {
+    height: 100vh;
+    overflow: scroll;
+}
+
 .filter-button-wrapper{
     position: absolute;
     bottom: 0;
@@ -252,6 +264,9 @@ body {
 
 .filter-title {
     margin: 0 0 0 0;
+    position: absolute;
+    left: 40%;
+    right: 40%;
 }
 
 .category-list {
@@ -303,7 +318,8 @@ body {
 
 .filter-title-bar {
     margin-bottom: 30px;
-    padding: 20px 0 10px 0
+    padding: 20px 0 10px 0;
+    position: relative;
 }
 
 .inner-filter-button {

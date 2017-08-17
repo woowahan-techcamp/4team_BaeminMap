@@ -132,6 +132,7 @@ class Map {
             const marker = new google.maps.Marker({
                 position: position,
                 map: this.map,
+                shopNumber: e.shopNumber,
                 icon: 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png'
                 // TODO: 기본 아이콘 변경
             })
@@ -147,7 +148,13 @@ class Map {
                 }
                 this.map.setCenter(marker.getPosition());
                 infowindow.open(map, marker);
-                this.infowindow = infowindow
+                this.infowindow = infowindow;
+                //리스트 연동부분
+                if (document.querySelector(".selected-shop")){
+                    document.querySelector(".selected-shop").classList.remove("selected-shop");
+                }
+                document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
+                document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
             });
             this.markers.push(marker)
         });

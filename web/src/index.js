@@ -93,6 +93,30 @@ function sortByOption(tar, option){
     });
 }
 
+function shopSelectEvent(parent, selectedClass, mapClass){
+    const targetMap = mapClass;
+    const shopList = document.querySelector("."+parent);
+    shopList.addEventListener("click", function(e){
+        const target = e.target;
+        if (target.classList.contains(parent)){
+            return false
+        } else if(document.querySelector("."+selectedClass)){
+            //기존 선택된 shop의 포커싱을 초기화
+            document.querySelector("."+selectedClass).classList.remove(selectedClass)
+        }
+        //마커에 입력된 shopNumber 속성을 찾는다
+        const targetMarkerArr = targetMap.markers.filter(function(obj){
+            return obj.shopNumber.toString() === target.parentNode.id
+        })
+        const targetMarker = targetMarkerArr[0];
+        //선택한 shop 과 연동된 마커 클릭 이벤트를 발생시킨다
+        new google.maps.event.trigger(targetMarkerArr, 'click');
+        target.classList.add(selectedClass);
+        //targetPosition은 선택한 target의 위치를 구한다. 이후 50을 빼주는건 버튼 영역때문에 하드코딩한것
+        shopList.scrollTop += target.getBoundingClientRect().top - 50;
+    })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     navigator.geolocation.getCurrentPosition((position) => {
         const pos = {
@@ -108,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let condition = 'distance'
         // Get all data and render them
         map.reloadMap(distance, pos, apidata, condition)
+        shopSelectEvent("shop-list", "selected-shop", map)
         categoryFilterEvent(".category-list");
         sortByOption(".sort-option-list", "sort");
         sortByOption(".distance-option-list", condition);
