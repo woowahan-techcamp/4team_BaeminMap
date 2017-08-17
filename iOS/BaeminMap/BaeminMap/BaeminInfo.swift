@@ -38,7 +38,7 @@ class BaeminInfo: Mappable {
     private(set) var location: [String:Double]!
     private(set) var distance: Double!
     private(set) var shopLogoImageUrl: String?
-    private(set) var type: Int!
+//    private(set) var type: Int!
     
     required init?(map: Map) {}
   
@@ -71,23 +71,23 @@ class BaeminInfo: Mappable {
         location <- map["location"]
         distance <- map["distance"]
         shopLogoImageUrl <- map["shopLogoImageUrl"]
-        type = type(type: categoryName)
+//        type = type(type: categoryName)
     }
     
-    func type(type: String) -> Int {
-        switch type {
-            case "치킨": return 1
-            case "중식": return 2
-            case "피자": return 3
-            case "한식": return 32
-            case "분식": return 33
-            case "족발,보쌈": return 4
-            case "야식": return 5
-            case "찜,탕": return 6
-            case "돈까스,회,일식": return 10
-            case "도시락": return 9
-            default: return 7
-        }
-    }
+//    func type(type: String) -> Int {
+//        switch type {
+//            case "치킨": return 1
+//            case "중식": return 2
+//            case "피자": return 3
+//            case "한식": return 32
+//            case "분식": return 33
+//            case "족발,보쌈": return 4
+//            case "야식": return 5
+//            case "찜,탕": return 6
+//            case "돈까스,회,일식": return 10
+//            case "도시락": return 9
+//            default: return 7
+//        }
+//    }
     
 }

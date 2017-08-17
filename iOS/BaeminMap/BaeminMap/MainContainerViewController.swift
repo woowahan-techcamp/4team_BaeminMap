@@ -16,7 +16,12 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     
     var isListView = Bool()
     var baeminInfo = [BaeminInfo]()
-    var baeminInfoDic = [Int:[BaeminInfo]]()
+    var baeminInfoDic = [String:[BaeminInfo]]()
+    var filterBaeminInfo = [BaeminInfo]() {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name("filterManager"), object: self)
+        }
+    }
     var selectedCategory = [String]()
     var selectedSortTag = Int()
     var selectedRangeTag = Int()
@@ -38,14 +43,16 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         selectedCategory = category
         selectedSortTag = sortTag
         selectedRangeTag = rangeTag
+        filterBaeminInfo = Filter.filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic, baeminInfo: baeminInfo)
     }
     
     func receive(notification: Notification) {
         guard let userInfo = notification.userInfo,
             let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
-        let baeminInfoDic = userInfo["BaeminInfoDic"] as? [Int:[BaeminInfo]] else { return }
+        let baeminInfoDic = userInfo["BaeminInfoDic"] as? [String:[BaeminInfo]] else { return }
         self.baeminInfo = baeminInfo
         self.baeminInfoDic = baeminInfoDic
+        filterBaeminInfo = Filter.filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic, baeminInfo: baeminInfo)
     }
     
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {
