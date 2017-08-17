@@ -3,7 +3,6 @@ import * as _ from "lodash";
 
 class Map {
     constructor(data) {
-        this.infowindow;
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
         this.map = new google.maps.Map(document.getElementById('map'), {
             zoom: 17,
@@ -75,8 +74,8 @@ class Map {
 
         // TODO: on map 'zoom_changed', then change markers!
         map.addListener('zoom_changed', () => {
+            this.resetMarkerAndInfo()
             const overFiftyMarkersArr = this.markers.slice(50)
-            console.log(overFiftyMarkersArr)
             if (map.zoom >= 17) {
                 // 건물수준(좁게보기)
                 overFiftyMarkersArr.forEach((marker) => {
@@ -124,33 +123,44 @@ class Map {
         });
     }
 
+    resetMarkerAndInfo() {
+        if (this.infowindow) {
+            this.infowindow.close();
+            this.xMarker.setIcon((map.zoom >= 17) ? this.xMarker.categoryIcon : this.xMarker.pinIcon)
+            this.xMarker.setZIndex((this.map.zoom >= 17) ? 1 : 0)
+        }
+    }
+
     setShopMarker(arr) {
         this.markers.forEach((i) => {
             i.setMap(null)
         })
         this.markers = []
-        let xMarker;
 
         arr.forEach((e) => {
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
-            const iconImg = '../static/WebMarker/' + e.categoryEnglishName +'.png';
-            const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName +'Fill.png'
+            const iconImg = '../static/WebMarker/' + e.categoryEnglishName + '.png';
+            const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
             const marker = new google.maps.Marker({
                 position: position,
                 map: this.map,
-                zIndex: 1 ,
+                zIndex: 1,
                 category: e.categoryEnglishName,
                 shopNumber: e.shopNumber,
-                categoryIcon : {url: iconImg,
+                categoryIcon: {
+                    url: iconImg,
                     scaledSize: new google.maps.Size(40, 35)
                 },
-                filledIcon: {url: SelectedIconImg,
+                filledIcon: {
+                    url: SelectedIconImg,
                     scaledSize: new google.maps.Size(40, 35)
                 },
-                pinIcon: {url: "./static/pin.png",
+                pinIcon: {
+                    url: "./static/pin.png",
                     scaledSize: new google.maps.Size(10, 10)
                 },
-                icon: {url: iconImg,
+                icon: {
+                    url: iconImg,
                     scaledSize: new google.maps.Size(40, 35)
                 }
                 // TODO: 기본 아이콘 변경
@@ -162,25 +172,18 @@ class Map {
                 const infowindow = new google.maps.InfoWindow({
                     content: _.template(this.shopDetailTemplate)(e) // TODO: 여기에 template rendering 넣어주기
                 });
-                if (this.infowindow) {
-                    this.infowindow.close();
-                }
+                this.resetMarkerAndInfo()
                 this.map.setCenter(marker.getPosition());
                 infowindow.open(map, marker);
                 this.infowindow = infowindow;
-                //전에 선택된 마커 초기화
-                if (xMarker){
-                    xMarker.setIcon((this.map.zoom >= 17)? xMarker.categoryIcon : xMarker.pinIcon)
-                    //전에 선택된 마커 zindex 값 초기화
-                    xMarker.setZIndex((this.map.zoom >= 17)? 1 : 0);
-                }
-                xMarker = marker;
+                this.xMarker = marker;
+                this.xMarkerIcon = marker.icon
                 //선택된 마커를 fill 마커로 변경
                 marker.setIcon(marker.filledIcon);
                 // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                 marker.setZIndex(2);
                 //리스트 연동부분
-                if (document.querySelector(".selected-shop")){
+                if (document.querySelector(".selected-shop")) {
                     document.querySelector(".selected-shop").classList.remove("selected-shop");
                 }
                 document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
@@ -199,7 +202,6 @@ class Map {
 
         // Update my Position
         this.updatePosition(pos)
-
         // if starPointAverage: reverse
         if (key === 'distance') {
             order = 'asc'
