@@ -14,6 +14,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var topView: UIView!
     
+    var baeminInfo = BaeminInfo()
+    
     var sections: [Section] = [
         Section(title: "크런치 피자", items: [
             Item(name: "크런치 치즈 스테이크", price: 30000),
@@ -41,6 +43,8 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        print(baeminInfo.address)
     }
 
     override func didReceiveMemoryWarning() {

@@ -69,6 +69,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = UIStoryboard.DetailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
+        detailViewController.baeminInfo = baeminInfo[indexPath.row]
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

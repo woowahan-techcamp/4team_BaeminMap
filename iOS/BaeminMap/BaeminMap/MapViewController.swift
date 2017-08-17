@@ -96,7 +96,7 @@ class MapViewController: UIViewController {
                 let marker = GMSMarker()
                 DispatchQueue.main.async {
                     marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                    marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
+                    marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "Chicken") : #imageLiteral(resourceName: "smallMarker")
                     marker.map = self.mapView
                     marker.userData = shop
                 }

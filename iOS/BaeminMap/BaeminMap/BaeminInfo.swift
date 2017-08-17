@@ -43,6 +43,8 @@ class BaeminInfo: Mappable {
     private(set) var shopLogoImageUrl: String?
     
     required init?(map: Map) {}
+    
+    init() { }
   
     func mapping(map: Map) {
         shopNumber <- map["shopNumber"]
