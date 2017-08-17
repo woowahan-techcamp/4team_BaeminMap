@@ -1,5 +1,5 @@
 //
-//  Filter+Sort.swift
+//  Filter.swift
 //  BaeminMap
 //
 //  Created by woowabrothers on 2017. 8. 16..
