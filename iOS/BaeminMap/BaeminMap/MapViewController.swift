@@ -60,7 +60,7 @@ class MapViewController: UIViewController {
     
     func moveToCurrentLocation(_ btn: UIButton) {
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
-        mapView.camera = camera
+        mapView.animate(to: camera)
     }
     
     func recieve(notification: Notification) {
