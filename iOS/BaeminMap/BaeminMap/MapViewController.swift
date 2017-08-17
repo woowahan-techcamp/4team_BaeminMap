@@ -14,6 +14,8 @@ import AlamofireImage
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var currentLocationButton: UIButton!
+    
     var location = Location.sharedInstance
     lazy var parentView: MainContainerViewController = {
         return self.parent as! MainContainerViewController
@@ -50,6 +52,11 @@ class MapViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func moveToCurrentLocation(_ btn: UIButton) {
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
+        mapView.camera = camera
     }
     
     func recieve(notification: Notification) {
