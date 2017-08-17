@@ -45,7 +45,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-he-Rvg">
-                                <rect key="frame" x="109" y="486" width="102" height="48"/>
+                                <rect key="frame" x="118" y="486" width="84" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="2nK-3x-yfZ"/>
+                                    <constraint firstAttribute="height" constant="40" id="EUd-pb-FBu"/>
+                                </constraints>
                                 <state key="normal" image="filtericon">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -57,8 +61,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bhp-he-Rvg" firstAttribute="centerX" secondItem="FY3-xD-dl7" secondAttribute="centerX" id="2y6-mp-Vcj"/>
-                            <constraint firstItem="tFe-n3-k0z" firstAttribute="top" secondItem="bhp-he-Rvg" secondAttribute="bottom" constant="34" id="7BO-zg-Xj3"/>
                             <constraint firstItem="70i-Jq-OTW" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="A1S-NP-uJU"/>
+                            <constraint firstItem="tFe-n3-k0z" firstAttribute="top" secondItem="bhp-he-Rvg" secondAttribute="bottom" constant="42" id="Egt-mK-BzN"/>
                             <constraint firstAttribute="trailing" secondItem="70i-Jq-OTW" secondAttribute="trailing" id="Twt-Hz-lNB"/>
                             <constraint firstItem="toJ-hA-hzT" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="U8h-ji-mqk"/>
                             <constraint firstItem="tFe-n3-k0z" firstAttribute="top" secondItem="toJ-hA-hzT" secondAttribute="bottom" id="cgC-PN-AU0"/>
@@ -76,7 +80,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="filterBottomConstraint" destination="7BO-zg-Xj3" id="66T-S1-Hed"/>
                         <outlet property="filterButton" destination="bhp-he-Rvg" id="Qfd-F0-MRN"/>
                         <outlet property="toggleButton" destination="yfS-uM-AAN" id="gE3-2j-hcg"/>
                     </connections>

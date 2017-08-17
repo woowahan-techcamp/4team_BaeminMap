@@ -13,7 +13,6 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
 
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIButton!
-    @IBOutlet weak var filterBottomConstraint: NSLayoutConstraint!
     
     var isListView = Bool()
     var baeminInfo = [BaeminInfo]()
