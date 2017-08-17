@@ -54,7 +54,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
         
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
-        topView.frame = CGRect(x: 0, y: 0, width: topView.frame.width, height: collectionView.frame.maxY)
+        topView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: collectionView.frame.maxY)
         
         if indexPath.item == 5 {
             tableView.reloadData()
