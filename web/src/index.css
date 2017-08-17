@@ -273,8 +273,8 @@ body {
 .filter-title {
     margin: 0 0 0 0;
     position: absolute;
-    left: 40%;
-    right: 40%;
+    left: 35%;
+    right: 35%;
 }
 
 .category-list {
@@ -520,7 +520,7 @@ body {
         position: absolute;
         bottom: calc(100%);
         right: 0;
-        width: 380px;
+        width: 100%;
         height: 100%;
         background: white;
         text-align: center;
@@ -531,5 +531,12 @@ body {
 
     .filter-controller.show {
         transform: translateY(calc(100%));
+    }
+    #shopList {
+        -webkit-overflow-scrolling: touch;
+    }
+    .filter-content {
+        height: 100%;
+        -webkit-overflow-scrolling: touch;
     }
 }
