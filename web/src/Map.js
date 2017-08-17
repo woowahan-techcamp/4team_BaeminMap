@@ -61,6 +61,8 @@ class Map {
 
     searchPosition() {
         const map = this.map;
+        const distanceElement = document.querySelector('.distance-option-list > .selected')
+        const distance = distanceElement
         const input = document.getElementById('pac-input');
         const searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -115,8 +117,6 @@ class Map {
                 lat: this.map.center.lat(),
                 lng: this.map.center.lng()
             };
-            const distanceElement = document.querySelector('.distance-option-list > .selected')
-            const distance = parseFloat(distanceElement.dataset['distance'])
             this.reloadMap(distance, pos, this.data, 'distance')
         });
     }
@@ -153,7 +153,7 @@ class Map {
         });
     }
 
-    reloadMap(distance, pos, apidata, key, order, categoryList) {
+    reloadMap(distance, pos, apidata, key, order = 'asc', categoryList) {
         // Reset markers
         for (let i of this.markers) {
             i.setMap(null)
@@ -163,11 +163,16 @@ class Map {
         // Update my Position
         this.updatePosition(pos)
 
+        // if starPointAverage: reverse
+        if (key === 'starPointAverage') {
+            order = 'desc'
+        }
+
         // Get new data from my new position
         apidata.getShopData(pos)
         let sortedData = null
         if (categoryList) {
-            sortedData = apidata.getShopListByCategoryList(distance, key, order, categoryList)
+            sortedData = apidata.getShopListByCategoryList(distance, categoryList, key, order)
         } else {
             sortedData = apidata.getShopListAll(distance, key, order)
         }
