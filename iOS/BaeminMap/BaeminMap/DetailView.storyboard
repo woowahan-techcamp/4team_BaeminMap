@@ -661,13 +661,13 @@
                                                                 <rect key="frame" x="0.0" y="101" width="143" height="50"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14,000원" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROx-g3-PT6">
-                                                                        <rect key="frame" x="0.0" y="25" width="143" height="15"/>
+                                                                        <rect key="frame" x="0.0" y="27" width="143" height="15"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" red="0.16714167590000001" green="0.75860267879999999" blue="0.73611491920000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후라이드치킨" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUd-kg-51a">
-                                                                        <rect key="frame" x="0.0" y="8" width="143" height="17"/>
+                                                                        <rect key="frame" x="0.0" y="6" width="143" height="17"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -675,13 +675,13 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="ROx-g3-PT6" firstAttribute="top" secondItem="nIK-jy-OAl" secondAttribute="centerY" id="BSd-eC-xHS"/>
+                                                                    <constraint firstItem="ROx-g3-PT6" firstAttribute="top" secondItem="nIK-jy-OAl" secondAttribute="centerY" constant="2" id="BSd-eC-xHS"/>
                                                                     <constraint firstItem="iUd-kg-51a" firstAttribute="leading" secondItem="nIK-jy-OAl" secondAttribute="leading" id="HpN-H2-Lhd"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ROx-g3-PT6" secondAttribute="trailing" id="TRf-97-E9O"/>
                                                                     <constraint firstAttribute="trailing" secondItem="iUd-kg-51a" secondAttribute="trailing" id="U7o-lr-VDk"/>
                                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ROx-g3-PT6" secondAttribute="bottom" constant="5" id="Yhx-wP-uVf"/>
                                                                     <constraint firstItem="iUd-kg-51a" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nIK-jy-OAl" secondAttribute="top" constant="5" id="c5s-6r-3nf"/>
-                                                                    <constraint firstAttribute="centerY" secondItem="iUd-kg-51a" secondAttribute="bottom" id="ijc-Pp-qqq"/>
+                                                                    <constraint firstAttribute="centerY" secondItem="iUd-kg-51a" secondAttribute="bottom" constant="2" id="ijc-Pp-qqq"/>
                                                                     <constraint firstItem="ROx-g3-PT6" firstAttribute="leading" secondItem="nIK-jy-OAl" secondAttribute="leading" id="nas-6l-ftU"/>
                                                                 </constraints>
                                                             </view>
