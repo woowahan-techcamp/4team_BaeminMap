@@ -92,12 +92,14 @@ class MapViewController: UIViewController {
         drawCurrentLocation()
         
         for(count, shop) in baeminInfo.enumerated() {
-            let marker = GMSMarker()
-            DispatchQueue.main.async {
-                marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
-                marker.map = self.mapView
-                marker.userData = shop
+            if shop.canDelivery {
+                let marker = GMSMarker()
+                DispatchQueue.main.async {
+                    marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
+                    marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
+                    marker.map = self.mapView
+                    marker.userData = shop
+                }
             }
         }
     }
