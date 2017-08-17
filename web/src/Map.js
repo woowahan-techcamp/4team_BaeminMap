@@ -135,6 +135,7 @@ class Map {
             const marker = new google.maps.Marker({
                 position: position,
                 map: this.map,
+                zIndex: 0 ,
                 category: e.categoryEnglishName,
                 shopNumber: e.shopNumber,
                 icon: {url: iconImg,
@@ -163,12 +164,14 @@ class Map {
                         scaledSize: new google.maps.Size(40, 35)
                     })
                 }
+                //선택된 마커를 fill 마커로 변경
                 marker.setIcon({
                     url: SelectedIconImg,
                     scaledSize: new google.maps.Size(40, 35)
                 })
+                // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                marker.setZIndex(1);
                 console.log(marker.zIndex)
-                marker.setZIndex(10);
                 xMarker = marker;
                 //리스트 연동부분
                 if (document.querySelector(".selected-shop")){
