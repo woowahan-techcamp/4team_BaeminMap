@@ -65,7 +65,7 @@ class Map {
     searchPosition() {
         const map = this.map;
         const distanceElement = document.querySelector('.distance-option-list > .selected')
-        const distance = distanceElement
+        const distance = parseFloat(distanceElement.dataset['distance'])
         const input = document.getElementById('pac-input');
         const searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
