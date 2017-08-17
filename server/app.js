@@ -32,7 +32,7 @@ app.post('/shops', (req, res) => {
           'category': category
         }
       }, (err, res, body) => {
-        var filterArray = body.content.filter(shop => shop.distance <= 1.5)
+        var filterArray = body.content.filter(shop => shop.distance <= 1.5 && shop.canDelivery)
 
         shopArray = shopArray.concat(filterArray)
         shops[category] = filterArray
