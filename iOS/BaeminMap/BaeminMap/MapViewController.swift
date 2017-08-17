@@ -92,12 +92,14 @@ class MapViewController: UIViewController {
         drawCurrentLocation()
         
         for(count, shop) in baeminInfo.enumerated() {
-            let marker = GMSMarker()
-            DispatchQueue.main.async {
-                marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
-                marker.map = self.mapView
-                marker.userData = shop
+            if shop.canDelivery {
+                let marker = GMSMarker()
+                DispatchQueue.main.async {
+                    marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
+                    marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "chicken") : #imageLiteral(resourceName: "smallMarker")
+                    marker.map = self.mapView
+                    marker.userData = shop
+                }
             }
         }
     }
@@ -145,7 +147,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoView.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
         infoView.ratingView.rating = shop.starPointAverage
         infoView.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
-        infoView.isBaropay(baro: shop.useBaropay)
+        infoView.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
         
         return true
     }
