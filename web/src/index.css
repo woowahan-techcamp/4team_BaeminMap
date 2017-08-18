@@ -437,7 +437,7 @@ body {
 .floating-button {
     z-index: 20;
     position: fixed;
-    left: calc(50% - 116px);
+    left: calc(50% - 88px);
     bottom: 60px;
     width: 233px;
 }
@@ -457,28 +457,28 @@ body {
 
 #flipList + .floating-button > label > div {
     float: left;
-    width: 115px;
-    height: 64px;
+    width: 87px;
+    height: 48px;
     background-image: url("../static/mapBtn.png");
-    background-size: 115px 64px;
+    background-size: 87px 48px;
 }
 
 #flipList:checked + .floating-button > label > div {
     float: left;
-    width: 115px;
-    height: 64px;
+    width: 87px;
+    height: 48px;
     background-image: url("../static/listBtn.png");
-    background-size: 115px 64px;
+    background-size: 87px 48px;
 }
 
 #filterOnOff > img {
-    width: 118px;
-    height: 64px;
+    width: 89px;
+    height: 48px;
 }
 
 #listOnOff > img {
-    width: 115px;
-    height: 64px;
+    width: 87px;
+    height: 48px;
 }
 
 /*.gmnoprint{*/
