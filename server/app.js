@@ -75,9 +75,6 @@ app.get('/menu/:shopNo', (req, response)=> {
           }
         }, function(err, res, body) {
           menu[group.shopFoodGrpNm] = body.content
-          // console.log(body)
-          // shopArray = shopArray.concat(body.content)
-          // shops[category] = body.content
           done()
         })
       }, function(err) {
@@ -86,10 +83,7 @@ app.get('/menu/:shopNo', (req, response)=> {
           console.log(menu)
           response.json(menu)
         }
-        // res.json({shops: shops, shopArray: shopArray})
-
       })
-
     })
   })
 })
