@@ -61,18 +61,13 @@ app.get('/menu/:shopNo', (req, response)=> {
         'Authorization': 'Bearer '+config.token
       }
     }, (err, res, body) => {
-
       eachAsync(body, (group, index, done) => {
         request({
-          url: config.standardUrl+'/v1/shops/'+shopNo+'/foods?size=2000',
-
+          url: config.standardUrl+'/v1/shops/'+shopNo+'/foods?size=2000&shopFoodGrpSeq='+group.shopFoodGrpSeq,
           method: 'GET',
           json: true,
           headers: {
             'Authorization': 'Bearer '+config.token
-          },
-          parameters: {
-            'shopFoodGrpSeq': group
           }
         }, (err, res, body) => {
           menu[group.shopFoodGrpNm] = body.content
