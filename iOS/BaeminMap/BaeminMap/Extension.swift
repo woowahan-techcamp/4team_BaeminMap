@@ -34,3 +34,21 @@ extension Double {
 extension UIColor {
     static let pointColor = UIColor(red: 42/255, green: 193/255, blue: 188/255, alpha: 1)
 }
+
+extension UIScrollView {
+    func scrollToSection(y: CGFloat) {
+        let bottomOffset = CGPoint(x: 0, y: contentOffset.y + y)
+        if(bottomOffset.y > 0) {
+            setContentOffset(bottomOffset, animated: true)
+        }
+    }
+}
+
+extension UINavigationBar {
+    static func setNavigation() {
+        self.appearance().tintColor = UIColor.black
+        self.appearance().barTintColor = UIColor.white
+        self.appearance().backIndicatorImage = #imageLiteral(resourceName: "backbutton")
+        self.appearance().backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "backbutton")
+    }
+}

@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     let locationManager = CLLocationManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Networking().getAccessToken()
         GMSServices.provideAPIKey(Config.googleMapKey)
         GMSPlacesClient.provideAPIKey(Config.googleMapKey)
         
@@ -27,9 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
-        
-        UINavigationBar.appearance().tintColor = UIColor.black
-        UINavigationBar.appearance().barTintColor = UIColor.white
+        UINavigationBar.setNavigation()
         
         return true
     }
@@ -57,15 +54,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationManager.stopUpdatingLocation()
+        locationManager.delegate = nil
         let location = manager.location?.coordinate
         if let currentLocation = location {
             Location.sharedInstance = Location(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
             // TODO: 현위치 기반으로 networking
-            locationManager.stopUpdatingLocation()
         }
+        Networking().getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
         NotificationCenter.default.post(name: NSNotification.Name("finishedCurrentLocation"), object: self)
     }
-
 
 }
 

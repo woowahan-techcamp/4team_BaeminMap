@@ -14,6 +14,7 @@ class BaeminInfo: Mappable {
     private(set) var shopName: String!
     private(set) var categoryId: Int?
     private(set) var categoryName: String!
+    private(set) var categoryEnglishName: String!
     private(set) var address: String!
     private(set) var addressDetail: String?
     private(set) var phoneNumber: String?
@@ -34,18 +35,24 @@ class BaeminInfo: Mappable {
     private(set) var deliveryInformation: String!
     private(set) var shopIntroduction: String?
     private(set) var useBaropay: Bool!
+    private(set) var useMeetPay: Bool!
+    private(set) var useCardPay: Bool!
+//    private(set) var canDelivery: Bool!
     private(set) var shopOpened: Bool!
     private(set) var location: [String:Double]!
     private(set) var distance: Double!
     private(set) var shopLogoImageUrl: String?
     
     required init?(map: Map) {}
+    
+    init() { }
   
     func mapping(map: Map) {
         shopNumber <- map["shopNumber"]
         shopName <- map["shopName"]
         categoryId <- map["categoryId"]
         categoryName <- map["categoryName"]
+        categoryEnglishName <- map["categoryEnglishName"]
         address <- map["address"]
         addressDetail <- map["addressDetail"]
         phoneNumber <- map["phoneNumber"]
@@ -66,6 +73,9 @@ class BaeminInfo: Mappable {
         deliveryInformation <- map["deliveryInformation"]
         shopIntroduction <- map["shopIntroduction"]
         useBaropay <- map["useBaropay"]
+        useMeetPay <- map["useMeetPay"]
+        useCardPay <- map["useCardPay"]
+//        canDelivery <- map["canDelivery"]
         shopOpened <- map["shopOpened"]
         location <- map["location"]
         distance <- map["distance"]

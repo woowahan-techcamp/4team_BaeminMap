@@ -2,84 +2,102 @@
 //  DetailViewController.swift
 //  BaeminMap
 //
-//  Created by woowabrothers on 2017. 8. 4..
-//  Copyright © 2017년 woowabrothers. All rights reserved.
+//  Created by HannaJeon on 2017. 8. 15..
+//  Copyright © 2017년 HannaJeon. All rights reserved.
 //
 
 import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var tableView: UITableView!
-    var scrollView = DetailScrollView()
-    var FoodsList = [String:[Food]]()
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var topView: UIView!
     
-    var sections: [Section] = [
-        Section(title: "크런치 피자", items: [
-            Item(name: "크런치 치즈 스테이크", price: 30000),
-            Item(name: "크런치 치즈 스테이크", price: 30000),
-            Item(name: "크런치 치즈 스테이크", price: 30000),
-            Item(name: "크런치 치즈 스테이크", price: 30000)
-            ]),
-        Section(title: "핫 피자", items: [
-            Item(name: "핫 치즈 스테이크", price: 20000),
-            Item(name: "핫 치즈 스테이크", price: 20000),
-            Item(name: "핫 치즈 스테이크", price: 330000),
-            Item(name: "핫 치즈 스테이크", price: 304000)
-            ]),
-        Section(title: "ㅇㅇ 피자", items: [
-            Item(name: "ㅇ 치즈 스테이크", price: 30000),
-            Item(name: "ㅇㅇ 치즈 스테이크", price: 300),
-            Item(name: "ㅇㅇ 치즈 스테이크", price: 30000),
-            Item(name: "ㅇㅇㅇ 치즈 스테이크", price: 320000)
-            ])
-    ]
+    @IBOutlet weak var meetPayLabel: UILabel!
+    @IBOutlet weak var baroPayLabel: UILabel!
+    
+    var baeminInfo = BaeminInfo()
+    var foodList = [Section]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        sections.append(Section(rowCount: 4))
-//        sections.append(Section(rowCount: 7))
-//        sections.append(Section())
-//        sections.append(Section())
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
         tableView.delegate = self
         tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        viewinit()
+    
+        Networking().getFoods(shopNo: baeminInfo.shopNumber)
+        navigationItem.title = baeminInfo.shopName
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
+    }
+    
+    func receive(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let foodList = userInfo["Sections"] as? [Section] else { return }
+        self.foodList = foodList
+        tableView.reloadData()
+    }
+    
+    func viewinit() {
+        meetPayLabel.layer.borderWidth = 1
+        meetPayLabel.layer.borderColor = UIColor.black.cgColor
+        meetPayLabel.layer.cornerRadius = meetPayLabel.layer.frame.height/2
+        
+        baroPayLabel.layer.borderWidth = 1
+        baroPayLabel.layer.borderColor = UIColor.black.cgColor
+        baroPayLabel.layer.cornerRadius = baroPayLabel.layer.frame.height/2
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
-extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
-
+        
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
-        tableView.frame = CGRect(x: 0, y: collectionView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height)
+        topView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: collectionView.frame.maxY)
+        
+        if indexPath.item == 5 {
+            tableView.reloadData()
+        }
         
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = (collectionView.bounds.width - 30) / 2
+        let height = ( 15 * width ) / 14
+        
+        return CGSize(width: width, height: height)
+    }
 }
 
-extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
+extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return foodList.count
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].open ? sections[section].items.count : 0
-//        return sections[section].open ? sections[section].rowCount : 0
+        let food = foodList[indexPath.section].items[indexPath.row]
+        cell.textLabel?.text = food.foodName
+        cell.detailTextLabel?.text = food.foodPrice+"원"
+        print(baeminInfo.shopNumber)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -88,47 +106,29 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandableTableViewHeader()
-        header.titleLabel.text = sections[section].title
+        header.titleLabel.text = foodList[section].title
         
         header.section = section
         header.delegate = self
         
-        if sections[header.section].open == true {
+        if foodList[header.section].open == true {
             header.arrowImage.image = #imageLiteral(resourceName: "arrow_top")
         }
         
         return header
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        
-        let item = sections[indexPath.section].items[indexPath.row]
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = "\(item.price)원"
-        return cell
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return foodList[section].open ? foodList[section].items.count : 0
     }
+    
 }
 
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
-        
-        sections[header.section].open = !sections[header.section].open
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
-            self.tableView.sizeToFit()
-        }
+        let headerHeight = header.frame.height
+        foodList[header.section].open = !foodList[header.section].open
+        self.tableView.reloadData()
+        self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
     }
 }
-
-public struct Item {
-    var name: String
-    var price: Int
-    
-    public init(name: String, price: Int) {
-        self.name = name
-        self.price = price
-    }
-}
-

@@ -23,7 +23,7 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         // Content View
-        contentView.backgroundColor = UIColor(red: 84/255, green: 77/255, blue: 70/255, alpha: 1)
+        contentView.backgroundColor = UIColor(red: 76/255, green: 76/255, blue: 76/255, alpha: 1)
         
         let marginGuide = contentView.layoutMarginsGuide
         
@@ -31,10 +31,9 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
         contentView.addSubview(titleLabel)
         titleLabel.textColor = UIColor.white
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
+        titleLabel.font = titleLabel.font.withSize(14)
         titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         
         // Arrow ImageView
         contentView.addSubview(arrowImage)
@@ -57,23 +56,3 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
         delegate?.toggleSection(header: self, section: cell.section)
     }
 }
-
-class Section {
-    var open: Bool
-    //TODO: 아래는 테스트 용, 추후 row list 변수로 가지고 있을 예정
-//    var rowCount: Int
-    var items: [Item]
-    var title: String
-    
-    init(title: String, items: [Item]) {
-        self.open = false
-//        self.rowCount = rowCount
-        self.items = items
-        self.title = title
-    }
-    
-    convenience init() {
-        self.init(title: "Section", items: [Item]())
-    }
-}
-

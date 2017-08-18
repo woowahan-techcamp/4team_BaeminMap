@@ -12,17 +12,19 @@ import AlamofireImage
 class ListViewController: UIViewController {
     
     @IBOutlet weak var listView: UITableView!
+    lazy var parentView: MainContainerViewController = {
+        return self.parent as! MainContainerViewController
+    }()
     lazy var baeminInfo: [BaeminInfo] = {
-        let parentView = self.parent as! MainContainerViewController
-        return parentView.baeminInfo
+        return self.parentView.filterBaeminInfo
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         listView.delegate = self
         listView.dataSource = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("filterManager"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,9 +33,7 @@ class ListViewController: UIViewController {
     }
     
     func recieve(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo] else { return }
-        self.baeminInfo = baeminInfo
+        baeminInfo = parentView.filterBaeminInfo
         listView.reloadData()
     }
     
@@ -60,12 +60,14 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
         cell.ratingView.rating = shop.starPointAverage
         cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
-        cell.isBaropay(baro: shop.useBaropay)
+        cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = UIStoryboard.DetailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
+        detailViewController.baeminInfo = baeminInfo[indexPath.row]
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

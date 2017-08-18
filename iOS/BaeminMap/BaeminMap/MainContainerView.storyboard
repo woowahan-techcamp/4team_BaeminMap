@@ -4,8 +4,8 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,16 +22,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hA-hzT">
-                                <rect key="frame" x="0.0" y="108" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="102" width="320" height="466"/>
                                 <connections>
                                     <segue destination="Tke-UX-WOr" kind="embed" id="Cog-Oi-dhx"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70i-Jq-OTW">
-                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="38"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="70i-Jq-OTW" secondAttribute="height" multiplier="80:11" id="Xl1-9f-52i"/>
+                                    <constraint firstAttribute="height" constant="38" id="52K-7v-8Fr"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -44,9 +44,12 @@
                                     <action selector="searchLocationButtonAction:" destination="t57-W2-t7k" eventType="touchUpInside" id="kfl-lx-w3n"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-he-Rvg">
-                                <rect key="frame" x="118" y="494" width="84" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-he-Rvg">
+                                <rect key="frame" x="118" y="486" width="84" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="2nK-3x-yfZ"/>
+                                    <constraint firstAttribute="height" constant="40" id="EUd-pb-FBu"/>
+                                </constraints>
                                 <state key="normal" image="filtericon">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -57,7 +60,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="bhp-he-Rvg" firstAttribute="centerX" secondItem="FY3-xD-dl7" secondAttribute="centerX" id="2y6-mp-Vcj"/>
                             <constraint firstItem="70i-Jq-OTW" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="A1S-NP-uJU"/>
+                            <constraint firstItem="tFe-n3-k0z" firstAttribute="top" secondItem="bhp-he-Rvg" secondAttribute="bottom" constant="42" id="Egt-mK-BzN"/>
                             <constraint firstAttribute="trailing" secondItem="70i-Jq-OTW" secondAttribute="trailing" id="Twt-Hz-lNB"/>
                             <constraint firstItem="toJ-hA-hzT" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="U8h-ji-mqk"/>
                             <constraint firstItem="tFe-n3-k0z" firstAttribute="top" secondItem="toJ-hA-hzT" secondAttribute="bottom" id="cgC-PN-AU0"/>
@@ -81,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OrU-0u-SlF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="316.875" y="-179.57746478873239"/>
+            <point key="canvasLocation" x="28" y="-180"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wy8-Q1-z8l">
@@ -99,7 +104,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MzZ-c5-9zB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-410.39999999999998" y="-179.46026986506749"/>
+            <point key="canvasLocation" x="-724" y="-181"/>
         </scene>
         <!--MapView-->
         <scene sceneID="UGL-Rl-iQA">
@@ -107,7 +112,7 @@
                 <viewControllerPlaceholder storyboardName="MapView" referencedIdentifier="MapView" id="Tke-UX-WOr" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yj6-13-9Sf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="276"/>
+            <point key="canvasLocation" x="-74" y="276"/>
         </scene>
         <!--ListView-->
         <scene sceneID="8wn-AV-Qwa">
@@ -115,7 +120,7 @@
                 <viewControllerPlaceholder storyboardName="ListView" referencedIdentifier="ListView" id="vUg-tF-VVi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hz-O0-oAU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421" y="276"/>
+            <point key="canvasLocation" x="88" y="276"/>
         </scene>
     </scenes>
     <resources>

@@ -12,6 +12,7 @@ import ObjectMapper
 class Food: Mappable {
     private(set) var shopFoodSeq: Int!
     private(set) var shopFoodGrpSeq: Int!
+    private(set) var shopFoodPriceSeq: Int!
     private(set) var foodName: String!
     private(set) var foodConts: String?
     private(set) var foodPrice: String!
@@ -19,6 +20,7 @@ class Food: Mappable {
     
     required init?(map: Map) {}
     
+    init() {}
     func mapping(map: Map) {
         shopFoodSeq <- map["shopFoodSeq"]
         shopFoodGrpSeq <- map["shopFoodGrpSeq"]
@@ -27,6 +29,20 @@ class Food: Mappable {
         foodPrice <- map["foodPrice"]
         imgUrl <- map["imgUrl"]
     }
+}
 
+class Section {
+    var open: Bool
+    var items: [Food]
+    var title: String
     
+    init(title: String, items: [Food]) {
+        self.open = false
+        self.items = items
+        self.title = title
+    }
+    
+    convenience init() {
+        self.init(title: "Section", items: [Food]())
+    }
 }

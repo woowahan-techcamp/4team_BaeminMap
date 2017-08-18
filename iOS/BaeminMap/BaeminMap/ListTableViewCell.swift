@@ -28,14 +28,13 @@ class ListTableViewCell: UITableViewCell {
         shopImageView.layer.masksToBounds = true
     }
     
-    func isBaropay(baro: Bool) {
-        if baro {
-            baropayLabel.backgroundColor = UIColor.pointColor
-            meetingpayLabel.backgroundColor = UIColor.pointColor
-        } else {
-            baropayLabel.backgroundColor = UIColor.lightGray
-            meetingpayLabel.backgroundColor = UIColor.lightGray
+    func isPay(baro: Bool?=nil, meet: Bool?=nil) {
+        if let baro = baro {
+            baropayLabel.backgroundColor = baro ? UIColor.pointColor : UIColor.lightGray
+        } else if let meet = meet {
+            meetingpayLabel.backgroundColor = meet ? UIColor.pointColor : UIColor.lightGray
         }
+        
     }
     
 }
