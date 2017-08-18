@@ -29,6 +29,7 @@ class Section {
 class Food: Mappable {
     private(set) var shopFoodSeq: Int!
     private(set) var shopFoodGrpSeq: Int!
+    private(set) var shopFoodPriceSeq: Int!
     private(set) var foodName: String!
     private(set) var foodConts: String?
     private(set) var foodPrice: String!

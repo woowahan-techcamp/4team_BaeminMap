@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var topView: UIView!
     
     var baeminInfo = BaeminInfo()
+
     var foodList = [Section]()
     
     override func viewDidLoad() {
@@ -76,6 +77,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
+
         let food = foodList[indexPath.section].items[indexPath.row]
         cell.textLabel?.text = food.foodName
         cell.detailTextLabel?.text = "\(food.foodPrice)원"
