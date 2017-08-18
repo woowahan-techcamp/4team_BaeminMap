@@ -141,7 +141,6 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             let selectedShop = selectedMarker.userData as? BaeminInfo {
             selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
         }
-        print("11")
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
         mapView.selectedMarker = marker
         marker.map = mapView
