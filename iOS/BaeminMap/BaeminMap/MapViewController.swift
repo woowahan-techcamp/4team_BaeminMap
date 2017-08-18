@@ -5,7 +5,6 @@
 //  Created by woowabrothers on 2017. 8. 4..
 //  Copyright © 2017년 woowabrothers. All rights reserved.
 //
-// TODO: mapView didChange에 줌기능 디바이스에서만 GCD 적용되어 현재는 주석상태. 추후 주석해제 예정
 
 import UIKit
 import GoogleMaps
@@ -60,7 +59,7 @@ class MapViewController: UIViewController {
     
     func moveToCurrentLocation(_ btn: UIButton) {
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
-        mapView.camera = camera
+        mapView.animate(to: camera)
     }
     
     func recieve(notification: Notification) {
@@ -88,25 +87,26 @@ class MapViewController: UIViewController {
         marker.map = mapView
     }
     
-    func drawMarker() {
+    func drawMarker(selectedMarker: GMSMarker?) {
         drawCurrentLocation()
-        
         for(count, shop) in baeminInfo.enumerated() {
-            if shop.canDelivery {
-                let marker = GMSMarker()
-                DispatchQueue.main.async {
-                    marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
-                    marker.icon = count < 30 || self.isZoom ? #imageLiteral(resourceName: "Chicken") : #imageLiteral(resourceName: "smallMarker")
-                    marker.map = self.mapView
-                    marker.userData = shop
-                }
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
+            marker.map = self.mapView
+            marker.userData = shop
+            if let selectedShop = selectedMarker?.userData as? BaeminInfo, shop === selectedShop {
+                marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
+                self.mapView.selectedMarker = marker
+            } else {
+                marker.icon = count < 30 || self.isZoom ? UIImage(named: shop.categoryEnglishName) : #imageLiteral(resourceName: "smallMarker")
             }
         }
     }
     
     func redrawMap() {
+        let selectedMarker = mapView.selectedMarker
         mapView.clear()
-        drawMarker()
+        drawMarker(selectedMarker: selectedMarker)
     }
     
     func infoViewAnimate(isTap: Bool) {
@@ -134,10 +134,18 @@ class MapViewController: UIViewController {
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         infoViewAnimate(isTap: true)
-        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
+        
+        guard let shop = marker.userData as? BaeminInfo else { return false }
+        if let selectedMarker = mapView.selectedMarker,
+            let selectedShop = selectedMarker.userData as? BaeminInfo {
+            selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
+        }
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
+        mapView.selectedMarker = marker
+        marker.map = mapView
+        marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
         mapView.animate(to: camera)
         
-        let shop = marker.userData as! BaeminInfo
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
             infoView.shopImageView.af_setImage(withURL: URL(string: url)!)
@@ -154,19 +162,16 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         infoViewAnimate(isTap: false)
+        self.redrawMap()
     }
 
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         if position.zoom < 17 && isZoom {
             isZoom = false
-//            DispatchQueue.global().async {
-                self.redrawMap()
-//            }
+            self.redrawMap()
         } else if position.zoom >= 17 && !isZoom {
             isZoom = true
-//            DispatchQueue.global().async {
-                self.redrawMap()
-//            }
+            self.redrawMap()
         }
     }
 }
