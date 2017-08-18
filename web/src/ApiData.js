@@ -9,6 +9,7 @@ export default class ApiData {
 
     init(position) {
         this.data = null
+        this.shopData = null
         if (position) {
             this.position = position
         } else {
@@ -55,6 +56,12 @@ export default class ApiData {
             body
         )
         this.data = response.data
+    }
+
+    getShopFoodData(shopNumber){
+        return axios.get(
+            "http://baeminmap.testi.kr/menu/"+shopNumber
+        )
     }
 
     async getShopListAll(distance, key, order) {
