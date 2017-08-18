@@ -16,26 +16,26 @@ class DetailViewController: UIViewController {
     
     var baeminInfo = BaeminInfo()
     
-    var sections: [Section] = [
-        Section(title: "크런치 피자", items: [
-            Item(name: "크런치 치즈 스테이크", price: 30000),
-            Item(name: "크런치 치즈 스테이크", price: 30000),
-            Item(name: "크런치 치즈 스테이크", price: 30000),
-            Item(name: "크런치 치즈 스테이크", price: 30000)
-            ]),
-        Section(title: "핫 피자", items: [
-            Item(name: "핫 치즈 스테이크", price: 20000),
-            Item(name: "핫 치즈 스테이크", price: 20000),
-            Item(name: "핫 치즈 스테이크", price: 330000),
-            Item(name: "핫 치즈 스테이크", price: 304000)
-            ]),
-        Section(title: "ㅇㅇ 피자", items: [
-            Item(name: "ㅇ 치즈 스테이크", price: 30000),
-            Item(name: "ㅇㅇ 치즈 스테이크", price: 300),
-            Item(name: "ㅇㅇ 치즈 스테이크", price: 30000),
-            Item(name: "ㅇㅇㅇ 치즈 스테이크", price: 320000)
-            ])
-    ]
+    var sections = [Section]()
+//        Section(title: "크런치 피자", items: [
+//            Item(name: "크런치 치즈 스테이크", price: 30000),
+//            Item(name: "크런치 치즈 스테이크", price: 30000),
+//            Item(name: "크런치 치즈 스테이크", price: 30000),
+//            Item(name: "크런치 치즈 스테이크", price: 30000)
+//            ]),
+//        Section(title: "핫 피자", items: [
+//            Item(name: "핫 치즈 스테이크", price: 20000),
+//            Item(name: "핫 치즈 스테이크", price: 20000),
+//            Item(name: "핫 치즈 스테이크", price: 330000),
+//            Item(name: "핫 치즈 스테이크", price: 304000)
+//            ]),
+//        Section(title: "ㅇㅇ 피자", items: [
+//            Item(name: "ㅇ 치즈 스테이크", price: 30000),
+//            Item(name: "ㅇㅇ 치즈 스테이크", price: 300),
+//            Item(name: "ㅇㅇ 치즈 스테이크", price: 30000),
+//            Item(name: "ㅇㅇㅇ 치즈 스테이크", price: 320000)
+//            ])
+//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,8 +89,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
         let item = sections[indexPath.section].items[indexPath.row]
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = "\(item.price)원"
+
         return cell
     }
     
