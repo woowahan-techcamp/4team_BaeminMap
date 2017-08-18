@@ -43,8 +43,9 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+    
         print(baeminInfo.address)
+        navigationItem.title = baeminInfo.shopName
     }
 
     override func didReceiveMemoryWarning() {
