@@ -14,6 +14,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var topView: UIView!
     
+    @IBOutlet weak var meetPayLabel: UILabel!
+    @IBOutlet weak var baroPayLabel: UILabel!
+    
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
     
@@ -23,6 +26,8 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        viewinit()
     
         Networking().getFoods(shopNo: baeminInfo.shopNumber)
         navigationItem.title = baeminInfo.shopName
@@ -35,6 +40,16 @@ class DetailViewController: UIViewController {
             let foodList = userInfo["Sections"] as? [Section] else { return }
         self.foodList = foodList
         tableView.reloadData()
+    }
+    
+    func viewinit() {
+        meetPayLabel.layer.borderWidth = 1
+        meetPayLabel.layer.borderColor = UIColor.black.cgColor
+        meetPayLabel.layer.cornerRadius = meetPayLabel.layer.frame.height/2
+        
+        baroPayLabel.layer.borderWidth = 1
+        baroPayLabel.layer.borderColor = UIColor.black.cgColor
+        baroPayLabel.layer.cornerRadius = baroPayLabel.layer.frame.height/2
     }
 
     override func didReceiveMemoryWarning() {

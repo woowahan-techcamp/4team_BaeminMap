@@ -58,13 +58,21 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="만나서결제" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZV2-zJ-BTb">
-                                                    <rect key="frame" x="206" y="9.5" width="52" height="14.5"/>
+                                                    <rect key="frame" x="190" y="7.5" width="60" height="18.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18.5" id="ELK-9v-DaM"/>
+                                                        <constraint firstAttribute="width" constant="60" id="cNL-jX-C2J"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="바로결제" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUX-g2-bea">
-                                                    <rect key="frame" x="268" y="9.5" width="42" height="14.5"/>
+                                                    <rect key="frame" x="260" y="7.5" width="50" height="18.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="A7z-Zm-dXI"/>
+                                                        <constraint firstAttribute="height" constant="18.5" id="nbC-2D-RUQ"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -397,7 +405,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="baroPayLabel" destination="tUX-g2-bea" id="PoP-ug-Oop"/>
                         <outlet property="collectionView" destination="toI-nA-hMC" id="wJc-jz-EjZ"/>
+                        <outlet property="meetPayLabel" destination="ZV2-zJ-BTb" id="vhh-2X-pKH"/>
                         <outlet property="tableView" destination="gyL-GN-yCN" id="Evz-G3-jQ1"/>
                         <outlet property="topView" destination="zfr-49-8LO" id="Dri-63-hHg"/>
                     </connections>
