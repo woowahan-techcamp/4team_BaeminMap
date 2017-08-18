@@ -19,6 +19,7 @@ class Food: Mappable {
     
     required init?(map: Map) {}
     
+    init() {}
     func mapping(map: Map) {
         shopFoodSeq <- map["shopFoodSeq"]
         shopFoodGrpSeq <- map["shopFoodGrpSeq"]

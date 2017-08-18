@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var topView: UIView!
     
     var baeminInfo = BaeminInfo()
+    var foodList = [String:Food]()
     
     var sections: [Section] = [
         Section(title: "크런치 피자", items: [
@@ -46,6 +47,14 @@ class DetailViewController: UIViewController {
     
         print(baeminInfo.address)
         navigationItem.title = baeminInfo.shopName
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setFoodMenu), name: NSNotification.Name("setFoodMenu"), object: nil)
+    }
+    
+    func setFoodMenu(notification: Notification) {
+        foodList = notification.userInfo as! [String:Food]
+        collectionView.reloadData()
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
