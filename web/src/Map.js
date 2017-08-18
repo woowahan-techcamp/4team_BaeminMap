@@ -5,10 +5,10 @@ class Map {
     constructor(data) {
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
         this.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 17,
+            zoom: 18,
             center: this.currentLocation,
             minZoom: 14,
-            maxZoom: 19,
+            maxZoom: 21,
             mapTypeControl: false,
             streetViewControl: false,
             fullscreenControl : false
@@ -122,6 +122,7 @@ class Map {
                 lat: this.map.center.lat(),
                 lng: this.map.center.lng()
             };
+            this.map.zoom = 18;
             this.reloadMap(distance, pos, this.data, 'distance')
         });
     }
