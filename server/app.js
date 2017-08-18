@@ -47,8 +47,10 @@ app.post('/shops', (req, res)=> {
   })
 })
 
-app.get('/menu/:shopNo', (req, res)=> {
+app.get('/menu/:shopNo', (req, response)=> {
+  console.log("ddddd")
   var shopNo = req.params.shopNo
+  var menu = {}
   config.getToken(()=> {
     request({
       url: config.standardUrl+'/v1/shops/'+shopNo+'/foods-groups',
@@ -72,14 +74,20 @@ app.get('/menu/:shopNo', (req, res)=> {
             'shopFoodGrpSeq': group
           }
         }, function(err, res, body) {
-          console.log(body)
+          menu[group.shopFoodGrpNm] = body.content
+          // console.log(body)
           // shopArray = shopArray.concat(body.content)
           // shops[category] = body.content
           done()
         })
       }, function(err) {
         if(err) throw err;
+        else {
+          console.log(menu)
+          response.json(menu)
+        }
         // res.json({shops: shops, shopArray: shopArray})
+
       })
 
     })
