@@ -70,7 +70,7 @@ app.get('/menu/:shopNo', (req, response)=> {
             'Authorization': 'Bearer '+config.token
           }
         }, (err, res, body) => {
-          menu[group.shopFoodGrpNm] = body.content
+          menu[group.shopFoodGrpNm] = body.content.filter(content => content.foodPriceNm == "")
           done()
         })
       }, (err) => {
