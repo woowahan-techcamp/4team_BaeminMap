@@ -47,14 +47,20 @@ function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
         const target = document.querySelector(e)
         target.addEventListener("click", function () {
             if (e === arr[0]) {
+                // 필터 화면 보기 버튼
                 filterSection.classList.add('show')
+                overLayer.classList.add('show')
                 filterChecker = document.querySelectorAll(".option.selected");
             } else if (e === arr[1]) {
+                // 필터 내 취소 버튼
                 filterSection.classList.remove('show')
+                overLayer.classList.remove('show')
                 //필터링 취소버튼을 누르면 필터값이 초기화된다.
                 filterReset(filterChecker, [".category", ".sort-option", "distance-option"]);
             } else if (e === arr[2]) {
+                //필터 내 적용버튼
                 filterSection.classList.remove('show')
+                overLayer.classList.remove('show')
                 //현재의 필터/정렬 옵션을 저장한다
                 filterChecker = document.querySelectorAll(".option.selected");
                 //TODO : 여기에 필터 적용해서 소트 요청하는 로직 구현
