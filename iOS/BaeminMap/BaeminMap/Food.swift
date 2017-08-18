@@ -9,23 +9,6 @@
 import Foundation
 import ObjectMapper
 
-class Section {
-    var open: Bool
-    var items: [Food]
-    var title: String
-    
-    init(title: String, items: [Food]) {
-        self.open = false
-        //        self.rowCount = rowCount
-        self.items = items
-        self.title = title
-    }
-    
-    convenience init() {
-        self.init(title: "Section", items: [Food]())
-    }
-}
-
 class Food: Mappable {
     private(set) var shopFoodSeq: Int!
     private(set) var shopFoodGrpSeq: Int!
@@ -46,6 +29,20 @@ class Food: Mappable {
         foodPrice <- map["foodPrice"]
         imgUrl <- map["imgUrl"]
     }
+}
 
+class Section {
+    var open: Bool
+    var items: [Food]
+    var title: String
     
+    init(title: String, items: [Food]) {
+        self.open = false
+        self.items = items
+        self.title = title
+    }
+    
+    convenience init() {
+        self.init(title: "Section", items: [Food]())
+    }
 }

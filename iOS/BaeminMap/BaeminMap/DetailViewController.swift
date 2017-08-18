@@ -15,7 +15,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var topView: UIView!
     
     var baeminInfo = BaeminInfo()
-
     var foodList = [Section]()
     
     override func viewDidLoad() {
@@ -25,15 +24,16 @@ class DetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
     
-        print(baeminInfo.address)
+        Networking().getFoods(shopNo: baeminInfo.shopNumber)
         navigationItem.title = baeminInfo.shopName
         
-        NotificationCenter.default.addObserver(self, selector: #selector(setFoodMenu), name: NSNotification.Name("setFoodMenu"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
     }
     
-    func setFoodMenu(notification: Notification) {
-        foodList = notification.userInfo as! [Section]
-        collectionView.reloadData()
+    func receive(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let foodList = userInfo["Sections"] as? [Section] else { return }
+        self.foodList = foodList
         tableView.reloadData()
     }
 
@@ -80,7 +80,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
         let food = foodList[indexPath.section].items[indexPath.row]
         cell.textLabel?.text = food.foodName
-        cell.detailTextLabel?.text = "\(food.foodPrice)원"
+        cell.detailTextLabel?.text = food.foodPrice+"원"
+        print(baeminInfo.shopNumber)
         return cell
     }
     
@@ -114,15 +115,5 @@ extension DetailViewController: ExpandableTableViewHeaderDelegate {
         foodList[header.section].open = !foodList[header.section].open
         self.tableView.reloadData()
         self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
-    }
-}
-
-public struct Item {
-    var name: String
-    var price: Int
-    
-    public init(name: String, price: Int) {
-        self.name = name
-        self.price = price
     }
 }
