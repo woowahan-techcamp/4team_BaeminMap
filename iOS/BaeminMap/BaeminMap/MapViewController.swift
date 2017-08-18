@@ -110,7 +110,6 @@ class MapViewController: UIViewController {
     }
     
     func infoViewAnimate(isTap: Bool) {
-        print("12345")
         let filterButtonFrame = parentView.filterButton.frame
         if isTap {
             UIView.animate(withDuration: 0.4) {
