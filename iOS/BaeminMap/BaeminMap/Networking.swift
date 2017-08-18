@@ -62,37 +62,5 @@ class Networking {
                 print(String(describing: error))
             }
         }
-        
-        
-        
-//        func getFoodsGroups(completion: @escaping (_ foodsGroup: [String:String]) -> ()) {
-//            Alamofire.request("\(Config.baeminApiURL)/v1/shops/\(shopNo)/foods-groups", method: .get, parameters: parameters, encoding: URLEncoding.default, headers: header).responseJSON { (response) in
-//                switch response.result {
-//                case .success(let foodsGroup):
-//                    if let group = foodsGroup as? [[String:String]] {
-//                        group.forEach({ (foodGroup) in
-//                            completion(foodGroup)
-//                        })
-//                    }
-//                case .failure(let error):
-//                    print(String(describing: error))
-//                }
-//            }
-//        }
-//        
-//        getFoodsGroups { (group) in
-//            parameters["shopFoodGrpSeq"] = group["shopFoodGrpSeq"]
-//            Alamofire.request("\(Config.baeminApiURL)/v1/shops/\(shopNo)/foods", method: .get, parameters: parameters, encoding: URLEncoding.default, headers: header).responseJSON(completionHandler: { (response) in
-//                guard let result = response.result.value as? [String:Any] else { return }
-//                let contents = result["content"] as! [[String:Any]]
-//                var foodList = [Food]()
-//
-//                contents.forEach({ (content) in
-//                    let food = Food(JSON: content)
-//                    foodList.append(food!)
-//                })
-//                NotificationCenter.default.post(name: NSNotification.Name("finishedFoodList"), object: self, userInfo: ["FoodList": foodList, "key": group["shopFoodGrpNm"]!])
-//            })
-//        }
     }
 }

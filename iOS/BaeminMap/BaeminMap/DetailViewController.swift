@@ -15,27 +15,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var topView: UIView!
     
     var baeminInfo = BaeminInfo()
-    
-    var sections = [Section]()
-//        Section(title: "크런치 피자", items: [
-//            Item(name: "크런치 치즈 스테이크", price: 30000),
-//            Item(name: "크런치 치즈 스테이크", price: 30000),
-//            Item(name: "크런치 치즈 스테이크", price: 30000),
-//            Item(name: "크런치 치즈 스테이크", price: 30000)
-//            ]),
-//        Section(title: "핫 피자", items: [
-//            Item(name: "핫 치즈 스테이크", price: 20000),
-//            Item(name: "핫 치즈 스테이크", price: 20000),
-//            Item(name: "핫 치즈 스테이크", price: 330000),
-//            Item(name: "핫 치즈 스테이크", price: 304000)
-//            ]),
-//        Section(title: "ㅇㅇ 피자", items: [
-//            Item(name: "ㅇ 치즈 스테이크", price: 30000),
-//            Item(name: "ㅇㅇ 치즈 스테이크", price: 300),
-//            Item(name: "ㅇㅇ 치즈 스테이크", price: 30000),
-//            Item(name: "ㅇㅇㅇ 치즈 스테이크", price: 320000)
-//            ])
-//    ]
+    var foodList = [Section]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +24,17 @@ class DetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
     
-        print(baeminInfo.address)
+        Networking().getFoods(shopNo: baeminInfo.shopNumber)
         navigationItem.title = baeminInfo.shopName
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
+    }
+    
+    func receive(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let foodList = userInfo["Sections"] as? [Section] else { return }
+        self.foodList = foodList
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,13 +72,16 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return foodList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        let item = sections[indexPath.section].items[indexPath.row]
 
+        let food = foodList[indexPath.section].items[indexPath.row]
+        cell.textLabel?.text = food.foodName
+        cell.detailTextLabel?.text = food.foodPrice+"원"
+        print(baeminInfo.shopNumber)
         return cell
     }
     
@@ -99,12 +91,12 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandableTableViewHeader()
-        header.titleLabel.text = sections[section].title
+        header.titleLabel.text = foodList[section].title
         
         header.section = section
         header.delegate = self
         
-        if sections[header.section].open == true {
+        if foodList[header.section].open == true {
             header.arrowImage.image = #imageLiteral(resourceName: "arrow_top")
         }
         
@@ -112,7 +104,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].open ? sections[section].items.count : 0
+        return foodList[section].open ? foodList[section].items.count : 0
     }
     
 }
@@ -120,18 +112,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
         let headerHeight = header.frame.height
-        sections[header.section].open = !sections[header.section].open
+        foodList[header.section].open = !foodList[header.section].open
         self.tableView.reloadData()
         self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
-    }
-}
-
-public struct Item {
-    var name: String
-    var price: Int
-    
-    public init(name: String, price: Int) {
-        self.name = name
-        self.price = price
     }
 }

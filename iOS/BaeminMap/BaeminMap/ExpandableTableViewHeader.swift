@@ -56,20 +56,3 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
         delegate?.toggleSection(header: self, section: cell.section)
     }
 }
-
-class Section {
-    var open: Bool
-    var items: [Food]
-    var title: String
-    
-    init(title: String, items: [Food]) {
-        self.open = false
-        self.items = items
-        self.title = title
-    }
-    
-    convenience init() {
-        self.init(title: "Section", items: [Food]())
-    }
-}
-
