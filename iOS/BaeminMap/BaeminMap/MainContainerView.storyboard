@@ -86,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OrU-0u-SlF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="316.875" y="-179.57746478873239"/>
+            <point key="canvasLocation" x="28" y="-180"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wy8-Q1-z8l">
@@ -104,7 +104,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MzZ-c5-9zB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-410.39999999999998" y="-179.46026986506749"/>
+            <point key="canvasLocation" x="-724" y="-181"/>
         </scene>
         <!--MapView-->
         <scene sceneID="UGL-Rl-iQA">
@@ -112,7 +112,7 @@
                 <viewControllerPlaceholder storyboardName="MapView" referencedIdentifier="MapView" id="Tke-UX-WOr" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yj6-13-9Sf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="276"/>
+            <point key="canvasLocation" x="-74" y="276"/>
         </scene>
         <!--ListView-->
         <scene sceneID="8wn-AV-Qwa">
@@ -120,7 +120,7 @@
                 <viewControllerPlaceholder storyboardName="ListView" referencedIdentifier="ListView" id="vUg-tF-VVi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hz-O0-oAU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421" y="276"/>
+            <point key="canvasLocation" x="88" y="276"/>
         </scene>
     </scenes>
     <resources>

@@ -43,3 +43,12 @@ extension UIScrollView {
         }
     }
 }
+
+extension UINavigationBar {
+    static func setNavigation() {
+        self.appearance().tintColor = UIColor.black
+        self.appearance().barTintColor = UIColor.white
+        self.appearance().backIndicatorImage = #imageLiteral(resourceName: "backbutton")
+        self.appearance().backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "backbutton")
+    }
+}

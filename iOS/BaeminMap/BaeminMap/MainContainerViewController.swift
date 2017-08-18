@@ -32,6 +32,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
     }
 
     override func didReceiveMemoryWarning() {
