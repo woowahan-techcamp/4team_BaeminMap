@@ -133,9 +133,10 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        infoViewAnimate(isTap: true)
         
         guard let shop = marker.userData as? BaeminInfo else { return false }
+        
+        infoViewAnimate(isTap: true)
         if let selectedMarker = mapView.selectedMarker,
             let selectedShop = selectedMarker.userData as? BaeminInfo {
             selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
