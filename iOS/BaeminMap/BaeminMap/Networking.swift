@@ -41,10 +41,30 @@ class Networking {
         }
     }
     
-//    func getFoods(shopNo: Int) {
-//        let header = ["Authorization": "Bearer \(Config.token)", "Content-Type": "application/json"]
-//        var parameters: Parameters = ["shopNo": shopNo]
-//
+    func getFoods(shopNo: Int) {
+        Alamofire.request("\(Config.standardURL)/menu/\(shopNo)").responseJSON { (response) in
+            switch response.result {
+            case .success(let response):
+                var sections = [Section]()
+                guard let contents = response as? [String:Any] else { return }
+                for(key, value) in contents {
+                    var foods = [Food]()
+                    if let menus = value as? [[String:Any]] {
+                        menus.forEach({ (menu) in
+                            let food = Food(JSON: menu)
+                            foods.append(food!)
+                        })
+                        sections.append(Section(title: key, items: foods))
+                    }
+                }
+                NotificationCenter.default.post(name: NSNotification.Name("finishedGetFoodMenus"), object: self, userInfo: ["Sections" : sections])
+            case .failure(let error):
+                print(String(describing: error))
+            }
+        }
+        
+        
+        
 //        func getFoodsGroups(completion: @escaping (_ foodsGroup: [String:String]) -> ()) {
 //            Alamofire.request("\(Config.baeminApiURL)/v1/shops/\(shopNo)/foods-groups", method: .get, parameters: parameters, encoding: URLEncoding.default, headers: header).responseJSON { (response) in
 //                switch response.result {
@@ -74,5 +94,5 @@ class Networking {
 //                NotificationCenter.default.post(name: NSNotification.Name("finishedFoodList"), object: self, userInfo: ["FoodList": foodList, "key": group["shopFoodGrpNm"]!])
 //            })
 //        }
-//    }
+    }
 }
