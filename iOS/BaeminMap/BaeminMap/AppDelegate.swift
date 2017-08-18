@@ -27,8 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             locationManager.startUpdatingLocation()
         }
         
-        UINavigationBar.appearance().tintColor = UIColor.black
-        UINavigationBar.appearance().barTintColor = UIColor.white
+        UINavigationBar.setNavigation()
         
         return true
     }
