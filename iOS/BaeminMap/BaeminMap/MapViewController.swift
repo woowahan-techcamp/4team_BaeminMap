@@ -110,6 +110,7 @@ class MapViewController: UIViewController {
     }
     
     func infoViewAnimate(isTap: Bool) {
+        print("12345")
         let filterButtonFrame = parentView.filterButton.frame
         if isTap {
             UIView.animate(withDuration: 0.4) {
@@ -133,13 +134,15 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        infoViewAnimate(isTap: true)
         
         guard let shop = marker.userData as? BaeminInfo else { return false }
+        
+        infoViewAnimate(isTap: true)
         if let selectedMarker = mapView.selectedMarker,
             let selectedShop = selectedMarker.userData as? BaeminInfo {
             selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
         }
+        print("11")
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
         mapView.selectedMarker = marker
         marker.map = mapView
