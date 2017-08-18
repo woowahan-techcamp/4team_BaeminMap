@@ -20,7 +20,16 @@
                 <span><%= minimumOrderPrice %></span>
             </div>
         </div>
-        <div class="shop-phone">전화번호: virtualPhoneNumber</div>
+        <div class="shop-phone">
+            전화번호:
+            <%if (virtualPhoneNumber) { %>
+            <%= virtualPhoneNumber %>
+            <% } else if (phoneNumber.startsWith('9')) { %>
+            <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
+            <% } else {%>
+            <%= phoneNumber %>
+            <% }%>
+        </div>
 
         <!-- TODO: 상점 정보(음식목록) shop_detail_temp.ejs -->
     </div>
