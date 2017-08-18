@@ -18,6 +18,7 @@ class Map {
         this.markers = []
         this.userMarker = null
         this.shopDetailTemplate = null
+        this.shopFoodDetailTemplate = null
         this.getShopDetailTemplate()
     }
 
@@ -25,22 +26,18 @@ class Map {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async getShopData(position) {
-        this.data = null
-        const body = Object.assign(position, {type: 1})
-        const response = await axios.post(
-            this.getShopURL,
-            body
-        )
-        this.data = response.data
-    }
-
     async getShopDetailTemplate() {
         if (!this.shopDetailTemplate) {
-            await axios.get('/src/templates/shop_detail.ejs').then((response) => {
+            await axios.get('/src/templates/shop_detail.ejs')
+                .then((response) => {
                 this.shopDetailTemplate = response.data
             })
-            return this.shopDetailTemplate
+        }
+        if (!this.shopFoodDetailTemplate) {
+            await axios.get('/src/templates/shop_detail_foods.ejs')
+                .then((response) => {
+                this.shopFoodDetailTemplate = response.data
+            })
         }
     }
 
@@ -134,7 +131,7 @@ class Map {
         }
     }
 
-    setShopMarker(arr) {
+    setShopMarker(arr, apidata) {
         this.markers.forEach((i) => {
             i.setMap(null)
         })
@@ -169,7 +166,7 @@ class Map {
                 // TODO: 기본 아이콘 변경
             })
             marker.addListener('click', async () => {
-                while (!this.shopDetailTemplate) {
+                while (!this.shopDetailTemplate || !this.shopFoodDetailTemplate) {
                     await this.sleep(200)
                 }
                 const infowindow = new google.maps.InfoWindow({
@@ -178,6 +175,15 @@ class Map {
                 this.resetMarkerAndInfo()
                 this.map.setCenter(marker.getPosition());
                 infowindow.open(map, marker);
+                // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
+                apidata.getShopFoodData(e.shopNumber).then((response) => {
+                    const foodDetails = document.querySelector('#foodDetails')
+                    const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
+                        allCategoryFoodList: response.data
+                    })
+                    foodDetails.innerHTML = foodDetailsContent
+                })
+
                 this.infowindow = infowindow;
                 this.xMarker = marker;
                 this.xMarkerIcon = marker.icon
@@ -221,7 +227,7 @@ class Map {
             sortedData = apidata.getShopListAll(distance, key, order)
         }
         sortedData.then((filteredData) => {
-            this.setShopMarker(filteredData)
+            this.setShopMarker(filteredData, apidata)
             new ShopList("#shopList", filteredData, this.markers)
         })
     }
