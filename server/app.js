@@ -10,14 +10,14 @@ app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.listen(3000, ()=> {
+app.listen(3000, () => {
   console.log('start 3000port!')
 })
 
-app.post('/shops', (req, res)=> {
+app.post('/shops', (req, res) => {
   var shops = {}
   var shopArray = []
-  config.getToken(()=> {
+  config.getToken(() => {
     eachAsync(config.categoryList, function(category, index, done) {
       request({
         url: config.standardUrl+'/v2/shops?size=2000',
@@ -31,12 +31,14 @@ app.post('/shops', (req, res)=> {
           'lng': req.body.lng,
           'category': category
         }
-      }, function(err, res, body) {
-        shopArray = shopArray.concat(body.content)
-        shops[category] = body.content
+      }, (err, res, body) => {
+        var filterArray = body.content.filter(shop => shop.distance <= 1.5 && shop.canDelivery)
+
+        shopArray = shopArray.concat(filterArray)
+        shops[category] = filterArray
         done()
       })
-    }, function(err) {
+    }, (err) => {
       if(err) throw err;
       if(req.body.type === 1) {
         res.json({shops: shops, shopArray: shopArray})
@@ -48,7 +50,6 @@ app.post('/shops', (req, res)=> {
 })
 
 app.get('/menu/:shopNo', (req, response)=> {
-  console.log("ddddd")
   var shopNo = req.params.shopNo
   var menu = {}
   config.getToken(()=> {
@@ -59,9 +60,9 @@ app.get('/menu/:shopNo', (req, response)=> {
       headers: {
         'Authorization': 'Bearer '+config.token
       }
-    }, function(err, res, body) {
+    }, (err, res, body) => {
 
-      eachAsync(body, function(group, index, done) {
+      eachAsync(body, (group, index, done) => {
         request({
           url: config.standardUrl+'/v1/shops/'+shopNo+'/foods?size=2000',
 
@@ -73,14 +74,13 @@ app.get('/menu/:shopNo', (req, response)=> {
           parameters: {
             'shopFoodGrpSeq': group
           }
-        }, function(err, res, body) {
+        }, (err, res, body) => {
           menu[group.shopFoodGrpNm] = body.content
           done()
         })
-      }, function(err) {
+      }, (err) => {
         if(err) throw err;
         else {
-          console.log(menu)
           response.json(menu)
         }
       })
