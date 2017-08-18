@@ -1,6 +1,6 @@
 <div class="shop-detail-wrapper">
     <div class="shop-detail-scroll">
-        <h2><%= shopNumber %></h2>
+        <h2><%= shopName %></h2>
         <hr>
         <div class="shop-detail-info">
             <div class="shop-detail shop-star">
@@ -20,26 +20,21 @@
                 <span><%= minimumOrderPrice %></span>
             </div>
         </div>
-        <div class="shop-phone">전화번호: virtualPhoneNumber</div>
-
-        <% _.each(allCategoryFoodList, (foodList, idx) => { %>
-        <div class="toggle-box">
-            <input class="checkbox" type="checkbox" id="toggle-<%= idx %>" checked>
-            <label class="toggle-label" for="toggle-<%= idx %>"><%= foodList.category %></label>
-            <div class="toggle-content">
-                <div class="module">
-                    <ul>
-                        <% _.each(foodList, (food) => { %>
-                        <li><%= food.title %> <span><%= food.price %></span></li>
-                        <% }) %>
-                    </ul>
-                </div>
-            </div>
+        <div class="shop-phone">
+            전화번호:
+            <%if (virtualPhoneNumber) { %>
+            <%= virtualPhoneNumber %>
+            <% } else if (phoneNumber.startsWith('9')) { %>
+            <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
+            <% } else {%>
+            <%= phoneNumber %>
+            <% }%>
         </div>
-        <% }); %>
 
+        <!-- TODO: 상점 정보(음식목록) shop_detail_temp.ejs -->
+        <div id="foodDetails"></div>
     </div>
-    <a href="https://www.baemin.com/shop/658472" class="shop-link-btn">
+    <a href="https://www.baemin.com/shop/<%= shopNumber %>" class="shop-link-btn">
         <button class="shop-link-btn">주문하러가기</button>
     </a>
 </div>
