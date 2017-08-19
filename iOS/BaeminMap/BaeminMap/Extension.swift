@@ -9,11 +9,11 @@
 import UIKit
 
 extension UIStoryboard {
-    static let ListViewStoryboard = UIStoryboard(name: "ListView", bundle: nil)
-    static let MapViewStoryboard = UIStoryboard(name: "MapView", bundle: nil)
-    static let MainContainerViewStoryboard = UIStoryboard(name: "MainContainerView", bundle: nil)
-    static let DetailViewStoryboard = UIStoryboard(name: "DetailView", bundle: nil)
-    static let FilterViewStoryboard = UIStoryboard(name: "FilterView", bundle: nil)
+    static let listViewStoryboard = UIStoryboard(name: "ListView", bundle: nil)
+    static let mapViewStoryboard = UIStoryboard(name: "MapView", bundle: nil)
+    static let mainContainerViewStoryboard = UIStoryboard(name: "MainContainerView", bundle: nil)
+    static let detailViewStoryboard = UIStoryboard(name: "DetailView", bundle: nil)
+    static let filterViewStoryboard = UIStoryboard(name: "FilterView", bundle: nil)
 }
 
 extension Double {

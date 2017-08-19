@@ -71,7 +71,7 @@ class MapViewController: UIViewController {
     }
     
     func showDetailView() {
-        let detailViewController = UIStoryboard.DetailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
+        let detailViewController = UIStoryboard.detailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
         detailViewController.baeminInfo = mapView.selectedMarker?.userData as! BaeminInfo
         navigationController?.pushViewController(detailViewController, animated: true)
     }

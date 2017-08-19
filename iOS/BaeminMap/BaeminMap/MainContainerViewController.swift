@@ -25,8 +25,8 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     var selectedCategory = [String]()
     var selectedSortTag = Int()
     var selectedRangeTag = Int()
-    var listViewController = UIStoryboard.ListViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
-    var mapViewController = UIStoryboard.MapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
+    var listViewController = UIStoryboard.listViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
+    var mapViewController = UIStoryboard.mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +93,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     }
     
     @IBAction func filterButtonAction(_ sender: Any) {
-        let filterViewController = UIStoryboard.FilterViewStoryboard.instantiateViewController(withIdentifier: "FilterView") as! FilterViewController
+        let filterViewController = UIStoryboard.filterViewStoryboard.instantiateViewController(withIdentifier: "FilterView") as! FilterViewController
         filterViewController.delegate = self
         filterViewController.selectedCategory = selectedCategory
         filterViewController.selectedSortTag = selectedSortTag
