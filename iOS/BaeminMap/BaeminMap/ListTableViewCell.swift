@@ -19,6 +19,7 @@ class ListTableViewCell: UITableViewCell {
     @IBOutlet var baropayLabel: UILabel!
     @IBOutlet var meetingpayLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet weak var moveButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +27,7 @@ class ListTableViewCell: UITableViewCell {
         ratingView.isUserInteractionEnabled = false
         shopImageView.layer.cornerRadius = (shopImageView.frame.size.height) / 2
         shopImageView.layer.masksToBounds = true
+        moveButton.isEnabled = false
     }
     
     func isPay(baro: Bool?=nil, meet: Bool?=nil) {

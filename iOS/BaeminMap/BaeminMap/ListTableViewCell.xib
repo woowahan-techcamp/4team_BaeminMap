@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -131,6 +131,10 @@
                             <constraint firstAttribute="width" secondItem="U2O-gF-AEe" secondAttribute="height" multiplier="1:1" id="0jc-2f-bFB"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7B-hK-IBu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="104"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="5WT-gt-TIh" secondAttribute="trailing" constant="13" id="4Y7-en-DjA"/>
@@ -149,6 +153,7 @@
                 <outlet property="baropayLabel" destination="Zd8-lo-gRe" id="bMX-Kt-27F"/>
                 <outlet property="distanceLabel" destination="gMD-cm-3PL" id="Gpg-RY-yx2"/>
                 <outlet property="meetingpayLabel" destination="0TM-my-68q" id="B3t-h5-vrP"/>
+                <outlet property="moveButton" destination="N7B-hK-IBu" id="Y2x-AE-T0h"/>
                 <outlet property="ownerReviewLabel" destination="36a-gg-gXy" id="cx5-sI-cqf"/>
                 <outlet property="ratingView" destination="YP0-71-NWS" id="3kb-d6-ve8"/>
                 <outlet property="reviewLabel" destination="EhG-4y-YNL" id="NSg-gt-X9J"/>
@@ -157,11 +162,6 @@
             </connections>
             <point key="canvasLocation" x="172" y="178"/>
         </tableViewCell>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rO9-3l-bjX">
-            <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <state key="normal" title="Button"/>
-        </button>
     </objects>
     <resources>
         <image name="defaultImage" width="300" height="300"/>
