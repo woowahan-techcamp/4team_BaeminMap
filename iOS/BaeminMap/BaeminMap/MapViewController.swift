@@ -68,6 +68,7 @@ class MapViewController: UIViewController {
             drawMap()
         } else {
             self.baeminInfo = parentView.filterBaeminInfo
+            self.mapView.selectedMarker = nil
             self.redrawMap()
         }
     }
