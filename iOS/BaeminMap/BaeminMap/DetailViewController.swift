@@ -7,15 +7,24 @@
 //
 
 import UIKit
+import Cosmos
 
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var topView: UIView!
-    
+    @IBOutlet weak var orderCountLabel: UILabel!
+    @IBOutlet weak var favoriteCountLabel: UILabel!
     @IBOutlet weak var meetPayLabel: UILabel!
     @IBOutlet weak var baroPayLabel: UILabel!
+    @IBOutlet weak var mainImageView: UIImageView!
+    @IBOutlet weak var starPointLabel: UILabel!
+    @IBOutlet weak var starPointView: CosmosView!
+    @IBOutlet weak var reviewCountLabel: UILabel!
+    @IBOutlet weak var reviewCountCEOLabel: UILabel!
+    @IBOutlet weak var minOrderPriceLabel: UILabel!
+    
     
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
@@ -27,12 +36,19 @@ class DetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        viewinit()
+        meetPayLabel.ablePay()
+        baroPayLabel.ablePay()
+        starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
+        starPointView.rating = baeminInfo.starPointAverage
+        reviewCountLabel.text = String(baeminInfo.reviewCount)
+        reviewCountCEOLabel.text = String(baeminInfo.reviewCountCeo)
+        minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
     
         Networking().getFoods(shopNo: baeminInfo.shopNumber)
         navigationItem.title = baeminInfo.shopName
         
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
+        print(#function)
     }
     
     func receive(notification: Notification) {
@@ -40,16 +56,6 @@ class DetailViewController: UIViewController {
             let foodList = userInfo["Sections"] as? [Section] else { return }
         self.foodList = foodList
         tableView.reloadData()
-    }
-    
-    func viewinit() {
-        meetPayLabel.layer.borderWidth = 1
-        meetPayLabel.layer.borderColor = UIColor.black.cgColor
-        meetPayLabel.layer.cornerRadius = meetPayLabel.layer.frame.height/2
-        
-        baroPayLabel.layer.borderWidth = 1
-        baroPayLabel.layer.borderColor = UIColor.black.cgColor
-        baroPayLabel.layer.cornerRadius = baroPayLabel.layer.frame.height/2
     }
 
     override func didReceiveMemoryWarning() {

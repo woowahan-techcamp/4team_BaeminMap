@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -407,7 +407,15 @@
                     <connections>
                         <outlet property="baroPayLabel" destination="tUX-g2-bea" id="PoP-ug-Oop"/>
                         <outlet property="collectionView" destination="toI-nA-hMC" id="wJc-jz-EjZ"/>
+                        <outlet property="favoriteCountLabel" destination="XSc-7s-tar" id="vbT-0L-WWP"/>
+                        <outlet property="mainImageView" destination="bv3-RQ-DcK" id="hzF-Ni-QHP"/>
                         <outlet property="meetPayLabel" destination="ZV2-zJ-BTb" id="vhh-2X-pKH"/>
+                        <outlet property="minOrderPriceLabel" destination="Zyp-61-F5U" id="Qx3-Ek-6NQ"/>
+                        <outlet property="orderCountLabel" destination="4g6-9d-IXq" id="nCB-W2-hna"/>
+                        <outlet property="reviewCountCEOLabel" destination="zJ6-uu-ufB" id="23i-1Z-UJt"/>
+                        <outlet property="reviewCountLabel" destination="fBU-Uh-qvF" id="4xj-YK-P0J"/>
+                        <outlet property="starPointLabel" destination="FM6-JB-H64" id="ssn-8S-JD0"/>
+                        <outlet property="starPointView" destination="E9o-gn-YKr" id="lke-wo-lDh"/>
                         <outlet property="tableView" destination="gyL-GN-yCN" id="Evz-G3-jQ1"/>
                         <outlet property="topView" destination="zfr-49-8LO" id="Dri-63-hHg"/>
                     </connections>

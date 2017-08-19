@@ -28,10 +28,10 @@ class MapViewController: UIViewController {
         cell.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
         return cell
     }()
-    var isZoom = true
     lazy var filterButtonFrameY: CGFloat = {
         return self.parentView.filterButton.frame.minY
     }()
+    var isZoom = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,8 +152,8 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             infoView.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
         infoView.titleLabel.text = shop.shopName
-        infoView.reviewLabel.text = "최근리뷰 \(shop.reviewCount ?? 0)"
-        infoView.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
+        infoView.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
+        infoView.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
         infoView.ratingView.rating = shop.starPointAverage
         infoView.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         infoView.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)

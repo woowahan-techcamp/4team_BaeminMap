@@ -25,7 +25,6 @@ class FilterViewController: UIViewController {
     var selectedCategory = [String]()
     var selectedSortTag = Int()
     var selectedRangeTag = Int()
-    
     var category = ["전체", "치킨", "중식", "피자", "한식", "분식", "족발,보쌈", "야식", "찜,탕", "돈까스,회,일식", "도시락", "패스트푸드"]
     
     override func viewDidLoad() {

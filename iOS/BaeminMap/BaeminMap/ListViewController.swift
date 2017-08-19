@@ -12,6 +12,7 @@ import AlamofireImage
 class ListViewController: UIViewController {
     
     @IBOutlet weak var listView: UITableView!
+    
     lazy var parentView: MainContainerViewController = {
         return self.parent as! MainContainerViewController
     }()
@@ -56,8 +57,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
         cell.titleLabel.text = shop.shopName
-        cell.reviewLabel.text = "최근리뷰 \(shop.reviewCount ?? 0)"
-        cell.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
+        cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
+        cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
         cell.ratingView.rating = shop.starPointAverage
         cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
