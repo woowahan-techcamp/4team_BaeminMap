@@ -26,6 +26,8 @@ class MapViewController: UIViewController {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         cell.backgroundColor = UIColor.white
         cell.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
+        cell.moveButton.isEnabled = true
+        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
         return cell
     }()
     lazy var filterButtonFrameY: CGFloat = {
@@ -57,19 +59,26 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func moveToCurrentLocation(_ btn: UIButton) {
-        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
-        mapView.animate(to: camera)
-    }
-    
     func recieve(notification: Notification) {
         if notification.name == NSNotification.Name("finishedCurrentLocation") {
             mapView.clear()
             drawMap()
         } else {
             self.baeminInfo = parentView.filterBaeminInfo
+            self.mapView.selectedMarker = nil
             self.redrawMap()
         }
+    }
+    
+    func showDetailView() {
+        let detailViewController = UIStoryboard.DetailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
+        detailViewController.baeminInfo = mapView.selectedMarker?.userData as! BaeminInfo
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    func moveToCurrentLocation() {
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
+        mapView.animate(to: camera)
     }
     
     func drawMap() {
