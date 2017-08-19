@@ -38,6 +38,9 @@ class DetailViewController: UIViewController {
         
         meetPayLabel.ablePay()
         baroPayLabel.ablePay()
+        if let url = baeminInfo.shopLogoImageUrl {
+            mainImageView.af_setImage(withURL: URL(string: url)!)
+        }
         starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
         starPointView.rating = baeminInfo.starPointAverage
         reviewCountLabel.text = String(baeminInfo.reviewCount)
@@ -48,7 +51,6 @@ class DetailViewController: UIViewController {
         navigationItem.title = baeminInfo.shopName
         
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
-        print(#function)
     }
     
     func receive(notification: Notification) {
