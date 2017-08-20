@@ -14,7 +14,12 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIButton!
     
+    var listViewController = UIStoryboard.listViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
+    var mapViewController = UIStoryboard.mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     var isListView = Bool()
+    var selectedCategory = [String]()
+    var selectedSortTag = Int()
+    var selectedRangeTag = Int()
     var baeminInfo = [BaeminInfo]()
     var baeminInfoDic = [String:[BaeminInfo]]()
     var filterBaeminInfo = [BaeminInfo]() {
@@ -22,11 +27,6 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
             NotificationCenter.default.post(name: NSNotification.Name("filterManager"), object: self)
         }
     }
-    var selectedCategory = [String]()
-    var selectedSortTag = Int()
-    var selectedRangeTag = Int()
-    var listViewController = UIStoryboard.listViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
-    var mapViewController = UIStoryboard.mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -30,10 +30,10 @@ class MapViewController: UIViewController {
         cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
         return cell
     }()
-    var isZoom = true
     lazy var filterButtonFrameY: CGFloat = {
         return self.parentView.filterButton.frame.minY
     }()
+    var isZoom = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +103,7 @@ class MapViewController: UIViewController {
             marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
             marker.map = self.mapView
             marker.userData = shop
-            marker.zIndex = 1
+            marker.zIndex = 0
             if let selectedShop = selectedMarker?.userData as? BaeminInfo, shop === selectedShop {
                 marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
                 self.mapView.selectedMarker = marker
@@ -149,13 +149,13 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoViewAnimate(isTap: true)
         if let selectedMarker = mapView.selectedMarker,
             let selectedShop = selectedMarker.userData as? BaeminInfo {
-            selectedMarker.zIndex = 1
+            selectedMarker.zIndex = 0
             selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
         }
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
         mapView.selectedMarker = marker
         marker.map = mapView
-        marker.zIndex = 2
+        marker.zIndex = 1
         marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
         mapView.animate(to: camera)
         
@@ -164,8 +164,8 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             infoView.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
         infoView.titleLabel.text = shop.shopName
-        infoView.reviewLabel.text = "최근리뷰 \(shop.reviewCount ?? 0)"
-        infoView.ownerReviewLabel.text = "최근사장님댓글 \(shop.reviewCountCeo ?? 0)"
+        infoView.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
+        infoView.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
         infoView.ratingView.rating = shop.starPointAverage
         infoView.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         infoView.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)

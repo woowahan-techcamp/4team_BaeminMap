@@ -52,3 +52,11 @@ extension UINavigationBar {
         self.appearance().backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "backbutton")
     }
 }
+
+extension UILabel {
+    func ablePay() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.cornerRadius = self.layer.frame.height/2
+    }
+}
