@@ -103,6 +103,7 @@ class MapViewController: UIViewController {
             marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
             marker.map = self.mapView
             marker.userData = shop
+            marker.zIndex = 1
             if let selectedShop = selectedMarker?.userData as? BaeminInfo, shop === selectedShop {
                 marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
                 self.mapView.selectedMarker = marker
@@ -148,11 +149,13 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoViewAnimate(isTap: true)
         if let selectedMarker = mapView.selectedMarker,
             let selectedShop = selectedMarker.userData as? BaeminInfo {
+            selectedMarker.zIndex = 1
             selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
         }
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
         mapView.selectedMarker = marker
         marker.map = mapView
+        marker.zIndex = 2
         marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
         mapView.animate(to: camera)
         
