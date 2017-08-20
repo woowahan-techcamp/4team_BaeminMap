@@ -79,7 +79,7 @@ function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
                 const distanceElement = document.querySelector('.distance-option-list > .selected')
                 const distance = parseFloat(distanceElement.dataset['distance'])
                 //shop-list 스크롤 초기화
-                map.reloadMap(distance, pos, apidata, condition, null, categoryList)
+                map.reloadMap(distance, (map.currentLocation)? map.currentLocation:pos, apidata, condition, null, categoryList)
             }
         })
     })
