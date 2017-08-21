@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var reviewCountCEOLabel: UILabel!
     @IBOutlet weak var minOrderPriceLabel: UILabel!
+    @IBOutlet weak var moveToBaemin: UIButton!
     
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
