@@ -24,6 +24,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var reviewCountCEOLabel: UILabel!
     @IBOutlet weak var minOrderPriceLabel: UILabel!
+    @IBOutlet weak var moveToBaemin: UIButton!
+    @IBOutlet weak var topInfoView: UIView!
     
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
@@ -52,25 +54,31 @@ class DetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
     }
     
-    func receive(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let foodList = userInfo["Sections"] as? [Section] else { return }
-        self.foodList = foodList
-        if foodList.isEmpty {
-            let view = UIImageView(frame: CGRect(x: 0, y: 30, width: tableView.frame.width, height: tableView.frame.height))
-            view.contentMode = .center
-            view.backgroundColor = UIColor.white
-            view.image = #imageLiteral(resourceName: "callOrderDefault")
-            tableView.isUserInteractionEnabled = false
-            tableView.addSubview(view)
-        }
-        tableView.reloadData()
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func receive(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let foodList = userInfo["Sections"] as? [Section] else { return }
+        self.foodList = foodList
+        isShowCallImage()
+        tableView.reloadData()
+    }
+    
+    func isShowCallImage() {
+        if foodList.isEmpty {
+            let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-moveToBaemin.frame.height))
+            imageView.contentMode = .center
+            imageView.backgroundColor = UIColor.white
+            imageView.image = #imageLiteral(resourceName: "callOrderDefault")
+            moveToBaemin.isHidden = true
+            tableView.isUserInteractionEnabled = false
+            tableView.addSubview(view)
+        }
+    }
+    
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
