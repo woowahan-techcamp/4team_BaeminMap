@@ -95,7 +95,6 @@ function sortByOption(tar, option) {
 
 function toggleCSSOnClick(el, target, css) {
     document.querySelector(el).addEventListener('click', (e) => {
-        e.preventDefault()
         const list = document.querySelector(target)
         if (list.classList.contains(css)) {
             list.classList.remove(css)
@@ -143,7 +142,7 @@ navigator.geolocation.getCurrentPosition((position) => {
 })
 // Add Events on Click
 // click el, target, css class
-toggleCSSOnClick('#listOnOff', '#list', 'hidden')
+toggleCSSOnClick('#listOnOff', '#list', 'mobile-hidden')
 toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
 // })
 
