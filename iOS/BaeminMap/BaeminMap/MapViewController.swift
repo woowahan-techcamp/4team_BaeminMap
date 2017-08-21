@@ -127,8 +127,19 @@ class MapViewController: UIViewController {
     }
     
     func infoViewAnimate(isTap: Bool) {
-        cell.frame = CGRect(x: 20, y: 0, width: self.view.frame.width-50, height: 100)
-        infoView.addSubview(cell)
+        var cellminX = CGFloat(20)
+        var cellWidth = self.view.frame.width-50
+        for _ in 0..<3 {
+            //TODO : cell 새로 선언해야지만 참조가 되지 않아서 새로 생성됨 기존 cell 사용할 경우 마지막 값만 적용됨
+            let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
+            cell.backgroundColor = UIColor.white
+            cell.moveButton.isEnabled = true
+            cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
+            
+            cell.frame = CGRect(x: cellminX, y: 0, width: cellWidth, height: 100)
+            infoView.addSubview(cell)
+            cellminX += cellWidth + 20
+        }
         
         let filterButtonFrame = parentView.filterButton.frame
         if isTap {
