@@ -8,6 +8,7 @@
 
 import UIKit
 import Cosmos
+import KRProgressHUD
 
 class DetailViewController: UIViewController {
 
@@ -40,6 +41,8 @@ class DetailViewController: UIViewController {
         collectionView.dataSource = self
         navigationItem.title = baeminInfo.shopName
         
+        KRProgressHUD.setDetailIndicator(image: baeminInfo.categoryEnglishName)
+        
         meetPayLabel.ablePay()
         baroPayLabel.ablePay()
         if let url = baeminInfo.shopLogoImageUrl {
@@ -70,6 +73,9 @@ class DetailViewController: UIViewController {
         self.foodList = foodList
         if foodList.isEmpty {
             showCallImage()
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+            KRProgressHUD.dismiss()
         }
         tableView.reloadData()
     }

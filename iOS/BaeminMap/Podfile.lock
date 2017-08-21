@@ -10,6 +10,9 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (2.4.0):
     - GoogleMaps/Base (= 2.4.0)
+  - KRActivityIndicatorView (2.0.2)
+  - KRProgressHUD (3.0.0):
+    - KRActivityIndicatorView (~> 2.0.2)
   - ObjectMapper (2.2.8)
 
 DEPENDENCIES:
@@ -18,6 +21,7 @@ DEPENDENCIES:
   - Cosmos
   - GoogleMaps
   - GooglePlaces
+  - KRProgressHUD
   - ObjectMapper
 
 SPEC CHECKSUMS:
@@ -26,8 +30,10 @@ SPEC CHECKSUMS:
   Cosmos: eb506859929f4add2d2aec822a27efb2f718a95d
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
   GooglePlaces: aafe5990fa7951e98e078761bbdaaf236d7e0c65
+  KRActivityIndicatorView: 2a9d5442ba8da6274db3afdf46aeaef7cf6dd8ad
+  KRProgressHUD: 14f9fad06080bdb1e59569104a8eda654c83e813
   ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
 
-PODFILE CHECKSUM: 36479ad65bd3a3417c5311696b5f17c2a7280ce1
+PODFILE CHECKSUM: b95ece2e0c64237e1e369feea2fe38b08d47f7ba
 
 COCOAPODS: 1.2.1
