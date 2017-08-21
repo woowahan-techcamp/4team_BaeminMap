@@ -63,22 +63,22 @@ class DetailViewController: UIViewController {
         guard let userInfo = notification.userInfo,
             let foodList = userInfo["Sections"] as? [Section] else { return }
         self.foodList = foodList
-        isShowCallImage()
+        if foodList.isEmpty {
+            showCallImage()
+        }
         tableView.reloadData()
     }
     
-    func isShowCallImage() {
-        if foodList.isEmpty {
-            let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-moveToBaemin.frame.height))
-            imageView.contentMode = .center
-            imageView.backgroundColor = UIColor.white
-            imageView.image = #imageLiteral(resourceName: "callOrderDefault")
-            moveToBaemin.isHidden = true
-            tableView.isUserInteractionEnabled = false
-            tableView.addSubview(imageView)
-        }
+    func showCallImage() {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-moveToBaemin.frame.height))
+        imageView.contentMode = .center
+        imageView.backgroundColor = UIColor.white
+        imageView.image = #imageLiteral(resourceName: "callOrderDefault")
+        moveToBaemin.isHidden = true
+        tableView.isUserInteractionEnabled = false
+        tableView.addSubview(imageView)
     }
-    
+
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
