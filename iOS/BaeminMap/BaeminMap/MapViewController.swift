@@ -25,16 +25,19 @@ class MapViewController: UIViewController {
     lazy var cell: ListTableViewCell = {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         cell.backgroundColor = UIColor.white
-//        cell.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
         cell.moveButton.isEnabled = true
         cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
         return cell
     }()
     lazy var infoView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.frame = CGRect(x: 0, y: self.view.frame.maxY, width: self.view.frame.width - 5, height: 105)
-        scrollView.contentSize.width = self.view.frame.width - 50
+        scrollView.frame = CGRect(x: 0, y: self.view.frame.maxY, width: self.view.frame.width, height: 105)
+        scrollView.contentSize.width = self.view.frame.width
         return scrollView
+    }()
+    lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        return pageControl
     }()
     lazy var filterButtonFrameY: CGFloat = {
         return self.parentView.filterButton.frame.minY
@@ -132,7 +135,7 @@ class MapViewController: UIViewController {
         if isTap {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
-                self.infoView.frame = CGRect(x: 5, y: self.mapView.frame.maxY-110, width: self.mapView.frame.width-10, height: 105)
+                self.infoView.frame = CGRect(x: 0, y: self.mapView.frame.maxY-110, width: self.mapView.frame.width, height: 105)
                 let y = self.filterButtonFrameY - self.infoView.frame.height+20
                 self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: y, width: filterButtonFrame.width, height: filterButtonFrame.height)
                 self.mapView.layoutIfNeeded()
@@ -149,7 +152,7 @@ class MapViewController: UIViewController {
 
 }
 
-extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
+extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate, UIScrollViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         guard let shop = marker.userData as? BaeminInfo else { return false }
@@ -167,8 +170,13 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
         mapView.animate(to: camera)
         
+        configurePageControl(count: 3)
+        infoView.delegate = self
+        infoView.isPagingEnabled = true
+//        pageControl.addTarget(self, action: #selector(changePage(sender:)), for: UIControlEvents.valueChanged)
+        
         var cellminX = CGFloat(20)
-        let cellWidth = self.view.frame.width-50
+        let cellWidth = self.view.frame.width-40
         for _ in 0..<3 {
             //NOTE : cell 새로 선언해야지만 참조가 되지 않아서 새로 생성됨 기존 cell 사용할 경우 마지막 값만 적용됨
             //TODO : 나중에 리스트 받아와서 개수 만큼 추가 시키기
@@ -194,6 +202,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
 
             infoView.contentSize.width = cellminX
         }
+        infoView.contentSize.width += 10
         return true
     }
     
@@ -210,5 +219,25 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             isZoom = true
             self.redrawMap()
         }
+    }
+    
+    //asdfdasf
+    func configurePageControl(count: Int) {
+        self.pageControl.numberOfPages = count
+        self.pageControl.currentPage = 0
+        mapView.addSubview(pageControl)
+    }
+    
+//    func changePage(sender: AnyObject) -> () {
+//        print("asdfaf")
+////        let x = (CGFloat(pageControl.currentPage) * (self.view.frame.width-40) ) - 20
+//        let x = ( CGFloat(pageControl.currentPage) * self.view.frame.width ) - CGFloat(30)
+//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+//    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        let x = ( CGFloat(pageControl.currentPage) * self.view.frame.width ) - CGFloat(30)
+        let pageNumber = round(scrollView.contentOffset.x / (scrollView.frame.size.width - 40) )
+        pageControl.currentPage = Int(pageNumber)
     }
 }
