@@ -22,22 +22,11 @@ class MapViewController: UIViewController {
     lazy var baeminInfo: [BaeminInfo] = {
         return self.parentView.filterBaeminInfo
     }()
-    lazy var cell: ListTableViewCell = {
-        let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
-        cell.backgroundColor = UIColor.white
-        cell.moveButton.isEnabled = true
-        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
-        return cell
-    }()
     lazy var infoView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.frame = CGRect(x: 0, y: self.view.frame.maxY, width: self.view.frame.width, height: 105)
         scrollView.contentSize.width = self.view.frame.width
         return scrollView
-    }()
-    lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        return pageControl
     }()
     lazy var filterButtonFrameY: CGFloat = {
         return self.parentView.filterButton.frame.minY
@@ -152,7 +141,43 @@ class MapViewController: UIViewController {
 
 }
 
-extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate, UIScrollViewDelegate {
+extension MapViewController: UIScrollViewDelegate {
+    func configurePageControl(count: Int) {
+        self.pageControl.numberOfPages = count
+        self.pageControl.currentPage = 0
+        mapView.addSubview(pageControl)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageControl.currentPage = Int(pageNumber)
+        
+        let x = pageNumber == 0 ? 0 : pageNumber * scrollView.frame.size.width - 30 * pageNumber
+        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+    }
+    
+    func addCellPage(shop: BaeminInfo) -> ListTableViewCell {
+        let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
+        cell.backgroundColor = UIColor.white
+        cell.moveButton.isEnabled = true
+        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
+        
+        let distance = shop.distance.convertDistance()
+        if let url = shop.shopLogoImageUrl {
+            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+        }
+        cell.titleLabel.text = shop.shopName
+        cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
+        cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
+        cell.ratingView.rating = shop.starPointAverage
+        cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
+        cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
+        
+        return cell
+    }
+}
+
+extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         guard let shop = marker.userData as? BaeminInfo else { return false }
@@ -170,6 +195,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate, UISc
         marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
         mapView.animate(to: camera)
         
+        //TODO : 현재는 testCount 로 임의의 개수로 넣어둠 ( 나중에 실제 리스트.count 입력할 것 )
         let testCount = 4
         configurePageControl(count: testCount)
         infoView.delegate = self
@@ -177,27 +203,13 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate, UISc
         
         var cellminX = CGFloat(20)
         let cellWidth = self.view.frame.width-40
+        
         for _ in 0..<testCount {
-            let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
-            cell.backgroundColor = UIColor.white
-            cell.moveButton.isEnabled = true
-            cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
-            
+            let cell = self.addCellPage(shop: shop)
             cell.frame = CGRect(x: cellminX, y: 0, width: cellWidth, height: 100)
             infoView.addSubview(cell)
             cellminX += cellWidth + 10
-            
-            let distance = shop.distance.convertDistance()
-            if let url = shop.shopLogoImageUrl {
-                cell.shopImageView.af_setImage(withURL: URL(string: url)!)
-            }
-            cell.titleLabel.text = shop.shopName
-            cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
-            cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
-            cell.ratingView.rating = shop.starPointAverage
-            cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
-            cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
-
+  
             infoView.contentSize.width = cellminX
         }
         infoView.contentSize.width += 10
@@ -217,22 +229,5 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate, UISc
             isZoom = true
             self.redrawMap()
         }
-    }
-    
-    func configurePageControl(count: Int) {
-        self.pageControl.numberOfPages = count
-        self.pageControl.currentPage = 0
-        mapView.addSubview(pageControl)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        pageControl.currentPage = Int(pageNumber)
-        
-        var x = pageNumber * scrollView.frame.size.width - 30 * pageNumber
-        if pageNumber == 0 {
-            x = 0
-        }
-        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
     }
 }
