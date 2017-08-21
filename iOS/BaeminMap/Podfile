@@ -10,6 +10,7 @@ target 'BaeminMap' do
   pod 'Cosmos'
   pod 'GooglePlaces'
   pod 'AlamofireImage'
+  pod "KRProgressHUD"
 
   # Pods for BaeminMap
 
