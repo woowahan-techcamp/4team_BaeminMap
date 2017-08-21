@@ -77,7 +77,7 @@
 .toggle-label:after {
     content: '˅';
     float: right;
-    line-height: 30px;
+    line-height: 20px;
     right: 0;
 }
 
