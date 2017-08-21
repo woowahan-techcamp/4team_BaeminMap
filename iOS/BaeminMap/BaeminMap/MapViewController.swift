@@ -22,13 +22,19 @@ class MapViewController: UIViewController {
     lazy var baeminInfo: [BaeminInfo] = {
         return self.parentView.filterBaeminInfo
     }()
-    lazy var infoView: ListTableViewCell = {
+    lazy var cell: ListTableViewCell = {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         cell.backgroundColor = UIColor.white
-        cell.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
+//        cell.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
         cell.moveButton.isEnabled = true
         cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
         return cell
+    }()
+    lazy var infoView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.frame = CGRect(x: 0, y: self.view.frame.maxY, width: self.view.frame.width, height: 105)
+        scrollView.contentSize.width = 1000
+        return scrollView
     }()
     lazy var filterButtonFrameY: CGFloat = {
         return self.parentView.filterButton.frame.minY
@@ -40,6 +46,7 @@ class MapViewController: UIViewController {
         
         mapView.delegate = self
         mapView.addSubview(infoView)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("filterManager"), object: nil)
         currentLocationButton.addTarget(self, action: #selector(moveToCurrentLocation), for: .touchUpInside)
@@ -120,6 +127,9 @@ class MapViewController: UIViewController {
     }
     
     func infoViewAnimate(isTap: Bool) {
+        cell.frame = CGRect(x: 20, y: 0, width: self.view.frame.width-50, height: 100)
+        infoView.addSubview(cell)
+        
         let filterButtonFrame = parentView.filterButton.frame
         if isTap {
             UIView.animate(withDuration: 0.4) {
@@ -161,14 +171,14 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
-            infoView.shopImageView.af_setImage(withURL: URL(string: url)!)
+            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
-        infoView.titleLabel.text = shop.shopName
-        infoView.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
-        infoView.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
-        infoView.ratingView.rating = shop.starPointAverage
-        infoView.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
-        infoView.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
+        cell.titleLabel.text = shop.shopName
+        cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
+        cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
+        cell.ratingView.rating = shop.starPointAverage
+        cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
+        cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
         
         return true
     }
