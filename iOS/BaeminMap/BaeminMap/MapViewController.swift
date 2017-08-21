@@ -33,7 +33,7 @@ class MapViewController: UIViewController {
     lazy var infoView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.frame = CGRect(x: 0, y: self.view.frame.maxY, width: self.view.frame.width, height: 105)
-        scrollView.contentSize.width = 1000
+        scrollView.contentSize.width = self.view.frame.width - 50
         return scrollView
     }()
     lazy var filterButtonFrameY: CGFloat = {
@@ -128,9 +128,10 @@ class MapViewController: UIViewController {
     
     func infoViewAnimate(isTap: Bool) {
         var cellminX = CGFloat(20)
-        var cellWidth = self.view.frame.width-50
+        let cellWidth = self.view.frame.width-50
         for _ in 0..<3 {
-            //TODO : cell 새로 선언해야지만 참조가 되지 않아서 새로 생성됨 기존 cell 사용할 경우 마지막 값만 적용됨
+            //NOTE : cell 새로 선언해야지만 참조가 되지 않아서 새로 생성됨 기존 cell 사용할 경우 마지막 값만 적용됨
+            //TODO : 나중에 리스트 받아와서 개수 만큼 추가 시키기
             let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
             cell.backgroundColor = UIColor.white
             cell.moveButton.isEnabled = true
@@ -139,6 +140,8 @@ class MapViewController: UIViewController {
             cell.frame = CGRect(x: cellminX, y: 0, width: cellWidth, height: 100)
             infoView.addSubview(cell)
             cellminX += cellWidth + 20
+            
+            infoView.contentSize.width = cellminX
         }
         
         let filterButtonFrame = parentView.filterButton.frame
