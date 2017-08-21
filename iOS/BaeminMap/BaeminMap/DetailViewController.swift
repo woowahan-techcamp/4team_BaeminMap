@@ -75,7 +75,7 @@ class DetailViewController: UIViewController {
             imageView.image = #imageLiteral(resourceName: "callOrderDefault")
             moveToBaemin.isHidden = true
             tableView.isUserInteractionEnabled = false
-            tableView.addSubview(view)
+            tableView.addSubview(imageView)
         }
     }
     
