@@ -170,16 +170,14 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate, UISc
         marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
         mapView.animate(to: camera)
         
-        configurePageControl(count: 3)
+        let testCount = 4
+        configurePageControl(count: testCount)
         infoView.delegate = self
         infoView.isPagingEnabled = true
-//        pageControl.addTarget(self, action: #selector(changePage(sender:)), for: UIControlEvents.valueChanged)
         
         var cellminX = CGFloat(20)
         let cellWidth = self.view.frame.width-40
-        for _ in 0..<3 {
-            //NOTE : cell 새로 선언해야지만 참조가 되지 않아서 새로 생성됨 기존 cell 사용할 경우 마지막 값만 적용됨
-            //TODO : 나중에 리스트 받아와서 개수 만큼 추가 시키기
+        for _ in 0..<testCount {
             let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
             cell.backgroundColor = UIColor.white
             cell.moveButton.isEnabled = true
@@ -221,23 +219,20 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate, UISc
         }
     }
     
-    //asdfdasf
     func configurePageControl(count: Int) {
         self.pageControl.numberOfPages = count
         self.pageControl.currentPage = 0
         mapView.addSubview(pageControl)
     }
     
-//    func changePage(sender: AnyObject) -> () {
-//        print("asdfaf")
-////        let x = (CGFloat(pageControl.currentPage) * (self.view.frame.width-40) ) - 20
-//        let x = ( CGFloat(pageControl.currentPage) * self.view.frame.width ) - CGFloat(30)
-//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-//    }
-    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        let x = ( CGFloat(pageControl.currentPage) * self.view.frame.width ) - CGFloat(30)
-        let pageNumber = round(scrollView.contentOffset.x / (scrollView.frame.size.width - 40) )
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.currentPage = Int(pageNumber)
+        
+        var x = pageNumber * scrollView.frame.size.width - 30 * pageNumber
+        if pageNumber == 0 {
+            x = 0
+        }
+        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
     }
 }
