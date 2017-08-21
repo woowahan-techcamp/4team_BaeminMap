@@ -5,10 +5,10 @@ class Map {
     constructor(data) {
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
         this.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 17,
+            zoom: 18,
             center: this.currentLocation,
             minZoom: 14,
-            maxZoom: 19,
+            maxZoom: 21,
             mapTypeControl: false,
             streetViewControl: false,
             fullscreenControl : false
@@ -75,15 +75,15 @@ class Map {
         // TODO: on map 'zoom_changed', then change markers!
         map.addListener('zoom_changed', () => {
             this.resetMarkerAndInfo()
-            const overFiftyMarkersArr = this.markers.slice(50)
+            const pinMarkers = this.markers.slice(30)
             if (map.zoom >= 17) {
                 // 건물수준(좁게보기)
-                overFiftyMarkersArr.forEach((marker) => {
+                pinMarkers.forEach((marker) => {
                     marker.setIcon(marker.categoryIcon)
                 })
             } else {
                 // 도로 구 수준(넓게보기)
-                overFiftyMarkersArr.forEach((marker) => {
+                pinMarkers.forEach((marker) => {
                     marker.setIcon(marker.pinIcon)
                     marker.zIndex = 0;
                 })
@@ -93,6 +93,18 @@ class Map {
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', () => {
+            const filterChecker = document.querySelectorAll(".option.selected");
+            const condition = document.querySelector('.sort-option.selected').id.replace('sort-option-', '')
+            let categoryList = []
+            for (const i of filterChecker) {
+                const _categoryId = parseInt(i.id.replace('category-', ''))
+                if (typeof _categoryId === 'number' && !isNaN(_categoryId)) {
+                    categoryList.push(_categoryId)
+                }
+            }
+            categoryList = (categoryList[0] === undefined) ? null : categoryList
+            const distanceElement = document.querySelector('.distance-option-list > .selected')
+            const distance = parseFloat(distanceElement.dataset['distance'])
             const places = searchBox.getPlaces();
 
             if (places.length === 0) {
@@ -119,7 +131,7 @@ class Map {
                 lat: this.map.center.lat(),
                 lng: this.map.center.lng()
             };
-            this.reloadMap(distance, pos, this.data, 'distance')
+            this.reloadMap(distance, pos, this.data, condition, null, categoryList)
         });
     }
 
@@ -203,6 +215,7 @@ class Map {
     }
 
     reloadMap(distance, pos, apidata, key, order, categoryList) {
+        this.map.setZoom(18)
         // Reset markers
         for (let i of this.markers) {
             i.setMap(null)

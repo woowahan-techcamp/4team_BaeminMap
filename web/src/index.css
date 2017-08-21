@@ -324,6 +324,10 @@ body {
     transition: 0.3s;
 }
 
+div.layer.show{
+    z-index: 5;
+}
+
 .filter-title-bar {
     margin-bottom: 30px;
     padding: 20px 0 10px 0;
