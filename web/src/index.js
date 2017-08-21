@@ -114,7 +114,7 @@ const options = {
 
 const indicator = document.querySelector('#indicator')
 
-navigator.geolocation.getCurrentPosition((position, error, options) => {
+navigator.geolocation.getCurrentPosition((position) => {
     const pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude

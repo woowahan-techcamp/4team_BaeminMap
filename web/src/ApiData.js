@@ -60,31 +60,38 @@ export default class ApiData {
 
     getShopFoodData(shopNumber){
         return axios.get(
-            "http://baeminmap.testi.kr/menu/"+shopNumber
+            "https://baeminmap.testi.kr/menu/"+shopNumber
         )
     }
 
     async getShopListAll(distance, key, order) {
+        console.time('wait for data')
         while (!this.data) {
             await this.sleep(200)
         }
-        console.log(this.data.shopArray)
+        console.timeEnd('wait for data')
+        console.time('getShopListAll')
         const _list = this.data.shopArray
         const result = _list.sort(this.compareValues(key, order)).filter((el) => {return el.distance < distance})
+        console.timeEnd('getShopListAll')
         return result
     }
 
     async getShopListByCategoryList(distance, categoryList, key, order) {
+        console.time('wait for category data')
         while (!this.data) {
             await this.sleep(200)
         }
+        console.timeEnd('wait for category data')
         const _list = []
+        console.time('getShopListByCategoryList')
         for (const i of categoryList) {
             this.data.shops
             for (const j of this.data.shops[i]) {
                 _list.push(j)
             }
         }
+        console.timeEnd('getShopListByCategoryList')
         return _list.sort(this.compareValues(key, order)).filter((el) => {return el.distance < distance})
     }
 }

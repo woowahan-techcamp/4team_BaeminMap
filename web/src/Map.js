@@ -203,14 +203,19 @@ class Map {
     }
 
     reloadMap(distance, pos, apidata, key, order, categoryList) {
+        indicator.style.display = ''
         // Reset markers
+        console.time("Marker Reset")
         for (let i of this.markers) {
             i.setMap(null)
         }
         this.markers = []
+        console.timeEnd("Marker Reset")
 
+        console.time("Update My Position")
         // Update my Position
         this.updatePosition(pos)
+        console.timeEnd("Update My Position")
         // if starPointAverage: reverse
         if (key === 'distance') {
             order = 'asc'
@@ -218,9 +223,13 @@ class Map {
             order = 'desc'
         }
 
+        console.time("GetData")
         // Get new data from my new position
         apidata.getShopData(pos)
+        console.timeEnd("GetData")
         let sortedData = null
+
+        console.time("SortData")
         if (categoryList) {
             sortedData = apidata.getShopListByCategoryList(distance, categoryList, key, order)
         } else {
@@ -230,6 +239,7 @@ class Map {
             this.setShopMarker(filteredData, apidata)
             new ShopList("#shopList", filteredData, this.markers)
             indicator.style.display = 'none'
+            console.timeEnd("SortData")
         })
     }
 }
