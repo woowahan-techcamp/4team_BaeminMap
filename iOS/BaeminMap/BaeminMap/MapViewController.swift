@@ -28,6 +28,10 @@ class MapViewController: UIViewController {
         scrollView.contentSize.width = self.view.frame.width
         return scrollView
     }()
+    lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        return pageControl
+    }()
     lazy var filterButtonFrameY: CGFloat = {
         return self.parentView.filterButton.frame.minY
     }()
