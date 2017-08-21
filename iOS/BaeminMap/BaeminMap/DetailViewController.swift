@@ -35,6 +35,7 @@ class DetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        navigationItem.title = baeminInfo.shopName
         meetPayLabel.ablePay()
         baroPayLabel.ablePay()
         if let url = baeminInfo.shopLogoImageUrl {
@@ -47,7 +48,6 @@ class DetailViewController: UIViewController {
         minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
     
         Networking().getFoods(shopNo: baeminInfo.shopNumber)
-        navigationItem.title = baeminInfo.shopName
         
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
     }
@@ -56,6 +56,14 @@ class DetailViewController: UIViewController {
         guard let userInfo = notification.userInfo,
             let foodList = userInfo["Sections"] as? [Section] else { return }
         self.foodList = foodList
+        if foodList.isEmpty {
+            let view = UIImageView(frame: CGRect(x: 0, y: 30, width: tableView.frame.width, height: tableView.frame.height))
+            view.contentMode = .center
+            view.backgroundColor = UIColor.white
+            view.image = #imageLiteral(resourceName: "callOrderDefault")
+            tableView.isUserInteractionEnabled = false
+            tableView.addSubview(view)
+        }
         tableView.reloadData()
     }
 
