@@ -10,7 +10,7 @@ import UIKit
 import Cosmos
 
 class DetailViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var topView: UIView!
@@ -45,15 +45,18 @@ class DetailViewController: UIViewController {
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
         }
+        
         if baeminInfo.starPointAverage > 0 {
-            hiddenBottomInfoView()
-        } else {
             starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
             starPointView.rating = baeminInfo.starPointAverage
             reviewCountLabel.text = String(baeminInfo.reviewCount)
             reviewCountCEOLabel.text = String(baeminInfo.reviewCountCeo)
             minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
+        } else {
+            hiddenBottomInfoView()
         }
+        
+        self.tableView.isHidden = true
         
         Networking().getFoods(shopNo: baeminInfo.shopNumber)
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
@@ -68,10 +71,12 @@ class DetailViewController: UIViewController {
         guard let userInfo = notification.userInfo,
             let foodList = userInfo["Sections"] as? [Section] else { return }
         self.foodList = foodList
+        tableView.isHidden = false
         if foodList.isEmpty {
             showCallImage()
+        }else {
+            tableView.reloadData()
         }
-        tableView.reloadData()
     }
     
     func showCallImage() {
@@ -83,7 +88,7 @@ class DetailViewController: UIViewController {
         tableView.isUserInteractionEnabled = false
         tableView.addSubview(imageView)
     }
-
+    
     func hiddenBottomInfoView() {
         topView.frame.size.height = topView.frame.height - bottomInfoView.frame.height
         bottomViewHeight.constant = 0
@@ -126,7 +131,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-
+        
         let food = foodList[indexPath.section].items[indexPath.row]
         cell.textLabel?.text = food.foodName
         cell.detailTextLabel?.text = food.foodPrice+"원"
@@ -151,7 +156,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         
         return header
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return foodList[section].open ? foodList[section].items.count : 0
     }

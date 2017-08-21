@@ -101,7 +101,7 @@
                                                 <constraint firstAttribute="height" constant="170" id="EXJ-j7-k48"/>
                                             </constraints>
                                         </imageView>
-                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyJ-pq-vls" userLabel="bottomView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyJ-pq-vls" userLabel="bottomView">
                                             <rect key="frame" x="0.0" y="211.33333333333331" width="414" height="114.99999999999994"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="center" alignment="center" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="smX-2N-qPl" userLabel="Top">
