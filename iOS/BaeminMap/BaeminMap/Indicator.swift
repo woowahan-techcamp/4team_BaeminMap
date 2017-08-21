@@ -44,6 +44,7 @@ class Indicator {
     static func stopIndicator() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
             indicator.removeFromSuperview()
+            indicator = UIView()
         }
     }
 }
