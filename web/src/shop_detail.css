@@ -148,3 +148,18 @@
     border-radius: 0px;
     background-color: #3b342b;
 }
+
+@media (max-width: 480px) {
+    .shop-detail-wrapper {
+        width: 100%;
+        margin: 0 auto;
+        min-width: 0;
+    }
+
+    .shop-detail-scroll > h2 {
+        text-align: center;
+        font-weight: 800;
+        font-size: 20px;
+        margin: 5px 0;
+    }
+}
