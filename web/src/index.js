@@ -105,37 +105,45 @@ function toggleCSSOnClick(el, target, css) {
     })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-        const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        }
-        const apidata = new ApiData(pos);
-        const map = new Map(apidata);
-        // Default search range: 300m(0.3km)
-        const distanceElement = document.querySelector('.distance-option-list > .selected')
-        const distance = parseFloat(distanceElement.dataset['distance'])
-        // Default Condition: distance
-        let condition = 'distance'
-        // Get all data and render them
-        map.reloadMap(distance, pos, apidata, condition)
-        categoryFilterEvent(".category-list");
-        sortByOption(".sort-option-list", "sort");
-        sortByOption(".distance-option-list", condition);
-        filterEvent(
-            [".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"],
-            ".filter-controller",
-            ".layer",
-            map,
-            pos,
-            apidata,
-            condition
-        );
-    })
-    // Add Events on Click
-    // click el, target, css class
-    toggleCSSOnClick('#listOnOff', '#list', 'hidden')
-    toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
+// document.addEventListener('DOMContentLoaded', () => {
+const options = {
+    enableHighAccuracy: false,
+    timeout: 50,
+    maximumAge: Infinity
+};
+
+const indicator = document.querySelector('#indicator')
+
+navigator.geolocation.getCurrentPosition((position, error, options) => {
+    const pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    }
+    const apidata = new ApiData(pos);
+    const map = new Map(apidata);
+    // Default search range: 300m(0.3km)
+    const distanceElement = document.querySelector('.distance-option-list > .selected')
+    const distance = parseFloat(distanceElement.dataset['distance'])
+    // Default Condition: distance
+    let condition = 'distance'
+    // Get all data and render them
+    map.reloadMap(distance, pos, apidata, condition)
+    categoryFilterEvent(".category-list");
+    sortByOption(".sort-option-list", "sort");
+    sortByOption(".distance-option-list", condition);
+    filterEvent(
+        [".filter-button-wrapper", ".cancel-filter-button", ".apply-filter-button"],
+        ".filter-controller",
+        ".layer",
+        map,
+        pos,
+        apidata,
+        condition
+    );
 })
+// Add Events on Click
+// click el, target, css class
+toggleCSSOnClick('#listOnOff', '#list', 'hidden')
+toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
+// })
 

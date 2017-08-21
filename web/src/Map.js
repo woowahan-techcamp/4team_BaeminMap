@@ -229,6 +229,7 @@ class Map {
         sortedData.then((filteredData) => {
             this.setShopMarker(filteredData, apidata)
             new ShopList("#shopList", filteredData, this.markers)
+            indicator.style.display = 'none'
         })
     }
 }
