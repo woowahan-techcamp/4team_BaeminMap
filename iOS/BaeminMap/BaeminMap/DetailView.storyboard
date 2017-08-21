@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -101,7 +101,7 @@
                                                 <constraint firstAttribute="height" constant="170" id="EXJ-j7-k48"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyJ-pq-vls" userLabel="bottomView">
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyJ-pq-vls" userLabel="bottomView">
                                             <rect key="frame" x="0.0" y="211.33333333333331" width="414" height="114.99999999999994"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="center" alignment="center" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="smX-2N-qPl" userLabel="Top">
@@ -405,6 +405,8 @@
                     </view>
                     <connections>
                         <outlet property="baroPayLabel" destination="tUX-g2-bea" id="PoP-ug-Oop"/>
+                        <outlet property="bottomInfoView" destination="wyJ-pq-vls" id="yvH-da-Cib"/>
+                        <outlet property="bottomViewHeight" destination="GYO-D4-TBt" id="ZW5-EQ-Sgx"/>
                         <outlet property="collectionView" destination="toI-nA-hMC" id="wJc-jz-EjZ"/>
                         <outlet property="favoriteCountLabel" destination="XSc-7s-tar" id="vbT-0L-WWP"/>
                         <outlet property="mainImageView" destination="bv3-RQ-DcK" id="hzF-Ni-QHP"/>

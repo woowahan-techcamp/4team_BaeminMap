@@ -8,6 +8,7 @@
 
 import UIKit
 import Cosmos
+import KRProgressHUD
 
 class DetailViewController: UIViewController {
 
@@ -26,6 +27,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var minOrderPriceLabel: UILabel!
     @IBOutlet weak var moveToBaemin: UIButton!
     @IBOutlet weak var topInfoView: UIView!
+    @IBOutlet weak var bottomInfoView: UIView!
+    @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
@@ -36,21 +39,26 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         navigationItem.title = baeminInfo.shopName
+        
+        KRProgressHUD.setDetailIndicator(image: baeminInfo.categoryEnglishName)
+        
         meetPayLabel.ablePay()
         baroPayLabel.ablePay()
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
         }
-        starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
-        starPointView.rating = baeminInfo.starPointAverage
-        reviewCountLabel.text = String(baeminInfo.reviewCount)
-        reviewCountCEOLabel.text = String(baeminInfo.reviewCountCeo)
-        minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
-    
-        Networking().getFoods(shopNo: baeminInfo.shopNumber)
+        if baeminInfo.starPointAverage > 0 {
+            hiddenBottomInfoView()
+        } else {
+            starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
+            starPointView.rating = baeminInfo.starPointAverage
+            reviewCountLabel.text = String(baeminInfo.reviewCount)
+            reviewCountCEOLabel.text = String(baeminInfo.reviewCountCeo)
+            minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
+        }
         
+        Networking().getFoods(shopNo: baeminInfo.shopNumber)
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
     }
     
@@ -63,20 +71,29 @@ class DetailViewController: UIViewController {
         guard let userInfo = notification.userInfo,
             let foodList = userInfo["Sections"] as? [Section] else { return }
         self.foodList = foodList
-        isShowCallImage()
+        if foodList.isEmpty {
+            showCallImage()
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+            KRProgressHUD.dismiss()
+        }
         tableView.reloadData()
     }
     
-    func isShowCallImage() {
-        if foodList.isEmpty {
-            let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-moveToBaemin.frame.height))
-            imageView.contentMode = .center
-            imageView.backgroundColor = UIColor.white
-            imageView.image = #imageLiteral(resourceName: "callOrderDefault")
-            moveToBaemin.isHidden = true
-            tableView.isUserInteractionEnabled = false
-            tableView.addSubview(imageView)
-        }
+    func showCallImage() {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-moveToBaemin.frame.height))
+        imageView.contentMode = .center
+        imageView.backgroundColor = UIColor.white
+        imageView.image = #imageLiteral(resourceName: "callOrderDefault")
+        moveToBaemin.isHidden = true
+        tableView.isUserInteractionEnabled = false
+        tableView.addSubview(imageView)
+    }
+
+    func hiddenBottomInfoView() {
+        topView.frame.size.height = topView.frame.height - bottomInfoView.frame.height
+        bottomViewHeight.constant = 0
+        bottomInfoView.isHidden = true
     }
     
 }
