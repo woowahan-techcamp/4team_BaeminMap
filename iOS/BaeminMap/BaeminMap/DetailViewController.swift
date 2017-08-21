@@ -26,6 +26,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var minOrderPriceLabel: UILabel!
     @IBOutlet weak var moveToBaemin: UIButton!
     @IBOutlet weak var topInfoView: UIView!
+    @IBOutlet weak var bottomInfoView: UIView!
+    @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
@@ -36,21 +38,24 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         navigationItem.title = baeminInfo.shopName
+        
         meetPayLabel.ablePay()
         baroPayLabel.ablePay()
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
         }
-        starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
-        starPointView.rating = baeminInfo.starPointAverage
-        reviewCountLabel.text = String(baeminInfo.reviewCount)
-        reviewCountCEOLabel.text = String(baeminInfo.reviewCountCeo)
-        minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
-    
-        Networking().getFoods(shopNo: baeminInfo.shopNumber)
+        if baeminInfo.starPointAverage > 0 {
+            hiddenBottomInfoView()
+        } else {
+            starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
+            starPointView.rating = baeminInfo.starPointAverage
+            reviewCountLabel.text = String(baeminInfo.reviewCount)
+            reviewCountCEOLabel.text = String(baeminInfo.reviewCountCeo)
+            minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
+        }
         
+        Networking().getFoods(shopNo: baeminInfo.shopNumber)
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
     }
     
@@ -77,6 +82,12 @@ class DetailViewController: UIViewController {
             tableView.isUserInteractionEnabled = false
             tableView.addSubview(imageView)
         }
+    }
+    
+    func hiddenBottomInfoView() {
+        topView.frame.size.height = topView.frame.height - bottomInfoView.frame.height
+        bottomViewHeight.constant = 0
+        bottomInfoView.isHidden = true
     }
     
 }
