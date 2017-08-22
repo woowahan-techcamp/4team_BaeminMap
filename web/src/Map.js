@@ -194,21 +194,9 @@ class Map {
                     // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                     marker.setZIndex(2);
                 } else{
-                    const modal = document.querySelector('#modal')
-                    modal.innerHTML = _.template(this.shopDetailTemplate)(e)
+                    this.showModal(e.shopNumber, e, apidata);
                     this.resetMarkerAndInfo()
                     this.map.setCenter(marker.getPosition());
-                    // infowindow.open(map, marker);
-                    // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
-                    apidata.getShopFoodData(e.shopNumber).then((response) => {
-                        const foodDetails = document.querySelector('#foodDetails')
-                        const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
-                            allCategoryFoodList: response.data
-                        })
-                        foodDetails.innerHTML = foodDetailsContent
-                    })
-                    modal.style.display = 'block'
-                    this.infowindow = true;
                     this.xMarker = marker;
                     this.xMarkerIcon = marker.icon
                     //선택된 마커를 fill 마커로 변경
@@ -225,6 +213,21 @@ class Map {
             });
             this.markers.push(marker)
         });
+    }
+
+    showModal(shopNumber, e, apidata) {
+        const modal = document.querySelector('#modal')
+        modal.innerHTML = _.template(this.shopDetailTemplate)(e)
+        // infowindow.open(map, marker);
+        // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
+        apidata.getShopFoodData(shopNumber).then((response) => {
+            const foodDetails = document.querySelector('#foodDetails')
+            const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
+                allCategoryFoodList: response.data
+            })
+            foodDetails.innerHTML = foodDetailsContent
+        })
+        modal.style.display = 'block'
     }
 
     reloadMap(distance, pos, apidata, key, order, categoryList) {
@@ -263,6 +266,7 @@ class Map {
         }
         sortedData.then((filteredData) => {
             this.setShopMarker(filteredData, apidata)
+            this.filteredData = filteredData
             new ShopList("#shopList", filteredData, this.markers)
             indicator.style.display = 'none'
             console.timeEnd("SortData")

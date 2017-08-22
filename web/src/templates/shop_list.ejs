@@ -2,7 +2,7 @@
     const shopLogoImageUrl = shop.shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr')
 %>
 <div class="shop" id="<%= shop.shopNumber %>">
-    <a class="shop-layer"></a>
+    <a class="shop-layer" data-shopnumber="<%= shop.shopNumber %>"></a>
     <div class="shop-image-wrapper">
         <span></span>
         <img src="<%= shopLogoImageUrl %>" onerror="this.src='../static/default.png'" alt="">
