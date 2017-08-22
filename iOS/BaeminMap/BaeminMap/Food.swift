@@ -16,7 +16,8 @@ class Food: Mappable {
     private(set) var foodName: String!
     private(set) var foodConts: String?
     private(set) var foodPrice: String!
-    private(set) var imgUrl: String?
+    private(set) var foodImages: [String]?
+    private(set) var price: [String:String]!
     
     required init?(map: Map) {}
     

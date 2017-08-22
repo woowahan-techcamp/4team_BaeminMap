@@ -40,14 +40,14 @@ class DetailViewController: UIViewController {
         collectionView.dataSource = self
         navigationItem.title = baeminInfo.shopName
         
-        Indicator.startIndicator(target: self.view, message: "Loading", image: baeminInfo.categoryEnglishName)
+        Indicator.startIndicator(target: self.view, message: "Loading...", image: baeminInfo.categoryEnglishName)
         
         meetPayLabel.ablePay()
         baroPayLabel.ablePay()
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
         }
-        if baeminInfo.starPointAverage > 0 {
+        if baeminInfo.starPointAverage < 0 {
             hiddenBottomInfoView()
         } else {
             starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
