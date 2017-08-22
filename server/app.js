@@ -81,6 +81,9 @@ app.get('/menu/:shopNo', (req, response)=> {
             } else {
               contents[shop.foodNm]['price'][shop.foodPriceNm] = shop.foodPrice
             }
+            if(contents[shop.foodNm]['foodImages'].length > 0) {
+              contents[shop.foodNm]['imgUrl'] = contents[shop.foodNm]['foodImages'][1]['imgUrl']
+            }
           })
           menu[group.shopFoodGrpNm] = contents
           done()
