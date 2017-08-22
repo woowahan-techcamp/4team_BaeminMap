@@ -12,7 +12,7 @@ class Map {
             maxZoom: 21,
             mapTypeControl: false,
             streetViewControl: false,
-            fullscreenControl : false
+            fullscreenControl: false
         });
         this.searchPosition();
         this.data = data
@@ -31,14 +31,14 @@ class Map {
         if (!this.shopDetailTemplate) {
             await axios.get('/src/templates/shop_detail.ejs')
                 .then((response) => {
-                this.shopDetailTemplate = response.data
-            })
+                    this.shopDetailTemplate = response.data
+                })
         }
         if (!this.shopFoodDetailTemplate) {
             await axios.get('/src/templates/shop_detail_foods.ejs')
                 .then((response) => {
-                this.shopFoodDetailTemplate = response.data
-            })
+                    this.shopFoodDetailTemplate = response.data
+                })
         }
     }
 
@@ -137,20 +137,27 @@ class Map {
     }
 
     resetMarkerAndInfo() {
-        if (this.xMarker){
+        if (this.xMarker) {
             this.xMarker.setIcon(this.xMarkerIcon)
         }
     }
 
-    setShopMarker(arr, apidata) {
+    setShopMarker(arr, apidata, duplicatedCoordinateList) {
         this.markers.forEach((i) => {
             i.setMap(null)
         })
         this.markers = []
 
         arr.forEach((e) => {
+            const shopLocationString = `${e.location.latitude}_${e.location.longitude}`
+            let iconImg;
+            // TODO: 중복인 아이콘으로 변경할것
+            if (duplicatedCoordinateList.includes(shopLocationString)) {
+                iconImg = './static/pin.png'
+            } else {
+                iconImg = '../static/WebMarker/' + e.categoryEnglishName + '.png';
+            }
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
-            const iconImg = '../static/WebMarker/' + e.categoryEnglishName + '.png';
             const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
             const marker = new google.maps.Marker({
                 position: position,
@@ -177,13 +184,13 @@ class Map {
                 // TODO: 기본 아이콘 변경
             })
             marker.addListener('click', () => {
-                if (parseInt(window.innerWidth) <= 480){
+                if (parseInt(window.innerWidth) <= 480) {
                     const html = document.getElementById(marker.shopNumber);
                     const card = document.querySelector("#card")
                     const floatButton = document.querySelector('.floating-button')
                     card.innerHTML = html.innerHTML
                     card.style.display = 'block'
-                    if(parseInt(window.getComputedStyle(floatButton).bottom) === 60){
+                    if (parseInt(window.getComputedStyle(floatButton).bottom) === 60) {
                         floatButton.style.bottom = "140px"
                     }
                     // floatButton.style.bottom = ((parseInt(window.getComputedStyle(floatButton).bottom)) + 130) + 'px';
@@ -194,7 +201,7 @@ class Map {
                     marker.setIcon(marker.filledIcon);
                     // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                     marker.setZIndex(2);
-                } else{
+                } else {
                     this.showModal(e.shopNumber, e, apidata);
                     this.resetMarkerAndInfo()
                     this.map.setCenter(marker.getPosition());
@@ -262,17 +269,47 @@ class Map {
         console.time("SortData")
         if (categoryList) {
             sortedData = apidata.getShopListByCategoryList(distance, categoryList, key, order)
+            sortedData['duplicated'] = sortedData
+                .then(makeArrayToSet)
+                .then(getDuplicatedCoordinateList)
         } else {
             sortedData = apidata.getShopListAll(distance, key, order)
+            sortedData['duplicated'] = sortedData
+                .then(makeArrayToSet)
+                .then(getDuplicatedCoordinateList)
         }
         sortedData.then((filteredData) => {
-            this.setShopMarker(filteredData, apidata)
+            this.setShopMarker(filteredData, apidata, sortedData.duplicated)
             this.filteredData = filteredData
             new ShopList("#shopList", filteredData, this.markers)
             indicator.style.display = 'none'
             console.timeEnd("SortData")
         })
     }
+}
+
+const makeArrayToSet = (shopList) => {
+    return [new Set(shopList), shopList]
+}
+
+const getDuplicatedCoordinateList = (array) => {
+    const shopLocationSet = array[0]
+    const shopList = array[1]
+    const duplicatedCoordinateList = []
+    shopLocationSet.forEach((shop) => {
+        const shopLocationString = `${shop.location.latitude}_${shop.location.longitude}`
+        const _count = shopList.filter(
+            (obj) => {
+                return (
+                    obj.location.latitude === shop.location.latitude && obj.location.longitude === shop.location.longitude
+                )
+            }
+        ).length
+        if (_count > 1) {
+            duplicatedCoordinateList.append(shopLocationString)
+        }
+    })
+    return _result
 }
 
 export default Map
