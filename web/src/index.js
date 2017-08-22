@@ -118,14 +118,16 @@ const options = {
 };
 
 const indicator = document.querySelector('#indicator')
+let apidata;
+let map;
 
 navigator.geolocation.getCurrentPosition((position) => {
     const pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
     }
-    const apidata = new ApiData(pos);
-    const map = new Map(apidata);
+    apidata = new ApiData(pos);
+    map = new Map(apidata);
     // Default search range: 300m(0.3km)
     const distanceElement = document.querySelector('.distance-option-list > .selected')
     const distance = parseFloat(distanceElement.dataset['distance'])
@@ -150,6 +152,19 @@ navigator.geolocation.getCurrentPosition((position) => {
 // click el, target, css class
 toggleCSSOnClick('#listOnOff', '#list', 'mobile-hidden')
 toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
+document.querySelector("#listOnOff").addEventListener("click", ()=>{
+    const card = document.querySelector("#card")
+    const floatButton = document.querySelector('.floating-button')
+    if(card.style.display === "block"){
+        card.style.display = "none";
+        floatButton.style.bottom = "60px";
+    }
+})
+document.querySelector("#card").addEventListener("click", (e)=>{
+    const shopNumber = e.target.dataset.shopnumber;
+    const data = map.filteredData.filter((i) => {return i.shopNumber==shopNumber})[0]
+    map.showModal(shopNumber, data, apidata)
+})
 // })
 
 // When the user clicks anywhere outside of the modal, close it
