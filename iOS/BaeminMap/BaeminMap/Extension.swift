@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KRProgressHUD
 
 extension UIStoryboard {
     static let listViewStoryboard = UIStoryboard(name: "ListView", bundle: nil)
@@ -59,15 +58,5 @@ extension UILabel {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = self.layer.frame.height/2
-    }
-}
-
-extension KRProgressHUD {
-    static func setDetailIndicator(image: String) {
-        self.show()
-        self.showImage(UIImage(named: image)!, message: "Loading...")
-        self.set(font: UIFont.systemFont(ofSize: 14, weight: 2))
-        self.set(style: .custom(background: .white, text: .pointColor, icon: nil))
-        self.set(maskType: .white)
     }
 }
