@@ -178,36 +178,42 @@ class Map {
                 // TODO: 기본 아이콘 변경
             })
             marker.addListener('click', () => {
-                // const infowindow = new google.maps.InfoWindow({
-                //     content: _.template(this.shopDetailTemplate)(e) // TODO: 여기에 template rendering 넣어주기
-                // });
-                const modal = document.querySelector('#modal')
-                modal.innerHTML = _.template(this.shopDetailTemplate)(e)
-                this.resetMarkerAndInfo()
-                this.map.setCenter(marker.getPosition());
-                // infowindow.open(map, marker);
-                // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
-                apidata.getShopFoodData(e.shopNumber).then((response) => {
-                    const foodDetails = document.querySelector('#foodDetails')
-                    const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
-                        allCategoryFoodList: response.data
+                if (parseInt(window.innerWidth) <= 480){
+                    const html = document.getElementById(marker.shopNumber);
+                    const card = document.querySelector("#card")
+                    const floatButton = document.querySelector('.floating-button')
+                    card.innerHTML = html.innerHTML
+                    card.style.display = 'block'
+                    floatButton.style.bottom = ((parseInt(window.getComputedStyle(floatButton).bottom)) + 130) + 'px'
+                } else{
+                    const modal = document.querySelector('#modal')
+                    modal.innerHTML = _.template(this.shopDetailTemplate)(e)
+                    this.resetMarkerAndInfo()
+                    this.map.setCenter(marker.getPosition());
+                    // infowindow.open(map, marker);
+                    // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
+                    apidata.getShopFoodData(e.shopNumber).then((response) => {
+                        const foodDetails = document.querySelector('#foodDetails')
+                        const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
+                            allCategoryFoodList: response.data
+                        })
+                        foodDetails.innerHTML = foodDetailsContent
                     })
-                    foodDetails.innerHTML = foodDetailsContent
-                })
-                modal.style.display = 'block'
-                this.infowindow = true;
-                this.xMarker = marker;
-                this.xMarkerIcon = marker.icon
-                //선택된 마커를 fill 마커로 변경
-                marker.setIcon(marker.filledIcon);
-                // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
-                marker.setZIndex(2);
-                //리스트 연동부분
-                if (document.querySelector(".selected-shop")) {
-                    document.querySelector(".selected-shop").classList.remove("selected-shop");
+                    modal.style.display = 'block'
+                    this.infowindow = true;
+                    this.xMarker = marker;
+                    this.xMarkerIcon = marker.icon
+                    //선택된 마커를 fill 마커로 변경
+                    marker.setIcon(marker.filledIcon);
+                    // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                    marker.setZIndex(2);
+                    //리스트 연동부분
+                    if (document.querySelector(".selected-shop")) {
+                        document.querySelector(".selected-shop").classList.remove("selected-shop");
+                    }
+                    document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
+                    document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
                 }
-                document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
-                document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
             });
             this.markers.push(marker)
         });
