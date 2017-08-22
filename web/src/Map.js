@@ -136,10 +136,8 @@ class Map {
     }
 
     resetMarkerAndInfo() {
-        if (this.infowindow) {
-            // this.infowindow.close();
-            this.xMarker.setIcon((map.zoom >= 18) ? this.xMarker.categoryIcon : this.xMarker.pinIcon)
-            this.xMarker.setZIndex((this.map.zoom >= 18) ? 1 : 0)
+        if (this.xMarker){
+            this.xMarker.setIcon(this.xMarkerIcon)
         }
     }
 
@@ -184,7 +182,14 @@ class Map {
                     const floatButton = document.querySelector('.floating-button')
                     card.innerHTML = html.innerHTML
                     card.style.display = 'block'
-                    floatButton.style.bottom = ((parseInt(window.getComputedStyle(floatButton).bottom)) + 130) + 'px'
+                    floatButton.style.bottom = ((parseInt(window.getComputedStyle(floatButton).bottom)) + 130) + 'px';
+                    this.resetMarkerAndInfo()
+                    this.xMarkerIcon = marker.icon
+                    this.xMarker = marker;
+                    //선택된 마커를 fill 마커로 변경
+                    marker.setIcon(marker.filledIcon);
+                    // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                    marker.setZIndex(2);
                 } else{
                     const modal = document.querySelector('#modal')
                     modal.innerHTML = _.template(this.shopDetailTemplate)(e)
