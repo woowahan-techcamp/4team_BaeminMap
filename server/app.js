@@ -84,9 +84,9 @@ app.get('/menu/:shopNo', (req, response)=> {
             if(contents[shop.foodNm]['foodImages'].length > 0) {
               contents[shop.foodNm]['imgUrl'] = contents[shop.foodNm]['foodImages'][1]['imgUrl']
               if(menu['imageMenu'] === undefined) {
-                menu['imageMenu'] = { [shop.foodNm] : shop }
+                menu['imageMenu'] = { [shop.foodNm] : contents[shop.foodNm] }
               } else {
-                menu['imageMenu'][shop.foodNm] = shop
+                menu['imageMenu'][shop.foodNm] = contents[shop.foodNm]
               }
             }
           })
