@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 class ShopDetail {
     asyncRenderTempalte(obj) {
         return axios.get('/src/templates/shop_detail.ejs').then((response) => {

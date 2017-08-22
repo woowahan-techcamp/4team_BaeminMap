@@ -1,4 +1,5 @@
 import ShopList from './ShopList'
+import axios from 'axios'
 import * as _ from "lodash";
 
 class Map {

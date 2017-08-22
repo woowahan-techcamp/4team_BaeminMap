@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 class ShopList {
     constructor(targetSelector, arr, markersArr) {
         console.log('ShopList init!')
