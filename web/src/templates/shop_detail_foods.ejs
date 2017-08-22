@@ -1,3 +1,19 @@
+<% if(allCategoryFoodList.imageMenu){
+    const imageMenu = allCategoryFoodList.imageMenu
+    delete allCategoryFoodList.imageMenu
+%>
+<div class="imgFood toggle-box">
+    <% _.each(imageMenu, (imgFood) => { %>
+    <div class="imgMenu">
+        <img class="menuImage" src="<%= imgFood.imgUrl %>" onerror="../static/default.png">
+        <div class="imgMenuInfo">
+            <span class="imgMenuName"><%= imgFood.foodNm %></span>
+            <strong class="imgMenuPrice"><%= imgFood.foodPrice %></strong>
+        </div>
+    </div>
+    <% }) %>
+</div>
+<% } %>
 <% _.each(allCategoryFoodList, (foodList, category) => { %>
 <div class="toggle-box">
     <input class="checkbox" type="checkbox" id="toggle-<%= category %>">

@@ -580,4 +580,34 @@ div.layer.show {
         width: 100%;
         height: 130px;
     }
+
+    .imgMenu {
+        width: 45%;
+        height: auto;
+        border: solid 1px #ddd;
+        display: inline-block;
+        margin-left: 3%;
+        margin-bottom: 10px;
+    }
+
+    .menuImage {
+        width:100%;
+        height: auto;
+    }
+
+    .imgMenuInfo {
+        padding-left: 7px;
+    }
+
+    .imgMenuName {
+        width: 100%;
+        display: inline-block;
+        text-overflow: ellipsis;
+    }
+
+    .imgMenuPrice {
+        width: 100%;
+        display: inline-block;
+        text-overflow: ellipsis;
+    }
 }
