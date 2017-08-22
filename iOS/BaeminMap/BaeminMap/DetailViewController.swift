@@ -39,6 +39,7 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        
         navigationItem.title = baeminInfo.shopName
         
         Indicator.startIndicator(target: self.view, message: "Loading...", image: baeminInfo.categoryEnglishName)
@@ -161,7 +162,16 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
         let food = foodList[indexPath.section].items[indexPath.row]
         cell.textLabel?.text = food.foodName
-        cell.detailTextLabel?.text = food.foodPrice+"원"
+        var str = String()
+        for (i, price) in food.price.enumerated() {
+            if price.key.isEmpty {
+                str = "\(price.value)원"
+            } else {
+                str += "\(price.key) : \(price.value)원\(i == food.price.count-1 ? "" : "\n")"
+            }
+        }
+        print(str)
+        cell.detailTextLabel?.text = str
         print(baeminInfo.shopNumber)
         return cell
     }
