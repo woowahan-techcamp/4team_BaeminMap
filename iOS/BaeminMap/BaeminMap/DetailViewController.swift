@@ -112,7 +112,20 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCollectionViewCell", for: indexPath) as! DetailCollectionViewCell
+        let item = imageList.items[indexPath.item]
+        if let url = item.imgUrl {
+            cell.foodImageView.af_setImage(withURL: URL(string: url)!)
+            cell.foodImageView.contentMode = .scaleAspectFit
+            cell.foodNameLabel.text = item.foodName
+            if let price = item.price.first {
+                if price.key.isEmpty {
+                    cell.priceLabel.text = "\(price.value)원"
+                } else {
+                    cell.priceLabel.text = "\(price.key) : \(price.value)원"
+                }
+            }
+        }
         
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
         topView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: collectionView.frame.maxY)

@@ -244,7 +244,7 @@
                                                 <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                             </collectionViewFlowLayout>
                                             <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionViewCell" id="TGH-t0-2KA">
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailCollectionViewCell" id="TGH-t0-2KA" customClass="DetailCollectionViewCell" customModule="BaeminMap" customModuleProvider="target">
                                                     <rect key="frame" x="10" y="10" width="143" height="151"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -307,6 +307,11 @@
                                                         <constraint firstItem="9mu-b2-yVh" firstAttribute="top" secondItem="gy3-oF-CuU" secondAttribute="bottom" id="sPu-52-teQ"/>
                                                         <constraint firstItem="gy3-oF-CuU" firstAttribute="top" secondItem="TGH-t0-2KA" secondAttribute="top" id="ynB-xj-8Io"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outlet property="foodImageView" destination="gy3-oF-CuU" id="iFI-xz-r3c"/>
+                                                        <outlet property="foodNameLabel" destination="iUd-kg-51a" id="Jyx-Hs-Zsh"/>
+                                                        <outlet property="priceLabel" destination="ROx-g3-PT6" id="g01-Ud-h10"/>
+                                                    </connections>
                                                 </collectionViewCell>
                                             </cells>
                                         </collectionView>
