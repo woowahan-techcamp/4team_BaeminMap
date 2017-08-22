@@ -13,5 +13,5 @@ body: { lat: 위도좌표,
 ```
 URL: http://baeminmap.testi.kr/menu/:shopNo
 HTTP 메소드: GET
-응답결과: { 메뉴이름: [음식정보] }
+응답결과: { 메뉴그룹이름: { 음식이름: 음식정보} }
 ```
