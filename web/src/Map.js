@@ -5,10 +5,10 @@ class Map {
     constructor(data) {
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
         this.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 18,
+            zoom: 17,
             center: this.currentLocation,
             minZoom: 14,
-            maxZoom: 21,
+            maxZoom: 19,
             mapTypeControl: false,
             streetViewControl: false,
             fullscreenControl : false
@@ -75,15 +75,15 @@ class Map {
         // TODO: on map 'zoom_changed', then change markers!
         map.addListener('zoom_changed', () => {
             this.resetMarkerAndInfo()
-            const pinMarkers = this.markers.slice(30)
+            const overFiftyMarkersArr = this.markers.slice(50)
             if (map.zoom >= 17) {
                 // 건물수준(좁게보기)
-                pinMarkers.forEach((marker) => {
+                overFiftyMarkersArr.forEach((marker) => {
                     marker.setIcon(marker.categoryIcon)
                 })
             } else {
                 // 도로 구 수준(넓게보기)
-                pinMarkers.forEach((marker) => {
+                overFiftyMarkersArr.forEach((marker) => {
                     marker.setIcon(marker.pinIcon)
                     marker.zIndex = 0;
                 })
@@ -93,18 +93,6 @@ class Map {
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', () => {
-            const filterChecker = document.querySelectorAll(".option.selected");
-            const condition = document.querySelector('.sort-option.selected').id.replace('sort-option-', '')
-            let categoryList = []
-            for (const i of filterChecker) {
-                const _categoryId = parseInt(i.id.replace('category-', ''))
-                if (typeof _categoryId === 'number' && !isNaN(_categoryId)) {
-                    categoryList.push(_categoryId)
-                }
-            }
-            categoryList = (categoryList[0] === undefined) ? null : categoryList
-            const distanceElement = document.querySelector('.distance-option-list > .selected')
-            const distance = parseFloat(distanceElement.dataset['distance'])
             const places = searchBox.getPlaces();
 
             if (places.length === 0) {
@@ -131,13 +119,15 @@ class Map {
                 lat: this.map.center.lat(),
                 lng: this.map.center.lng()
             };
-            this.reloadMap(distance, pos, this.data, condition, null, categoryList)
+            this.reloadMap(distance, pos, this.data, 'distance')
         });
     }
 
     resetMarkerAndInfo() {
-        if (this.xMarker){
-            this.xMarker.setIcon(this.xMarkerIcon)
+        if (this.infowindow) {
+            this.infowindow.close();
+            this.xMarker.setIcon((map.zoom >= 17) ? this.xMarker.categoryIcon : this.xMarker.pinIcon)
+            this.xMarker.setZIndex((this.map.zoom >= 17) ? 1 : 0)
         }
     }
 
@@ -175,76 +165,52 @@ class Map {
                 }
                 // TODO: 기본 아이콘 변경
             })
-            marker.addListener('click', () => {
-                if (parseInt(window.innerWidth) <= 480){
-                    const html = document.getElementById(marker.shopNumber);
-                    const card = document.querySelector("#card")
-                    const floatButton = document.querySelector('.floating-button')
-                    card.innerHTML = html.innerHTML
-                    card.style.display = 'block'
-                    if(parseInt(window.getComputedStyle(floatButton).bottom) === 60){
-                        floatButton.style.bottom = "140px"
-                    }
-                    // floatButton.style.bottom = ((parseInt(window.getComputedStyle(floatButton).bottom)) + 130) + 'px';
-                    this.resetMarkerAndInfo()
-                    this.xMarkerIcon = marker.icon
-                    this.xMarker = marker;
-                    //선택된 마커를 fill 마커로 변경
-                    marker.setIcon(marker.filledIcon);
-                    // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
-                    marker.setZIndex(2);
-                } else{
-                    this.showModal(e.shopNumber, e, apidata);
-                    this.resetMarkerAndInfo()
-                    this.map.setCenter(marker.getPosition());
-                    this.xMarker = marker;
-                    this.xMarkerIcon = marker.icon
-                    //선택된 마커를 fill 마커로 변경
-                    marker.setIcon(marker.filledIcon);
-                    // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
-                    marker.setZIndex(2);
-                    //리스트 연동부분
-                    if (document.querySelector(".selected-shop")) {
-                        document.querySelector(".selected-shop").classList.remove("selected-shop");
-                    }
-                    document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
-                    document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
+            marker.addListener('click', async () => {
+                while (!this.shopDetailTemplate || !this.shopFoodDetailTemplate) {
+                    await this.sleep(200)
                 }
+                const infowindow = new google.maps.InfoWindow({
+                    content: _.template(this.shopDetailTemplate)(e) // TODO: 여기에 template rendering 넣어주기
+                });
+                this.resetMarkerAndInfo()
+                this.map.setCenter(marker.getPosition());
+                infowindow.open(map, marker);
+                // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
+                apidata.getShopFoodData(e.shopNumber).then((response) => {
+                    const foodDetails = document.querySelector('#foodDetails')
+                    const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
+                        allCategoryFoodList: response.data
+                    })
+                    foodDetails.innerHTML = foodDetailsContent
+                })
+
+                this.infowindow = infowindow;
+                this.xMarker = marker;
+                this.xMarkerIcon = marker.icon
+                //선택된 마커를 fill 마커로 변경
+                marker.setIcon(marker.filledIcon);
+                // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                marker.setZIndex(2);
+                //리스트 연동부분
+                if (document.querySelector(".selected-shop")) {
+                    document.querySelector(".selected-shop").classList.remove("selected-shop");
+                }
+                document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
+                document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
             });
             this.markers.push(marker)
         });
     }
 
-    showModal(shopNumber, e, apidata) {
-        const modal = document.querySelector('#modal')
-        modal.innerHTML = _.template(this.shopDetailTemplate)(e)
-        // infowindow.open(map, marker);
-        // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
-        apidata.getShopFoodData(shopNumber).then((response) => {
-            const foodDetails = document.querySelector('#foodDetails')
-            const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
-                allCategoryFoodList: response.data
-            })
-            foodDetails.innerHTML = foodDetailsContent
-        })
-        modal.style.display = 'block'
-    }
-
     reloadMap(distance, pos, apidata, key, order, categoryList) {
-        indicator.style.display = ''
-        this.map.setZoom(18)
         // Reset markers
-        console.time("Marker Reset")
         for (let i of this.markers) {
             i.setMap(null)
         }
         this.markers = []
-        console.timeEnd("Marker Reset")
 
-        console.time("Update My Position")
         // Update my Position
         this.updatePosition(pos)
-        console.timeEnd("Update My Position")
         // if starPointAverage: reverse
         if (key === 'distance') {
             order = 'asc'
@@ -252,13 +218,9 @@ class Map {
             order = 'desc'
         }
 
-        console.time("GetData")
         // Get new data from my new position
         apidata.getShopData(pos)
-        console.timeEnd("GetData")
         let sortedData = null
-
-        console.time("SortData")
         if (categoryList) {
             sortedData = apidata.getShopListByCategoryList(distance, categoryList, key, order)
         } else {
@@ -266,10 +228,7 @@ class Map {
         }
         sortedData.then((filteredData) => {
             this.setShopMarker(filteredData, apidata)
-            this.filteredData = filteredData
             new ShopList("#shopList", filteredData, this.markers)
-            indicator.style.display = 'none'
-            console.timeEnd("SortData")
         })
     }
 }
