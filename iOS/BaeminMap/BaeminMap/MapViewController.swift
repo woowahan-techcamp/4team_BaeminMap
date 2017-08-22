@@ -22,6 +22,7 @@ class MapViewController: UIViewController {
     lazy var baeminInfo: [BaeminInfo] = {
         return self.parentView.filterBaeminInfo
     }()
+    let pageControl = UIPageControl()
     lazy var infoView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.frame = CGRect(x: 0, y: self.view.frame.maxY, width: self.view.frame.width, height: 105)
@@ -32,6 +33,7 @@ class MapViewController: UIViewController {
         return self.parentView.filterButton.frame.minY
     }()
     var isZoom = true
+    var currentPage = CGFloat(0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,20 +144,35 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        infoView.contentSize.width = (self.view.frame.width-30) * (currentPage + 2) + 10
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
-        
+//        currentPage = pageNumber
+     
         let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
+        print("x: ", x)
         infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+        
+        
+        
+//        if Swift.abs(pageNumber - currentPage) <= 1 {
+//            print("asdffds")
+//            infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+//            currentPage = pageNumber
+//        }
+//        infoView.scrollToPage(x: x, animated: true, after: 0.0)
         
         print(pageNumber)
     }
     
-    func addCellPage(shop: BaeminInfo) -> ListTableViewCell {
+    func makePageCell(shop: BaeminInfo) -> ListTableViewCell {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         cell.backgroundColor = UIColor.white
         cell.moveButton.isEnabled = true
-        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
+//        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
         
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
@@ -194,18 +211,21 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         let testCount = 9
         infoView.delegate = self
         infoView.isPagingEnabled = true
+        infoView.bounces = false
+        currentPage = CGFloat(0)
         
         var cellminX = CGFloat(20)
         let cellWidth = self.view.frame.width-40
         
         for _ in 0..<testCount {
-            let cell = self.addCellPage(shop: shop)
+            let cell = self.makePageCell(shop: shop)
             cell.frame = CGRect(x: cellminX, y: 0, width: cellWidth, height: 100)
             infoView.addSubview(cell)
             cellminX += cellWidth + 10
   
             infoView.contentSize.width = cellminX
         }
+//        infoView.contentSize.width = testCount > 1 ? infoView.frame.width * 2 : infoView.frame.width
         infoView.contentSize.width += 10
         return true
     }
