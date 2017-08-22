@@ -63,14 +63,26 @@ app.get('/menu/:shopNo', (req, response)=> {
     }, (err, res, body) => {
       eachAsync(body, (group, index, done) => {
         request({
-          url: config.standardUrl+'/v1/shops/'+shopNo+'/foods?size=2000&shopFoodGrpSeq='+group.shopFoodGrpSeq,
+          url: config.standardUrl+'/v2/shops/'+shopNo+'/foods?size=2000&shopFoodGrpSeq='+group.shopFoodGrpSeq,
           method: 'GET',
           json: true,
           headers: {
             'Authorization': 'Bearer '+config.token
           }
         }, (err, res, body) => {
-          menu[group.shopFoodGrpNm] = body.content.filter(content => content.foodPriceNm == "")
+          var contents = {}
+          var temp = body.content.filter(shop => shop.defPriceYn === 'Y')
+          temp.map(shop => {
+            if(contents[shop.foodNm] === undefined) {
+              contents[shop.foodNm] = shop
+            }
+            if(contents[shop.foodNm]['price'] === undefined) {
+              contents[shop.foodNm]['price'] = {[shop.foodPriceNm] : shop.foodPrice}
+            } else {
+              contents[shop.foodNm]['price'][shop.foodPriceNm] = shop.foodPrice
+            }
+          })
+          menu[group.shopFoodGrpNm] = contents
           done()
         })
       }, (err) => {
