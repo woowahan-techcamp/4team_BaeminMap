@@ -552,5 +552,7 @@ div.layer.show{
     #pac-input {
         margin: 10px 10px;
         width: calc(100% - 20px);
+        border: 1px solid transparent;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
 }
