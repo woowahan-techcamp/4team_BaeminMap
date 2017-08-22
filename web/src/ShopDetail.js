@@ -1,4 +1,6 @@
 import axios from 'axios'
+import * as _ from "lodash";
+
 
 class ShopDetail {
     asyncRenderTempalte(obj) {

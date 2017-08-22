@@ -1,4 +1,6 @@
 import axios from 'axios'
+import * as _ from "lodash";
+
 
 class ShopList {
     constructor(targetSelector, arr, markersArr) {
@@ -21,12 +23,12 @@ class ShopList {
             const target = e.target;
             if (!target.matches('a.shop-layer')) {
                 return false
-            } else if(document.querySelector(".selected-shop")){
+            } else if (document.querySelector(".selected-shop")) {
                 //기존 선택된 shop의 포커싱을 초기화
                 document.querySelector(".selected-shop").classList.remove("selected-shop")
             }
             //마커에 입력된 shopNumber 속성을 찾는다
-            const targetMarkerArr = markersArr.filter(function(obj){
+            const targetMarkerArr = markersArr.filter(function (obj) {
                 return obj.shopNumber.toString() === target.parentNode.id
             })
             const targetMarker = targetMarkerArr[0];
