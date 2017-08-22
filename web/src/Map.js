@@ -182,7 +182,10 @@ class Map {
                     const floatButton = document.querySelector('.floating-button')
                     card.innerHTML = html.innerHTML
                     card.style.display = 'block'
-                    floatButton.style.bottom = ((parseInt(window.getComputedStyle(floatButton).bottom)) + 130) + 'px';
+                    if(parseInt(window.getComputedStyle(floatButton).bottom) === 60){
+                        floatButton.style.bottom = "140px"
+                    }
+                    // floatButton.style.bottom = ((parseInt(window.getComputedStyle(floatButton).bottom)) + 130) + 'px';
                     this.resetMarkerAndInfo()
                     this.xMarkerIcon = marker.icon
                     this.xMarker = marker;

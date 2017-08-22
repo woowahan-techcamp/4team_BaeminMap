@@ -150,6 +150,14 @@ navigator.geolocation.getCurrentPosition((position) => {
 // click el, target, css class
 toggleCSSOnClick('#listOnOff', '#list', 'mobile-hidden')
 toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
+document.querySelector("#listOnOff").addEventListener("click", ()=>{
+    const card = document.querySelector("#card")
+    const floatButton = document.querySelector('.floating-button')
+    if(card.style.display === "block"){
+        card.style.display = "none";
+        floatButton.style.bottom = "60px";
+    }
+})
 // })
 
 // When the user clicks anywhere outside of the modal, close it
