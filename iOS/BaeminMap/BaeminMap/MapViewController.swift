@@ -28,10 +28,6 @@ class MapViewController: UIViewController {
         scrollView.contentSize.width = self.view.frame.width
         return scrollView
     }()
-    lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        return pageControl
-    }()
     lazy var filterButtonFrameY: CGFloat = {
         return self.parentView.filterButton.frame.minY
     }()
@@ -146,18 +142,13 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: UIScrollViewDelegate {
-    func configurePageControl(count: Int) {
-        self.pageControl.numberOfPages = count
-        self.pageControl.currentPage = 0
-        mapView.addSubview(pageControl)
-    }
-    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        pageControl.currentPage = Int(pageNumber)
+        let pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
         
-        let x = pageNumber == 0 ? 0 : pageNumber * scrollView.frame.size.width - 30 * pageNumber
+        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
         infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+        
+        print(pageNumber)
     }
     
     func addCellPage(shop: BaeminInfo) -> ListTableViewCell {
@@ -200,8 +191,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         mapView.animate(to: camera)
         
         //TODO : 현재는 testCount 로 임의의 개수로 넣어둠 ( 나중에 실제 리스트.count 입력할 것 )
-        let testCount = 4
-        configurePageControl(count: testCount)
+        let testCount = 9
         infoView.delegate = self
         infoView.isPagingEnabled = true
         
