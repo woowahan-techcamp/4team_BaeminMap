@@ -137,9 +137,9 @@ class Map {
 
     resetMarkerAndInfo() {
         if (this.infowindow) {
-            this.infowindow.close();
-            this.xMarker.setIcon((map.zoom >= 17) ? this.xMarker.categoryIcon : this.xMarker.pinIcon)
-            this.xMarker.setZIndex((this.map.zoom >= 17) ? 1 : 0)
+            // this.infowindow.close();
+            this.xMarker.setIcon((map.zoom >= 18) ? this.xMarker.categoryIcon : this.xMarker.pinIcon)
+            this.xMarker.setZIndex((this.map.zoom >= 18) ? 1 : 0)
         }
     }
 
@@ -178,12 +178,14 @@ class Map {
                 // TODO: 기본 아이콘 변경
             })
             marker.addListener('click', () => {
-                const infowindow = new google.maps.InfoWindow({
-                    content: _.template(this.shopDetailTemplate)(e) // TODO: 여기에 template rendering 넣어주기
-                });
+                // const infowindow = new google.maps.InfoWindow({
+                //     content: _.template(this.shopDetailTemplate)(e) // TODO: 여기에 template rendering 넣어주기
+                // });
+                const modal = document.querySelector('#modal')
+                modal.innerHTML = _.template(this.shopDetailTemplate)(e)
                 this.resetMarkerAndInfo()
                 this.map.setCenter(marker.getPosition());
-                infowindow.open(map, marker);
+                // infowindow.open(map, marker);
                 // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
                 apidata.getShopFoodData(e.shopNumber).then((response) => {
                     const foodDetails = document.querySelector('#foodDetails')
@@ -192,8 +194,8 @@ class Map {
                     })
                     foodDetails.innerHTML = foodDetailsContent
                 })
-
-                this.infowindow = infowindow;
+                modal.style.display = 'block'
+                this.infowindow = true;
                 this.xMarker = marker;
                 this.xMarkerIcon = marker.icon
                 //선택된 마커를 fill 마커로 변경

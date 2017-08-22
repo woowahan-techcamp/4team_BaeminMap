@@ -1,5 +1,6 @@
 @import url(/src/shop_detail.css);
 @import url(/src/indicator.css);
+@import url(/src/modal.css);
 
 * {
     box-sizing: border-box;

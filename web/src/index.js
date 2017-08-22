@@ -152,3 +152,11 @@ toggleCSSOnClick('#listOnOff', '#list', 'mobile-hidden')
 toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
 // })
 
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    const modal = document.getElementById('modal');
+    const span = document.getElementsByClassName("close")[0];
+    if (event.target === modal || event.target === span) {
+        modal.style.display = "none";
+    }
+}
