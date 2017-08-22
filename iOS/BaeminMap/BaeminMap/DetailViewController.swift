@@ -31,6 +31,7 @@ class DetailViewController: UIViewController {
     
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
+    var imageList = Section()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +73,17 @@ class DetailViewController: UIViewController {
         self.foodList = foodList
         if foodList.isEmpty {
             showCallImage()
+        } else {
+            if let index = self.foodList.index(where: { $0.title == "imageMenu" }) {
+                imageList = self.foodList.remove(at: index)
+            }
+            if imageList.items.isEmpty {
+                hiddenCollectionView()
+            }
         }
         Indicator.stopIndicator()
         tableView.reloadData()
+        collectionView.reloadData()
     }
     
     func showCallImage() {
@@ -93,6 +102,11 @@ class DetailViewController: UIViewController {
         bottomInfoView.isHidden = true
     }
     
+    func hiddenCollectionView() {
+        topView.frame.size.height = topView.frame.height - collectionView.frame.height + 10
+        collectionView.isHidden = true
+    }
+    
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -102,7 +116,8 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
         topView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: collectionView.frame.maxY)
         
-        if indexPath.item == 5 {
+        let count = imageList.items.count < 6 ? imageList.items.count : 6
+        if indexPath.item == count-1 {
             tableView.reloadData()
         }
         
@@ -110,7 +125,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return imageList.items.count < 6 ? imageList.items.count : 6
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
