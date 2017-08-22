@@ -177,10 +177,7 @@ class Map {
                 }
                 // TODO: 기본 아이콘 변경
             })
-            marker.addListener('click', async () => {
-                while (!this.shopDetailTemplate || !this.shopFoodDetailTemplate) {
-                    await this.sleep(200)
-                }
+            marker.addListener('click', () => {
                 const infowindow = new google.maps.InfoWindow({
                     content: _.template(this.shopDetailTemplate)(e) // TODO: 여기에 template rendering 넣어주기
                 });
