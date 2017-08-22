@@ -77,6 +77,7 @@ class DetailViewController: UIViewController {
             if let index = self.foodList.index(where: { $0.title == "imageMenu" }) {
                 imageList = self.foodList.remove(at: index)
             }
+            self.foodList[0].open = true
             if imageList.items.isEmpty {
                 hiddenCollectionView()
             }
