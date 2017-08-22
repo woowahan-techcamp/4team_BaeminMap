@@ -33,6 +33,13 @@ body {
     width: calc(100% - 380px);
 }
 
+.map-layout {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: calc(100% - 380px);
+}
+
 #list {
     position: absolute;
     right: 0;
@@ -103,12 +110,12 @@ body {
     border-bottom: solid 1px #d1caba;
 }
 
-.shop:hover .shop-layer{
+.shop:hover .shop-layer {
     opacity: 0.1;
     cursor: pointer;
 }
 
-.shop-layer{
+.shop-layer {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -117,12 +124,12 @@ body {
     z-index: 20;
 }
 
-.shop-layer.selected-shop{
+.shop-layer.selected-shop {
     background-color: #c6d3e4;
     opacity: 0.4;
 }
 
-.shop-layer.selected-shop:hover{
+.shop-layer.selected-shop:hover {
     background-color: #c6d3e4;
     opacity: 0.5;
 }
@@ -263,7 +270,7 @@ body {
     overflow: scroll;
 }
 
-.filter-button-wrapper{
+.filter-button-wrapper {
     position: absolute;
     height: 50px;
     background-color: #2ac1bc;
@@ -326,7 +333,7 @@ body {
     transition: 0.3s;
 }
 
-div.layer.show{
+div.layer.show {
     z-index: 5;
 }
 
@@ -488,7 +495,7 @@ div.layer.show{
 }
 
 /*.gmnoprint{*/
-    /*display: none;*/
+/*display: none;*/
 /*}*/
 
 @media (max-width: 480px) {
@@ -508,7 +515,7 @@ div.layer.show{
     #list {
         width: 100%;
         height: 100%;
-        top:0;
+        top: 0;
     }
 
     #list.show {
@@ -516,6 +523,12 @@ div.layer.show{
     }
 
     #map {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .map-layout {
         width: 100%;
         height: 100%;
     }
@@ -542,9 +555,11 @@ div.layer.show{
     .filter-controller.show {
         transform: translateY(calc(100%));
     }
+
     #shopList {
         -webkit-overflow-scrolling: touch;
     }
+
     .filter-content {
         height: 100%;
         -webkit-overflow-scrolling: touch;
