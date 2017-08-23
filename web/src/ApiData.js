@@ -86,7 +86,6 @@ export default class ApiData {
         const _list = []
         console.time('getShopListByCategoryList')
         for (const i of categoryList) {
-            this.data.shops
             for (const j of this.data.shops[i]) {
                 _list.push(j)
             }
