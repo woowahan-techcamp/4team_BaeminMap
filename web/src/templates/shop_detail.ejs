@@ -1,26 +1,31 @@
 <div class="shop-detail-wrapper modal-content">
-    <span class="close">&times;</span>
+    <span class="close"><</span>
     <div class="shop-detail-name">
         <h2><%= shopName %></h2>
     </div>
     <div class="shop-detail-scroll">
         <div class="shop-head">
             <div class="shop-head-left">
-                <span class="shop-order-total">주문수 <%= orderCount %>+</span>
-                <span class="shop-favorite-total">즐겨찾기 <%= favoriteCount %>+</span>
+                <span class="shop-order-total">주문수 <%= parseInt(orderCount/10)*10 %>+</span>
+                <span class="shop-favorite-total">즐겨찾기 <%= parseInt(orderCount/10)*10 %>+</span>
             </div>
             <div class="shop-head-right">
-                <span class="pay meetPay">만나서결제</span>
-                <span class="pay baroPay">바로결제</span>
+                <% let baroPayOn
+                let meetPayOn
+                if(useBaropay){baroPayOn = "canPay"}
+                if(useMeetPay){meetPayOn = "canPay"} %>
+                <span class="pay meetPay  <%= meetPayOn %>">만나서결제</span>
+                <span class="pay baroPay <%= baroPayOn %>">바로결제</span>
             </div>
         </div>
         <div class="shop-detail-info">
             <div class="shop-detail-thumb">
-                <img src="<%= shopLogoImageUrl %>" onerror="this.src='../static/default.png" class="shop-detail-thumb-img">
+                <% const shopLogo = shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr') %>
+                <img src="<%= shopLogo %>" onerror="this.src='../static/default.png'" class="shop-detail-thumb-img">
             </div>
             <div class="shop-detail-info-abstract">
                 <div class="shop-detail shop-star">
-                    <span><%= starPointAverage %></span>
+                    <span><%= starPointAverage.toFixed(1) %></span>
                     <img src="" alt="별점" class="shop-star-img">
                 </div>
                 <div class="shop-detail shop-recent-reviews">
@@ -38,19 +43,22 @@
                 <span><%= minimumOrderPrice %>원</span>
             </div>
             <div class="shop-phone">
-                전화번호:
-                <%if (virtualPhoneNumber) { %>
-                <%= virtualPhoneNumber %>
-                <% } else if (phoneNumber.startsWith('9')) { %>
-                <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
-                <% } else {%>
-                <%= phoneNumber %>
-                <% }%>
+                <span class="shop-detail-noti">전화번호</span>
+                <span>
+                    <% if (virtualPhoneNumber) { %>
+                    <%= virtualPhoneNumber %>
+                    <% } else if (phoneNumber.startsWith('9')) { %>
+                    <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
+                    <% } else { %>
+                    <%= phoneNumber %>
+                    <% } %>
+                </span>
             </div>
         </div>
         <!-- TODO: 상점 정보(음식목록) shop_detail_temp.ejs -->
         <div id="foodDetails"></div>
     </div>
+
     <div class="shop-link-btn-wrapper">
         <a href="https://www.baemin.com/shop/<%= shopNumber %>" class="shop-link-btn">
             <button class="shop-link-btn">주문하러가기</button>

@@ -11,16 +11,8 @@
     margin: 20px 0 5px;
 }
 
-.shop-detail-scroll > hr {
-    margin: 0 auto 5px;
-    width: 40%;
-    border: none;
-    height: 2px;
-    background-color: #4F3F3F;
-}
-
 .module {
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .module > ul {
@@ -41,10 +33,6 @@
 
 .module > ul > li:nth-last-child(1) {
     border-bottom: none;
-}
-
-.module > ul > li > span {
-    float: right;
 }
 
 .checkbox {
@@ -128,12 +116,6 @@
     display: block;
 }
 
-.shop-phone {
-    margin: 10px auto;
-    text-align: center;
-    color: #aaaaaa;
-}
-
 .shop-detail-wrapper {
     width: 100%;
     margin: 0 auto;
@@ -149,7 +131,7 @@
 }
 
 .shop-detail-scroll {
-    height: calc(100vh - 100px);
+    height: calc(100% - 100px);
     overflow-y: scroll;
     width: 100%;
     background-color: #ffffff;
@@ -174,6 +156,7 @@
 .close{
     position: absolute;
     left: 10px;
+    top: 10px;
 
 }
 
@@ -181,7 +164,7 @@
     height: 35px;
     border-top: solid 1px #848484;
     margin: 0 0 0 0;
-    padding-top: 10px;
+    padding-top: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     font-size: 14px;
     vertical-align: middle;
@@ -201,6 +184,12 @@
     border-radius: 50px;
     border: solid 1px #848484;
     margin-right: 5px;
+}
+
+.canPay {
+    background-color: #2ac1bc;
+    border: solid 1px #2ac1bc;
+    color: white;
 }
 
 .shop-detail-thumb {
@@ -223,7 +212,15 @@
     width: 100%;
     font-size: 14px;
     height: auto;
-    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.shop-phone {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    height: auto;
+    margin-bottom: 20px;
 }
 
 .toggle-box {
@@ -299,14 +296,14 @@
 
 .food-list-left {
     vertical-align: middle;
-    flex:2;
+    flex:3;
     font-weight: 500;
 }
 
 .food-list-right {
     display: block;
     vertical-align: middle;
-    flex:1;
+    flex:2;
 }
 
 .food-list-right > span {

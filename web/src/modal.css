@@ -20,6 +20,7 @@
     border: 1px solid #888;
     width: 380px; /* Could be more or less, depending on screen size */
     overflow-x: hidden;
+    overflow-y: hidden;
     position: absolute;
     right: 0;
 }
@@ -31,6 +32,7 @@
         margin: 0;
         padding: 0;
         border: none;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
