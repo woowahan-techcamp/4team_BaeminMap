@@ -145,18 +145,50 @@ class MapViewController: UIViewController {
 
 extension MapViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
+        var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
         
+//            var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
+            if pageNumber != self.currentPage{
+                let diff = pageNumber - self.currentPage
+                if Swift.abs(diff) > 1 {
+                    print("1보다 커!")
+                    pageNumber += diff < 0 ? 1 : -1
+                }
+                
+                
+//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4, execute: {
+                let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
+                self.infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+                self.currentPage = pageNumber
+                    
+//                })
+                print(pageNumber)
+            }
+            
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
+//        let diff = pageNumber - currentPage
+//        if Swift.abs(diff) > 1 {
+//            print("1보다 커!")
+//            pageNumber += diff < 0 ? 1 : -1
+//        }
+//            
+//        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
+//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+//        currentPage = pageNumber
+//        print(pageNumber)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
         let diff = pageNumber - currentPage
         if Swift.abs(diff) > 1 {
             print("1보다 커!")
             pageNumber += diff < 0 ? 1 : -1
         }
-            
+        
         let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
         infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
         currentPage = pageNumber
@@ -205,7 +237,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         //TODO : 현재는 testCount 로 임의의 개수로 넣어둠 ( 나중에 실제 리스트.count 입력할 것 )
         let testCount = 9
         infoView.delegate = self
-        infoView.isPagingEnabled = true
+//        infoView.isPagingEnabled = true
         infoView.bounces = false
         currentPage = CGFloat(0)
         
