@@ -173,8 +173,8 @@ extension MapViewController: UIScrollViewDelegate {
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
-        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
+        var pageNumber = round((scrollView.contentOffset.x) / (scrollView.frame.size.width - 60))
+        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 50)
 //        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
         targetContentOffset.pointee = CGPoint(x:x, y:0)
     }
@@ -219,14 +219,18 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         mapView.animate(to: camera)
         
         //TODO : 현재는 testCount 로 임의의 개수로 넣어둠 ( 나중에 실제 리스트.count 입력할 것 )
-        let testCount = 9
+        let testCount = 1
         infoView.delegate = self
 //        infoView.isPagingEnabled = true
         infoView.bounces = false
         currentPage = CGFloat(0)
         
-        var cellminX = CGFloat(20)
-        let cellWidth = self.view.frame.width-40
+        var cellminX = CGFloat(30)
+        var cellWidth = self.view.frame.width-60
+        if testCount == 1 {
+            cellminX = CGFloat(5)
+            cellWidth = self.view.frame.width-10
+        }
         
         for index in 0..<testCount {
             let cell = self.makePageCell(shop: shop)
