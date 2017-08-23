@@ -6,7 +6,7 @@ import * as _ from "lodash";
 class Map {
     constructor(data) {
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
-        this.map = new google.maps.Map(document.getElementById('map'), {
+        this.gmap = new google.maps.Map(document.getElementById('map'), {
             zoom: 18,
             center: this.currentLocation,
             minZoom: 14,
@@ -45,7 +45,7 @@ class Map {
 
     updatePosition(position) {
         this.setUserMarker(position)
-        this.map.setCenter(position);
+        this.gmap.setCenter(position);
         this.currentLocation = position
     }
 
@@ -55,14 +55,14 @@ class Map {
         }
         this.userMarker = new google.maps.Marker({
             position: position,
-            map: this.map,
+            map: this.gmap,
             title: "my location",
             zIndex: 0
         })
     }
 
     searchPosition() {
-        const map = this.map;
+        const map = this.gmap;
         const distanceElement = document.querySelector('.distance-option-list > .selected')
         const distance = parseFloat(distanceElement.dataset['distance'])
         const input = document.getElementById('pac-input');
@@ -130,8 +130,8 @@ class Map {
             });
             map.fitBounds(bounds);
             const pos = {
-                lat: this.map.center.lat(),
-                lng: this.map.center.lng()
+                lat: this.gmap.center.lat(),
+                lng: this.gmap.center.lng()
             };
             this.reloadMap(distance, pos, this.data, condition, null, categoryList)
         });
@@ -166,7 +166,7 @@ class Map {
             const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
             const marker = new google.maps.Marker({
                 position: position,
-                map: this.map,
+                map: this.gmap,
                 zIndex: 1,
                 category: e.categoryEnglishName,
                 shopNumber: e.shopNumber,
@@ -190,6 +190,7 @@ class Map {
             })
             marker.addListener('click', () => {
                 if (parseInt(window.innerWidth) <= 480) {
+                    // Mobile
                     const card = document.querySelector("#card")
                     const floatButton = document.querySelector('.floating-button')
                     if (_marker[shopLocationString]) {
@@ -227,21 +228,47 @@ class Map {
                     // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                     marker.setZIndex(2);
                 } else {
-                    this.showModal(e.shopNumber, e, apidata, this.shopDetailTemplate);
-                    this.resetMarkerAndInfo()
-                    this.map.setCenter(marker.getPosition());
-                    this.xMarker = marker;
-                    this.xMarkerIcon = marker.icon
-                    //선택된 마커를 fill 마커로 변경
-                    marker.setIcon(marker.filledIcon);
-                    // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
-                    marker.setZIndex(2);
-                    //리스트 연동부분
-                    if (document.querySelector(".selected-shop")) {
-                        document.querySelector(".selected-shop").classList.remove("selected-shop");
+                    // Desktop
+                    const showModal = () => {
+                        // Single
+                        this.showModal(e.shopNumber, e, apidata, this.shopDetailTemplate);
+                        this.resetMarkerAndInfo()
+                        this.gmap.setCenter(marker.getPosition());
+                        this.xMarker = marker;
+                        this.xMarkerIcon = marker.icon
+                        //선택된 마커를 fill 마커로 변경
+                        marker.setIcon(marker.filledIcon);
+                        // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                        marker.setZIndex(2);
+                        //리스트 연동부분
+                        if (document.querySelector(".selected-shop")) {
+                            document.querySelector(".selected-shop").classList.remove("selected-shop");
+                        }
+                        document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
+                        document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
                     }
-                    document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
-                    document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
+                    const resetHiddenList = () => {
+                        const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+                        shopList.forEach(shop => shop.style.display = 'block')
+                    }
+                    // Desktop
+                    if (_marker[shopLocationString]) {
+                        // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
+                        resetHiddenList()
+                        const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+                        const notDuplicated = shopList
+                            .filter(shop => shop.dataset.coordinates !== shopLocationString)
+                            .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
+                        notDuplicated.forEach(shop => shop.style.display = 'none')
+                        if (notDuplicated.length === 0) {
+                            // 다 가려진 상태라면...!
+                            showModal()
+                        }
+                        //
+                    } else {
+                        resetHiddenList()
+                        showModal()
+                    }
                 }
             });
             this.markers.push(marker)
@@ -266,7 +293,7 @@ class Map {
 
     reloadMap(distance, pos, apidata, key, order, categoryList) {
         indicator.style.display = ''
-        this.map.setZoom(18)
+        this.gmap.setZoom(18)
         // Reset markers
         console.time("Marker Reset")
         for (let i of this.markers) {
