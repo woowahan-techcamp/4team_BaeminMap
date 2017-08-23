@@ -12,6 +12,7 @@ class Indicator {
     static var indicator = UIView()
     
     static func startIndicator(target: UIView, message: String, image: String) {
+        indicator = UIView()
         indicator.frame = UIScreen.main.bounds
         indicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
         indicator.backgroundColor = UIColor.white
@@ -47,7 +48,6 @@ class Indicator {
     static func stopIndicator() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
             indicator.removeFromSuperview()
-            indicator = UIView()
         }
     }
 }
