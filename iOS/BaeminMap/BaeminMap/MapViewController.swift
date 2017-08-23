@@ -151,16 +151,10 @@ extension MapViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
-//        currentPage = pageNumber
-     
-//        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
-//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-        
-        
-        let diff = Swift.abs(pageNumber - currentPage)
-        if diff > 1 {
+        let diff = pageNumber - currentPage
+        if Swift.abs(diff) > 1 {
             print("1보다 커!")
-            pageNumber += 1
+            pageNumber += diff < 0 ? 1 : -1
         }
             
         let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
