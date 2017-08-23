@@ -40,6 +40,9 @@ class DetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        tableView.estimatedRowHeight = 50
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         navigationItem.title = baeminInfo.shopName
         
         Indicator.startIndicator(target: self.view, message: "Loading...", image: baeminInfo.categoryEnglishName)
@@ -158,10 +161,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as! DetailTableViewCell
 
         let food = foodList[indexPath.section].items[indexPath.row]
-        cell.textLabel?.text = food.foodName
+        cell.menuLabel.text = food.foodName
         var str = String()
         for (i, price) in food.price.enumerated() {
             if price.key.isEmpty {
@@ -170,8 +173,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 str += "\(price.key) : \(price.value)원\(i == food.price.count-1 ? "" : "\n")"
             }
         }
-        print(str)
-        cell.detailTextLabel?.text = str
+        cell.priceLabel.text = str
         print(baeminInfo.shopNumber)
         return cell
     }
@@ -202,15 +204,15 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
-        let headerHeight = header.frame.height
+//        let headerHeight = header.frame.height
         foodList[header.section].open = !foodList[header.section].open
         self.tableView.reloadData()
-        if header.section == foodList.count-1 {
-            if foodList[header.section].open {
-                self.tableView.scrollToSection(y: 50)
-            } else {
-                self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
-            }
-        }
+//        if header.section == foodList.count-1 {
+//            if foodList[header.section].open {
+//                self.tableView.scrollToSection(y: 50)
+//            } else {
+//                self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
+//            }
+//        }
     }
 }
