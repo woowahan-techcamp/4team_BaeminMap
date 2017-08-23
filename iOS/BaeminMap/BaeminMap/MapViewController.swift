@@ -145,54 +145,38 @@ class MapViewController: UIViewController {
 
 extension MapViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
+        var pageNumber = round((scrollView.contentOffset.x) / (scrollView.frame.size.width - 40))
         
-//            var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
-            if pageNumber != self.currentPage{
-                let diff = pageNumber - self.currentPage
-                if Swift.abs(diff) > 1 {
-                    print("1보다 커!")
-                    pageNumber += diff < 0 ? 1 : -1
-                }
-                
-                
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4, execute: {
-                let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
-                self.infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-                self.currentPage = pageNumber
-                    
-//                })
-                print(pageNumber)
-            }
-            
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
-//        let diff = pageNumber - currentPage
-//        if Swift.abs(diff) > 1 {
-//            print("1보다 커!")
-//            pageNumber += diff < 0 ? 1 : -1
-//        }
-//            
-//        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
-//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-//        currentPage = pageNumber
-//        print(pageNumber)
+////            var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
+//            if pageNumber != self.currentPage{
+//                let diff = pageNumber - self.currentPage
+//                if Swift.abs(diff) > 1 {
+//                    print("1보다 커!")
+//                    pageNumber += diff < 0 ? 1 : -1
+//                }
+//                
+//                
+////                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4, execute: {
+//                let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
+//                self.infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+//                self.currentPage = pageNumber
+//                    
+////                })
+//                print(pageNumber)
+//            }
+        
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        let x = currentPage == 0 ? 0 : currentPage * (scrollView.frame.size.width - 30)
+//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
-        let diff = pageNumber - currentPage
-        if Swift.abs(diff) > 1 {
-            print("1보다 커!")
-            pageNumber += diff < 0 ? 1 : -1
-        }
-        
         let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
-        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-        currentPage = pageNumber
-        print(pageNumber)
+//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+        targetContentOffset.pointee = CGPoint(x:x, y:0)
     }
     
     func makePageCell(shop: BaeminInfo) -> ListTableViewCell {
