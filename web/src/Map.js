@@ -209,7 +209,7 @@ class Map {
                         card.append(sliderWrapper)
                         // TODO: CardSlider 붙이기
                         const triggerMarker = (shopNumber, markersArr) => ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(shopNumber, markersArr))
-                        new CardSlider(card, sliderWrapper, triggerMarker, this.markers, this.showModal, e, apidata, this.shopDetailTemplate)
+                        new CardSlider(card, sliderWrapper, triggerMarker, this.markers, this.showModal, e, apidata, this)
                     } else {
                         const html = document.getElementById(marker.shopNumber);
                         card.innerHTML = html.innerHTML
@@ -248,10 +248,10 @@ class Map {
         });
     }
 
-    showModal(shopNumber, data, apidata, shopDetailTemplate) {
+    showModal(shopNumber, data, apidata) {
         const modal = document.querySelector('#modal')
         // this.shopDetailTemplate
-        modal.innerHTML = _.template(shopDetailTemplate)(data)
+        modal.innerHTML = _.template(this.shopDetailTemplate)(data)
         // infowindow.open(map, marker);
         // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
         apidata.getShopFoodData(shopNumber).then((response) => {

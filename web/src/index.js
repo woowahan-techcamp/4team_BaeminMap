@@ -79,7 +79,7 @@ function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
                 const distanceElement = document.querySelector('.distance-option-list > .selected')
                 const distance = parseFloat(distanceElement.dataset['distance'])
                 //shop-list 스크롤 초기화
-                map.reloadMap(distance, (map.currentLocation)? map.currentLocation:pos, apidata, condition, null, categoryList)
+                map.reloadMap(distance, (map.currentLocation) ? map.currentLocation : pos, apidata, condition, null, categoryList)
             }
         })
     })
@@ -152,23 +152,29 @@ navigator.geolocation.getCurrentPosition((position) => {
 // click el, target, css class
 toggleCSSOnClick('#listOnOff', '#list', 'mobile-hidden')
 toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
-document.querySelector("#listOnOff").addEventListener("click", ()=>{
+document.querySelector("#listOnOff").addEventListener("click", () => {
     const card = document.querySelector("#card")
     const floatButton = document.querySelector('.floating-button')
-    if(card.style.display === "block"){
+    if (card.style.display === "block") {
         card.style.display = "none";
         floatButton.style.bottom = "60px";
     }
 })
-document.querySelector("#card").addEventListener("click", (e)=>{
-    const shopNumber = e.target.dataset.shopnumber;
-    const data = map.filteredData.filter((i) => {return i.shopNumber==shopNumber})[0]
-    map.showModal(shopNumber, data, apidata)
-})
-// })
+
+function cardClickListener() {
+    document.querySelector("#card").addEventListener("click", (e) => {
+        const shopNumber = e.target.dataset.shopnumber;
+        const data = map.filteredData.filter((i) => {
+            return i.shopNumber == shopNumber
+        })[0]
+        map.showModal(shopNumber, data, apidata)
+    })
+}
+
+cardClickListener()
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById('modal');
     const span = document.getElementsByClassName("close")[0];
     if (event.target === modal || event.target === span) {

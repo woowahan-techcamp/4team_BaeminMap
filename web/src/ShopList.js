@@ -38,9 +38,6 @@ class ShopList {
     }
 
     static searchTargetMarker(shopNumber, markersArr) {
-        if (typeof shopNumber !== 'number') {
-            shopNumber = shopNumber.dataset.shopnumber
-        }
         const targetMarkerArr = markersArr.filter((e) => {
             return e.shopNumber == shopNumber
         })
