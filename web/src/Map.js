@@ -148,12 +148,16 @@ class Map {
         })
         this.markers = []
 
+        let _marker = {}
+
         arr.forEach((e) => {
             const shopLocationString = `${e.location.latitude}_${e.location.longitude}`
             let iconImg;
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
+                if (_marker[shopLocationString]) return true
                 iconImg = './static/pin.png'
+                _marker[shopLocationString] = true
             } else {
                 iconImg = '../static/WebMarker/' + e.categoryEnglishName + '.png';
             }
@@ -269,18 +273,16 @@ class Map {
         console.time("SortData")
         if (categoryList) {
             sortedData = apidata.getShopListByCategoryList(distance, categoryList, key, order)
-            sortedData['duplicated'] = sortedData
-                .then(makeArrayToSet)
-                .then(getDuplicatedCoordinateList)
         } else {
             sortedData = apidata.getShopListAll(distance, key, order)
-            sortedData['duplicated'] = sortedData
-                .then(makeArrayToSet)
-                .then(getDuplicatedCoordinateList)
         }
         sortedData.then((filteredData) => {
-            this.setShopMarker(filteredData, apidata, sortedData.duplicated)
+            while (!this.data) {
+                this.sleep(100)
+            }
             this.filteredData = filteredData
+            this.duplicatedData = getDuplicatedCoordinateList(makeArrayToSet(filteredData))
+            this.setShopMarker(filteredData, apidata, this.duplicatedData)
             new ShopList("#shopList", filteredData, this.markers)
             indicator.style.display = 'none'
             console.timeEnd("SortData")
@@ -306,10 +308,10 @@ const getDuplicatedCoordinateList = (array) => {
             }
         ).length
         if (_count > 1) {
-            duplicatedCoordinateList.append(shopLocationString)
+            duplicatedCoordinateList.push(shopLocationString)
         }
     })
-    return _result
+    return duplicatedCoordinateList
 }
 
 export default Map
