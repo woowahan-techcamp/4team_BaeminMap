@@ -5,10 +5,10 @@
 <div class="imgFood toggle-box">
     <% _.each(imageMenu, (imgFood) => { %>
     <div class="imgMenu">
-        <img class="menuImage" src="<%= imgFood.imgUrl %>" onerror="../static/default.png">
+        <img class="menuImage" src="<%= imgFood.imgUrl %>" onerror="this.src='../static/default.png'">
         <div class="imgMenuInfo">
             <span class="imgMenuName"><%= imgFood.foodNm %></span>
-            <strong class="imgMenuPrice"><%= imgFood.foodPrice %></strong>
+            <strong class="imgMenuPrice"><%= imgFood.foodPrice %>원</strong>
         </div>
     </div>
     <% }) %>
