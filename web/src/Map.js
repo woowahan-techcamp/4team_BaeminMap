@@ -1,4 +1,5 @@
 import ShopList from './ShopList'
+import CardSlider from './CardSlider'
 import axios from 'axios'
 import * as _ from "lodash";
 
@@ -194,12 +195,20 @@ class Map {
                     if (_marker[shopLocationString]) {
                         // TODO: 카드 여러장 넣어야 함
                         const cardList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
-                            .filter(e => e.dataset.coordinates===shopLocationString)
+                            .filter(e => e.dataset.coordinates === shopLocationString)
+                        const sliderWrapper = document.createElement('div')
+                        const sliderNextImage = document.createElement('img')
+                        sliderNextImage.src = './static/sliderNext.png'
+                        sliderNextImage.className = 'slider-next-img'
                         card.innerHTML = ''
-                        cardList.forEach(i => {
-                            i.id = ''
-                            card.appendChild(i)
-                        })
+                        for (const i of cardList) {
+                            i.innerHTML += sliderNextImage.outerHTML
+                            console.log(i)
+                            sliderWrapper.appendChild(i)
+                        }
+                        card.append(sliderWrapper)
+                        // TODO: CardSlider 붙이기
+                        new CardSlider(card, sliderWrapper)
                         // card.style.overflowX = 'auto'
                         // card.style.overflowY = 'visible'
                     } else {

@@ -2,9 +2,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>Baemin Map</title>
-    <link rel="stylesheet" href="src/index.css">
+    <link rel="stylesheet" href="src/index.css?_=1">
 </head>
 <body>
 <div class="content">
@@ -115,6 +115,8 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP-cvYfe02ZIu5Df-_Y3mhhqRuxf9DuBw&libraries=places"
         type="text/javascript"></script>
-<script type="text/javascript" src="/dist/bundle.js"></script>
+<script>
+    document.write("<script type='text/javascript' src='/dist/bundle.js?_=" + Date.now() + "'><\/script>");
+</script>
 </body>
 </html>
