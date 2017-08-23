@@ -36,7 +36,7 @@
     padding: 20px;
     width: 100%;
     height: auto;
-    border-bottom: 1px solid #4F3F3F;
+    border-bottom: 1px solid #dddddd;
 }
 
 .module > ul > li:nth-last-child(1) {
@@ -72,13 +72,14 @@
 .toggle-label:after {
     content: '˅';
     float: right;
-    line-height: 20px;
+    line-height: 25px;
     right: 0;
     font-size: 30px;
     margin-top: 7px;
 }
 
 .toggle-content {
+    width: 100%;
     max-height: 0;
     overflow: hidden;
     transition: ease 0.2s;
@@ -292,20 +293,26 @@
 }
 
 .food-list-content {
-    display: inline-block;
+    display: flex;
     height: auto;
 }
 
 .food-list-left {
-    display: inline-block;
     vertical-align: middle;
+    flex:2;
+    font-weight: 500;
 }
 
 .food-list-right {
+    display: block;
     vertical-align: middle;
+    flex:1;
 }
 
 .food-list-right > span {
     display: block;
     text-align: right;
+    font-size: 90%;
+    font-weight: 400;
+    color: #2ac1bc;
 }
