@@ -99,6 +99,10 @@ class MapViewController: UIViewController {
     func drawMarker(selectedMarker: GMSMarker?) {
         drawCurrentLocation()
         for(count, shop) in baeminInfo.enumerated() {
+            
+            // 여기서 경도/위도를 따로 선언해둔 딕셔너리에 포함되어 있는지 확인, 되어 있다면 마커 표시 X
+            // 대신 그 딕셔너리에 해당 shop을 포함 시킨다.
+            
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: shop.location["latitude"]!, longitude: shop.location["longitude"]!)
             marker.map = self.mapView
@@ -161,6 +165,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         let shops = Filter().findSamePlace(markerData: markerShop, baeminInfo: baeminInfo)
         var cellminX = CGFloat(30)
         var cellWidth = self.view.frame.width-60
+        infoView.isScrollEnabled = true
         if shops.count == 1 {
             infoView.isScrollEnabled = false
             cellminX = CGFloat(5)
@@ -203,10 +208,28 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
 
 extension MapViewController: UIScrollViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let pageNumber = round((scrollView.contentOffset.x) / (scrollView.frame.size.width - 60))
-        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 50)
-        //        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-        targetContentOffset.pointee = CGPoint(x:x, y:0)
+        let itemWidth = (scrollView.frame.size.width - 60)
+        let itemSpacing = CGFloat(10)
+        
+        let pageWidth = Float(itemWidth + itemSpacing)
+        let targetXContentOffset = Float(targetContentOffset.pointee.x)
+        let contentWidth = Float(infoView.contentSize.width)
+        var newPage = Float(self.pageControl.currentPage)
+        
+        if velocity.x == 0 {
+            newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
+        } else {
+            newPage = Float(velocity.x > 0 ? self.pageControl.currentPage + 1 : self.pageControl.currentPage - 1)
+            if newPage < 0 {
+                newPage = 0
+            }
+            if (newPage > contentWidth / pageWidth) {
+                newPage = ceil(contentWidth / pageWidth) - 1.0
+            }
+        }
+        self.pageControl.currentPage = Int(newPage)
+        let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
+        targetContentOffset.pointee = point
     }
     
     func makePageCell(shop: BaeminInfo) -> ListTableViewCell {
