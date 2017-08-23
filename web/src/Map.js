@@ -204,14 +204,12 @@ class Map {
                         for (const i of cardList) {
                             i.id = ''
                             i.innerHTML += sliderNextImage.outerHTML
-                            console.log(i)
                             sliderWrapper.appendChild(i)
                         }
                         card.append(sliderWrapper)
                         // TODO: CardSlider 붙이기
-                        new CardSlider(card, sliderWrapper)
-                        // card.style.overflowX = 'auto'
-                        // card.style.overflowY = 'visible'
+                        const triggerMarker = (shopNumber, markersArr) => ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(shopNumber, markersArr))
+                        new CardSlider(card, sliderWrapper, triggerMarker, this.markers, this.showModal, e, apidata, this.shopDetailTemplate)
                     } else {
                         const html = document.getElementById(marker.shopNumber);
                         card.innerHTML = html.innerHTML
@@ -229,7 +227,7 @@ class Map {
                     // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                     marker.setZIndex(2);
                 } else {
-                    this.showModal(e.shopNumber, e, apidata);
+                    this.showModal(e.shopNumber, e, apidata, this.shopDetailTemplate);
                     this.resetMarkerAndInfo()
                     this.map.setCenter(marker.getPosition());
                     this.xMarker = marker;
@@ -250,9 +248,10 @@ class Map {
         });
     }
 
-    showModal(shopNumber, e, apidata) {
+    showModal(shopNumber, data, apidata, shopDetailTemplate) {
         const modal = document.querySelector('#modal')
-        modal.innerHTML = _.template(this.shopDetailTemplate)(e)
+        // this.shopDetailTemplate
+        modal.innerHTML = _.template(shopDetailTemplate)(data)
         // infowindow.open(map, marker);
         // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
         apidata.getShopFoodData(shopNumber).then((response) => {

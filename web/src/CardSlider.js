@@ -1,13 +1,20 @@
 class CardSlider {
-    constructor (viewPort, sliderWrapper) {
-        this.viewPort = viewPort
+    constructor(card, sliderWrapper, triggerMarkerEvent, markers, showModal, e, apidata, shopDetailTemplate) {
+        this.card = card
         this.sliderWrapper = sliderWrapper
         this.firstXPosition = 0
         this.currentWrapperPosition = 0
         this.setEventListener()
+        this.triggerMarkerEvent = triggerMarkerEvent
+        this.markers = markers
+        this.dragged = false
+        this.showModal = showModal
+        this.e = e
+        this.apidata = apidata
+        this.shopDetailTemplate = shopDetailTemplate
     }
 
-    setFirstXPosition (xPosition) {
+    setFirstXPosition(xPosition) {
         this.firstXPosition = xPosition
     }
 
@@ -20,42 +27,54 @@ class CardSlider {
     }
 
     setEventListener() {
-        this.viewPort.addEventListener('touchstart', e => {
+        this.card.addEventListener('touchstart', e => {
             e.preventDefault()
             this.currentWrapperPosition = 0 || Number(this.sliderWrapper.style.transform.replace('translateX(', '').replace('px)', ''))
             const newPosition = e.changedTouches[0].screenX
             this.setFirstXPosition(newPosition)
+            this.dragged = false
         })
-        this.viewPort.addEventListener('touchmove', e => {
+        this.card.addEventListener('touchmove', e => {
             e.preventDefault()
             this.sliderWrapper.style.transition = null
             const newPixel = e.changedTouches[0].screenX
             this.moveSliderWrapper(
                 this.currentWrapperPosition + this.getDistance(newPixel)
             )
+            this.dragged = true
         })
-        this.viewPort.addEventListener('touchend', e => {
-            const windowWidth = parseInt(window.innerWidth)
-            const distance = this.getDistance(e.changedTouches[0].screenX)
-            const maxPosition = -(window.innerWidth * (this.sliderWrapper.children.length))
-            console.log(maxPosition)
-            let newWrapperPosition = 0
+        this.card.addEventListener('touchend', e => {
+            if (this.dragged) {
+                console.log("Touched!")
+                const windowWidth = parseInt(window.innerWidth)
+                const distance = this.getDistance(e.changedTouches[0].screenX)
+                const maxPosition = -(window.innerWidth * (this.sliderWrapper.children.length))
+                let newWrapperPosition = 0
 
-            this.sliderWrapper.style.transition = 'ease 0.5s'
+                this.sliderWrapper.style.transition = 'ease 0.5s'
 
-            if ((Math.abs(distance)) > (windowWidth / 10)){
-                if (distance < 0) {
-                    newWrapperPosition = this.currentWrapperPosition - windowWidth
-                } else if (distance > 0) {
-                    newWrapperPosition = this.currentWrapperPosition + windowWidth
-                }
-                if ((newWrapperPosition > 0) || (newWrapperPosition <= maxPosition)) {
+                if ((Math.abs(distance)) > (windowWidth / 10)) {
+                    if (distance < 0) {
+                        newWrapperPosition = this.currentWrapperPosition - windowWidth
+                    } else if (distance > 0) {
+                        newWrapperPosition = this.currentWrapperPosition + windowWidth
+                    }
+                    if ((newWrapperPosition > 0) || (newWrapperPosition <= maxPosition)) {
+                        this.sliderWrapper.style.transform = `translateX(${this.currentWrapperPosition}px)`
+                        return false
+                    }
+                    this.sliderWrapper.style.transform = `translateX(${newWrapperPosition}px)`
+                } else {
                     this.sliderWrapper.style.transform = `translateX(${this.currentWrapperPosition}px)`
-                    return false
                 }
-                this.sliderWrapper.style.transform = `translateX(${newWrapperPosition}px)`
+                this.dragged = false
             } else {
-                this.sliderWrapper.style.transform = `translateX(${this.currentWrapperPosition}px)`
+                // 드래그 X, 클릭!
+                console.log("Clicked!")
+                // Show Modal
+                const shopNumber = parseInt(e.target.closest('.shop-layer').dataset.shopnumber)
+                this.showModal(shopNumber, this.e, this.apidata, this.shopDetailTemplate)
+                // this.triggerMarkerEvent(shopNumber, this.markers)
             }
         })
     }
@@ -63,4 +82,4 @@ class CardSlider {
 
 export default CardSlider
 
-//const slider = new CardSlider(document.querySelector('#viewPort'), document.querySelector('#sliderWrapper'))
+//const slider = new CardSlider(document.querySelector('#card'), document.querySelector('#sliderWrapper'))
