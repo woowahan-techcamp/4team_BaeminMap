@@ -59,4 +59,8 @@ class Filter {
             return baeminInfo.sorted(by: { $0.favoriteCount > $1.favoriteCount })
         }
     }
+    
+    func findSamePlace(markerData: BaeminInfo, baeminInfo: [BaeminInfo]) -> [BaeminInfo] {
+        return baeminInfo.filter { $0.location["latitude"] == markerData.location["latitude"] && $0.location["longitude"] == markerData.location["longitude"] }
+    }
 }

@@ -33,8 +33,7 @@ class MapViewController: UIViewController {
         return self.parentView.filterButton.frame.minY
     }()
     var isZoom = true
-    var currentPage = CGFloat(0)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -143,67 +142,10 @@ class MapViewController: UIViewController {
 
 }
 
-extension MapViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var pageNumber = round((scrollView.contentOffset.x) / (scrollView.frame.size.width - 40))
-        
-////            var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
-//            if pageNumber != self.currentPage{
-//                let diff = pageNumber - self.currentPage
-//                if Swift.abs(diff) > 1 {
-//                    print("1보다 커!")
-//                    pageNumber += diff < 0 ? 1 : -1
-//                }
-//                
-//                
-////                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4, execute: {
-//                let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
-//                self.infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-//                self.currentPage = pageNumber
-//                    
-////                })
-//                print(pageNumber)
-//            }
-        
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        let x = currentPage == 0 ? 0 : currentPage * (scrollView.frame.size.width - 30)
-//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        var pageNumber = round((scrollView.contentOffset.x) / (scrollView.frame.size.width - 60))
-        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 50)
-//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-        targetContentOffset.pointee = CGPoint(x:x, y:0)
-    }
-    
-    func makePageCell(shop: BaeminInfo) -> ListTableViewCell {
-        let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
-        cell.backgroundColor = UIColor.white
-        cell.moveButton.isEnabled = true
-//        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
-        
-        let distance = shop.distance.convertDistance()
-        if let url = shop.shopLogoImageUrl {
-            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
-        }
-        cell.titleLabel.text = shop.shopName
-        cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
-        cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
-        cell.ratingView.rating = shop.starPointAverage
-        cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
-        cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
-        
-        return cell
-    }
-}
-
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
-        guard let shop = marker.userData as? BaeminInfo else { return false }
+        infoView.subviews.forEach { $0.removeFromSuperview() }
+        guard let markerShop = marker.userData as? BaeminInfo else { return false }
         
         infoViewAnimate(isTap: true)
         if let selectedMarker = mapView.selectedMarker,
@@ -212,38 +154,34 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             selectedMarker.icon = UIImage(named: selectedShop.categoryEnglishName)
         }
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
-        mapView.selectedMarker = marker
-        marker.map = mapView
-        marker.zIndex = 1
-        marker.icon = UIImage(named: shop.categoryEnglishName+"Fill")
-        mapView.animate(to: camera)
         
         //TODO : 현재는 testCount 로 임의의 개수로 넣어둠 ( 나중에 실제 리스트.count 입력할 것 )
-        let testCount = 1
         infoView.delegate = self
-//        infoView.isPagingEnabled = true
-        infoView.bounces = false
-        currentPage = CGFloat(0)
         
+        let shops = Filter().findSamePlace(markerData: markerShop, baeminInfo: baeminInfo)
         var cellminX = CGFloat(30)
         var cellWidth = self.view.frame.width-60
-        if testCount == 1 {
+        if shops.count == 1 {
+            infoView.isScrollEnabled = false
             cellminX = CGFloat(5)
             cellWidth = self.view.frame.width-10
         }
         
-        for index in 0..<testCount {
+        for shop in shops {
             let cell = self.makePageCell(shop: shop)
             cell.frame = CGRect(x: cellminX, y: 0, width: cellWidth, height: 100)
             infoView.addSubview(cell)
             cellminX += cellWidth + 10
-            
-            cell.titleLabel.text = cell.titleLabel.text! + String(index)
   
             infoView.contentSize.width = cellminX
         }
-//        infoView.contentSize.width = testCount > 1 ? infoView.frame.width * 2 : infoView.frame.width
         infoView.contentSize.width += 10
+        
+        mapView.selectedMarker = marker
+        marker.map = mapView
+        marker.zIndex = 1
+        marker.icon = UIImage(named: markerShop.categoryEnglishName+"Fill")
+        mapView.animate(to: camera)
         return true
     }
     
@@ -260,5 +198,38 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             isZoom = true
             self.redrawMap()
         }
+    }
+}
+
+extension MapViewController: UIScrollViewDelegate {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let pageNumber = round((scrollView.contentOffset.x) / (scrollView.frame.size.width - 60))
+        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 50)
+        //        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+        targetContentOffset.pointee = CGPoint(x:x, y:0)
+    }
+    
+    func makePageCell(shop: BaeminInfo) -> ListTableViewCell {
+        let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
+        cell.backgroundColor = UIColor.white
+        cell.moveButton.isEnabled = true
+        //        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
+        
+        let distance = shop.distance.convertDistance()
+        if let url = shop.shopLogoImageUrl {
+            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+        }
+        cell.titleLabel.text = shop.shopName
+        cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
+        cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
+        cell.ratingView.rating = shop.starPointAverage
+        cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
+        cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
+        
+        return cell
+    }
+    
+    func settingInfoView() {
+        
     }
 }
