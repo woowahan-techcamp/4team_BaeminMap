@@ -60,3 +60,19 @@ extension UILabel {
         self.layer.cornerRadius = self.layer.frame.height/2
     }
 }
+
+extension Int {
+    func convertCountPlus() -> String {
+        if self >= 10000 {
+            return "\(String((Double(self)/10000.0).roundTo(places: 1)))만+"
+        } else if self >= 1000 {
+            return "\(String(self/1000))000+"
+        } else if self >= 100 {
+            return "\(String(self/100))00+"
+        } else if self >= 10 {
+            return "\(String(self/10))0+"
+        } else {
+            return "1+"
+        }
+    }
+}
