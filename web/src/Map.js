@@ -189,10 +189,23 @@ class Map {
             })
             marker.addListener('click', () => {
                 if (parseInt(window.innerWidth) <= 480) {
-                    const html = document.getElementById(marker.shopNumber);
                     const card = document.querySelector("#card")
                     const floatButton = document.querySelector('.floating-button')
-                    card.innerHTML = html.innerHTML
+                    if (_marker[shopLocationString]) {
+                        // TODO: 카드 여러장 넣어야 함
+                        const cardList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+                            .filter(e => e.dataset.coordinates===shopLocationString)
+                        card.innerHTML = ''
+                        cardList.forEach(i => {
+                            i.id = ''
+                            card.appendChild(i)
+                        })
+                        // card.style.overflowX = 'auto'
+                        // card.style.overflowY = 'visible'
+                    } else {
+                        const html = document.getElementById(marker.shopNumber);
+                        card.innerHTML = html.innerHTML
+                    }
                     card.style.display = 'block'
                     if (parseInt(window.getComputedStyle(floatButton).bottom) === 60) {
                         floatButton.style.bottom = "140px"

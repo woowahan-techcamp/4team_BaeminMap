@@ -579,5 +579,13 @@ div.layer.show {
         z-index: 20;
         width: 100%;
         height: 130px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+
+    #card > .shop {
+        display: inline-block;
+        vertical-align: top;
     }
 }
