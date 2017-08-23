@@ -182,6 +182,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return 33
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandableTableViewHeader()
         header.titleLabel.text = foodList[section].title
@@ -204,15 +208,18 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension DetailViewController: ExpandableTableViewHeaderDelegate {
     func toggleSection(header: ExpandableTableViewHeader, section: Int) {
-//        let headerHeight = header.frame.height
+        let headerHeight = header.frame.height
         foodList[header.section].open = !foodList[header.section].open
         self.tableView.reloadData()
-//        if header.section == foodList.count-1 {
-//            if foodList[header.section].open {
-//                self.tableView.scrollToSection(y: 50)
-//            } else {
-//                self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
-//            }
-//        }
+        tableView.layoutIfNeeded()
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        if header.section == foodList.count-1 {
+            if foodList[header.section].open {
+                self.tableView.scrollToSection(y: 50)
+            } else {
+                self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
+            }
+        }
     }
 }
