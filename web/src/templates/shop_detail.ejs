@@ -1,8 +1,13 @@
 <div class="shop-detail-wrapper modal-content">
     <span class="close">&times;</span>
-    <div class="shop-detail-scroll">
+    <div class="shop-detail-name">
         <h2><%= shopName %></h2>
-        <hr>
+    </div>
+    <div class="shop-detail-scroll">
+        <div class="shop-head">
+            <span class="shop-head-left shop-order-total">주문수 <%= orderCount %>+</span>
+            <span class="shop-head-left shop-favorite-total">즐겨찾기 <%= favoriteCount %>+</span>
+        </div>
         <div class="shop-detail-info">
             <div class="shop-detail shop-star">
                 <span><%= starPointAverage %></span>
@@ -17,7 +22,7 @@
                 <span class="shop-comment-counts"><%= reviewCountCeo %></span>
             </div>
             <div class="shop-detail shop-minimum-order-price">
-                <span>최소주문금액</span><br>
+                <span>최소주문금액d</span><br>
                 <span><%= minimumOrderPrice %></span>
             </div>
         </div>

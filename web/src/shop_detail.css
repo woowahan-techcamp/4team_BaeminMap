@@ -140,12 +140,11 @@
 .shop-link-btn {
     color: whitesmoke;
     font-size: 16px;
-    padding: 17px;
+    /*padding: 17px;*/
     height: 50px;
     width: 100%;
-    border: 0;
+    border: none;
     box-shadow: none;
-    border-radius: 0px;
     background-color: #3b342b;
 }
 
@@ -167,5 +166,39 @@
         height: 100%;
         overflow-y: scroll;
         width: 100%
+    }
+
+    .shop-detail-name{
+        height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+    }
+
+    .shop-detail-name > h2 {
+        text-align: center;
+        font-weight: 600;
+        font-size: 18px;
+        margin: 0 0 0 0;
+        padding-top: 15px;
+    }
+
+    .close{
+        position: absolute;
+        left: 10px;
+
+    }
+
+    .shop-head{
+        height: 20px;
+        border-top: solid 1px #848484;
+        margin: 0 0 0 0;
+        padding-top: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .shop-head-left {
+        margin-left: 10px;
     }
 }
