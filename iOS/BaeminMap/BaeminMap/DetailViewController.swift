@@ -47,6 +47,8 @@ class DetailViewController: UIViewController {
         
         Indicator.startIndicator(target: self.view, message: "Loading...", image: baeminInfo.categoryEnglishName)
         
+        orderCountLabel.text = baeminInfo.orderCount.convertCountPlus()
+        favoriteCountLabel.text = baeminInfo.favoriteCount.convertCountPlus()
         meetPayLabel.ablePay()
         baroPayLabel.ablePay()
         if let url = baeminInfo.shopLogoImageUrl {
