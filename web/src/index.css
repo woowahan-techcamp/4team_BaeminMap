@@ -579,5 +579,22 @@ div.layer.show {
         z-index: 20;
         width: 100%;
         height: 130px;
+        white-space: nowrap;
+    }
+
+    #card > div > .shop:nth-last-child(1) > img {
+        display: none;
+    }
+
+    .shop {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .slider-next-img {
+        position: relative;
+        width: 18px;
+        top: calc(50% - 18px);
+        left: 92vw;
     }
 }
