@@ -81,7 +81,7 @@
 .toggle-content {
     max-height: 0;
     overflow: hidden;
-    transition: ease 0.4s;
+    transition: ease 0.2s;
 }
 
 .checkbox:checked ~ .toggle-content {
@@ -94,29 +94,37 @@
 
 .shop-detail-info {
     width: calc(100% - 20px);
-    height: 100px;
+    height: auto;
     margin: 10px auto 0;
 }
 
-.shop-detail:nth-child(1) {
-    margin-left: 0;
+.shop-detail {
+    margin: auto;
+    float: left;
+    width: 33%;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.shop-detail:nth-last-child(1) {
-    margin-right: 0;
+.shop-detail > span {
+    font-size: 120%;
+    color: #848484;
 }
 
-.shop-detail > span:nth-of-type(2) {
-    font-size: 150%;
-}
-
-.shop-detail.shop-star {
-    padding-top: 15px;
+.shop-detail > .shop-comment-counts {
+    font-size: 140%;
+    margin-top: 15px;
+    color: #333333;
+    line-height: 1.5em;
 }
 
 .shop-star > span {
-    font-size: 300%;
+    font-size: 250%;
     color: #2abfba;
+}
+
+.shop-star-img {
+    display: block;
 }
 
 .shop-phone {
@@ -214,16 +222,12 @@
     width: 100%;
     font-size: 14px;
     height: auto;
+    margin-left: 20px;
 }
 
 .toggle-box {
     width: 100%;
     margin: auto 0px 10px 0px;
-}
-
-.shop-detail-info {
-    width: 100%;
-    height:50%;
 }
 
 .toggle-label:hover {
@@ -233,7 +237,8 @@
 .shop-detail-info-abstract {
     display: block;
     width: 100%;
-    height: 120px;
+    height: 100px;
+    margin-top: 15px;
 }
 
 .shop-link-btn-wrapper{
@@ -282,118 +287,25 @@
     text-overflow: ellipsis;
 }
 
-@media (max-width: 480px) {
-    /*.shop-detail-wrapper {*/
-        /*width: 100%;*/
-        /*margin: 0 auto;*/
-        /*min-width: 0;*/
-    /*}*/
+#foodDetails {
+    display: block;
+}
 
-    /*.shop-detail-scroll > h2 {*/
-        /*text-align: center;*/
-        /*font-weight: 800;*/
-        /*font-size: 20px;*/
-        /*margin: 5px 0;*/
-    /*}*/
+.food-list-content {
+    display: inline-block;
+    height: auto;
+}
 
-    /*.shop-detail-scroll {*/
-        /*height: 100%;*/
-        /*overflow-y: scroll;*/
-        /*width: 100%*/
-    /*}*/
+.food-list-left {
+    display: inline-block;
+    vertical-align: middle;
+}
 
-    /*.shop-detail-name{*/
-        /*height: 50px;*/
-        /*text-align: center;*/
-        /*vertical-align: middle;*/
-        /*margin: 0 0 0 0;*/
-        /*padding: 0 0 0 0;*/
-    /*}*/
+.food-list-right {
+    vertical-align: middle;
+}
 
-    /*.shop-detail-name > h2 {*/
-        /*text-align: center;*/
-        /*font-weight: 600;*/
-        /*font-size: 18px;*/
-        /*margin: 0 0 0 0;*/
-        /*padding-top: 15px;*/
-    /*}*/
-
-    /*.close{*/
-        /*position: absolute;*/
-        /*left: 10px;*/
-
-    /*}*/
-
-    /*.shop-head{*/
-        /*height: 35px;*/
-        /*border-top: solid 1px #848484;*/
-        /*margin: 0 0 0 0;*/
-        /*padding-top: 10px;*/
-        /*box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);*/
-        /*font-size: 14px;*/
-        /*vertical-align: middle;*/
-    /*}*/
-
-    /*.shop-head-left {*/
-        /*margin-left: 10px;*/
-        /*float: left;*/
-    /*}*/
-
-    /*.shop-head-right {*/
-        /*float: right;*/
-    /*}*/
-
-    /*.pay {*/
-        /*padding: 3px;*/
-        /*border-radius: 50px;*/
-        /*border: solid 1px #848484;*/
-        /*margin-right: 5px;*/
-    /*}*/
-
-    /*.shop-detail-scroll {*/
-        /*max-height: 100%;*/
-        /*height: calc(100% - 100px)*/
-    /*}*/
-
-    /*.shop-detail-thumb {*/
-        /*text-align: center;*/
-    /*}*/
-
-    /*.shop-detail-thumb-img {*/
-        /*width: auto;*/
-        /*height: 100%;*/
-    /*}*/
-
-    /*.shop-detail-noti {*/
-        /*background-color: #848484;*/
-        /*color: #f4f4f4;*/
-        /*padding: 4px;*/
-    /*}*/
-
-    /*.shop-minimum-order-price {*/
-        /*display: block;*/
-        /*width: 100%;*/
-        /*font-size: 14px;*/
-        /*height: auto;*/
-    /*}*/
-
-    /*.toggle-box {*/
-        /*width: 100%;*/
-        /*margin: auto 0px 10px 0px;*/
-    /*}*/
-
-    /*.shop-detail-info {*/
-        /*width: 100%;*/
-        /*height:50%;*/
-    /*}*/
-
-    /*.toggle-label:hover {*/
-        /*background-color: rgb(76,76,76);*/
-    /*}*/
-
-    /*.shop-detail-info-abstract {*/
-        /*display: block;*/
-        /*width: 100%;*/
-        /*height: 120px;*/
-    /*}*/
+.food-list-right > span {
+    display: block;
+    text-align: right;
 }

@@ -21,7 +21,7 @@
             <div class="shop-detail-info-abstract">
                 <div class="shop-detail shop-star">
                     <span><%= starPointAverage %></span>
-                    <img src="" alt="별점">
+                    <img src="" alt="별점" class="shop-star-img">
                 </div>
                 <div class="shop-detail shop-recent-reviews">
                     <span>최근리뷰</span><br>
@@ -31,24 +31,23 @@
                     <span>사장님 댓글</span><br>
                     <span class="shop-comment-counts"><%= reviewCountCeo %></span>
                 </div>
-                <div class="shop-minimum-order-price">
-                    <span class="shop-detail-noti">안내</span>
-                    <span>최소주문금액: </span>
-                    <span><%= minimumOrderPrice %>원</span>
-                </div>
+            </div>
+            <div class="shop-minimum-order-price">
+                <span class="shop-detail-noti">안내</span>
+                <span>최소주문금액: </span>
+                <span><%= minimumOrderPrice %>원</span>
+            </div>
+            <div class="shop-phone">
+                전화번호:
+                <%if (virtualPhoneNumber) { %>
+                <%= virtualPhoneNumber %>
+                <% } else if (phoneNumber.startsWith('9')) { %>
+                <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
+                <% } else {%>
+                <%= phoneNumber %>
+                <% }%>
             </div>
         </div>
-        <div class="shop-phone">
-            전화번호:
-            <%if (virtualPhoneNumber) { %>
-            <%= virtualPhoneNumber %>
-            <% } else if (phoneNumber.startsWith('9')) { %>
-            <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
-            <% } else {%>
-            <%= phoneNumber %>
-            <% }%>
-        </div>
-
         <!-- TODO: 상점 정보(음식목록) shop_detail_temp.ejs -->
         <div id="foodDetails"></div>
     </div>
