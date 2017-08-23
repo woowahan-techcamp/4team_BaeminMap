@@ -29,7 +29,7 @@ class ShopList {
             }
             //마커에 입력된 shopNumber 속성을 찾는다
             const targetMarkerArr = markersArr.filter(function (obj) {
-                return obj.shopNumber.toString() === target.parentNode.id
+                return obj.shopNumber.toString() == target.parentNode.dataset.shopnumber
             })
             const targetMarker = targetMarkerArr[0];
             //선택한 shop 과 연동된 마커 클릭 이벤트를 발생시킨다

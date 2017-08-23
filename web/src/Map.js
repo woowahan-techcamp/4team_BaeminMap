@@ -202,6 +202,7 @@ class Map {
                         sliderNextImage.className = 'slider-next-img'
                         card.innerHTML = ''
                         for (const i of cardList) {
+                            i.id = ''
                             i.innerHTML += sliderNextImage.outerHTML
                             console.log(i)
                             sliderWrapper.appendChild(i)

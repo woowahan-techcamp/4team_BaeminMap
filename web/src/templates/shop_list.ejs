@@ -2,7 +2,7 @@
     const shopLogoImageUrl = shop.shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr')
     const coordinates = `${shop.location.latitude}_${shop.location.longitude}`
 %>
-<div class="shop" id="<%= shop.shopNumber %>" data-coordinates="<%= coordinates %>">
+<div class="shop" id="<%= shop.shopNumber %>" data-shopnumber="<%= shop.shopNumber %>" data-coordinates="<%= coordinates %>">
     <a class="shop-layer" data-shopnumber="<%= shop.shopNumber %>"></a>
     <div class="shop-image-wrapper">
         <span></span>
