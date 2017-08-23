@@ -27,7 +27,13 @@
                         <div class="food-list-content food-list-left"><%= food.foodNm %></div>
                         <div class="food-list-content food-list-right">
                             <% let name;
-                            _.each(food.price, (price, priceName) => { if(priceName === ""){name = priceName} else{name = priceName + " : "} %><span><%= name %><%= Number(price).toLocaleString() %>원</span><% }) %>
+                            _.each(food.price, (price, priceName) => { if (priceName === "") {
+                                    name = priceName
+                                } else {
+                                    name = priceName + " : "
+                                } %>
+                            <span><%= name %><%= Number(price).toLocaleString() %>원</span>
+                            <% }) %>
                         </div>
                     </div>
                 </li>
