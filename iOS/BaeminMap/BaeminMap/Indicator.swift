@@ -25,6 +25,9 @@ class Indicator {
         loadingView.contentMode = .center
         loadingView.center.x = hudView.frame.width/2
         loadingView.image = UIImage(named: image)!
+        UIView.animate(withDuration: 0.7, delay: 0, options: .repeat, animations: {
+            loadingView.frame = CGRect(x: loadingView.frame.minX, y: loadingView.frame.minY+10, width: loadingView.frame.width, height: loadingView.frame.height)
+        }, completion: nil)
 
         let messageLabel = UILabel()
         messageLabel.frame = CGRect(x: 0, y: loadingView.frame.maxY, width: hudView.frame.width, height: 20)

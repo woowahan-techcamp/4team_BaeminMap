@@ -345,7 +345,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableViewCell" id="ABG-nf-29A" customClass="DetailTableViewCell" customModule="BaeminMap" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" selectionStyle="none" indentationWidth="10" reuseIdentifier="tableViewCell" id="ABG-nf-29A" customClass="DetailTableViewCell" customModule="BaeminMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="542" width="414" height="68"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ABG-nf-29A" id="xZc-0a-zWX">
