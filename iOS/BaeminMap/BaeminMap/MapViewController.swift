@@ -145,26 +145,27 @@ class MapViewController: UIViewController {
 
 extension MapViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        infoView.contentSize.width = (self.view.frame.width-30) * (currentPage + 2) + 10
+        let pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
+        
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
+        var pageNumber = round((scrollView.contentOffset.x - 20) / (scrollView.frame.size.width - 20))
 //        currentPage = pageNumber
      
+//        let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
+//        infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+        
+        
+        let diff = Swift.abs(pageNumber - currentPage)
+        if diff > 1 {
+            print("1보다 커!")
+            pageNumber += 1
+        }
+            
         let x = pageNumber == 0 ? 0 : pageNumber * (scrollView.frame.size.width - 30)
-        print("x: ", x)
         infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-        
-        
-        
-//        if Swift.abs(pageNumber - currentPage) <= 1 {
-//            print("asdffds")
-//            infoView.setContentOffset(CGPoint(x:x, y:0), animated: true)
-//            currentPage = pageNumber
-//        }
-//        infoView.scrollToPage(x: x, animated: true, after: 0.0)
-        
+        currentPage = pageNumber
         print(pageNumber)
     }
     
@@ -217,11 +218,13 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         var cellminX = CGFloat(20)
         let cellWidth = self.view.frame.width-40
         
-        for _ in 0..<testCount {
+        for index in 0..<testCount {
             let cell = self.makePageCell(shop: shop)
             cell.frame = CGRect(x: cellminX, y: 0, width: cellWidth, height: 100)
             infoView.addSubview(cell)
             cellminX += cellWidth + 10
+            
+            cell.titleLabel.text = cell.titleLabel.text! + String(index)
   
             infoView.contentSize.width = cellminX
         }
