@@ -110,6 +110,13 @@ function toggleCSSOnClick(el, target, css) {
     })
 }
 
+function moveMyCurrentLocation(target, map){
+    document.querySelector(target).addEventListener('click', () => {
+        map.updatePosition(map.currentLocation);
+        map.gmap.setZoom(18)
+    })
+}
+
 // document.addEventListener('DOMContentLoaded', () => {
 const options = {
     enableHighAccuracy: false,
@@ -147,6 +154,7 @@ navigator.geolocation.getCurrentPosition((position) => {
         apidata,
         condition
     );
+    moveMyCurrentLocation('.my-location', map)
 })
 // Add Events on Click
 // click el, target, css class
