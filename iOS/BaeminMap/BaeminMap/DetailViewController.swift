@@ -31,6 +31,7 @@ class DetailViewController: UIViewController {
     
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
+    var imageList = Section()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,22 +39,29 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        tableView.estimatedRowHeight = 50
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         navigationItem.title = baeminInfo.shopName
         
+        Indicator.startIndicator(target: self.view, message: "Loading...", image: baeminInfo.categoryEnglishName)
+        
+        orderCountLabel.text = baeminInfo.orderCount.convertCountPlus()
+        favoriteCountLabel.text = baeminInfo.favoriteCount.convertCountPlus()
         meetPayLabel.ablePay()
         baroPayLabel.ablePay()
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
         }
-        
-        if baeminInfo.starPointAverage > 0 {
+        if baeminInfo.starPointAverage < 0 {
+            hiddenBottomInfoView()
+        } else {
             starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
             starPointView.rating = baeminInfo.starPointAverage
             reviewCountLabel.text = String(baeminInfo.reviewCount)
             reviewCountCEOLabel.text = String(baeminInfo.reviewCountCeo)
             minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
-        } else {
-            hiddenBottomInfoView()
         }
         
         self.tableView.isHidden = true
@@ -74,9 +82,18 @@ class DetailViewController: UIViewController {
         tableView.isHidden = false
         if foodList.isEmpty {
             showCallImage()
-        }else {
-            tableView.reloadData()
+        } else {
+            if let index = self.foodList.index(where: { $0.title == "imageMenu" }) {
+                imageList = self.foodList.remove(at: index)
+            }
+            self.foodList[0].open = true
+            if imageList.items.isEmpty {
+                hiddenCollectionView()
+            }
         }
+        Indicator.stopIndicator()
+        tableView.reloadData()
+        collectionView.reloadData()
     }
     
     func showCallImage() {
@@ -95,16 +112,35 @@ class DetailViewController: UIViewController {
         bottomInfoView.isHidden = true
     }
     
+    func hiddenCollectionView() {
+        topView.frame.size.height = topView.frame.height - collectionView.frame.height + 10
+        collectionView.isHidden = true
+    }
+    
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCollectionViewCell", for: indexPath) as! DetailCollectionViewCell
+        let item = imageList.items[indexPath.item]
+        if let url = item.imgUrl {
+            cell.foodImageView.af_setImage(withURL: URL(string: url)!)
+            cell.foodImageView.contentMode = .scaleAspectFit
+            cell.foodNameLabel.text = item.foodName
+            if let price = item.price.first {
+                if price.key.isEmpty {
+                    cell.priceLabel.text = "\(price.value)원"
+                } else {
+                    cell.priceLabel.text = "\(price.key) : \(price.value)원"
+                }
+            }
+        }
         
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
         topView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: collectionView.frame.maxY)
         
-        if indexPath.item == 5 {
+        let count = imageList.items.count < 6 ? imageList.items.count : 6
+        if indexPath.item == count-1 {
             tableView.reloadData()
         }
         
@@ -112,7 +148,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return imageList.items.count < 6 ? imageList.items.count : 6
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -130,17 +166,28 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as! DetailTableViewCell
         let food = foodList[indexPath.section].items[indexPath.row]
-        cell.textLabel?.text = food.foodName
-        cell.detailTextLabel?.text = food.foodPrice+"원"
+        cell.menuLabel.text = food.foodName
+        var str = String()
+        for (i, price) in food.price.enumerated() {
+            if price.key.isEmpty {
+                str = "\(price.value)원"
+            } else {
+                str += "\(price.key) : \(price.value)원\(i == food.price.count-1 ? "" : "\n")"
+            }
+        }
+        cell.priceLabel.text = str
         print(baeminInfo.shopNumber)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 33
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -168,6 +215,15 @@ extension DetailViewController: ExpandableTableViewHeaderDelegate {
         let headerHeight = header.frame.height
         foodList[header.section].open = !foodList[header.section].open
         self.tableView.reloadData()
-        self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
+        tableView.layoutIfNeeded()
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        if header.section == foodList.count-1 {
+            if foodList[header.section].open {
+                self.tableView.scrollToSection(y: 50)
+            } else {
+                self.tableView.scrollToSection(y: self.tableView.rect(forSection: section).height-headerHeight)
+            }
+        }
     }
 }

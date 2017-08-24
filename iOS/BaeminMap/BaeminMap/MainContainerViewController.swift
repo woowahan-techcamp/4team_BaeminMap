@@ -22,9 +22,14 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     var selectedRangeTag = Int()
     var baeminInfo = [BaeminInfo]()
     var baeminInfoDic = [String:[BaeminInfo]]()
-    var filterBaeminInfo = [BaeminInfo]() {
+    var listBaeminInfo = [BaeminInfo]() {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("filterManager"), object: self)
+            NotificationCenter.default.post(name: NSNotification.Name("listBaeminInfo"), object: self)
+        }
+    }
+    var mapBaeminInfo = [BaeminInfo:[BaeminInfo]]() {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name("mapBaeminInfo"), object: self)
         }
     }
     
@@ -44,7 +49,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         selectedCategory = category
         selectedSortTag = sortTag
         selectedRangeTag = rangeTag
-        filterBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
+        listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
     }
     
     func receive(notification: Notification) {
@@ -53,7 +58,8 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         let baeminInfoDic = userInfo["BaeminInfoDic"] as? [String:[BaeminInfo]] else { return }
         self.baeminInfo = baeminInfo
         self.baeminInfoDic = baeminInfoDic
-        filterBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
+        listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
+        mapBaeminInfo = Filter().findSamePlace(baeminInfo: listBaeminInfo)
     }
     
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {

@@ -42,6 +42,13 @@ extension UIScrollView {
             setContentOffset(bottomOffset, animated: true)
         }
     }
+    
+    func scrollToPage(x: CGFloat, animated: Bool, after delay: TimeInterval) {
+        let offset: CGPoint = CGPoint(x: x, y: 0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+            self.setContentOffset(offset, animated: animated)
+        })
+    }
 }
 
 extension UINavigationBar {
@@ -58,5 +65,21 @@ extension UILabel {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.cornerRadius = self.layer.frame.height/2
+    }
+}
+
+extension Int {
+    func convertCountPlus() -> String {
+        if self >= 10000 {
+            return "\(String((Double(self)/10000.0).roundTo(places: 1)))만+"
+        } else if self >= 1000 {
+            return "\(String(self/1000))000+"
+        } else if self >= 100 {
+            return "\(String(self/100))00+"
+        } else if self >= 10 {
+            return "\(String(self/10))0+"
+        } else {
+            return "1+"
+        }
     }
 }

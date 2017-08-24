@@ -16,6 +16,9 @@
 		981CAD251F399309009A6B12 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 981CAD231F399309009A6B12 /* ListTableViewCell.xib */; };
 		9827D8B61F3D649E00D4F070 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827D8B51F3D649E00D4F070 /* Food.swift */; };
 		98365F6A1F3B2E4B002D4149 /* ExpandableTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98365F691F3B2E4B002D4149 /* ExpandableTableViewHeader.swift */; };
+		98851EB31F4AEDF6006734D9 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98851EB21F4AEDF6006734D9 /* Indicator.swift */; };
+		98851EB51F4C215C006734D9 /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98851EB41F4C215C006734D9 /* DetailCollectionViewCell.swift */; };
+		98851EB91F4D0F51006734D9 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98851EB81F4D0F51006734D9 /* DetailTableViewCell.swift */; };
 		98B06F421F3B2492009CF43E /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B06F401F3B2492009CF43E /* FilterCollectionViewCell.swift */; };
 		98B8EF211F443D9C00AB0C8B /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B8EF201F443D9C00AB0C8B /* Filter.swift */; };
 		B5562BD11F381D2500A1BDE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5562BD01F381D2500A1BDE2 /* AppDelegate.swift */; };
@@ -46,6 +49,9 @@
 		981CAD231F399309009A6B12 /* ListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		9827D8B51F3D649E00D4F070 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		98365F691F3B2E4B002D4149 /* ExpandableTableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTableViewHeader.swift; sourceTree = "<group>"; };
+		98851EB21F4AEDF6006734D9 /* Indicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
+		98851EB41F4C215C006734D9 /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		98851EB81F4D0F51006734D9 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		98B06F401F3B2492009CF43E /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		98B8EF201F443D9C00AB0C8B /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		B5562BCD1F381D2500A1BDE2 /* BaeminMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaeminMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +142,8 @@
 			children = (
 				B5562BE41F381D6B00A1BDE2 /* DetailView.storyboard */,
 				B57F0C601F43575B00EB3C14 /* DetailViewController.swift */,
+				98851EB41F4C215C006734D9 /* DetailCollectionViewCell.swift */,
+				98851EB81F4D0F51006734D9 /* DetailTableViewCell.swift */,
 				98365F691F3B2E4B002D4149 /* ExpandableTableViewHeader.swift */,
 			);
 			name = DetailView;
@@ -191,6 +199,7 @@
 				9801054F1F39A3A500EEC6B9 /* BaeminInfo.swift */,
 				9827D8B51F3D649E00D4F070 /* Food.swift */,
 				98B8EF201F443D9C00AB0C8B /* Filter.swift */,
+				98851EB21F4AEDF6006734D9 /* Indicator.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -239,6 +248,7 @@
 				TargetAttributes = {
 					B5562BCC1F381D2500A1BDE2 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = XT45A6H292;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -339,6 +349,7 @@
 				9801054E1F397E7100EEC6B9 /* Networking.swift in Sources */,
 				980105501F39A3A500EEC6B9 /* BaeminInfo.swift in Sources */,
 				98B8EF211F443D9C00AB0C8B /* Filter.swift in Sources */,
+				98851EB31F4AEDF6006734D9 /* Indicator.swift in Sources */,
 				B5562BF41F381D6B00A1BDE2 /* ListViewController.swift in Sources */,
 				B5562BEE1F381D6B00A1BDE2 /* Config.swift in Sources */,
 				B57417921F38602200A822EA /* Location.swift in Sources */,
@@ -349,6 +360,8 @@
 				B574178D1F384D3700A822EA /* Extension.swift in Sources */,
 				98B06F421F3B2492009CF43E /* FilterCollectionViewCell.swift in Sources */,
 				981CAD241F399309009A6B12 /* ListTableViewCell.swift in Sources */,
+				98851EB51F4C215C006734D9 /* DetailCollectionViewCell.swift in Sources */,
+				98851EB91F4D0F51006734D9 /* DetailTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,9 +477,9 @@
 			baseConfigurationReference = 6C87EA71F5610B9EEE828EC2 /* Pods-BaeminMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XT45A6H292;
 				INFOPLIST_FILE = BaeminMap/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanna.BaeminMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -479,9 +492,9 @@
 			baseConfigurationReference = EC3E510CB2473C0F23F76DBC /* Pods-BaeminMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XT45A6H292;
 				INFOPLIST_FILE = BaeminMap/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanna.BaeminMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
