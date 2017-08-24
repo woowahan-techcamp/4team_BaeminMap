@@ -37,7 +37,7 @@ body {
     position: absolute;
     left: 0;
     height: 100%;
-    width: calc(100% - 380px);
+    width: 100%;
 }
 
 #list {
@@ -338,7 +338,7 @@ div.layer.show {
 }
 
 .filter-title-bar {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     padding: 20px 0 10px 0;
     position: relative;
 }
