@@ -155,6 +155,10 @@ navigator.geolocation.getCurrentPosition((position) => {
         condition
     );
     moveMyCurrentLocation('.my-location', map)
+    map.addListener('click', () => {
+        alert('aaaa')
+        map.resetMarkerAndInfo()
+    })
 })
 // Add Events on Click
 // click el, target, css class
@@ -181,11 +185,12 @@ function cardClickListener() {
 
 cardClickListener()
 
-// When the user clicks anywhere outside of the modal, close it
+//When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
     const modal = document.getElementById('modal');
     const span = document.getElementsByClassName("close")[0];
     if (event.target === modal || event.target === span) {
         modal.style.display = "none";
+        map.resetMarkerAndInfo()
     }
 }
