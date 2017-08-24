@@ -110,11 +110,6 @@ body {
     border-bottom: solid 1px #d1caba;
 }
 
-.shop:hover .shop-layer {
-    opacity: 0.1;
-    cursor: pointer;
-}
-
 .shop-layer {
     position: absolute;
     width: 100%;
@@ -127,11 +122,6 @@ body {
 .shop-layer.selected-shop {
     background-color: #c6d3e4;
     opacity: 0.4;
-}
-
-.shop-layer.selected-shop:hover {
-    background-color: #c6d3e4;
-    opacity: 0.5;
 }
 
 .shop-image-wrapper {
@@ -295,20 +285,9 @@ body {
     cursor: pointer;
 }
 
-.category:hover {
-    border-color: #a0efec;
-    color: #a0efec;
-}
-
 .category-list > li.selected {
     background-color: #2ac1bc;
     border-color: #2ac1bc;
-    color: white;
-}
-
-.category-list > li.selected:hover {
-    background-color: #a0efec;
-    border-color: #a0efec;
     color: white;
 }
 
@@ -366,10 +345,6 @@ div.layer.show {
     margin-bottom: 30px;
 }
 
-.sort-option-list > li.sort-option:hover {
-    color: #a0efec;
-}
-
 .sort-option-list > li.selected {
     color: #2ac1bc;
 }
@@ -396,10 +371,6 @@ div.layer.show {
     width: 100%;
     cursor: pointer;
     margin-bottom: 30px;
-}
-
-.distance-option-list > li.distance-option:hover {
-    color: #a0efec;
 }
 
 .distance-option-list > li.selected {
@@ -488,6 +459,37 @@ div.layer.show {
 /*.gmnoprint{*/
 /*display: none;*/
 /*}*/
+
+@media (min-width: 480px) {
+    .shop:hover .shop-layer {
+        opacity: 0.1;
+        cursor: pointer;
+    }
+
+    .shop-layer.selected-shop:hover {
+        background-color: #c6d3e4;
+        opacity: 0.5;
+    }
+
+    .category:hover {
+        border-color: #a0efec;
+        color: #a0efec;
+    }
+
+    .category-list > li.selected:hover {
+        background-color: #a0efec;
+        border-color: #a0efec;
+        color: white;
+    }
+
+    .sort-option-list > li.sort-option:hover {
+        color: #a0efec;
+    }
+
+    .distance-option-list > li.distance-option:hover {
+        color: #a0efec;
+    }
+}
 
 @media (max-width: 480px) {
     .mobile-hidden {
