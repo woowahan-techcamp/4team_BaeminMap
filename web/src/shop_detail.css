@@ -49,7 +49,7 @@
     cursor: pointer;
     padding: 12px 17px;
     color: whitesmoke;
-    background-color: rgb(76,76,76);
+    background-color: rgb(76, 76, 76);
     font-weight: 400;
 }
 
@@ -137,7 +137,7 @@
     background-color: #ffffff;
 }
 
-.shop-detail-name{
+.shop-detail-name {
     height: 50px;
     text-align: center;
     vertical-align: middle;
@@ -153,14 +153,14 @@
     padding-top: 15px;
 }
 
-.close{
+.close {
     position: absolute;
     left: 10px;
     top: 10px;
 
 }
 
-.shop-head{
+.shop-head {
     height: 35px;
     border-top: solid 1px #848484;
     margin: 0 0 0 0;
@@ -207,19 +207,7 @@
     padding: 4px;
 }
 
-.shop-minimum-order-price {
-    display: block;
-    width: 100%;
-    font-size: 14px;
-    height: auto;
-    margin-bottom: 20px;
-}
-
 .shop-phone {
-    display: block;
-    width: 100%;
-    font-size: 14px;
-    height: auto;
     margin-bottom: 20px;
 }
 
@@ -229,17 +217,25 @@
 }
 
 .toggle-label:hover {
-    background-color: rgb(76,76,76);
+    background-color: rgb(76, 76, 76);
 }
 
 .shop-detail-info-abstract {
     display: block;
     width: 100%;
-    height: 100px;
+    height: 65px;
     margin-top: 15px;
 }
 
-.shop-link-btn-wrapper{
+.shop-detail-oneline-info {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.shop-link-btn-wrapper {
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -265,7 +261,7 @@
 }
 
 .menuImage {
-    width:100%;
+    width: 100%;
     height: auto;
 }
 
@@ -296,14 +292,14 @@
 
 .food-list-left {
     vertical-align: middle;
-    flex:3;
+    flex: 3;
     font-weight: 500;
 }
 
 .food-list-right {
     display: block;
     vertical-align: middle;
-    flex:2;
+    flex: 2;
 }
 
 .food-list-right > span {

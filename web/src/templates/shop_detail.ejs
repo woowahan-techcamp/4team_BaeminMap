@@ -6,14 +6,18 @@
     <div class="shop-detail-scroll">
         <div class="shop-head">
             <div class="shop-head-left">
-                <span class="shop-order-total">주문수 <%= parseInt(orderCount/10)*10 %>+</span>
-                <span class="shop-favorite-total">즐겨찾기 <%= parseInt(orderCount/10)*10 %>+</span>
+                <span class="shop-order-total">주문수 <%= parseInt(orderCount / 10) * 10 %>+</span>
+                <span class="shop-favorite-total">즐겨찾기 <%= parseInt(orderCount / 10) * 10 %>+</span>
             </div>
             <div class="shop-head-right">
                 <% let baroPayOn
                 let meetPayOn
-                if(useBaropay){baroPayOn = "canPay"}
-                if(useMeetPay){meetPayOn = "canPay"} %>
+                if (useBaropay) {
+                    baroPayOn = "canPay"
+                }
+                if (useMeetPay) {
+                    meetPayOn = "canPay"
+                } %>
                 <span class="pay meetPay  <%= meetPayOn %>">만나서결제</span>
                 <span class="pay baroPay <%= baroPayOn %>">바로결제</span>
             </div>
@@ -23,12 +27,14 @@
                 <% const shopLogo = shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr') %>
                 <img src="<%= shopLogo %>" onerror="this.src='../static/default.png'" class="shop-detail-thumb-img">
             </div>
+            <% if(parseInt(starPointAverage) !== 0) { %>
             <div class="shop-detail-info-abstract">
                 <div class="shop-detail shop-star">
                     <span><%= starPointAverage.toFixed(1) %></span>
                     <span class="star-rating">
                         <span class="img-star star-rate shop-detail-star">
-                            <span class="img-star inner-star-rate" style="width: <%= (starPointAverage / 5) * 100 %>%"></span>
+                            <span class="img-star inner-star-rate"
+                                  style="width: <%= (starPointAverage / 5) * 100 %>%"></span>
                         </span>
                     </span>
                 </div>
@@ -41,12 +47,15 @@
                     <span class="shop-comment-counts"><%= reviewCountCeo %></span>
                 </div>
             </div>
-            <div class="shop-minimum-order-price">
+            <% } %>
+            <% if(parseInt(minimumOrderPrice) !== 0){ %>
+            <div class="shop-minimum-order-price shop-detail-oneline-info">
                 <span class="shop-detail-noti">안내</span>
                 <span>최소주문금액: </span>
                 <span><%= minimumOrderPrice %>원</span>
             </div>
-            <div class="shop-phone">
+            <% } %>
+            <div class="shop-phone  shop-detail-oneline-info">
                 <span class="shop-detail-noti">전화번호</span>
                 <span>
                     <% if (virtualPhoneNumber) { %>
