@@ -78,8 +78,18 @@ extension Int {
             return "\(String(self/100))00+"
         } else if self >= 10 {
             return "\(String(self/10))0+"
-        } else {
+        } else if self > 0 {
             return "1+"
+        } else {
+            return "0"
         }
     }
 }
+
+//extension String {
+//    func convertPhoneNumber() {
+//        if self[self.startIndex] != "0" {
+//            self.replace
+//        }
+//    }
+//}

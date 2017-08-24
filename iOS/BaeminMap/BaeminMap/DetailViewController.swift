@@ -54,7 +54,8 @@ class DetailViewController: UIViewController {
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
         }
-        if baeminInfo.starPointAverage < 0 {
+        print(baeminInfo.starPointAverage)
+        if baeminInfo.starPointAverage == 0.0 {
             hiddenBottomInfoView()
         } else {
             starPointLabel.text = String(baeminInfo.starPointAverage.roundTo(places: 1))
