@@ -17,7 +17,7 @@ class ListViewController: UIViewController {
         return self.parent as! MainContainerViewController
     }()
     lazy var baeminInfo: [BaeminInfo] = {
-        return self.parentView.filterBaeminInfo
+        return self.parentView.listBaeminInfo
     }()
     
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class ListViewController: UIViewController {
         listView.delegate = self
         listView.dataSource = self
 
-        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("filterManager"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("listBaeminInfo"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,7 +34,7 @@ class ListViewController: UIViewController {
     }
     
     func recieve(notification: Notification) {
-        baeminInfo = parentView.filterBaeminInfo
+        baeminInfo = parentView.listBaeminInfo
         listView.reloadData()
     }
     
@@ -70,5 +70,15 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let detailViewController = UIStoryboard.detailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
         detailViewController.baeminInfo = baeminInfo[indexPath.row]
         navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        let cell  = tableView.cellForRow(at: indexPath)
+        cell?.contentView.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        let cell  = tableView.cellForRow(at: indexPath)
+        cell?.contentView.backgroundColor = .clear
     }
 }

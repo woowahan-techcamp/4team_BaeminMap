@@ -60,7 +60,15 @@ class Filter {
         }
     }
     
-    func findSamePlace(markerData: BaeminInfo, baeminInfo: [BaeminInfo]) -> [BaeminInfo] {
-        return baeminInfo.filter { $0.location["latitude"] == markerData.location["latitude"] && $0.location["longitude"] == markerData.location["longitude"] }
+    func findSamePlace(baeminInfo: [BaeminInfo]) -> [BaeminInfo:[BaeminInfo]] {
+        var samePlaceShops = [BaeminInfo:[BaeminInfo]]()
+        for shop in baeminInfo {
+            if let key = samePlaceShops[shop] {
+                samePlaceShops[key[0]]?.append(shop)
+            } else {
+                samePlaceShops[shop] = [shop]
+            }
+        }
+        return samePlaceShops
     }
 }
