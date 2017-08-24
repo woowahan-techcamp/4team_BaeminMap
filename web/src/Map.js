@@ -57,7 +57,11 @@ class Map {
             position: position,
             map: this.gmap,
             title: "my location",
-            zIndex: 0
+            zIndex: 3,
+            icon: {
+                url : "./static/currentLocation.png",
+                scaledSize: new google.maps.Size(30, 30)
+            }
         })
     }
 
