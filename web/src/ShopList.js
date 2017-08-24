@@ -52,15 +52,16 @@ class ShopList {
             console.log(targetMarkerArr[0])
             return targetMarkerArr[0]
         } else {
-            const aaa = markersArr.filter((e) => {
+            return markersArr.filter((e) => {
                 const el = Array.prototype.slice.call(document.querySelectorAll('.shop')).filter(
-                    (i) => {return i.dataset.shopnumber === shopNumber}
+                    (i) => {
+                        return i.dataset.shopnumber === shopNumber
+                    }
                 )[0]
                 const coordinates = el.dataset.coordinates
                 const markerCoordinates = `${e.position.lat()}_${e.position.lng().toFixed(5)}`
                 return markerCoordinates === coordinates
             })[0]
-            return aaa
         }
     }
 
