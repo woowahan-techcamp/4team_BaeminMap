@@ -159,26 +159,28 @@ class Map {
         arr.forEach((e) => {
             const shopLocationString = `${e.location.latitude}_${e.location.longitude}`
             let iconImg;
-            let ratio;
+            let SelectedIconImg;
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
-                iconImg = '../static/pin.png'
+                iconImg = '../static/WebMarker/plusMarker.png'
+                SelectedIconImg = '../static/WebMarker/plusMarkerFill.png'
                 _marker[shopLocationString] = true
             } else {
                 iconImg = '../static/WebMarker/' + e.categoryEnglishName + '.png';
+                SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
             }
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
-            const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
+
             const SelectedIconImgObject = new Image()
             SelectedIconImgObject.addEventListener('load', (img) => {
-                ratio = img.target.naturalWidth / img.target.naturalHeight
-                addMarkerListener(ratio)
-                return ratio
+                const markerWidth = img.target.naturalWidth / 3
+                const markerHeight = img.target.naturalHeight / 3
+                addMarkerListener(markerWidth, markerHeight)
             })
             SelectedIconImgObject.src = SelectedIconImg
 
-            const addMarkerListener = (ratio) => {
+            const addMarkerListener = (markerWidth, markerHeight) => {
                 const marker = new google.maps.Marker({
                     position: position,
                     map: this.gmap,
@@ -187,11 +189,11 @@ class Map {
                     shopNumber: e.shopNumber,
                     categoryIcon: {
                         url: iconImg,
-                        scaledSize: new google.maps.Size(35*ratio, 35)
+                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
                     },
                     filledIcon: {
                         url: SelectedIconImg,
-                        scaledSize: new google.maps.Size(35*ratio, 35)
+                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
                     },
                     pinIcon: {
                         url: "./static/pin.png",
@@ -199,7 +201,7 @@ class Map {
                     },
                     icon: {
                         url: iconImg,
-                        scaledSize: new google.maps.Size(35*ratio, 35)
+                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
                     }
                     // TODO: 기본 아이콘 변경
                 })
@@ -293,18 +295,20 @@ class Map {
         });
     }
 
-    showModal(shopNumber) {
+    async showModal(shopNumber) {
+        indicator.style.display = 'table'
         const modal = document.querySelector('#modal')
         const shopDetailData = this.filteredData.filter((i) => {
             return i.shopNumber == shopNumber
         })[0]
         modal.innerHTML = _.template(this.shopDetailTemplate)(shopDetailData)
-        this.apidata.getShopFoodData(shopNumber).then((response) => {
+        await this.apidata.getShopFoodData(shopNumber).then((response) => {
             const foodDetails = document.querySelector('#foodDetails')
             foodDetails.innerHTML = _.template(this.shopFoodDetailTemplate)({
                 allCategoryFoodList: response.data
             })
         })
+        indicator.style.display = 'none'
         modal.style.display = 'block'
     }
 
