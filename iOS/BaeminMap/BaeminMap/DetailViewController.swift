@@ -176,7 +176,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         cell.priceLabel.text = str
-        print(baeminInfo.shopNumber)
         return cell
     }
     
