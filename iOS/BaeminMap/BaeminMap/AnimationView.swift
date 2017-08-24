@@ -8,8 +8,37 @@
 
 import UIKit
 
-class Indicator {
+class AnimationView: UIView {
+    @IBOutlet weak var deliverymanImageView: UIImageView!
+    @IBOutlet weak var logoImageView: UIImageView!
+    
     static var indicator = UIView()
+    
+    override func awakeFromNib() {
+        self.frame = UIScreen.main.bounds
+        deliverymanImageView.frame = CGRect(x: self.frame.maxY, y: deliverymanImageView.frame.minY, width: deliverymanImageView.frame.width, height: deliverymanImageView.frame.height)
+        
+        UIView.animate(withDuration: 1, delay: 0, options: .repeat, animations: {
+            self.logoImageView.frame = CGRect(x: self.logoImageView.frame.minX, y: self.logoImageView.frame.minY-10, width: self.logoImageView.frame.width, height: self.logoImageView.frame.height)
+        }, completion: nil)
+        UIView.animate(withDuration: 0.8, animations: {
+            self.deliverymanImageView.frame = CGRect(x: self.center.x/2, y: self.deliverymanImageView.frame.minY, width: self.deliverymanImageView.frame.width, height: self.deliverymanImageView.frame.height)
+        }) { (_) in
+            UIView.animate(withDuration: 0.6, delay: 1.4, animations: {
+                self.deliverymanImageView.frame = CGRect(x: self.frame.minX-self.deliverymanImageView.frame.width, y: self.deliverymanImageView.frame.minY, width: self.deliverymanImageView.frame.width, height: self.deliverymanImageView.frame.height)
+            }, completion: nil)
+        }
+    }
+    
+    static func startLaunchView(target: MainContainerViewController) {
+        let launchView = UINib(nibName: "LaunchView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
+        target.view.addSubview(launchView)
+        target.navigationController?.isNavigationBarHidden = true
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3) {
+            launchView.removeFromSuperview()
+            target.navigationController?.isNavigationBarHidden = false
+        }
+    }
     
     static func startIndicator(target: UIView, message: String, image: String) {
         indicator = UIView()
@@ -50,4 +79,5 @@ class Indicator {
             indicator.removeFromSuperview()
         }
     }
+    
 }
