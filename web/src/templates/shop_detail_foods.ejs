@@ -1,3 +1,6 @@
+<% if(Object.keys(allCategoryFoodList).length === 0) { %>
+<img src="../static/callPlease.png" style="width:100%;height: auto">
+<% } else { %>
 <% if(allCategoryFoodList.imageMenu){
     const imageMenu = allCategoryFoodList.imageMenu
     delete allCategoryFoodList.imageMenu
@@ -43,3 +46,4 @@
     </div>
 </div>
 <% }); %>
+<% } %>
