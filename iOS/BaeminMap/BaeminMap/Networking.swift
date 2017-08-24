@@ -49,10 +49,13 @@ class Networking {
                 guard let contents = response as? [String:Any] else { return }
                 for(key, value) in contents {
                     var foods = [Food]()
-                    if let menus = value as? [[String:Any]] {
+//                    print(value)
+                    if let menus = value as? [String:Any] {
                         menus.forEach({ (menu) in
-                            let food = Food(JSON: menu)
-                            foods.append(food!)
+                            if let value = menu.value as? [String:Any] {
+                                let food = Food(JSON: value)
+                                foods.append(food!)
+                            }
                         })
                         sections.append(Section(title: key, items: foods))
                     }

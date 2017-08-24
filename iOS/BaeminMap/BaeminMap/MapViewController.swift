@@ -51,7 +51,7 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        infoViewAnimate(isTap: false)
+        infoViewAnimate(isTap: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -130,7 +130,6 @@ class MapViewController: UIViewController {
     }
     
     func infoViewAnimate(isTap: Bool) {
-        
         let filterButtonFrame = parentView.filterButton.frame
         if isTap {
             UIView.animate(withDuration: 0.4) {
@@ -179,7 +178,6 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             cellWidth = self.view.frame.width-10
         }
         for shop in shops {
-            print(shop.shopNumber)
             let cell = makePageCell(shop: shop)
             cell.frame = CGRect(x: cellminX, y: 0, width: cellWidth, height: 100)
             infoView.addSubview(cell)
