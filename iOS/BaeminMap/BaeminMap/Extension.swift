@@ -42,6 +42,13 @@ extension UIScrollView {
             setContentOffset(bottomOffset, animated: true)
         }
     }
+    
+    func scrollToPage(x: CGFloat, animated: Bool, after delay: TimeInterval) {
+        let offset: CGPoint = CGPoint(x: x, y: 0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+            self.setContentOffset(offset, animated: animated)
+        })
+    }
 }
 
 extension UINavigationBar {
