@@ -102,9 +102,6 @@ class MapViewController: UIViewController {
         drawCurrentLocation()
         for(count, shop) in baeminInfo.enumerated() {
             
-            // 여기서 경도/위도를 따로 선언해둔 딕셔너리에 포함되어 있는지 확인, 되어 있다면 마커 표시 X
-            // 대신 그 딕셔너리에 해당 shop을 포함 시킨다.
-            
             let marker = GMSMarker()
             marker.map = mapView
             marker.zIndex = 0
