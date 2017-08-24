@@ -167,7 +167,7 @@ function cardClickListener() {
         const data = map.filteredData.filter((i) => {
             return i.shopNumber == shopNumber
         })[0]
-        map.showModal(shopNumber, data, apidata)
+        map.showModal(shopNumber)
     })
 }
 
