@@ -178,7 +178,7 @@ body {
 
 .img-star {
     display: block;
-    background: url("https://img.woowahan.com/www/common/img-star@2.png") no-repeat;
+    background: url("../static/img-star.png") no-repeat;
     width: 83px;
     height: 14px;
     background-size: 83px 28px;
@@ -207,10 +207,8 @@ body {
 
 .shop-review > span {
     font-size: 90%;
-}
-
-.shop-review > span > span {
-    color: #ff2700
+    color: #797979;
+    margin-right: 5px;
 }
 
 .filter-controller {
