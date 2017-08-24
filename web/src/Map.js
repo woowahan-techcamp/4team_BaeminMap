@@ -293,18 +293,20 @@ class Map {
         });
     }
 
-    showModal(shopNumber) {
+    async showModal(shopNumber) {
+        indicator.style.display = 'table'
         const modal = document.querySelector('#modal')
         const shopDetailData = this.filteredData.filter((i) => {
             return i.shopNumber == shopNumber
         })[0]
         modal.innerHTML = _.template(this.shopDetailTemplate)(shopDetailData)
-        this.apidata.getShopFoodData(shopNumber).then((response) => {
+        await this.apidata.getShopFoodData(shopNumber).then((response) => {
             const foodDetails = document.querySelector('#foodDetails')
             foodDetails.innerHTML = _.template(this.shopFoodDetailTemplate)({
                 allCategoryFoodList: response.data
             })
         })
+        indicator.style.display = 'none'
         modal.style.display = 'block'
     }
 
