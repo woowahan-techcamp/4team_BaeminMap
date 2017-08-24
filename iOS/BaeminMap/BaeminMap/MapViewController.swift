@@ -49,8 +49,13 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         drawMap()
+        if !isViewType {
+            infoViewAnimate(isTap: false)
+            mapView.selectedMarker = nil
+        } else {
+            isViewType = false
+        }
         redrawMap()
-        isViewType ? isViewType = false : infoViewAnimate(isTap: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
