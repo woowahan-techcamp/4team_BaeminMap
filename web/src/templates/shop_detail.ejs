@@ -43,11 +43,13 @@
                 </div>
             </div>
             <% } %>
+            <% if(parseInt(minimumOrderPrice) !== 0){ %>
             <div class="shop-minimum-order-price">
                 <span class="shop-detail-noti">안내</span>
                 <span>최소주문금액: </span>
                 <span><%= minimumOrderPrice %>원</span>
             </div>
+            <% } %>
             <div class="shop-phone">
                 <span class="shop-detail-noti">전화번호</span>
                 <span>
