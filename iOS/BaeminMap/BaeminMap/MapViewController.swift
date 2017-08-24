@@ -30,7 +30,7 @@ class MapViewController: UIViewController {
         return scrollView
     }()
     lazy var filterButtonFrameY: CGFloat = {
-        return self.parentView.filterButton.frame.minY
+        return self.parentView.view.frame.height - 42 - self.parentView.filterButton.frame.height
     }()
     var isZoom = true
 
@@ -159,7 +159,6 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         }
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
         
-        //TODO : 현재는 testCount 로 임의의 개수로 넣어둠 ( 나중에 실제 리스트.count 입력할 것 )
         infoView.delegate = self
         
         let shops = Filter().findSamePlace(markerData: markerShop, baeminInfo: baeminInfo)
@@ -250,9 +249,5 @@ extension MapViewController: UIScrollViewDelegate {
         cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
         
         return cell
-    }
-    
-    func settingInfoView() {
-        
     }
 }
