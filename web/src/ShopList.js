@@ -41,12 +41,23 @@ class ShopList {
         const targetMarkerArr = markersArr.filter((e) => {
             return e.shopNumber == shopNumber
         })
-        console.log(targetMarkerArr[0])
-        return targetMarkerArr[0]
+        if (targetMarkerArr.length != []) {
+            console.log(targetMarkerArr[0])
+            return targetMarkerArr[0]
+        } else {
+            return 0
+        }
     }
 
     static triggerMarkerEvent(targetMarker) {
-        new google.maps.event.trigger(targetMarker, 'click');
+        if (!targetMarker) {
+            new google.maps.event.trigger(targetMarker, 'click');
+        }
+    }
+
+    static showModalfromShopNumber(shopNumber, mapInstance) {
+        // TODO: CardSlider.js #28 줄와 같이
+
     }
 }
 

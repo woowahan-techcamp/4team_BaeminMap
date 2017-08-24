@@ -4,7 +4,7 @@ import axios from 'axios'
 import * as _ from "lodash";
 
 class Map {
-    constructor(data) {
+    constructor(apidata) {
         this.currentLocation = {lat: 37.5759879, lng: 126.9769229};
         this.gmap = new google.maps.Map(document.getElementById('map'), {
             zoom: 18,
@@ -16,7 +16,8 @@ class Map {
             fullscreenControl: false
         });
         this.searchPosition();
-        this.data = data
+        this.data = apidata
+        this.apidata = apidata
         this.markers = []
         this.userMarker = null
         this.shopDetailTemplate = null
@@ -193,10 +194,33 @@ class Map {
                 // TODO: 기본 아이콘 변경
             })
             marker.addListener('click', () => {
+                const resetHiddenList = () => {
+                    const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+                    shopList.forEach(shop => shop.style.display = 'block')
+                }
+                const showModal = () => {
+                    // Single
+                    this.showModal(e.shopNumber, e, this.apidata, this.shopDetailTemplate);
+                    this.resetMarkerAndInfo()
+                    this.gmap.setCenter(marker.getPosition());
+                    this.xMarker = marker;
+                    this.xMarkerIcon = marker.icon
+                    //선택된 마커를 fill 마커로 변경
+                    marker.setIcon(marker.filledIcon);
+                    // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                    marker.setZIndex(2);
+                    //리스트 연동부분
+                    if (document.querySelector(".selected-shop")) {
+                        document.querySelector(".selected-shop").classList.remove("selected-shop");
+                    }
+                    document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
+                    document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
+                }
                 if (parseInt(window.innerWidth) <= 480) {
                     // Mobile
                     const card = document.querySelector("#card")
                     const floatButton = document.querySelector('.floating-button')
+                    resetHiddenList()
                     if (_marker[shopLocationString]) {
                         // TODO: 카드 여러장 넣어야 함
                         const cardList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
@@ -206,24 +230,25 @@ class Map {
                         sliderNextImage.src = './static/sliderNext.png'
                         sliderNextImage.className = 'slider-next-img'
                         card.innerHTML = ''
-                        for (const i of cardList) {
-                            i.id = ''
-                            i.innerHTML += sliderNextImage.outerHTML
-                            sliderWrapper.appendChild(i)
+                        for (const _card of cardList) {
+                            _card.id = ''
+                            const newEl = _card.cloneNode(true)
+                            newEl.innerHTML += sliderNextImage.outerHTML
+                            newEl.style.display = 'inline-block'
+                            sliderWrapper.append(newEl)
                         }
                         card.append(sliderWrapper)
                         // TODO: CardSlider 붙이기
                         const triggerMarker = (shopNumber, markersArr) => ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(shopNumber, markersArr))
-                        new CardSlider(card, sliderWrapper, triggerMarker, this.markers, this.showModal, e, apidata, this)
+                        new CardSlider(card, sliderWrapper, triggerMarker, this.markers, this.showModal, e, this)
                     } else {
                         const html = document.getElementById(marker.shopNumber);
                         card.innerHTML = html.innerHTML
                     }
                     card.style.display = 'block'
-                    if (parseInt(window.getComputedStyle(floatButton).bottom) === 60) {
+                    if (parseInt(window.getComputedStyle(floatButton).bottom) < 140) {
                         floatButton.style.bottom = "140px"
                     }
-                    // floatButton.style.bottom = ((parseInt(window.getComputedStyle(floatButton).bottom)) + 130) + 'px';
                     this.resetMarkerAndInfo()
                     this.xMarkerIcon = marker.icon
                     this.xMarker = marker;
@@ -231,30 +256,8 @@ class Map {
                     marker.setIcon(marker.filledIcon);
                     // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                     marker.setZIndex(2);
+                    this.showModal(e.shopNumber, e, this.apidata, this.shopDetailTemplate);
                 } else {
-                    // Desktop
-                    const showModal = () => {
-                        // Single
-                        this.showModal(e.shopNumber, e, apidata, this.shopDetailTemplate);
-                        this.resetMarkerAndInfo()
-                        this.gmap.setCenter(marker.getPosition());
-                        this.xMarker = marker;
-                        this.xMarkerIcon = marker.icon
-                        //선택된 마커를 fill 마커로 변경
-                        marker.setIcon(marker.filledIcon);
-                        // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
-                        marker.setZIndex(2);
-                        //리스트 연동부분
-                        if (document.querySelector(".selected-shop")) {
-                            document.querySelector(".selected-shop").classList.remove("selected-shop");
-                        }
-                        document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
-                        document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
-                    }
-                    const resetHiddenList = () => {
-                        const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
-                        shopList.forEach(shop => shop.style.display = 'block')
-                    }
                     // Desktop
                     if (_marker[shopLocationString]) {
                         // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
@@ -279,13 +282,13 @@ class Map {
         });
     }
 
-    showModal(shopNumber, data, apidata) {
+    showModal(shopNumber, shopDetailData) {
         const modal = document.querySelector('#modal')
         // this.shopDetailTemplate
-        modal.innerHTML = _.template(this.shopDetailTemplate)(data)
+        modal.innerHTML = _.template(this.shopDetailTemplate)(shopDetailData)
         // infowindow.open(map, marker);
         // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
-        apidata.getShopFoodData(shopNumber).then((response) => {
+        this.apidata.getShopFoodData(shopNumber).then((response) => {
             const foodDetails = document.querySelector('#foodDetails')
             const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
                 allCategoryFoodList: response.data

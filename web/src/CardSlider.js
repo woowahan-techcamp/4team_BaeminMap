@@ -1,5 +1,5 @@
 class CardSlider {
-    constructor(card, sliderWrapper, triggerMarkerEvent, markers, showModal, e, apidata, map) {
+    constructor(card, sliderWrapper, triggerMarkerEvent, markers, showModal, e, map) {
         this.card = card
         this.sliderWrapper = sliderWrapper
         this.firstXPosition = 0
@@ -10,7 +10,6 @@ class CardSlider {
         this.dragged = false
         this.showModal = showModal
         this.e = e
-        this.apidata = apidata
         this.map = map
     }
 
@@ -69,17 +68,11 @@ class CardSlider {
                 }
                 this.dragged = false
             } else {
-                // // 드래그 X, 클릭!
-                // console.log("Clicked!")
-                // // Show Modal
-                // const shopNumber = parseInt(e.target.closest('.shop-layer').dataset.shopnumber)
-                // this.showModal(shopNumber, this.e, this.apidata, this.shopDetailTemplate)
-                // // this.triggerMarkerEvent(shopNumber, this.markers)
                 const shopNumber = e.target.dataset.shopnumber;
                 const data = this.map.filteredData.filter((i) => {
                     return i.shopNumber == shopNumber
                 })[0]
-                this.map.showModal(shopNumber, data, this.apidata)
+                this.map.showModal(shopNumber, data)
             }
         })
     }
