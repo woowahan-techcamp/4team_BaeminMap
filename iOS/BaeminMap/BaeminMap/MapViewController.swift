@@ -29,7 +29,7 @@ class MapViewController: UIViewController {
         return scrollView
     }()
     lazy var filterButtonFrameY: CGFloat = {
-        return self.parentView.filterButton.frame.minY
+        return self.parentView.view.frame.height - 42 - self.parentView.filterButton.frame.height
     }()
     
     var isZoom = true
@@ -119,6 +119,7 @@ class MapViewController: UIViewController {
     func drawMarker(selectedMarker: GMSMarker?) {
         drawCurrentLocation()
         for(count, shop) in baeminInfo.enumerated() {
+            
             let marker = GMSMarker()
             marker.map = mapView
             marker.position = CLLocationCoordinate2D(latitude: shop.key.location["latitude"]!, longitude: shop.key.location["longitude"]!)
@@ -190,7 +191,6 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         
         var cellminX = CGFloat(30)
         var cellWidth = self.view.frame.width-60
-        
         if shops.count == 1 {
             infoView.isScrollEnabled = false
             cellminX = CGFloat(5)
@@ -278,5 +278,4 @@ extension MapViewController: UIScrollViewDelegate {
         cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
         return cell
     }
-    
 }
