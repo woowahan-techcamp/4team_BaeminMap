@@ -7,7 +7,6 @@
     z-index: 99999 !important;
     background-color: white;
     opacity: 0.8;
-    padding-top: 70%;
 }
 
 /*.sk-folding-cube {*/
@@ -118,8 +117,7 @@
     border-radius: 50px;
     padding: 20px;
     display: table;
-    vertical-align: middle;
-    margin: 0 auto;
+    margin: 250px auto 0;
     position: relative;
     -webkit-animation: 2s bulge infinite ease-out;
     animation: 2s bulge infinite ease-out;

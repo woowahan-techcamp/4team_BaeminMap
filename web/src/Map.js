@@ -172,13 +172,13 @@ class Map {
             const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
             const SelectedIconImgObject = new Image()
             SelectedIconImgObject.addEventListener('load', (img) => {
-                ratio = img.target.naturalWidth / img.target.naturalHeight
-                addMarkerListener(ratio)
-                return ratio
+                const markerWidth = img.target.naturalWidth / 3
+                const markerHeight = img.target.naturalHeight / 3
+                addMarkerListener(markerWidth, markerHeight)
             })
             SelectedIconImgObject.src = SelectedIconImg
 
-            const addMarkerListener = (ratio) => {
+            const addMarkerListener = (markerWidth, markerHeight) => {
                 const marker = new google.maps.Marker({
                     position: position,
                     map: this.gmap,
@@ -187,11 +187,11 @@ class Map {
                     shopNumber: e.shopNumber,
                     categoryIcon: {
                         url: iconImg,
-                        scaledSize: new google.maps.Size(35*ratio, 35)
+                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
                     },
                     filledIcon: {
                         url: SelectedIconImg,
-                        scaledSize: new google.maps.Size(35*ratio, 35)
+                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
                     },
                     pinIcon: {
                         url: "./static/pin.png",
@@ -199,7 +199,7 @@ class Map {
                     },
                     icon: {
                         url: iconImg,
-                        scaledSize: new google.maps.Size(35*ratio, 35)
+                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
                     }
                     // TODO: 기본 아이콘 변경
                 })
