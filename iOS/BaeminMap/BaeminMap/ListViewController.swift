@@ -17,7 +17,7 @@ class ListViewController: UIViewController {
         return self.parent as! MainContainerViewController
     }()
     lazy var baeminInfo: [BaeminInfo] = {
-        return self.parentView.filterBaeminInfo
+        return self.parentView.listBaeminInfo
     }()
     
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class ListViewController: UIViewController {
         listView.delegate = self
         listView.dataSource = self
 
-        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("filterManager"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("listBaeminInfo"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,7 +34,7 @@ class ListViewController: UIViewController {
     }
     
     func recieve(notification: Notification) {
-        baeminInfo = parentView.filterBaeminInfo
+        baeminInfo = parentView.listBaeminInfo
         listView.reloadData()
     }
     
