@@ -15,6 +15,7 @@ class AnimationView: UIView {
     static var indicator = UIView()
     
     override func awakeFromNib() {
+        self.frame = UIScreen.main.bounds
         deliverymanImageView.frame = CGRect(x: self.frame.maxY, y: deliverymanImageView.frame.minY, width: deliverymanImageView.frame.width, height: deliverymanImageView.frame.height)
         
         UIView.animate(withDuration: 1, delay: 0, options: .repeat, animations: {
