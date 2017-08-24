@@ -35,7 +35,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AnimationView.startLaunchView(target: self)
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
     }
