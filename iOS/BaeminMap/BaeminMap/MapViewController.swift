@@ -196,6 +196,8 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             cellminX = CGFloat(5)
             cellWidth = self.view.frame.width-10
         }
+    
+        infoView.contentOffset.x = 0
         for shop in shops {
             let cell = makePageCell(shop: shop)
             cell.frame = CGRect(x: cellminX, y: 0, width: cellWidth, height: 100)
@@ -203,8 +205,8 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             cellminX += cellWidth+10
             infoView.contentSize.width = cellminX
         }
-        pageControl.numberOfPages = shops.count
         infoView.contentSize.width += 10
+        pageControl.numberOfPages = shops.count
         
         mapView.selectedMarker = marker
         marker.map = mapView
