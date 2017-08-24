@@ -157,7 +157,7 @@ document.querySelector("#listOnOff").addEventListener("click", () => {
     const floatButton = document.querySelector('.floating-button')
     if (card.style.display === "block") {
         card.style.display = "none";
-        floatButton.style.bottom = "60px";
+        floatButton.style.bottom = "40px";
     }
 })
 

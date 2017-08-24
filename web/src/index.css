@@ -442,7 +442,7 @@ div.layer.show {
     z-index: 20;
     position: fixed;
     left: calc(50% - 88px);
-    bottom: 60px;
+    bottom: 40px;
     width: 233px;
 }
 
