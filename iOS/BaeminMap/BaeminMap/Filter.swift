@@ -59,4 +59,16 @@ class Filter {
             return baeminInfo.sorted(by: { $0.favoriteCount > $1.favoriteCount })
         }
     }
+    
+    func findSamePlace(baeminInfo: [BaeminInfo]) -> [BaeminInfo:[BaeminInfo]] {
+        var samePlaceShops = [BaeminInfo:[BaeminInfo]]()
+        for shop in baeminInfo {
+            if let key = samePlaceShops[shop] {
+                samePlaceShops[key[0]]?.append(shop)
+            } else {
+                samePlaceShops[shop] = [shop]
+            }
+        }
+        return samePlaceShops
+    }
 }
