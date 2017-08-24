@@ -72,8 +72,11 @@ class MapViewController: UIViewController {
     
     func showDetailView() {
         let detailViewController = UIStoryboard.detailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
-        detailViewController.baeminInfo = mapView.selectedMarker?.userData as! BaeminInfo
-        navigationController?.pushViewController(detailViewController, animated: true)
+        print(mapView.selectedMarker?.userData)
+        if let shops = mapView.selectedMarker?.userData as? [BaeminInfo] {
+            detailViewController.baeminInfo = shops[pageControl.currentPage]
+            navigationController?.pushViewController(detailViewController, animated: true)
+        }
     }
     
     func moveToCurrentLocation() {
@@ -100,11 +103,14 @@ class MapViewController: UIViewController {
         drawCurrentLocation()
         for(count, shop) in baeminInfo.enumerated() {
             let marker = GMSMarker()
+            marker.map = mapView
+            marker.zIndex = 0
             marker.position = CLLocationCoordinate2D(latitude: shop.key.location["latitude"]!, longitude: shop.key.location["longitude"]!)
             let index = pageControl.currentPage
             if let selectedShop = selectedMarker?.userData as? [BaeminInfo],
                 shop.key == selectedShop[index] || shop.value.contains(selectedShop[index]) {
                 marker.icon = UIImage(named: selectedShop[index].categoryEnglishName+"Fill")
+                marker.userData = selectedShop
                 mapView.selectedMarker = marker
             } else {
                 if shop.value.count == 1 {
@@ -115,8 +121,6 @@ class MapViewController: UIViewController {
                     marker.icon = #imageLiteral(resourceName: "plusMarker")
                 }
             }
-            marker.map = mapView
-            marker.zIndex = 0
         }
     }
     
@@ -242,7 +246,7 @@ extension MapViewController: UIScrollViewDelegate {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         cell.backgroundColor = UIColor.white
         cell.moveButton.isEnabled = true
-//        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
+        cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
         
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
