@@ -302,10 +302,7 @@ class Map {
         this.markers = []
         console.timeEnd("Marker Reset")
 
-        console.time("Update My Position")
-        // Update my Position
-        this.updatePosition(pos)
-        console.timeEnd("Update My Position")
+
         // if starPointAverage: reverse
         if (key === 'distance') {
             order = 'asc'
@@ -315,7 +312,15 @@ class Map {
 
         console.time("GetData")
         // Get new data from my new position
-        apidata.getShopData(pos)
+        const posString = `${pos.lng}_${pos.lat}`
+        const currentPositionString = `${this.currentLocation.lng}_${this.currentLocation.lat}`
+        if (posString !== currentPositionString) {
+            apidata.getShopData(pos)
+            this.updatePosition(pos)
+        }
+        console.time("Update My Position")
+        // Update my Position
+        console.timeEnd("Update My Position")
         console.timeEnd("GetData")
         let sortedData = null
 
