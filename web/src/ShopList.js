@@ -52,12 +52,20 @@ class ShopList {
             console.log(targetMarkerArr[0])
             return targetMarkerArr[0]
         } else {
-            return 0
+            const aaa = markersArr.filter((e) => {
+                const el = Array.prototype.slice.call(document.querySelectorAll('.shop')).filter(
+                    (i) => {return i.dataset.shopnumber === shopNumber}
+                )[0]
+                const coordinates = el.dataset.coordinates
+                const markerCoordinates = `${e.position.lat()}_${e.position.lng().toFixed(5)}`
+                return markerCoordinates === coordinates
+            })[0]
+            return aaa
         }
     }
 
     static triggerMarkerEvent(targetMarker) {
-        if (!targetMarker) {
+        if (targetMarker) {
             new google.maps.event.trigger(targetMarker, 'click');
         }
     }

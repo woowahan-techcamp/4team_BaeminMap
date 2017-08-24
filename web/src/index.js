@@ -155,10 +155,6 @@ navigator.geolocation.getCurrentPosition((position) => {
         condition
     );
     moveMyCurrentLocation('.my-location', map)
-    map.addListener('click', () => {
-        alert('aaaa')
-        map.resetMarkerAndInfo()
-    })
 })
 // Add Events on Click
 // click el, target, css class
