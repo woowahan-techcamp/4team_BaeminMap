@@ -159,17 +159,19 @@ class Map {
         arr.forEach((e) => {
             const shopLocationString = `${e.location.latitude}_${e.location.longitude}`
             let iconImg;
-            let ratio;
+            let SelectedIconImg;
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
-                iconImg = '../static/pin.png'
+                iconImg = '../static/WebMarker/plusMarker.png'
+                SelectedIconImg = '../static/WebMarker/plusMarkerFill.png'
                 _marker[shopLocationString] = true
             } else {
                 iconImg = '../static/WebMarker/' + e.categoryEnglishName + '.png';
+                SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
             }
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
-            const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
+
             const SelectedIconImgObject = new Image()
             SelectedIconImgObject.addEventListener('load', (img) => {
                 const markerWidth = img.target.naturalWidth / 3
