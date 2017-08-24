@@ -54,7 +54,6 @@ class DetailViewController: UIViewController {
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
         }
-        print(baeminInfo.starPointAverage)
         if baeminInfo.starPointAverage == 0.0 {
             hiddenBottomInfoView()
         } else {
@@ -118,6 +117,15 @@ class DetailViewController: UIViewController {
         collectionView.isHidden = true
     }
     
+    @IBAction func callOrderButtonAction(_ sender: UIButton) {
+        if let virtualNumber = baeminInfo.virtualPhoneNumber,
+            let url = URL(string: "tel://\(virtualNumber)") {
+            UIApplication.shared.open(url)
+        } else if let phoneNumber = baeminInfo.phoneNumber,
+            let url = URL(string: "tel://\(phoneNumber.convertPhoneNumber())") {
+            UIApplication.shared.open(url)
+        }
+    }
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

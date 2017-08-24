@@ -86,10 +86,15 @@ extension Int {
     }
 }
 
-//extension String {
-//    func convertPhoneNumber() {
-//        if self[self.startIndex] != "0" {
-//            self.replace
-//        }
-//    }
-//}
+extension String {
+    func convertPhoneNumber() -> String {
+        if self[self.startIndex] != "0" {
+            var array = Array(self.characters)
+            array[0] = "0"
+            return String(array)
+        } else {
+            return self
+        }
+        
+    }
+}
