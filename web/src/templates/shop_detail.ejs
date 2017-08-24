@@ -26,7 +26,11 @@
             <div class="shop-detail-info-abstract">
                 <div class="shop-detail shop-star">
                     <span><%= starPointAverage.toFixed(1) %></span>
-                    <img src="" alt="별점" class="shop-star-img">
+                    <span class="star-rating">
+                        <span class="img-star star-rate shop-detail-star">
+                            <span class="img-star inner-star-rate" style="width: <%= (starPointAverage / 5) * 100 %>%"></span>
+                        </span>
+                    </span>
                 </div>
                 <div class="shop-detail shop-recent-reviews">
                     <span>최근리뷰</span><br>

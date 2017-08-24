@@ -112,8 +112,8 @@
     color: #2abfba;
 }
 
-.shop-star-img {
-    display: block;
+.shop-detail-star {
+    margin-left: 15px;
 }
 
 .shop-detail-wrapper {
