@@ -159,126 +159,137 @@ class Map {
         arr.forEach((e) => {
             const shopLocationString = `${e.location.latitude}_${e.location.longitude}`
             let iconImg;
+            let ratio;
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
-                iconImg = './static/pin.png'
+                iconImg = '../static/pin.png'
                 _marker[shopLocationString] = true
             } else {
                 iconImg = '../static/WebMarker/' + e.categoryEnglishName + '.png';
             }
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
             const SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
-            const marker = new google.maps.Marker({
-                position: position,
-                map: this.gmap,
-                zIndex: 1,
-                category: e.categoryEnglishName,
-                shopNumber: e.shopNumber,
-                categoryIcon: {
-                    url: iconImg,
-                    scaledSize: new google.maps.Size(40, 35)
-                },
-                filledIcon: {
-                    url: SelectedIconImg,
-                    scaledSize: new google.maps.Size(40, 35)
-                },
-                pinIcon: {
-                    url: "./static/pin.png",
-                    scaledSize: new google.maps.Size(10, 10)
-                },
-                icon: {
-                    url: iconImg,
-                    scaledSize: new google.maps.Size(40, 35)
-                }
-                // TODO: 기본 아이콘 변경
+            const SelectedIconImgObject = new Image()
+            SelectedIconImgObject.addEventListener('load', (img) => {
+                ratio = img.target.naturalWidth / img.target.naturalHeight
+                addMarkerListener(ratio)
+                return ratio
             })
-            marker.addListener('click', () => {
-                const resetHiddenList = () => {
-                    const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
-                    shopList.forEach(shop => shop.style.display = 'block')
-                }
-                const showModalAndMoveMap = () => {
-                    // Single
-                    this.showModal(e.shopNumber);
-                    this.resetMarkerAndInfo()
-                    this.gmap.setCenter(marker.getPosition());
-                    this.xMarker = marker;
-                    this.xMarkerIcon = marker.icon
-                    //선택된 마커를 fill 마커로 변경
-                    marker.setIcon(marker.filledIcon);
-                    // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
-                    marker.setZIndex(2);
-                    //리스트 연동부분
-                    if (document.querySelector(".selected-shop")) {
-                        document.querySelector(".selected-shop").classList.remove("selected-shop");
+            SelectedIconImgObject.src = SelectedIconImg
+
+            const addMarkerListener = (ratio) => {
+                const marker = new google.maps.Marker({
+                    position: position,
+                    map: this.gmap,
+                    zIndex: 1,
+                    category: e.categoryEnglishName,
+                    shopNumber: e.shopNumber,
+                    categoryIcon: {
+                        url: iconImg,
+                        scaledSize: new google.maps.Size(35*ratio, 35)
+                    },
+                    filledIcon: {
+                        url: SelectedIconImg,
+                        scaledSize: new google.maps.Size(35*ratio, 35)
+                    },
+                    pinIcon: {
+                        url: "./static/pin.png",
+                        scaledSize: new google.maps.Size(10, 10)
+                    },
+                    icon: {
+                        url: iconImg,
+                        scaledSize: new google.maps.Size(35*ratio, 35)
                     }
-                    document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
-                    document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
-                }
-                if (parseInt(window.innerWidth) <= 480) {
-                    // Mobile
-                    const card = document.querySelector("#card")
-                    const floatButton = document.querySelector('.floating-button')
-                    resetHiddenList()
-                    if (_marker[shopLocationString]) {
-                        // TODO: 카드 여러장 넣어야 함
-                        const cardList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
-                            .filter(e => e.dataset.coordinates === shopLocationString)
-                        const sliderWrapper = document.createElement('div')
-                        const sliderNextImage = document.createElement('img')
-                        sliderNextImage.src = './static/sliderNext.png'
-                        sliderNextImage.className = 'slider-next-img'
-                        card.innerHTML = ''
-                        for (const _card of cardList) {
-                            _card.id = ''
-                            const newEl = _card.cloneNode(true)
-                            newEl.innerHTML += sliderNextImage.outerHTML
-                            newEl.style.display = 'inline-block'
-                            sliderWrapper.append(newEl)
-                        }
-                        card.append(sliderWrapper)
-                        // TODO: CardSlider 붙이기
-                        const triggerMarker = (shopNumber, markersArr) => ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(shopNumber, markersArr))
-                        new CardSlider(card, sliderWrapper, triggerMarker, this.markers, this.showModal, e, this)
-                    } else {
-                        const html = document.getElementById(marker.shopNumber);
-                        card.innerHTML = html.innerHTML
-                    }
-                    card.style.display = 'block'
-                    if (parseInt(window.getComputedStyle(floatButton).bottom) < 140) {
-                        floatButton.style.bottom = "140px"
-                    }
-                    this.resetMarkerAndInfo()
-                    this.xMarkerIcon = marker.icon
-                    this.xMarker = marker;
-                    //선택된 마커를 fill 마커로 변경
-                    marker.setIcon(marker.filledIcon);
-                    // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
-                    marker.setZIndex(2);
-                    // 마커 클릭시 모달 보이면 안됨
-                } else {
-                    // Desktop
-                    if (_marker[shopLocationString]) {
-                        // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
-                        resetHiddenList()
+                    // TODO: 기본 아이콘 변경
+                })
+                marker.addListener('click', () => {
+                    const resetHiddenList = () => {
                         const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
-                        const notDuplicated = shopList
-                            .filter(shop => shop.dataset.coordinates !== shopLocationString)
-                            .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
-                        notDuplicated.forEach(shop => shop.style.display = 'none')
-                        if (notDuplicated.length === 0) {
-                            // 다 가려진 상태라면...!
+                        shopList.forEach(shop => shop.style.display = 'block')
+                    }
+                    const showModalAndMoveMap = () => {
+                        // Single
+                        this.showModal(e.shopNumber);
+                        this.resetMarkerAndInfo()
+                        this.gmap.setCenter(marker.getPosition());
+                        this.xMarker = marker;
+                        this.xMarkerIcon = marker.icon
+                        //선택된 마커를 fill 마커로 변경
+                        marker.setIcon(marker.filledIcon);
+                        // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                        marker.setZIndex(2);
+                        //리스트 연동부분
+                        if (document.querySelector(".selected-shop")) {
+                            document.querySelector(".selected-shop").classList.remove("selected-shop");
+                        }
+                        document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
+                        document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
+                    }
+                    if (parseInt(window.innerWidth) <= 480) {
+                        // Mobile
+                        const card = document.querySelector("#card")
+                        const floatButton = document.querySelector('.floating-button')
+                        resetHiddenList()
+                        if (_marker[shopLocationString]) {
+                            // TODO: 카드 여러장 넣어야 함
+                            const cardList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+                                .filter(e => e.dataset.coordinates === shopLocationString)
+                            const sliderWrapper = document.createElement('div')
+                            const sliderNextImage = document.createElement('img')
+                            sliderNextImage.src = './static/sliderNext.png'
+                            sliderNextImage.className = 'slider-next-img'
+                            card.innerHTML = ''
+                            for (const _card of cardList) {
+                                _card.id = ''
+                                const newEl = _card.cloneNode(true)
+                                newEl.innerHTML += sliderNextImage.outerHTML
+                                newEl.style.display = 'inline-block'
+                                sliderWrapper.append(newEl)
+                            }
+                            card.append(sliderWrapper)
+                            // TODO: CardSlider 붙이기
+                            const triggerMarker = (shopNumber, markersArr) => ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(shopNumber, markersArr))
+                            new CardSlider(card, sliderWrapper, triggerMarker, this.markers, this.showModal, e, this)
+                        } else {
+                            const html = document.getElementById(marker.shopNumber);
+                            card.innerHTML = html.innerHTML
+                        }
+                        card.style.display = 'block'
+                        if (parseInt(window.getComputedStyle(floatButton).bottom) < 140) {
+                            floatButton.style.bottom = "140px"
+                        }
+                        this.resetMarkerAndInfo()
+                        this.xMarkerIcon = marker.icon
+                        this.xMarker = marker;
+                        //선택된 마커를 fill 마커로 변경
+                        marker.setIcon(marker.filledIcon);
+                        // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
+                        marker.setZIndex(2);
+                        // 마커 클릭시 모달 보이면 안됨
+                    } else {
+                        // Desktop
+                        if (_marker[shopLocationString]) {
+                            // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
+                            resetHiddenList()
+                            const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+                            const notDuplicated = shopList
+                                .filter(shop => shop.dataset.coordinates !== shopLocationString)
+                                .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
+                            notDuplicated.forEach(shop => shop.style.display = 'none')
+                            if (notDuplicated.length === 0) {
+                                // 다 가려진 상태라면...!
+                                showModalAndMoveMap()
+                            }
+                            //
+                        } else {
+                            resetHiddenList()
                             showModalAndMoveMap()
                         }
-                        //
-                    } else {
-                        resetHiddenList()
-                        showModalAndMoveMap()
                     }
-                }
-            });
-            this.markers.push(marker)
+                });
+                this.markers.push(marker)
+            }
         });
     }
 
