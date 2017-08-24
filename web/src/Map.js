@@ -282,7 +282,14 @@ class Map {
                             if (notDuplicated.length === 0) {
                                 // 다 가려진 상태라면...!
                                 showModalAndMoveMap()
+                            } else {
+                                this.resetMarkerAndInfo()
+                                this.xMarkerIcon = marker.icon
+                                this.xMarker = marker;
+                                marker.setIcon(marker.filledIcon);
+                                marker.setZIndex(2);
                             }
+
                             //
                         } else {
                             resetHiddenList()
