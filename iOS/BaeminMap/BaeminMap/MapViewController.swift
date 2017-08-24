@@ -31,7 +31,9 @@ class MapViewController: UIViewController {
     lazy var filterButtonFrameY: CGFloat = {
         return self.parentView.filterButton.frame.minY
     }()
+    
     var isZoom = true
+    var isViewType = false
     var pageControl = UIPageControl()
 
     override func viewDidLoad() {
@@ -48,10 +50,13 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         drawMap()
         redrawMap()
+        isViewType ? isViewType = false : infoViewAnimate(isTap: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        infoViewAnimate(isTap: false)
+        if !isViewType {
+            infoViewAnimate(isTap: false)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,6 +80,7 @@ class MapViewController: UIViewController {
         if let shops = mapView.selectedMarker?.userData as? [BaeminInfo] {
             detailViewController.baeminInfo = shops[pageControl.currentPage]
             navigationController?.pushViewController(detailViewController, animated: true)
+            isViewType = true
         }
     }
     
@@ -85,7 +91,14 @@ class MapViewController: UIViewController {
     
     func drawMap() {
         location = Location.sharedInstance
-        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
+        var camera = GMSCameraPosition()
+        if isViewType {
+            if let shop = mapView.selectedMarker?.userData as? [BaeminInfo] {
+                camera = GMSCameraPosition.camera(withLatitude: shop[0].location["latitude"]!, longitude: shop[0].location["longitude"]!, zoom: 17.0)
+            }
+        } else {
+            camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
+        }
         mapView.camera = camera
         drawCurrentLocation()
     }
@@ -103,13 +116,13 @@ class MapViewController: UIViewController {
         for(count, shop) in baeminInfo.enumerated() {
             let marker = GMSMarker()
             marker.map = mapView
-            marker.zIndex = 0
             marker.position = CLLocationCoordinate2D(latitude: shop.key.location["latitude"]!, longitude: shop.key.location["longitude"]!)
             let index = pageControl.currentPage
             if let selectedShop = selectedMarker?.userData as? [BaeminInfo],
                 shop.key == selectedShop[index] || shop.value.contains(selectedShop[index]) {
                 marker.icon = UIImage(named: selectedShop[index].categoryEnglishName+"Fill")
                 marker.userData = selectedShop
+                marker.zIndex = 1
                 mapView.selectedMarker = marker
             } else {
                 if shop.value.count == 1 {
@@ -119,6 +132,7 @@ class MapViewController: UIViewController {
                     marker.userData = shop.value
                     marker.icon = #imageLiteral(resourceName: "plusMarker")
                 }
+                marker.zIndex = 0
             }
         }
     }
