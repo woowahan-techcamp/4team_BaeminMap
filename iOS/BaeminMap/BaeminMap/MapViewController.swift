@@ -72,7 +72,6 @@ class MapViewController: UIViewController {
     
     func showDetailView() {
         let detailViewController = UIStoryboard.detailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
-        print(mapView.selectedMarker?.userData)
         if let shops = mapView.selectedMarker?.userData as? [BaeminInfo] {
             detailViewController.baeminInfo = shops[pageControl.currentPage]
             navigationController?.pushViewController(detailViewController, animated: true)
@@ -168,7 +167,6 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
         
-        //TODO : 현재는 testCount 로 임의의 개수로 넣어둠 ( 나중에 실제 리스트.count 입력할 것 )
         infoView.delegate = self
         infoView.isScrollEnabled = true
         
@@ -220,7 +218,6 @@ extension MapViewController: UIScrollViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let itemWidth = (scrollView.frame.size.width - 60)
         let itemSpacing = CGFloat(10)
-        
         let pageWidth = Float(itemWidth + itemSpacing)
         let targetXContentOffset = Float(targetContentOffset.pointee.x)
         let contentWidth = Float(infoView.contentSize.width)
@@ -240,6 +237,10 @@ extension MapViewController: UIScrollViewDelegate {
         self.pageControl.currentPage = Int(newPage)
         let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
         targetContentOffset.pointee = point
+        
+        if let shop = mapView.selectedMarker?.userData as? [BaeminInfo] {
+            mapView.selectedMarker?.icon = UIImage(named: shop[pageControl.currentPage].categoryEnglishName+"Fill")
+        }
     }
     
     func makePageCell(shop: BaeminInfo) -> ListTableViewCell {
@@ -258,7 +259,6 @@ extension MapViewController: UIScrollViewDelegate {
         cell.ratingView.rating = shop.starPointAverage
         cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
-        print(shop.shopName)
         return cell
     }
     
