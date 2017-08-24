@@ -198,9 +198,9 @@ class Map {
                     const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
                     shopList.forEach(shop => shop.style.display = 'block')
                 }
-                const showModal = () => {
+                const showModalAndMoveMap = () => {
                     // Single
-                    this.showModal(e.shopNumber, e, this.apidata, this.shopDetailTemplate);
+                    this.showModal(e.shopNumber);
                     this.resetMarkerAndInfo()
                     this.gmap.setCenter(marker.getPosition());
                     this.xMarker = marker;
@@ -256,7 +256,7 @@ class Map {
                     marker.setIcon(marker.filledIcon);
                     // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                     marker.setZIndex(2);
-                    this.showModal(e.shopNumber, e, this.apidata, this.shopDetailTemplate);
+                    // 마커 클릭시 모달 보이면 안됨
                 } else {
                     // Desktop
                     if (_marker[shopLocationString]) {
@@ -269,12 +269,12 @@ class Map {
                         notDuplicated.forEach(shop => shop.style.display = 'none')
                         if (notDuplicated.length === 0) {
                             // 다 가려진 상태라면...!
-                            showModal()
+                            showModalAndMoveMap()
                         }
                         //
                     } else {
                         resetHiddenList()
-                        showModal()
+                        showModalAndMoveMap()
                     }
                 }
             });
@@ -282,20 +282,24 @@ class Map {
         });
     }
 
-    showModal(shopNumber, shopDetailData) {
+    showModal(shopNumber) {
         const modal = document.querySelector('#modal')
-        // this.shopDetailTemplate
+        const shopDetailData = this.filteredData.filter((i) => {
+            return i.shopNumber == shopNumber
+        })[0]
         modal.innerHTML = _.template(this.shopDetailTemplate)(shopDetailData)
-        // infowindow.open(map, marker);
-        // TODO: shop_detail_foods.ejs 렌더링 & innerHTML
         this.apidata.getShopFoodData(shopNumber).then((response) => {
             const foodDetails = document.querySelector('#foodDetails')
-            const foodDetailsContent = _.template(this.shopFoodDetailTemplate)({
+            foodDetails.innerHTML = _.template(this.shopFoodDetailTemplate)({
                 allCategoryFoodList: response.data
             })
-            foodDetails.innerHTML = foodDetailsContent
         })
         modal.style.display = 'block'
+    }
+
+    closeModal() {
+        const modal = document.querySelector('#modal')
+        modal.style.display = 'none'
     }
 
     reloadMap(distance, pos, apidata, key, order, categoryList) {
@@ -344,7 +348,7 @@ class Map {
             this.filteredData = filteredData
             this.duplicatedData = getDuplicatedCoordinateList(makeArrayToSet(filteredData))
             this.setShopMarker(filteredData, apidata, this.duplicatedData)
-            new ShopList("#shopList", filteredData, this.markers)
+            new ShopList("#shopList", filteredData, this)
             indicator.style.display = 'none'
             console.timeEnd("SortData")
         })

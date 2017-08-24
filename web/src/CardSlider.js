@@ -44,6 +44,7 @@ class CardSlider {
         })
         this.card.addEventListener('touchend', e => {
             if (this.dragged) {
+                // 드래그
                 console.log("Touched!")
                 const windowWidth = parseInt(window.innerWidth)
                 const distance = this.getDistance(e.changedTouches[0].screenX)
@@ -68,16 +69,12 @@ class CardSlider {
                 }
                 this.dragged = false
             } else {
+                // 클릭
                 const shopNumber = e.target.dataset.shopnumber;
-                const data = this.map.filteredData.filter((i) => {
-                    return i.shopNumber == shopNumber
-                })[0]
-                this.map.showModal(shopNumber, data)
+                this.map.showModal(shopNumber)
             }
         })
     }
 }
 
 export default CardSlider
-
-//const slider = new CardSlider(document.querySelector('#card'), document.querySelector('#sliderWrapper'))
