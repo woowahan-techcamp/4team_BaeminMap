@@ -60,7 +60,7 @@ class Map {
             title: "my location",
             zIndex: 3,
             icon: {
-                url : "./static/currentLocation.png",
+                url: "./static/currentLocation.png",
                 scaledSize: new google.maps.Size(30, 30)
             }
         })
@@ -164,7 +164,11 @@ class Map {
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
                 iconImg = '../static/WebMarker/plusMarker.png'
-                SelectedIconImg = '../static/WebMarker/plusMarkerFill.png'
+                if (window.innerWidth <= 480) {
+                    SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
+                } else {
+                    SelectedIconImg = '../static/WebMarker/plusMarkerFill.png'
+                }
                 _marker[shopLocationString] = true
             } else {
                 iconImg = '../static/WebMarker/' + e.categoryEnglishName + '.png';
@@ -173,14 +177,34 @@ class Map {
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
 
             const SelectedIconImgObject = new Image()
+            const iconImgObject = new Image()
             SelectedIconImgObject.addEventListener('load', (img) => {
-                const markerWidth = img.target.naturalWidth / 3
-                const markerHeight = img.target.naturalHeight / 3
-                addMarkerListener(markerWidth, markerHeight)
+                if (window.innerWidth <= 480) {
+                    iconImgObject.addEventListener('load', (img) => {
+                        const markerWidth = img.target.naturalWidth / 3
+                        const markerHeight = img.target.naturalHeight / 3
+                        const markerSize = {
+                            categoryIcon: new google.maps.Size(markerWidth, markerHeight),
+                            filledIcon: new google.maps.Size(markerWidth, markerHeight),
+                            icon: new google.maps.Size(markerWidth, markerHeight)
+                        }
+                        addMarkerListener(markerSize)
+                    })
+                } else {
+                    const markerWidth = img.target.naturalWidth / 3
+                    const markerHeight = img.target.naturalHeight / 3
+                    const markerSize = {
+                        categoryIcon: new google.maps.Size(markerWidth, markerHeight),
+                        filledIcon: new google.maps.Size(markerWidth, markerHeight),
+                        icon: new google.maps.Size(markerWidth, markerHeight)
+                    }
+                    addMarkerListener(markerSize)
+                }
             })
             SelectedIconImgObject.src = SelectedIconImg
+            iconImgObject.src = iconImg
 
-            const addMarkerListener = (markerWidth, markerHeight) => {
+            const addMarkerListener = (markerSize) => {
                 const marker = new google.maps.Marker({
                     position: position,
                     map: this.gmap,
@@ -189,11 +213,11 @@ class Map {
                     shopNumber: e.shopNumber,
                     categoryIcon: {
                         url: iconImg,
-                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
+                        scaledSize: markerSize.categoryIcon
                     },
                     filledIcon: {
                         url: SelectedIconImg,
-                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
+                        scaledSize: markerSize.filledIcon
                     },
                     pinIcon: {
                         url: "./static/pin.png",
@@ -201,7 +225,7 @@ class Map {
                     },
                     icon: {
                         url: iconImg,
-                        scaledSize: new google.maps.Size(markerWidth, markerHeight)
+                        scaledSize: markerSize.icon
                     }
                     // TODO: 기본 아이콘 변경
                 })
@@ -311,7 +335,7 @@ class Map {
     }
 
     async showModal(shopNumber) {
-        // indicator.style.display = 'table'
+        indicator.style.display = 'table'
         const modal = document.querySelector('#modal')
         const shopDetailData = this.filteredData.filter((i) => {
             return i.shopNumber == shopNumber
@@ -323,7 +347,7 @@ class Map {
                 allCategoryFoodList: response.data
             })
         })
-        // indicator.style.display = 'none'
+        indicator.style.display = 'none'
         modal.style.display = 'block'
     }
 

@@ -1,3 +1,5 @@
+import ShopList from './ShopList'
+
 class CardSlider {
     constructor(card, sliderWrapper, triggerMarkerEvent, markers, showModal, e, map) {
         this.card = card
@@ -73,7 +75,35 @@ class CardSlider {
                 const shopNumber = e.target.dataset.shopnumber;
                 this.map.showModal(shopNumber)
             }
+            const targetMarker = ShopList.searchTargetMarker(e.target.dataset.shopnumber, this.map.markers)
+            // FIXME: 넘겨진 후에 화면에 나오는 타겟...
+            const divInCardTransition = parseInt(
+                document.querySelector('#card > div').style.transform
+                    .replace('translateX(', '')
+                    .replace(')', '')
+            )
+            const idx = -divInCardTransition / window.innerWidth
+            const categoryEnglishName = Array.prototype.slice.call(
+                document.querySelectorAll('#card a.shop-layer')
+            )[idx].dataset.categoryenglishname
+            ShopList.updateMarker(
+                targetMarker,
+                categoryEnglishName
+            )
+            console.log(categoryEnglishName)
         })
+    }
+
+    isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        console.log(rect)
+        const html = document.documentElement;
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || html.clientHeight) &&
+            rect.right <= (window.innerWidth || html.clientWidth)
+        );
     }
 }
 
