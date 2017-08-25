@@ -157,7 +157,16 @@
     position: absolute;
     left: 10px;
     top: 10px;
+    width: 30px;
+    height: 30px;
+    background: url("../static/backbutton.png");
+    background-size: 30px 30px;
 
+}
+
+.shop-detail-backbutton {
+    width: 30px;
+    heigth: 30px;
 }
 
 .shop-head {
