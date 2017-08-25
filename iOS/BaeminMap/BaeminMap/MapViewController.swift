@@ -267,6 +267,7 @@ extension MapViewController: UIScrollViewDelegate {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         cell.backgroundColor = UIColor.white
         cell.moveButton.isEnabled = true
+        cell.rightArrowImage.isHidden = true
         cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
         
         let distance = shop.distance.convertDistance()
@@ -274,6 +275,8 @@ extension MapViewController: UIScrollViewDelegate {
             cell.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
         cell.titleLabel.text = shop.shopName
+        cell.translatesAutoresizingMaskIntoConstraints = false
+        cell.titleLabel.trailingAnchor.constraint(equalTo: cell.infoView.trailingAnchor, constant: 0).isActive = true
         cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
         cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
         cell.ratingView.rating = shop.starPointAverage

@@ -19,7 +19,9 @@ class ListTableViewCell: UITableViewCell {
     @IBOutlet var baropayLabel: UILabel!
     @IBOutlet var meetingpayLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet weak var rightArrowImage: UIImageView!
     @IBOutlet weak var moveButton: UIButton!
+    @IBOutlet weak var infoView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
