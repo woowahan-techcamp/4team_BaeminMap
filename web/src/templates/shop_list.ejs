@@ -3,7 +3,7 @@
     const coordinates = `${shop.location.latitude}_${shop.location.longitude}`
 %>
 <div class="shop" id="<%= shop.shopNumber %>" data-shopnumber="<%= shop.shopNumber %>" data-coordinates="<%= coordinates %>">
-    <a class="shop-layer" data-shopnumber="<%= shop.shopNumber %>"></a>
+    <a class="shop-layer" data-shopnumber="<%= shop.shopNumber %>" data-categoryenglishname="<%= shop.categoryEnglishName%>"></a>
     <div class="shop-image-wrapper">
         <img src="<%= shopLogoImageUrl %>" onerror="this.src='../static/default.png'" alt="">
     </div>

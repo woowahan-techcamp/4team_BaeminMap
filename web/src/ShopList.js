@@ -71,6 +71,21 @@ class ShopList {
         }
     }
 
+    static updateMarker(targetMarker, categoryEnglishName) {
+        if (targetMarker) {
+            const SelectedIconImgObject = new Image()
+            SelectedIconImgObject.addEventListener('load', (img) => {
+                const markerWidth = img.target.naturalWidth / 3
+                const markerHeight = img.target.naturalHeight / 3
+                targetMarker.setIcon({
+                    url: SelectedIconImgObject.src,
+                    scaledSize: new google.maps.Size(markerWidth, markerHeight)
+                })
+            })
+            SelectedIconImgObject.src = '../static/WebMarker/' + categoryEnglishName + 'Fill.png'
+        }
+    }
+
     static showModalfromShopNumber(shopNumber) {
         this.map.showModal(shopNumber)
     }
