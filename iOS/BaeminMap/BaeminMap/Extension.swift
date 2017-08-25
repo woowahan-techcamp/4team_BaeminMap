@@ -61,9 +61,10 @@ extension UINavigationBar {
 }
 
 extension UILabel {
-    func ablePay() {
+    func checkPay(_ able : Bool) {
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderColor = able ? UIColor.black.cgColor : UIColor.lightGray.cgColor
+        self.textColor = able ? UIColor.black : UIColor.lightGray
         self.layer.cornerRadius = self.layer.frame.height/2
     }
 }

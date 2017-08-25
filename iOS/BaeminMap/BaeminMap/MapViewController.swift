@@ -24,8 +24,7 @@ class MapViewController: UIViewController {
     }()
     lazy var infoView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.frame = CGRect(x: 0, y: self.view.frame.maxY, width: self.view.frame.width, height: 105)
-        scrollView.contentSize.width = self.view.frame.width
+        scrollView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width, height: 105)
         return scrollView
     }()
     lazy var filterButtonFrameY: CGFloat = {
@@ -38,10 +37,8 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mapView.delegate = self
         mapView.addSubview(infoView)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("mapBaeminInfo"), object: nil)
         currentLocationButton.addTarget(self, action: #selector(moveToCurrentLocation), for: .touchUpInside)
@@ -162,7 +159,7 @@ class MapViewController: UIViewController {
         } else {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                self.infoView.frame = CGRect(x: 5, y: self.view.frame.maxY, width: self.view.frame.width-10, height: 105)
+                self.infoView.frame = CGRect(x: 5, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width-10, height: 105)
                 self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: self.filterButtonFrameY, width: filterButtonFrame.width, height: filterButtonFrame.height)
                 self.mapView.layoutIfNeeded()
             }
@@ -173,6 +170,7 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
         infoView.subviews.forEach { $0.removeFromSuperview() }
         guard let shops = marker.userData as? [BaeminInfo] else { return false }
         
@@ -190,11 +188,11 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoView.isScrollEnabled = true
         
         var cellminX = CGFloat(30)
-        var cellWidth = self.view.frame.width-60
+        var cellWidth = UIScreen.main.bounds.width-60
         if shops.count == 1 {
             infoView.isScrollEnabled = false
             cellminX = CGFloat(5)
-            cellWidth = self.view.frame.width-10
+            cellWidth = UIScreen.main.bounds.width-10
         }
     
         infoView.contentOffset.x = 0
@@ -266,6 +264,7 @@ extension MapViewController: UIScrollViewDelegate {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         cell.backgroundColor = UIColor.white
         cell.moveButton.isEnabled = true
+        cell.rightArrowImage.isHidden = true
         cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
         
         let distance = shop.distance.convertDistance()
@@ -273,6 +272,8 @@ extension MapViewController: UIScrollViewDelegate {
             cell.shopImageView.af_setImage(withURL: URL(string: url)!)
         }
         cell.titleLabel.text = shop.shopName
+        cell.translatesAutoresizingMaskIntoConstraints = false
+        cell.titleLabel.trailingAnchor.constraint(equalTo: cell.infoView.trailingAnchor, constant: 0).isActive = true
         cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
         cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
         cell.ratingView.rating = shop.starPointAverage
