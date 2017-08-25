@@ -70,27 +70,30 @@ app.get('/menu/:shopNo', (req, response)=> {
             'Authorization': 'Bearer '+config.token
           }
         }, (err, res, body) => {
-          var contents = {}
           var temp = body.content.filter(shop => shop.defPriceYn === 'Y')
-          temp.map(shop => {
-            if(contents[shop.foodNm] === undefined) {
-              contents[shop.foodNm] = shop
-            }
-            if(contents[shop.foodNm]['price'] === undefined) {
-              contents[shop.foodNm]['price'] = {[shop.foodPriceNm] : shop.foodPrice}
-            } else {
-              contents[shop.foodNm]['price'][shop.foodPriceNm] = shop.foodPrice
-            }
-            if(contents[shop.foodNm]['foodImages'].length > 0) {
-              contents[shop.foodNm]['imgUrl'] = contents[shop.foodNm]['foodImages'][1]['imgUrl']
-              if(menu['imageMenu'] === undefined) {
-                menu['imageMenu'] = { [shop.foodNm] : contents[shop.foodNm] }
-              } else {
-                menu['imageMenu'][shop.foodNm] = contents[shop.foodNm]
+
+          if(temp.length !== 0) {
+            var contents = {}
+            temp.map(shop => {
+              if(contents[shop.foodNm] === undefined) {
+                contents[shop.foodNm] = shop
               }
-            }
-          })
-          menu[group.shopFoodGrpNm] = contents
+              if(contents[shop.foodNm]['price'] === undefined) {
+                contents[shop.foodNm]['price'] = {[shop.foodPriceNm] : shop.foodPrice}
+              } else {
+                contents[shop.foodNm]['price'][shop.foodPriceNm] = shop.foodPrice
+              }
+              if(contents[shop.foodNm]['foodImages'].length > 0) {
+                contents[shop.foodNm]['imgUrl'] = contents[shop.foodNm]['foodImages'][1]['imgUrl']
+                if(menu['imageMenu'] === undefined) {
+                  menu['imageMenu'] = { [shop.foodNm] : contents[shop.foodNm] }
+                } else {
+                  menu['imageMenu'][shop.foodNm] = contents[shop.foodNm]
+                }
+              }
+            })
+            menu[group.shopFoodGrpNm] = contents
+          }
           done()
         })
       }, (err) => {
