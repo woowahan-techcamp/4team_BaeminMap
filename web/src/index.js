@@ -125,6 +125,7 @@ const options = {
 };
 
 const indicator = document.querySelector('#indicator')
+const shopIndicator = document.querySelector('#shopIndicator')
 let apidata;
 let map;
 
