@@ -46,7 +46,7 @@ class Map {
 
     updatePosition(position) {
         this.setUserMarker(position)
-        this.gmap.setCenter(position);
+        this.gmap.panTo(position);
         this.currentLocation = position
     }
 
@@ -269,6 +269,7 @@ class Map {
                         // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                         marker.setZIndex(2);
                         // 마커 클릭시 모달 보이면 안됨
+                        this.gmap.panTo(marker.getPosition())
                     } else {
                         // Desktop
                         if (_marker[shopLocationString]) {
@@ -303,7 +304,7 @@ class Map {
     }
 
     async showModal(shopNumber) {
-        indicator.style.display = 'table'
+        // indicator.style.display = 'table'
         const modal = document.querySelector('#modal')
         const shopDetailData = this.filteredData.filter((i) => {
             return i.shopNumber == shopNumber
@@ -315,7 +316,7 @@ class Map {
                 allCategoryFoodList: response.data
             })
         })
-        indicator.style.display = 'none'
+        // indicator.style.display = 'none'
         modal.style.display = 'block'
     }
 
