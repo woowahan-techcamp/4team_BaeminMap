@@ -45,7 +45,7 @@ class DetailViewController: UIViewController {
         
         navigationItem.title = baeminInfo.shopName
         
-        AnimationView.startIndicator(target: self.view, message: "Loading...", image: baeminInfo.categoryEnglishName)
+        AnimationView.startIndicator(target: self.view, image: baeminInfo.categoryEnglishName, alpha: 1)
         
         orderCountLabel.text = baeminInfo.orderCount.convertCountPlus()
         favoriteCountLabel.text = baeminInfo.favoriteCount.convertCountPlus()
@@ -92,7 +92,7 @@ class DetailViewController: UIViewController {
                 hiddenCollectionView()
             }
         }
-        AnimationView.stopIndicator()
+        AnimationView.stopIndicator(delay: true)
         tableView.reloadData()
         collectionView.reloadData()
     }

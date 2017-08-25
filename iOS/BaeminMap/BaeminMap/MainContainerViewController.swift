@@ -55,11 +55,12 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     func receive(notification: Notification) {
         guard let userInfo = notification.userInfo,
             let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
-        let baeminInfoDic = userInfo["BaeminInfoDic"] as? [String:[BaeminInfo]] else { return }
+            let baeminInfoDic = userInfo["BaeminInfoDic"] as? [String:[BaeminInfo]] else { return }
         self.baeminInfo = baeminInfo
         self.baeminInfoDic = baeminInfoDic
         listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
         mapBaeminInfo = Filter().findSamePlace(baeminInfo: listBaeminInfo)
+        AnimationView.stopIndicator(delay: false)
     }
     
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {
@@ -110,11 +111,13 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
 }
 
 extension MainContainerViewController: GMSAutocompleteViewControllerDelegate {
-    // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         Location.sharedInstance = Location(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         Networking().getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) { 
+            AnimationView.startIndicator(target: self.view, image: "mapicon", alpha: 0.8)
+        }
+//        dismiss(animated: true, completion: nil)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {

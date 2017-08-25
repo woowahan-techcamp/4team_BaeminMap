@@ -34,17 +34,20 @@ class AnimationView: UIView {
         let launchView = UINib(nibName: "LaunchView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
         target.view.addSubview(launchView)
         target.navigationController?.isNavigationBarHidden = true
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3.5) {
             launchView.removeFromSuperview()
+            if target.baeminInfo.isEmpty {
+                startIndicator(target: target.view, image: "mapicon", alpha: 0.8)
+            }
             target.navigationController?.isNavigationBarHidden = false
         }
     }
     
-    static func startIndicator(target: UIView, message: String, image: String) {
+    static func startIndicator(target: UIView, image: String, alpha: CGFloat) {
         indicator = UIView()
         indicator.frame = UIScreen.main.bounds
         indicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
-        indicator.backgroundColor = UIColor.white
+        indicator.backgroundColor = UIColor(white: 1, alpha: alpha)
         
         let hudView = UIView()
         hudView.frame.size = CGSize(width: 100, height: 80)
@@ -61,7 +64,7 @@ class AnimationView: UIView {
 
         let messageLabel = UILabel()
         messageLabel.frame = CGRect(x: 0, y: loadingView.frame.maxY, width: hudView.frame.width, height: 20)
-        messageLabel.text = message
+        messageLabel.text = "Loading..."
         messageLabel.textColor = UIColor.pointColor
         messageLabel.font = UIFont.systemFont(ofSize: 14, weight: 2)
         messageLabel.sizeToFit()
@@ -74,8 +77,12 @@ class AnimationView: UIView {
         target.addSubview(indicator)
     }
     
-    static func stopIndicator() {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+    static func stopIndicator(delay: Bool) {
+        if delay {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+                indicator.removeFromSuperview()
+            }
+        } else {
             indicator.removeFromSuperview()
         }
     }
