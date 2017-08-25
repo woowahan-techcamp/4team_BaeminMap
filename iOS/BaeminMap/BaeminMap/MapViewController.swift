@@ -173,6 +173,7 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
         infoView.subviews.forEach { $0.removeFromSuperview() }
         guard let shops = marker.userData as? [BaeminInfo] else { return false }
         

@@ -49,8 +49,12 @@ class DetailViewController: UIViewController {
         
         orderCountLabel.text = baeminInfo.orderCount.convertCountPlus()
         favoriteCountLabel.text = baeminInfo.favoriteCount.convertCountPlus()
-        meetPayLabel.ablePay()
-        baroPayLabel.ablePay()
+//        meetPayLabel.ablePay()
+//        baroPayLabel.ablePay()
+        print("detail : ", baeminInfo.useBaropay, "baro / ", baeminInfo.useMeetPay, "meet")
+        
+        meetPayLabel.checkPay(able: baeminInfo.useMeetPay)
+        baroPayLabel.checkPay(able: baeminInfo.useBaropay)
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
         }
