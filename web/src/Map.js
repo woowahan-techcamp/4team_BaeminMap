@@ -233,6 +233,7 @@ class Map {
                     const resetHiddenList = () => {
                         const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
                         shopList.forEach(shop => shop.style.display = 'block')
+                        document.querySelector('.shop-list-back-all-list').style.zIndex = '0'
                     }
                     const showModalAndMoveMap = () => {
                         // Single
@@ -299,16 +300,17 @@ class Map {
                         if (_marker[shopLocationString]) {
                             // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
                             resetHiddenList()
+                            //데스크탑에서 duplicated 마커 클릭 시 전체 리스트로 돌아가는 버튼을 활성화 해준다.
                             const backAllButton = document.querySelector('.shop-list-back-all-list');
+                            backAllButton.style.zIndex = '21';
                             const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
                             const notDuplicated = shopList
                                 .filter(shop => shop.dataset.coordinates !== shopLocationString)
                                 .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
                             notDuplicated.forEach(shop => shop.style.display = 'none')
-                            backAllButton.style.zIndex = '21';
+                            this.gmap.setCenter(marker.getPosition())
                             backAllButton.addEventListener('click', ()=>{
-                                notDuplicated.forEach(shop => shop.style.display = 'block')
-                                backAllButton.style.zIndex = '0';
+                                resetHiddenList();
                                 this.xMarker.setIcon(this.xMarkerIcon)
                             })
                             if (notDuplicated.length === 0) {
