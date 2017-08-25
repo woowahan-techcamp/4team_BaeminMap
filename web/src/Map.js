@@ -83,7 +83,7 @@ class Map {
         map.addListener('zoom_changed', () => {
             this.resetMarkerAndInfo()
             const pinMarkers = this.markers.slice(30)
-            if (map.zoom >= 17) {
+            if (map.zoom >= 18) {
                 // 건물수준(좁게보기)
                 pinMarkers.forEach((marker) => {
                     marker.setIcon(marker.categoryIcon)
