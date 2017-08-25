@@ -337,7 +337,7 @@ class Map {
     }
 
     async showModal(shopNumber) {
-        indicator.style.display = 'table'
+        shopIndicator.style.display = 'table'
         const modal = document.querySelector('#modal')
         const shopDetailData = this.filteredData.filter((i) => {
             return i.shopNumber == shopNumber
@@ -349,7 +349,7 @@ class Map {
                 allCategoryFoodList: response.data
             })
         })
-        indicator.style.display = 'none'
+        shopIndicator.style.display = 'none'
         modal.style.display = 'block'
     }
 
