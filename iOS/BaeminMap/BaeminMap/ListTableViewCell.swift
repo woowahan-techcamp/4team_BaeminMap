@@ -30,13 +30,8 @@ class ListTableViewCell: UITableViewCell {
         moveButton.isEnabled = false
     }
     
-    func isPay(baro: Bool?=nil, meet: Bool?=nil) {
-        if let baro = baro {
-            baropayLabel.backgroundColor = baro ? UIColor.pointColor : UIColor.lightGray
-        } else if let meet = meet {
-            meetingpayLabel.backgroundColor = meet ? UIColor.pointColor : UIColor.lightGray
-        }
-        
+    func isPay(baro: Bool, meet: Bool) {
+        baropayLabel.backgroundColor = baro ? UIColor.pointColor : UIColor.lightGray
+        meetingpayLabel.backgroundColor = meet ? UIColor.pointColor : UIColor.lightGray
     }
-    
 }

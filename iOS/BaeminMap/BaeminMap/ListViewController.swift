@@ -67,7 +67,6 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("list : ", baeminInfo[indexPath.row].useBaropay, "baro / ", baeminInfo[indexPath.row].useMeetPay, "meet")
         let detailViewController = UIStoryboard.detailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
         detailViewController.baeminInfo = baeminInfo[indexPath.row]
         navigationController?.pushViewController(detailViewController, animated: true)
