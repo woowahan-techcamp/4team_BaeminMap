@@ -275,11 +275,18 @@ class Map {
                         if (_marker[shopLocationString]) {
                             // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
                             resetHiddenList()
+                            const backAllButton = document.querySelector('.shop-list-back-all-list');
                             const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
                             const notDuplicated = shopList
                                 .filter(shop => shop.dataset.coordinates !== shopLocationString)
                                 .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
                             notDuplicated.forEach(shop => shop.style.display = 'none')
+                            backAllButton.style.zIndex = '21';
+                            backAllButton.addEventListener('click', ()=>{
+                                notDuplicated.forEach(shop => shop.style.display = 'block')
+                                backAllButton.style.zIndex = '0';
+                                this.xMarker.setIcon(this.xMarkerIcon)
+                            })
                             if (notDuplicated.length === 0) {
                                 // 다 가려진 상태라면...!
                                 showModalAndMoveMap()

@@ -509,10 +509,9 @@ div.layer.show {
         height: 40px;
         background: url(../static/backbutton.png);
         background-size: 40px 40px;
-        background-color: lightskyblue;
+        background-color: lightcyan;
         border-radius: 50%;
         opacity : 0.8;
-        z-index: 21;
         cursor: pointer;
     }
 }
