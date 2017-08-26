@@ -19,7 +19,9 @@ class ListTableViewCell: UITableViewCell {
     @IBOutlet var baropayLabel: UILabel!
     @IBOutlet var meetingpayLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet weak var rightArrowImage: UIImageView!
     @IBOutlet weak var moveButton: UIButton!
+    @IBOutlet weak var infoView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,13 +32,8 @@ class ListTableViewCell: UITableViewCell {
         moveButton.isEnabled = false
     }
     
-    func isPay(baro: Bool?=nil, meet: Bool?=nil) {
-        if let baro = baro {
-            baropayLabel.backgroundColor = baro ? UIColor.pointColor : UIColor.lightGray
-        } else if let meet = meet {
-            meetingpayLabel.backgroundColor = meet ? UIColor.pointColor : UIColor.lightGray
-        }
-        
+    func isPay(baro: Bool, meet: Bool) {
+        baropayLabel.backgroundColor = baro ? UIColor.pointColor : UIColor.lightGray
+        meetingpayLabel.backgroundColor = meet ? UIColor.pointColor : UIColor.lightGray
     }
-    
 }

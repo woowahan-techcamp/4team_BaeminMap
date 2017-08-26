@@ -17,6 +17,7 @@ class Food: Mappable {
     private(set) var foodConts: String?
     private(set) var foodPrice: String!
     private(set) var imgUrl: String?
+    private(set) var price: [String:String]!
     
     required init?(map: Map) {}
     
@@ -28,13 +29,14 @@ class Food: Mappable {
         foodConts <- map["foodConts"]
         foodPrice <- map["foodPrice"]
         imgUrl <- map["imgUrl"]
+        price <- map["price"]
     }
 }
 
 class Section {
     var open: Bool
-    var items: [Food]
-    var title: String
+    private(set) var items: [Food]
+    private(set) var title: String
     
     init(title: String, items: [Food]) {
         self.open = false

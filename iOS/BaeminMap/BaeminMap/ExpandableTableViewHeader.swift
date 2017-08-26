@@ -16,7 +16,6 @@ class ExpandableTableViewHeader: UITableViewHeaderFooterView {
     
     var delegate: ExpandableTableViewHeaderDelegate?
     var section: Int = 0
-    
     let titleLabel = UILabel()
     let arrowImage = UIImageView()
     

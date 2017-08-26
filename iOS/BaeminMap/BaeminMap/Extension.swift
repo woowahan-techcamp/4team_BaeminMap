@@ -9,11 +9,11 @@
 import UIKit
 
 extension UIStoryboard {
-    static let ListViewStoryboard = UIStoryboard(name: "ListView", bundle: nil)
-    static let MapViewStoryboard = UIStoryboard(name: "MapView", bundle: nil)
-    static let MainContainerViewStoryboard = UIStoryboard(name: "MainContainerView", bundle: nil)
-    static let DetailViewStoryboard = UIStoryboard(name: "DetailView", bundle: nil)
-    static let FilterViewStoryboard = UIStoryboard(name: "FilterView", bundle: nil)
+    static let listViewStoryboard = UIStoryboard(name: "ListView", bundle: nil)
+    static let mapViewStoryboard = UIStoryboard(name: "MapView", bundle: nil)
+    static let mainContainerViewStoryboard = UIStoryboard(name: "MainContainerView", bundle: nil)
+    static let detailViewStoryboard = UIStoryboard(name: "DetailView", bundle: nil)
+    static let filterViewStoryboard = UIStoryboard(name: "FilterView", bundle: nil)
 }
 
 extension Double {
@@ -42,6 +42,13 @@ extension UIScrollView {
             setContentOffset(bottomOffset, animated: true)
         }
     }
+    
+    func scrollToPage(x: CGFloat, animated: Bool, after delay: TimeInterval) {
+        let offset: CGPoint = CGPoint(x: x, y: 0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+            self.setContentOffset(offset, animated: animated)
+        })
+    }
 }
 
 extension UINavigationBar {
@@ -50,5 +57,45 @@ extension UINavigationBar {
         self.appearance().barTintColor = UIColor.white
         self.appearance().backIndicatorImage = #imageLiteral(resourceName: "backbutton")
         self.appearance().backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "backbutton")
+    }
+}
+
+extension UILabel {
+    func checkPay(_ able : Bool) {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = able ? UIColor.black.cgColor : UIColor.lightGray.cgColor
+        self.textColor = able ? UIColor.black : UIColor.lightGray
+        self.layer.cornerRadius = self.layer.frame.height/2
+    }
+}
+
+extension Int {
+    func convertCountPlus() -> String {
+        if self >= 10000 {
+            return "\(String((Double(self)/10000.0).roundTo(places: 1)))만+"
+        } else if self >= 1000 {
+            return "\(String(self/1000))000+"
+        } else if self >= 100 {
+            return "\(String(self/100))00+"
+        } else if self >= 10 {
+            return "\(String(self/10))0+"
+        } else if self > 0 {
+            return "1+"
+        } else {
+            return "0"
+        }
+    }
+}
+
+extension String {
+    func convertPhoneNumber() -> String {
+        if self[self.startIndex] != "0" {
+            var array = Array(self.characters)
+            array[0] = "0"
+            return String(array)
+        } else {
+            return self
+        }
+        
     }
 }
