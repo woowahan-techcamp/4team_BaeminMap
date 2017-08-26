@@ -500,6 +500,20 @@ div.layer.show {
     .distance-option-list > li.distance-option:hover {
         color: #a0efec;
     }
+
+    .shop-list-back-all-list {
+        position: absolute;
+        top: 55px;
+        left: 5px;
+        width: 40px;
+        height: 40px;
+        background: url(../static/backbutton.png);
+        background-size: 40px 40px;
+        background-color: lightcyan;
+        border-radius: 50%;
+        opacity : 0.8;
+        cursor: pointer;
+    }
 }
 
 @media (max-width: 480px) {
