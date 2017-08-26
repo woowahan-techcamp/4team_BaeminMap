@@ -511,7 +511,7 @@ div.layer.show {
         background-size: 40px 40px;
         background-color: lightcyan;
         border-radius: 50%;
-        opacity : 0.8;
+        opacity: 0.8;
         cursor: pointer;
     }
 }

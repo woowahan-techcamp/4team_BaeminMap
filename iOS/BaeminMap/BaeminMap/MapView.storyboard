@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UUW-Et-0Bz">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map View Controller-->
+        <scene sceneID="Vzd-ar-9IF">
+            <objects>
+                <viewController storyboardIdentifier="MapView" id="UUW-Et-0Bz" customClass="MapViewController" customModule="BaeminMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="By3-2F-vPd"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZjL-UY-siO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GrN-Ww-lUK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XYr-eW-xtd" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1x-TL-twi">
+                                <rect key="frame" x="256" y="15" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="98K-nQ-ie7"/>
+                                    <constraint firstAttribute="width" constant="48" id="p5O-Wx-otn"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="currentSearch"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="XYr-eW-xtd" firstAttribute="leading" secondItem="GrN-Ww-lUK" secondAttribute="leading" id="5Tt-o3-pDf"/>
+                            <constraint firstAttribute="trailing" secondItem="XYr-eW-xtd" secondAttribute="trailing" id="THa-oN-W2H"/>
+                            <constraint firstItem="XYr-eW-xtd" firstAttribute="top" secondItem="GrN-Ww-lUK" secondAttribute="top" id="Wos-An-TGE"/>
+                            <constraint firstItem="ZjL-UY-siO" firstAttribute="top" secondItem="XYr-eW-xtd" secondAttribute="bottom" id="eYs-7X-vsQ"/>
+                            <constraint firstItem="K1x-TL-twi" firstAttribute="trailing" secondItem="GrN-Ww-lUK" secondAttribute="trailingMargin" id="mqV-qB-llk"/>
+                            <constraint firstItem="K1x-TL-twi" firstAttribute="top" secondItem="GrN-Ww-lUK" secondAttribute="topMargin" constant="15" id="oGK-Fp-rvR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="currentLocationButton" destination="K1x-TL-twi" id="HfU-QP-SOh"/>
+                        <outlet property="mapView" destination="XYr-eW-xtd" id="6Rv-7N-PiK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gxi-oK-OuK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="115.59220389805098"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="currentSearch" width="48" height="48"/>
+    </resources>
+</document>
