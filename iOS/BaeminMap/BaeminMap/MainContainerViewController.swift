@@ -50,6 +50,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         selectedSortTag = sortTag
         selectedRangeTag = rangeTag
         listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
+        mapBaeminInfo = Filter().findSamePlace(baeminInfo: listBaeminInfo)
     }
     
     func receive(notification: Notification) {
