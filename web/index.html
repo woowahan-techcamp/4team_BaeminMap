@@ -2,9 +2,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <title>Baemin Map</title>
-    <link rel="stylesheet" href="src/index.css">
+    <link rel="stylesheet" href="src/index.css?_=1">
 </head>
 <body>
 <div class="content">
@@ -84,14 +84,16 @@
                     src="./static/angle-down.png"></h2>
         </div>
     </div>
-    <div id="list">
+    <div id="list" class="mobile-hidden">
+        <div class="shop-list-back-all-list mobile-hidden">
+        </div>
         <div class="shop-list" id="shopList">
             <!-- TODO: 이부분이 템플릿으로 -->
         </div>
         <script id="shopListTemplate" type="text/x-handlebars-template"></script>
     </div>
 </div>
-<input type="checkbox" id="flipList">
+<input type="checkbox" id="flipList" checked>
 <div class="floating-button mobile-visible">
     <div id="filterOnOff"><img src="./static/filterBtn.png" alt=""></div>
     <label for="flipList">
@@ -99,11 +101,32 @@
         </div>
     </label>
 </div>
-<input id="pac-input" class="controls" type="text" placeholder="Search Box">
-<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<input id="pac-input" class="controls" type="text" placeholder="지번, 도로명, 건물명을 검색하세요" checked>
+<a class="my-location"></a>
+
+<div id="indicator">
+    <div id="indicator-inner">
+        <div class="animation-target">
+            <img src="./static/default.png" width="100px">
+        </div>
+    </div>
+</div>
+
+<div id="shopIndicator" style="display: none;">
+    <div id="shopIndicator-inner">
+        <div class="animation-target">
+            <img src="./static/default.png" width="100px">
+        </div>
+    </div>
+</div>
+
+<div id="card" class="mobile-visible"></div>
+<div id="modal" class="modal map-layout"></div>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP-cvYfe02ZIu5Df-_Y3mhhqRuxf9DuBw&libraries=places"
         type="text/javascript"></script>
-<script type="text/javascript" src="/dist/bundle.js"></script>
+<script>
+    document.write("<script type='text/javascript' src='/dist/bundle.js?_=" + Date.now() + "'><\/script>");
+</script>
 </body>
 </html>

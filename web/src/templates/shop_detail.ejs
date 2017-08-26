@@ -1,40 +1,80 @@
-<div class="shop-detail-wrapper">
-    <div class="shop-detail-scroll">
+<div class="shop-detail-wrapper modal-content">
+    <span class="close"></span>
+    <div class="shop-detail-name">
         <h2><%= shopName %></h2>
-        <hr>
+    </div>
+    <div class="shop-detail-scroll">
+        <div class="shop-head">
+            <div class="shop-head-left">
+                <span class="shop-order-total">주문수 <%= parseInt(orderCount / 10) * 10 %>+</span>
+                <span class="shop-favorite-total">즐겨찾기 <%= parseInt(orderCount / 10) * 10 %>+</span>
+            </div>
+            <div class="shop-head-right">
+                <% let baroPayOn
+                let meetPayOn
+                if (useBaropay) {
+                    baroPayOn = "canPay"
+                }
+                if (useMeetPay) {
+                    meetPayOn = "canPay"
+                } %>
+                <span class="pay meetPay  <%= meetPayOn %>">만나서결제</span>
+                <span class="pay baroPay <%= baroPayOn %>">바로결제</span>
+            </div>
+        </div>
         <div class="shop-detail-info">
-            <div class="shop-detail shop-star">
-                <span><%= starPointAverage %></span>
-                <img src="" alt="별점">
+            <div class="shop-detail-thumb">
+                <% const shopLogo = shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr') %>
+                <img src="<%= shopLogo %>" onerror="this.src='../static/default.png'" class="shop-detail-thumb-img">
             </div>
-            <div class="shop-detail shop-recent-reviews">
-                <span>최근리뷰</span><br>
-                <span class="shop-comment-counts"><%= reviewCount %></span>
+            <% if(parseInt(starPointAverage) !== 0) { %>
+            <div class="shop-detail-info-abstract">
+                <div class="shop-detail shop-star">
+                    <span><%= starPointAverage.toFixed(1) %></span>
+                    <span class="star-rating">
+                        <span class="img-star star-rate shop-detail-star">
+                            <span class="img-star inner-star-rate"
+                                  style="width: <%= (starPointAverage / 5) * 100 %>%"></span>
+                        </span>
+                    </span>
+                </div>
+                <div class="shop-detail shop-recent-reviews">
+                    <span>최근리뷰</span><br>
+                    <span class="shop-comment-counts"><%= reviewCount %></span>
+                </div>
+                <div class="shop-detail shop-ceo-comment">
+                    <span>사장님 댓글</span><br>
+                    <span class="shop-comment-counts"><%= reviewCountCeo %></span>
+                </div>
             </div>
-            <div class="shop-detail shop-ceo-comment">
-                <span>사장님 댓글</span><br>
-                <span class="shop-comment-counts"><%= reviewCountCeo %></span>
+            <% } %>
+            <% if(parseInt(minimumOrderPrice) !== 0){ %>
+            <div class="shop-minimum-order-price shop-detail-oneline-info">
+                <span class="shop-detail-noti">안내</span>
+                <span>최소주문금액: </span>
+                <span><%= minimumOrderPrice %>원</span>
             </div>
-            <div class="shop-detail shop-minimum-order-price">
-                <span>최소주문금액</span><br>
-                <span><%= minimumOrderPrice %></span>
+            <% } %>
+            <div class="shop-phone  shop-detail-oneline-info">
+                <span class="shop-detail-noti">전화번호</span>
+                <span>
+                    <% if (virtualPhoneNumber) { %>
+                    <%= virtualPhoneNumber %>
+                    <% } else if (phoneNumber.startsWith('9')) { %>
+                    <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
+                    <% } else { %>
+                    <%= phoneNumber %>
+                    <% } %>
+                </span>
             </div>
         </div>
-        <div class="shop-phone">
-            전화번호:
-            <%if (virtualPhoneNumber) { %>
-            <%= virtualPhoneNumber %>
-            <% } else if (phoneNumber.startsWith('9')) { %>
-            <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
-            <% } else {%>
-            <%= phoneNumber %>
-            <% }%>
-        </div>
-
         <!-- TODO: 상점 정보(음식목록) shop_detail_temp.ejs -->
         <div id="foodDetails"></div>
     </div>
-    <a href="https://www.baemin.com/shop/<%= shopNumber %>" class="shop-link-btn">
-        <button class="shop-link-btn">주문하러가기</button>
-    </a>
+
+    <div class="shop-link-btn-wrapper">
+        <a href="https://www.baemin.com/shop/<%= shopNumber %>" class="shop-link-btn">
+            <button class="shop-link-btn">주문하러가기</button>
+        </a>
+    </div>
 </div>

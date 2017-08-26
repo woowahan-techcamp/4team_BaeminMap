@@ -1,15 +1,49 @@
+<% if(Object.keys(allCategoryFoodList).length === 0) { %>
+<img src="../static/callPlease.png" style="width:100%;height: auto">
+<% } else { %>
+<% if(allCategoryFoodList.imageMenu){
+    const imageMenu = allCategoryFoodList.imageMenu
+    delete allCategoryFoodList.imageMenu
+%>
+<div class="imgFood">
+    <% _.each(imageMenu, (imgFood) => { %>
+    <div class="imgMenu">
+        <img class="menuImage" src="<%= imgFood.imgUrl %>" onerror="this.src='../static/default.png'">
+        <div class="imgMenuInfo">
+            <span class="imgMenuName"><%= imgFood.foodNm %></span>
+            <strong class="imgMenuPrice"><%= imgFood.foodPrice %>원</strong>
+        </div>
+    </div>
+    <% }) %>
+</div>
+<% } %>
 <% _.each(allCategoryFoodList, (foodList, category) => { %>
 <div class="toggle-box">
-    <input class="checkbox" type="checkbox" id="toggle-<%= category %>" checked>
+    <input class="checkbox" type="checkbox" id="toggle-<%= category %>">
     <label class="toggle-label" for="toggle-<%= category %>"><%= category %></label>
     <div class="toggle-content">
         <div class="module">
             <ul>
                 <% _.each(foodList, (food) => { %>
-                <li><%= food.foodNm %> <span><%= food.foodPrice %></span></li>
+                <li>
+                    <div class="food-list-content">
+                        <div class="food-list-content food-list-left"><%= food.foodNm %></div>
+                        <div class="food-list-content food-list-right">
+                            <% let name;
+                            _.each(food.price, (price, priceName) => { if (priceName === "") {
+                                    name = priceName
+                                } else {
+                                    name = priceName + " : "
+                                } %>
+                            <span><%= name %><%= Number(price).toLocaleString() %>원</span>
+                            <% }) %>
+                        </div>
+                    </div>
+                </li>
                 <% }) %>
             </ul>
         </div>
     </div>
 </div>
 <% }); %>
+<% } %>

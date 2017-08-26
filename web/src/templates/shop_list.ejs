@@ -1,10 +1,10 @@
 <% _.each(data, (shop) => {
     const shopLogoImageUrl = shop.shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr')
+    const coordinates = `${shop.location.latitude}_${shop.location.longitude}`
 %>
-<div class="shop" id="<%= shop.shopNumber %>">
-    <a class="shop-layer"></a>
+<div class="shop" id="<%= shop.shopNumber %>" data-shopnumber="<%= shop.shopNumber %>" data-coordinates="<%= coordinates %>">
+    <a class="shop-layer" data-shopnumber="<%= shop.shopNumber %>" data-categoryenglishname="<%= shop.categoryEnglishName%>"></a>
     <div class="shop-image-wrapper">
-        <span></span>
         <img src="<%= shopLogoImageUrl %>" onerror="this.src='../static/default.png'" alt="">
     </div>
     <div class="shop-abstract-wrapper">
