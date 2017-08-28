@@ -12,13 +12,7 @@ import AlamofireImage
 class ListViewController: UIViewController {
     
     @IBOutlet weak var listView: UITableView!
-    
-    lazy var parentView: MainContainerViewController = {
-        return self.parent as! MainContainerViewController
-    }()
-    lazy var baeminInfo: [BaeminInfo] = {
-        return self.parentView.listBaeminInfo
-    }()
+    lazy var baeminInfo = BaeminInfoData.shared.listBaeminInfo
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +28,7 @@ class ListViewController: UIViewController {
     }
     
     func recieve(notification: Notification) {
-        baeminInfo = parentView.listBaeminInfo
+        baeminInfo = BaeminInfoData.shared.listBaeminInfo
         listView.reloadData()
     }
     

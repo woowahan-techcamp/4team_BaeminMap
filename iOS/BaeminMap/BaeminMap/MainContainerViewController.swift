@@ -20,23 +20,18 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     var selectedCategory = [String]()
     var selectedSortTag = Int()
     var selectedRangeTag = Int()
-    var baeminInfo = [BaeminInfo]()
-    var baeminInfoDic = [String:[BaeminInfo]]()
-    var listBaeminInfo = [BaeminInfo]() {
-        didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("listBaeminInfo"), object: self)
-        }
-    }
-    var mapBaeminInfo = [BaeminInfo:[BaeminInfo]]() {
-        didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("mapBaeminInfo"), object: self)
-        }
-    }
+    lazy var filterButtonMaxY: CGFloat = {
+        return self.filterButton.frame.maxY
+    }()
+    lazy var filterButtonMinY: CGFloat = {
+        return self.filterButton.frame.minY
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         AnimationView.startLaunchView(target: self)
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("changeFilterFrame"), object: nil)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
     }
 
@@ -49,19 +44,24 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         selectedCategory = category
         selectedSortTag = sortTag
         selectedRangeTag = rangeTag
-        listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
-        mapBaeminInfo = Filter().findSamePlace(baeminInfo: listBaeminInfo)
+        BaeminInfoData.shared.listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: BaeminInfoData.shared.baeminInfoDic)
+        BaeminInfoData.shared.mapBaeminInfo = Filter().findSamePlace(baeminInfo: BaeminInfoData.shared.listBaeminInfo)
     }
     
     func receive(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let baeminInfo = userInfo["BaeminInfo"] as? [BaeminInfo],
-            let baeminInfoDic = userInfo["BaeminInfoDic"] as? [String:[BaeminInfo]] else { return }
-        self.baeminInfo = baeminInfo
-        self.baeminInfoDic = baeminInfoDic
-        listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: baeminInfoDic)
-        mapBaeminInfo = Filter().findSamePlace(baeminInfo: listBaeminInfo)
-        AnimationView.stopIndicator(delay: false)
+        if notification.name == Notification.Name("changeFilterFrame") {
+            if let userInfo = notification.userInfo as? [String:CGFloat],
+                let infoViewHeight = userInfo["filterFrameY"] {
+                let y = filterButtonMaxY - infoViewHeight
+                filterButton.frame = CGRect(x: filterButton.frame.minX, y: y, width: filterButton.frame.width, height: filterButton.frame.height)
+            } else {
+                filterButton.frame = CGRect(x: filterButton.frame.minX, y: filterButtonMinY, width: filterButton.frame.width, height: filterButton.frame.height)
+            }
+        } else {
+            BaeminInfoData.shared.listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: BaeminInfoData.shared.baeminInfoDic)
+            BaeminInfoData.shared.mapBaeminInfo = Filter().findSamePlace(baeminInfo: BaeminInfoData.shared.listBaeminInfo)
+            AnimationView.stopIndicator(delay: false)
+        }
     }
     
     @IBAction func searchLocationButtonAction(_ sender: UIButton) {

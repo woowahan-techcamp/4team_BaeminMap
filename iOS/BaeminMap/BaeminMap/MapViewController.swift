@@ -16,24 +16,15 @@ class MapViewController: UIViewController {
     @IBOutlet weak var currentLocationButton: UIButton!
     
     var location = Location.sharedInstance
-    lazy var parentView: MainContainerViewController = {
-        return self.parent as! MainContainerViewController
-    }()
-    lazy var baeminInfo: [BaeminInfo:[BaeminInfo]] = {
-        return self.parentView.mapBaeminInfo
-    }()
-    lazy var infoView: UIScrollView = {
+    lazy var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
+    var isZoom = true
+    var isViewType = false
+    var pageControl = UIPageControl()
+    var infoView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width, height: 105)
         return scrollView
     }()
-    lazy var filterButtonFrameY: CGFloat = {
-        return self.parentView.view.frame.height - 42 - self.parentView.filterButton.frame.height
-    }()
-    
-    var isZoom = true
-    var isViewType = false
-    var pageControl = UIPageControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +62,7 @@ class MapViewController: UIViewController {
             mapView.clear()
             drawMap()
         } else {
-            self.baeminInfo = parentView.mapBaeminInfo
+            self.baeminInfo = BaeminInfoData.shared.mapBaeminInfo
             self.mapView.selectedMarker = nil
             self.redrawMap()
         }
@@ -147,20 +138,21 @@ class MapViewController: UIViewController {
     }
     
     func infoViewAnimate(isTap: Bool) {
+        let parentView = parent as! MainContainerViewController
         let filterButtonFrame = parentView.filterButton.frame
         if isTap {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
                 self.infoView.frame = CGRect(x: 0, y: self.mapView.frame.maxY-110, width: self.mapView.frame.width, height: 105)
-                let y = self.filterButtonFrameY - self.infoView.frame.height+20
-                self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: y, width: filterButtonFrame.width, height: filterButtonFrame.height)
+//                let y = parentView.filterButtonFrameY - self.infoView.frame.height+20
+                NotificationCenter.default.post(name: NSNotification.Name("changeFilterFrame"), object: self, userInfo: ["filterFrameY" : self.infoView.frame.height+20])
                 self.mapView.layoutIfNeeded()
             }
         } else {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                 self.infoView.frame = CGRect(x: 5, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width-10, height: 105)
-                self.parentView.filterButton.frame = CGRect(x: filterButtonFrame.minX, y: self.filterButtonFrameY, width: filterButtonFrame.width, height: filterButtonFrame.height)
+                NotificationCenter.default.post(name: NSNotification.Name("changeFilterFrame"), object: self)
                 self.mapView.layoutIfNeeded()
             }
         }

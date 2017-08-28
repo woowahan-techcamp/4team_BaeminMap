@@ -33,7 +33,9 @@ class Networking {
                         }
                     }
                 })
-                NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self, userInfo: ["BaeminInfo": baeminInfo, "BaeminInfoDic": baeminInfoDic])
+                BaeminInfoData.shared.baeminInfo = baeminInfo
+                BaeminInfoData.shared.baeminInfoDic = baeminInfoDic
+                NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self)
             case .failure(let error):
                 print(String(describing: error))
             }
