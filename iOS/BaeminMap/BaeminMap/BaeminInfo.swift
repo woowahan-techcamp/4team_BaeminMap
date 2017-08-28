@@ -95,12 +95,12 @@ class BaeminInfoData {
     var baeminInfoDic = [String:[BaeminInfo]]()
     var listBaeminInfo = [BaeminInfo]() {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("listBaeminInfo"), object: self)
+            NotificationCenter.default.post(name: NSNotification.Name.listBaeminInfo, object: self)
         }
     }
     var mapBaeminInfo = [BaeminInfo:[BaeminInfo]]() {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("mapBaeminInfo"), object: self)
+            NotificationCenter.default.post(name: NSNotification.Name.mapBaeminInfo, object: self)
         }
     }
     

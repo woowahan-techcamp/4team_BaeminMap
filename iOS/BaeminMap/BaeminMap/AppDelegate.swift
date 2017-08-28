@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func getBaeminInfoByLocation() {
         Networking().getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
-        NotificationCenter.default.post(name: NSNotification.Name("finishedCurrentLocation"), object: self)
+        NotificationCenter.default.post(name: Notification.Name.location, object: self)
     }
 }
 
