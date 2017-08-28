@@ -25,6 +25,24 @@
     right: 0;
 }
 
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    display: none;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
 @media (max-width: 480px) {
     .modal-content {
         width: 100%;
@@ -34,19 +52,8 @@
         border: none;
         -webkit-overflow-scrolling: touch;
     }
-}
 
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+    .close {
+        display: inherit;
+    }
 }
