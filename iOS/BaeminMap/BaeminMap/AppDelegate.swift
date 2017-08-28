@@ -21,10 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         GMSPlacesClient.provideAPIKey(Config.googleMapKey)
         
         locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
+        }else {
+            getBaeminInfoByLocation()
         }
         UINavigationBar.setNavigation()
         
@@ -60,9 +62,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if let currentLocation = location {
             Location.sharedInstance = Location(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
         }
+        getBaeminInfoByLocation()
+    }
+    
+    func getBaeminInfoByLocation() {
         Networking().getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
         NotificationCenter.default.post(name: Notification.Name.location, object: self)
     }
-
 }
 

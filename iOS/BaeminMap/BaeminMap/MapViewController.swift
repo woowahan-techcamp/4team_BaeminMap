@@ -61,6 +61,7 @@ class MapViewController: UIViewController {
         if notification.name == NSNotification.Name.location {
             mapView.clear()
             drawMap()
+            drawCurrentLocation()
         } else {
             self.baeminInfo = BaeminInfoData.shared.mapBaeminInfo
             self.mapView.selectedMarker = nil
@@ -93,7 +94,6 @@ class MapViewController: UIViewController {
             camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
         }
         mapView.camera = camera
-        drawCurrentLocation()
     }
     
 
@@ -102,10 +102,10 @@ class MapViewController: UIViewController {
         marker.position = CLLocationCoordinate2D(latitude: location.latitude-0.00001, longitude: location.longitude)
         marker.icon = #imageLiteral(resourceName: "currentLocation")
         marker.map = mapView
+        marker.zIndex = 1
     }
     
     func drawMarker(selectedMarker: GMSMarker?) {
-        drawCurrentLocation()
         for(count, shop) in baeminInfo.enumerated() {
             
             let marker = GMSMarker()
@@ -129,6 +129,7 @@ class MapViewController: UIViewController {
                 marker.zIndex = 0
             }
         }
+        drawCurrentLocation()
     }
     
     func redrawMap() {
@@ -175,6 +176,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         
         infoView.delegate = self
         infoView.isScrollEnabled = true
+        infoView.decelerationRate = UIScrollViewDecelerationRateFast
         
         var cellminX = CGFloat(30)
         var cellWidth = UIScreen.main.bounds.width-60
@@ -193,6 +195,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             infoView.contentSize.width = cellminX
         }
         infoView.contentSize.width += 10
+        pageControl.currentPage = 0
         pageControl.numberOfPages = shops.count
         
         mapView.selectedMarker = marker
@@ -228,7 +231,7 @@ extension MapViewController: UIScrollViewDelegate {
         let targetXContentOffset = Float(targetContentOffset.pointee.x)
         let contentWidth = Float(infoView.contentSize.width)
         var newPage = Float(self.pageControl.currentPage)
-        
+    
         if velocity.x == 0 {
             newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
         } else {
