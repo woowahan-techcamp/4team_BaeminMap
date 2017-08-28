@@ -23,6 +23,7 @@ class Map {
         this.shopDetailTemplate = null
         this.shopFoodDetailTemplate = null
         this.getShopDetailTemplate()
+        this.setMapOverLayerEvent();
     }
 
     sleep(ms) {
@@ -148,6 +149,30 @@ class Map {
         }
     }
 
+    resetHiddenList() {
+        const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+        shopList.forEach(shop => shop.style.display = 'block')
+    }
+
+    setMapOverLayerEvent() {
+        const layer = document.querySelector('.layer');
+        const filterSection = document.querySelector('.filter-controller')
+        layer.addEventListener('click', () => {
+            this.resetHiddenList();
+            this.resetMarkerAndInfo();
+            layer.classList.remove('show');
+            filterSection.classList.remove('show')
+        })
+    }
+
+    setMapOverLayerShow() {
+        document.querySelector('.layer').classList.add('show')
+    }
+
+    setMapOverLayerHidden() {
+        document.querySelector(".layer").classList.remove('show')
+    }
+
     setShopMarker(arr, apidata, duplicatedCoordinateList) {
         this.markers.forEach((i) => {
             i.setMap(null)
@@ -230,11 +255,6 @@ class Map {
                     // TODO: 기본 아이콘 변경
                 })
                 marker.addListener('click', () => {
-                    const resetHiddenList = () => {
-                        const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
-                        shopList.forEach(shop => shop.style.display = 'block')
-                        document.querySelector('.shop-list-back-all-list').style.zIndex = '0'
-                    }
                     const showModalAndMoveMap = () => {
                         // Single
                         this.showModal(e.shopNumber);
@@ -257,7 +277,7 @@ class Map {
                         // Mobile
                         const card = document.querySelector("#card")
                         const floatButton = document.querySelector('.floating-button')
-                        resetHiddenList()
+                        this.resetHiddenList()
                         if (_marker[shopLocationString]) {
                             // TODO: 카드 여러장 넣어야 함
                             const cardList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
@@ -299,20 +319,15 @@ class Map {
                         // Desktop
                         if (_marker[shopLocationString]) {
                             // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
-                            resetHiddenList()
+                            this.resetHiddenList()
                             //데스크탑에서 duplicated 마커 클릭 시 전체 리스트로 돌아가는 버튼을 활성화 해준다.
-                            const backAllButton = document.querySelector('.shop-list-back-all-list');
-                            backAllButton.style.zIndex = '21';
                             const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
                             const notDuplicated = shopList
                                 .filter(shop => shop.dataset.coordinates !== shopLocationString)
                                 .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
                             notDuplicated.forEach(shop => shop.style.display = 'none')
                             this.gmap.setCenter(marker.getPosition())
-                            backAllButton.addEventListener('click', ()=>{
-                                resetHiddenList();
-                                this.xMarker.setIcon(this.xMarkerIcon)
-                            })
+                            this.setMapOverLayerShow()
                             if (notDuplicated.length === 0) {
                                 // 다 가려진 상태라면...!
                                 showModalAndMoveMap()
@@ -326,7 +341,7 @@ class Map {
 
                             //
                         } else {
-                            resetHiddenList()
+                            this.resetHiddenList()
                             showModalAndMoveMap()
                         }
                     }
