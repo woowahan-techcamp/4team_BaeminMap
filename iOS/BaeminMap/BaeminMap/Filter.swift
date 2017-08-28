@@ -9,18 +9,19 @@
 import UIKit
 
 class Filter {
-    static var selectedCategory = [String]()
-    static var selectedSortTag = Int()
-    static var selectedRangeTag = Int()
+    static var category = [String]()
+    static var sortTag = Int()
+    static var rangeTag = Int()
     
-    func filterManager() -> [BaeminInfo] {
+    func filterManager() {
         var resultBaeminInfo = [BaeminInfo]()
         let baeminInfoDic = BaeminInfoData.shared.baeminInfoDic
-        resultBaeminInfo = filter(baeminInfoDic: baeminInfoDic, selected: Filter.selectedCategory)
-        resultBaeminInfo = filterRange(baeminInfo: resultBaeminInfo, selected: Filter.selectedRangeTag)
-        resultBaeminInfo = sortManager(baeminInfo: resultBaeminInfo, selected: Filter.selectedSortTag)
+        resultBaeminInfo = filter(baeminInfoDic: baeminInfoDic, selected: Filter.category)
+        resultBaeminInfo = filterRange(baeminInfo: resultBaeminInfo, selected: Filter.rangeTag)
+        resultBaeminInfo = sortManager(baeminInfo: resultBaeminInfo, selected: Filter.sortTag)
         
-        return resultBaeminInfo
+        BaeminInfoData.shared.listBaeminInfo = resultBaeminInfo
+        findSamePlace()
     }
     
     func filter(baeminInfoDic: [String:[BaeminInfo]], selected: [String]) -> [BaeminInfo] {
@@ -65,7 +66,7 @@ class Filter {
         }
     }
     
-    func findSamePlace() -> [BaeminInfo:[BaeminInfo]] {
+    func findSamePlace() {
         var samePlaceShops = [BaeminInfo:[BaeminInfo]]()
         for shop in BaeminInfoData.shared.listBaeminInfo {
             if let key = samePlaceShops[shop] {
@@ -74,6 +75,6 @@ class Filter {
                 samePlaceShops[shop] = [shop]
             }
         }
-        return samePlaceShops
+        BaeminInfoData.shared.mapBaeminInfo = samePlaceShops
     }
 }

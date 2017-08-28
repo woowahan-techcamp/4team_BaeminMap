@@ -17,9 +17,9 @@ class FilterViewController: UIViewController {
     @IBOutlet var sortCheckImageView: [UIImageView]!
     @IBOutlet var rangeCheckImageView: [UIImageView]!
     
-    var selectedCategory = Filter.selectedCategory
-    var selectedSortTag = Filter.selectedSortTag
-    var selectedRangeTag = Filter.selectedRangeTag
+    var selectedCategory = Filter.category
+    var selectedSortTag = Filter.sortTag
+    var selectedRangeTag = Filter.rangeTag
     var category = ["전체", "치킨", "중식", "피자", "한식", "분식", "족발,보쌈", "야식", "찜,탕", "돈까스,회,일식", "도시락", "패스트푸드"]
     
     override func viewDidLoad() {
@@ -76,11 +76,10 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func confirmButtonAction(_ sender: Any) {
-        Filter.selectedCategory = selectedCategory
-        Filter.selectedSortTag = selectedSortTag
-        Filter.selectedRangeTag = selectedRangeTag
-        BaeminInfoData.shared.listBaeminInfo = Filter().filterManager()
-        BaeminInfoData.shared.mapBaeminInfo = Filter().findSamePlace()
+        Filter.category = selectedCategory
+        Filter.sortTag = selectedSortTag
+        Filter.rangeTag = selectedRangeTag
+        Filter().filterManager()
         dismiss(animated: true, completion: nil)
     }
     

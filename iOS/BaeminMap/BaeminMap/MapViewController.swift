@@ -138,13 +138,10 @@ class MapViewController: UIViewController {
     }
     
     func infoViewAnimate(isTap: Bool) {
-        let parentView = parent as! MainContainerViewController
-        let filterButtonFrame = parentView.filterButton.frame
         if isTap {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
                 self.infoView.frame = CGRect(x: 0, y: self.mapView.frame.maxY-110, width: self.mapView.frame.width, height: 105)
-//                let y = parentView.filterButtonFrameY - self.infoView.frame.height+20
                 NotificationCenter.default.post(name: NSNotification.Name.filterFrame, object: self, userInfo: ["filterFrameY" : self.infoView.frame.height+20])
                 self.mapView.layoutIfNeeded()
             }

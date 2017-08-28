@@ -35,7 +35,8 @@ class Networking {
                 })
                 BaeminInfoData.shared.baeminInfo = baeminInfo
                 BaeminInfoData.shared.baeminInfoDic = baeminInfoDic
-                NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self)
+                Filter().filterManager()
+                AnimationView.stopIndicator(delay: false)
             case .failure(let error):
                 print(String(describing: error))
             }
