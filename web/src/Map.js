@@ -385,6 +385,7 @@ class Map {
             apidata.getShopData(pos)
             this.updatePosition(pos)
         }
+        this.gmap.setCenter(this.currentLocation)
         console.time("Update My Position")
         // Update my Position
         console.timeEnd("Update My Position")
