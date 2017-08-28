@@ -502,15 +502,22 @@ div.layer.show {
     }
 
     .duplicate-list-notification {
-        background-color: #acacac;
+        background-color: rgb(42, 42, 42);
         height: 50px;
         width: 100%;
         margin: 0 0 0 0;
         font-size: 13px;
+        text-align: center;
     }
 
     .duplicate-list-notification > span {
-        margin: auto auto auto auto;
+        line-height: 50px;
+        color: #969696;
+        text-overflow: ellipsis;
+    }
+
+    .duplicate-list-notification > span > span {
+        color: lightgray;
     }
 }
 
