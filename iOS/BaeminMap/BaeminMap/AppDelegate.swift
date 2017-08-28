@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         GMSPlacesClient.provideAPIKey(Config.googleMapKey)
         
         locationManager.requestWhenInUseAuthorization()
-//        if CLLocationManager.locationServicesEnabled()
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
