@@ -33,7 +33,6 @@ class Networking {
                         }
                     }
                 })
-                
                 NotificationCenter.default.post(name: NSNotification.Name("getBaeminInfoFinished"), object: self, userInfo: ["BaeminInfo": baeminInfo, "BaeminInfoDic": baeminInfoDic])
             case .failure(let error):
                 print(String(describing: error))
@@ -49,7 +48,6 @@ class Networking {
                 guard let contents = response as? [String:Any] else { return }
                 for(key, value) in contents {
                     var foods = [Food]()
-//                    print(value)
                     if let menus = value as? [String:Any] {
                         menus.forEach({ (menu) in
                             if let value = menu.value as? [String:Any] {
