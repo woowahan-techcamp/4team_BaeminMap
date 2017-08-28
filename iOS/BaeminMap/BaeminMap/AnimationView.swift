@@ -36,7 +36,7 @@ class AnimationView: UIView {
         target.navigationController?.isNavigationBarHidden = true
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3.5) {
             launchView.removeFromSuperview()
-            if target.baeminInfo.isEmpty {
+            if BaeminInfoData.shared.baeminInfo.isEmpty {
                 startIndicator(target: target.view, image: "mapicon", alpha: 0.8)
             }
             target.navigationController?.isNavigationBarHidden = false

@@ -50,7 +50,7 @@ class BaeminInfo: Mappable, Hashable {
     
     required init?(map: Map) {}
     
-    init() { }
+    init() {}
   
     func mapping(map: Map) {
         shopNumber <- map["shopNumber"]
@@ -84,6 +84,24 @@ class BaeminInfo: Mappable, Hashable {
         location <- map["location"]
         distance <- map["distance"]
         shopLogoImageUrl <- map["shopLogoImageUrl"]
+    }
+    
+}
+
+class BaeminInfoData {
+    static let shared = BaeminInfoData()
+    
+    var baeminInfo = [BaeminInfo]()
+    var baeminInfoDic = [String:[BaeminInfo]]()
+    var listBaeminInfo = [BaeminInfo]() {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name("listBaeminInfo"), object: self)
+        }
+    }
+    var mapBaeminInfo = [BaeminInfo:[BaeminInfo]]() {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name("mapBaeminInfo"), object: self)
+        }
     }
     
 }
