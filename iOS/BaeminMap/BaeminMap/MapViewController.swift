@@ -187,6 +187,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         
         infoView.delegate = self
         infoView.isScrollEnabled = true
+        infoView.decelerationRate = UIScrollViewDecelerationRateFast
         
         var cellminX = CGFloat(30)
         var cellWidth = UIScreen.main.bounds.width-60
@@ -240,7 +241,7 @@ extension MapViewController: UIScrollViewDelegate {
         let targetXContentOffset = Float(targetContentOffset.pointee.x)
         let contentWidth = Float(infoView.contentSize.width)
         var newPage = Float(self.pageControl.currentPage)
-        
+    
         if velocity.x == 0 {
             newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
         } else {
