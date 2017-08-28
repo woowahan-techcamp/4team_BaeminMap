@@ -277,7 +277,16 @@ class Map {
                             card.append(sliderWrapper)
                             // TODO: CardSlider 붙이기
                             const triggerMarker = (shopNumber, markersArr) => ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(shopNumber, markersArr))
-                            new CardSlider(card, sliderWrapper, triggerMarker, this.markers, this.showModal, e, this)
+                            const sliderObj = {
+                                card: card,
+                                sliderWrapper: sliderWrapper,
+                                triggerMarkerEvent: triggerMarker,
+                                markers: this.markers,
+                                showModal: this.showModal,
+                                shopData: e,
+                                mapInstance: this
+                            }
+                            new CardSlider(sliderObj)
                         } else {
                             const html = document.getElementById(marker.shopNumber);
                             card.innerHTML = html.innerHTML

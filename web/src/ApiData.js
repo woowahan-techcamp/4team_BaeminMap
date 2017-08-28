@@ -4,10 +4,10 @@ export default class ApiData {
     constructor(position) {
         this.baseURL = "https://pzldoy5f61.execute-api.ap-northeast-2.amazonaws.com/latest"
         this.getShopURL = this.baseURL + "/shops"
-        this.init(position)
+        this.initData(position)
     }
 
-    init(position) {
+    initData(position) {
         this.data = null
         this.shopData = null
         if (position) {
