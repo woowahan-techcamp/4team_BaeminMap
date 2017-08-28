@@ -18,7 +18,6 @@ export default class ApiData {
                 lng: '127.1137412'
             }
         }
-        this.getShopData(this.position)
     }
 
     sleep(ms) {

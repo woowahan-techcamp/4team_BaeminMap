@@ -188,6 +188,10 @@ window.onclick = function (event) {
     const span = document.getElementsByClassName("close")[0];
     if (event.target === modal || event.target === span) {
         modal.style.display = "none";
-        map.resetMarkerAndInfo()
+        if(window.innerWidth > 480){
+            map.resetMarkerAndInfo();
+            map.setMapOverLayerHidden();
+            map.resetHiddenList();
+        }
     }
 }
