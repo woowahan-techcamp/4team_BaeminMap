@@ -151,7 +151,9 @@ class Map {
 
     resetHiddenList() {
         const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+        const filter = document.querySelector('.filter-controller')
         shopList.forEach(shop => shop.style.display = 'block')
+        filter.classList.remove('hidden')
     }
 
     setMapOverLayerEvent() {
@@ -185,6 +187,7 @@ class Map {
             const shopLocationString = `${e.location.latitude}_${e.location.longitude}`
             let iconImg;
             let SelectedIconImg;
+            let markerAddress;
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
@@ -193,6 +196,7 @@ class Map {
                     SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
                 } else {
                     SelectedIconImg = '../static/WebMarker/plusMarkerFill.png'
+                    markerAddress = e.address + " " + e.addressDetail
                 }
                 _marker[shopLocationString] = true
             } else {
@@ -221,7 +225,7 @@ class Map {
                     const markerSize = {
                         categoryIcon: new google.maps.Size(markerWidth, markerHeight),
                         filledIcon: new google.maps.Size(markerWidth, markerHeight),
-                        icon: new google.maps.Size(markerWidth, markerHeight)
+                        icon: new google.maps.Size(markerWidth, markerHeight),
                     }
                     addMarkerListener(markerSize)
                 }
@@ -251,7 +255,8 @@ class Map {
                     icon: {
                         url: iconImg,
                         scaledSize: markerSize.icon
-                    }
+                    },
+                    address: markerAddress
                     // TODO: 기본 아이콘 변경
                 })
                 marker.addListener('click', () => {
@@ -320,14 +325,15 @@ class Map {
                         if (_marker[shopLocationString]) {
                             // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
                             this.resetHiddenList()
-                            //데스크탑에서 duplicated 마커 클릭 시 전체 리스트로 돌아가는 버튼을 활성화 해준다.
                             const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
+                            //duplicated list 의 주소를 찍어줌
                             const notDuplicated = shopList
                                 .filter(shop => shop.dataset.coordinates !== shopLocationString)
                                 .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
                             notDuplicated.forEach(shop => shop.style.display = 'none')
                             this.gmap.setCenter(marker.getPosition())
                             this.setMapOverLayerShow()
+                            this.showDuplicateListNotification(marker.address)
                             if (notDuplicated.length === 0) {
                                 // 다 가려진 상태라면...!
                                 showModalAndMoveMap()
@@ -349,6 +355,13 @@ class Map {
                 this.markers.push(marker)
             }
         });
+    }
+
+    showDuplicateListNotification(address) {
+        const filter = document.querySelector('.filter-controller');
+        const adrressHTML = document.querySelector('.duplicate-list-address');
+        filter.classList.add('hidden')
+        adrressHTML.innerHTML = address
     }
 
     async showModal(shopNumber) {

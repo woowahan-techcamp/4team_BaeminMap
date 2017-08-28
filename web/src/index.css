@@ -501,18 +501,11 @@ div.layer.show {
         color: #a0efec;
     }
 
-    .shop-list-back-all-list {
-        position: absolute;
-        top: 55px;
-        left: 5px;
-        width: 40px;
-        height: 40px;
-        background: url(../static/backbutton.png);
-        background-size: 40px 40px;
-        background-color: lightcyan;
-        border-radius: 50%;
-        opacity: 0.8;
-        cursor: pointer;
+    .duplicate-list-notification {
+        background-color: red;
+        height: 50px;
+        width: 100%;
+        margin: 0 0 0 0;
     }
 }
 
@@ -567,6 +560,10 @@ div.layer.show {
         z-index: 50;
         transition: 0.3s;
         overflow: hidden;
+    }
+
+    .filter-controller.hidden {
+        z-index: 0;
     }
 
     .filter-controller.show {
