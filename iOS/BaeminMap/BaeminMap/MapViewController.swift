@@ -206,6 +206,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             infoView.contentSize.width = cellminX
         }
         infoView.contentSize.width += 10
+        pageControl.currentPage = 0
         pageControl.numberOfPages = shops.count
         
         mapView.selectedMarker = marker
