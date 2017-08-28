@@ -70,6 +70,7 @@ class MapViewController: UIViewController {
         if notification.name == NSNotification.Name("finishedCurrentLocation") {
             mapView.clear()
             drawMap()
+            drawCurrentLocation()
         } else {
             self.baeminInfo = parentView.mapBaeminInfo
             self.mapView.selectedMarker = nil
@@ -102,7 +103,6 @@ class MapViewController: UIViewController {
             camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
         }
         mapView.camera = camera
-        drawCurrentLocation()
     }
     
 
@@ -111,10 +111,10 @@ class MapViewController: UIViewController {
         marker.position = CLLocationCoordinate2D(latitude: location.latitude-0.00001, longitude: location.longitude)
         marker.icon = #imageLiteral(resourceName: "currentLocation")
         marker.map = mapView
+        marker.zIndex = 1
     }
     
     func drawMarker(selectedMarker: GMSMarker?) {
-        drawCurrentLocation()
         for(count, shop) in baeminInfo.enumerated() {
             
             let marker = GMSMarker()
@@ -138,6 +138,7 @@ class MapViewController: UIViewController {
                 marker.zIndex = 0
             }
         }
+        drawCurrentLocation()
     }
     
     func redrawMap() {
