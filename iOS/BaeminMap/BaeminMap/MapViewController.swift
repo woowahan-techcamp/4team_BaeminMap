@@ -133,7 +133,7 @@ class MapViewController: UIViewController {
                     marker.icon = count < 30 || isZoom ? UIImage(named: shop.value[0].categoryEnglishName) : #imageLiteral(resourceName: "smallMarker")
                 } else {
                     marker.userData = shop.value
-                    marker.icon = #imageLiteral(resourceName: "plusMarker")
+                    marker.icon = drawPlusMarker(drawText: "+\(shop.value.count)")
                 }
                 marker.zIndex = 0
             }
@@ -165,6 +165,32 @@ class MapViewController: UIViewController {
             }
         }
     }
+    
+    func drawPlusMarker(drawText text: String) -> UIImage {
+        let textColor = UIColor.pointColor
+        let textFont = UIFont(name: "Helvetica Bold", size: 18)!
+        let image = #imageLiteral(resourceName: "emptyMarker")
+        let style = NSMutableParagraphStyle()
+        style.alignment = .center
+        
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
+        
+        let textFontAttributes = [
+            NSFontAttributeName: textFont,
+            NSForegroundColorAttributeName: textColor,
+            NSParagraphStyleAttributeName: style
+            ] as [String : Any]
+        image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
+        
+        let rect = CGRect(x: 0, y: 6, width: image.size.width, height: image.size.height)
+        text.draw(in: rect, withAttributes: textFontAttributes)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
 
 }
 
@@ -179,7 +205,8 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         if let selectedMarker = mapView.selectedMarker,
             let selectedShop = selectedMarker.userData as? [BaeminInfo] {
             selectedMarker.zIndex = 0
-            selectedMarker.icon = selectedShop.count == 1 ? UIImage(named: selectedShop[0].categoryEnglishName) : #imageLiteral(resourceName: "plusMarker")
+            selectedMarker.icon = selectedShop.count == 1 ? UIImage(named: selectedShop[0].categoryEnglishName) :
+                drawPlusMarker(drawText: "+\(selectedShop.count)")
         }
         
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
