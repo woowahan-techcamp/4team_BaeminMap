@@ -36,6 +36,7 @@ class ListViewController: UIViewController {
     func recieve(notification: Notification) {
         baeminInfo = parentView.listBaeminInfo
         listView.reloadData()
+        listView.setContentOffset(CGPoint.zero, animated: false)
     }
     
 }
