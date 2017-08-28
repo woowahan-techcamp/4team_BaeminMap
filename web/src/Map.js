@@ -188,6 +188,7 @@ class Map {
             let iconImg;
             let SelectedIconImg;
             let markerAddress;
+            let duplicatedShopsNumber;
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
@@ -197,6 +198,7 @@ class Map {
                 } else {
                     SelectedIconImg = '../static/WebMarker/plusMarkerFill.png'
                     markerAddress = e.address + " " + e.addressDetail
+                    duplicatedShopsNumber = duplicatedCoordinateList.lastIndexOf(shopLocationString) - duplicatedCoordinateList.indexOf(shopLocationString) + 1;
                 }
                 _marker[shopLocationString] = true
             } else {
@@ -256,7 +258,8 @@ class Map {
                         url: iconImg,
                         scaledSize: markerSize.icon
                     },
-                    address: markerAddress
+                    address: markerAddress,
+                    "duplicatedShopsNumber" : duplicatedShopsNumber
                     // TODO: 기본 아이콘 변경
                 })
                 marker.addListener('click', () => {
@@ -333,7 +336,7 @@ class Map {
                             notDuplicated.forEach(shop => shop.style.display = 'none')
                             this.gmap.setCenter(marker.getPosition())
                             this.setMapOverLayerShow()
-                            this.showDuplicateListNotification(marker.address)
+                            this.showDuplicateListNotification(marker)
                             if (notDuplicated.length === 0) {
                                 // 다 가려진 상태라면...!
                                 showModalAndMoveMap()
@@ -357,11 +360,13 @@ class Map {
         });
     }
 
-    showDuplicateListNotification(address) {
+    showDuplicateListNotification(marker) {
         const filter = document.querySelector('.filter-controller');
         const adrressHTML = document.querySelector('.duplicate-list-address');
+        const numberHTML = document.querySelector('.duplicate-number')
         filter.classList.add('hidden')
-        adrressHTML.innerHTML = address
+        adrressHTML.innerHTML = marker.address
+        numberHTML.innerHTML = marker.duplicatedShopsNumber
     }
 
     async showModal(shopNumber) {
