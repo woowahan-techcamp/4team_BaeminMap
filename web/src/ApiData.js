@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default class ApiData {
     constructor(position) {
-        this.baseURL = "https://baeminmap2.testi.kr"
+        this.baseURL = "https://pzldoy5f61.execute-api.ap-northeast-2.amazonaws.com/latest"
         this.getShopURL = this.baseURL + "/shops"
         this.init(position)
     }
@@ -58,9 +58,9 @@ export default class ApiData {
         this.data = response.data
     }
 
-    getShopFoodData(shopNumber){
+    getShopFoodData(shopNumber) {
         return axios.get(
-            "https://baeminmap.testi.kr/menu/"+shopNumber
+            this.baseURL + "/menu/" + shopNumber
         )
     }
 
@@ -72,7 +72,9 @@ export default class ApiData {
         console.timeEnd('wait for data')
         console.time('getShopListAll')
         const _list = this.data.shopArray
-        const result = _list.sort(this.compareValues(key, order)).filter((el) => {return el.distance < distance})
+        const result = _list.sort(this.compareValues(key, order)).filter((el) => {
+            return el.distance < distance
+        })
         console.timeEnd('getShopListAll')
         return result
     }
@@ -91,6 +93,8 @@ export default class ApiData {
             }
         }
         console.timeEnd('getShopListByCategoryList')
-        return _list.sort(this.compareValues(key, order)).filter((el) => {return el.distance < distance})
+        return _list.sort(this.compareValues(key, order)).filter((el) => {
+            return el.distance < distance
+        })
     }
 }
