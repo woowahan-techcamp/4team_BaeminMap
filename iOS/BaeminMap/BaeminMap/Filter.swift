@@ -9,11 +9,16 @@
 import UIKit
 
 class Filter {
-    func filterManager(category: [String], range: Int, sort: Int, baeminInfoDic: [String:[BaeminInfo]]) -> [BaeminInfo] {
+    static var selectedCategory = [String]()
+    static var selectedSortTag = Int()
+    static var selectedRangeTag = Int()
+    
+    func filterManager() -> [BaeminInfo] {
         var resultBaeminInfo = [BaeminInfo]()
-        resultBaeminInfo = filter(baeminInfoDic: baeminInfoDic, selected: category)
-        resultBaeminInfo = filterRange(baeminInfo: resultBaeminInfo, selected: range)
-        resultBaeminInfo = sortManager(baeminInfo: resultBaeminInfo, selected: sort)
+        let baeminInfoDic = BaeminInfoData.shared.baeminInfoDic
+        resultBaeminInfo = filter(baeminInfoDic: baeminInfoDic, selected: Filter.selectedCategory)
+        resultBaeminInfo = filterRange(baeminInfo: resultBaeminInfo, selected: Filter.selectedRangeTag)
+        resultBaeminInfo = sortManager(baeminInfo: resultBaeminInfo, selected: Filter.selectedSortTag)
         
         return resultBaeminInfo
     }
@@ -60,9 +65,9 @@ class Filter {
         }
     }
     
-    func findSamePlace(baeminInfo: [BaeminInfo]) -> [BaeminInfo:[BaeminInfo]] {
+    func findSamePlace() -> [BaeminInfo:[BaeminInfo]] {
         var samePlaceShops = [BaeminInfo:[BaeminInfo]]()
-        for shop in baeminInfo {
+        for shop in BaeminInfoData.shared.listBaeminInfo {
             if let key = samePlaceShops[shop] {
                 samePlaceShops[key[0]]?.append(shop)
             } else {

@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             // TODO: 현위치 기반으로 networking
         }
         Networking().getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
-        NotificationCenter.default.post(name: NSNotification.Name("finishedCurrentLocation"), object: self)
+        NotificationCenter.default.post(name: Notification.Name.location, object: self)
     }
 
 }

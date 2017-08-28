@@ -60,7 +60,7 @@ class Networking {
                         sections.append(Section(title: key, items: foods))
                     }
                 }
-                NotificationCenter.default.post(name: NSNotification.Name("finishedGetFoodMenus"), object: self, userInfo: ["Sections" : sections])
+                NotificationCenter.default.post(name: NSNotification.Name.foodMenu, object: self, userInfo: ["Sections" : sections])
             case .failure(let error):
                 print(String(describing: error))
             }

@@ -9,7 +9,7 @@
 import UIKit
 import GooglePlaces
 
-class MainContainerViewController: UIViewController, FilterViewDelegate {
+class MainContainerViewController: UIViewController {
 
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIButton!
@@ -17,9 +17,6 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     var listViewController = UIStoryboard.listViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
     var mapViewController = UIStoryboard.mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     var isListView = Bool()
-    var selectedCategory = [String]()
-    var selectedSortTag = Int()
-    var selectedRangeTag = Int()
     lazy var filterButtonMaxY: CGFloat = {
         return self.filterButton.frame.maxY
     }()
@@ -31,7 +28,7 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         super.viewDidLoad()
         AnimationView.startLaunchView(target: self)
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("changeFilterFrame"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name.filterFrame, object: nil)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
     }
 
@@ -40,16 +37,8 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func selected(category: [String], sortTag: Int, rangeTag: Int) {
-        selectedCategory = category
-        selectedSortTag = sortTag
-        selectedRangeTag = rangeTag
-        BaeminInfoData.shared.listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: BaeminInfoData.shared.baeminInfoDic)
-        BaeminInfoData.shared.mapBaeminInfo = Filter().findSamePlace(baeminInfo: BaeminInfoData.shared.listBaeminInfo)
-    }
-    
     func receive(notification: Notification) {
-        if notification.name == Notification.Name("changeFilterFrame") {
+        if notification.name == Notification.Name.filterFrame {
             if let userInfo = notification.userInfo as? [String:CGFloat],
                 let infoViewHeight = userInfo["filterFrameY"] {
                 let y = filterButtonMaxY - infoViewHeight
@@ -58,8 +47,8 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
                 filterButton.frame = CGRect(x: filterButton.frame.minX, y: filterButtonMinY, width: filterButton.frame.width, height: filterButton.frame.height)
             }
         } else {
-            BaeminInfoData.shared.listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: BaeminInfoData.shared.baeminInfoDic)
-            BaeminInfoData.shared.mapBaeminInfo = Filter().findSamePlace(baeminInfo: BaeminInfoData.shared.listBaeminInfo)
+            BaeminInfoData.shared.listBaeminInfo = Filter().filterManager()
+            BaeminInfoData.shared.mapBaeminInfo = Filter().findSamePlace()
             AnimationView.stopIndicator(delay: false)
         }
     }
@@ -102,10 +91,6 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     
     @IBAction func filterButtonAction(_ sender: Any) {
         let filterViewController = UIStoryboard.filterViewStoryboard.instantiateViewController(withIdentifier: "FilterView") as! FilterViewController
-        filterViewController.delegate = self
-        filterViewController.selectedCategory = selectedCategory
-        filterViewController.selectedSortTag = selectedSortTag
-        filterViewController.selectedRangeTag = selectedRangeTag
         present(filterViewController, animated: true, completion: nil)
     }
 
