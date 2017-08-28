@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "baeminmap-executor",
+    "name": "baeminmap",
+    "region": "ap-northeast-2"
+  },
+  "api": {
+    "id": "pzldoy5f61"
+  }
+}
