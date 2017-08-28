@@ -9,29 +9,26 @@
 import UIKit
 import GooglePlaces
 
-class MainContainerViewController: UIViewController, FilterViewDelegate {
+class MainContainerViewController: UIViewController {
 
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var filterButtonConstraint: NSLayoutConstraint!
     
     var listViewController = UIStoryboard.listViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
     var mapViewController = UIStoryboard.mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     var isListView = Bool()
-    var selectedCategory = [String]()
-    var selectedSortTag = Int()
-    var selectedRangeTag = Int()
     lazy var filterButtonMaxY: CGFloat = {
         return self.filterButton.frame.maxY
     }()
     lazy var filterButtonMinY: CGFloat = {
-        return self.filterButton.frame.minY
+        return self.view.frame.height-self.filterButtonConstraint.constant-self.filterButton.frame.height
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         AnimationView.startLaunchView(target: self)
-        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("getBaeminInfoFinished"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("changeFilterFrame"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name.filterFrame, object: nil)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
     }
 
@@ -40,27 +37,13 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func selected(category: [String], sortTag: Int, rangeTag: Int) {
-        selectedCategory = category
-        selectedSortTag = sortTag
-        selectedRangeTag = rangeTag
-        BaeminInfoData.shared.listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: BaeminInfoData.shared.baeminInfoDic)
-        BaeminInfoData.shared.mapBaeminInfo = Filter().findSamePlace(baeminInfo: BaeminInfoData.shared.listBaeminInfo)
-    }
-    
     func receive(notification: Notification) {
-        if notification.name == Notification.Name("changeFilterFrame") {
-            if let userInfo = notification.userInfo as? [String:CGFloat],
-                let infoViewHeight = userInfo["filterFrameY"] {
-                let y = filterButtonMaxY - infoViewHeight
-                filterButton.frame = CGRect(x: filterButton.frame.minX, y: y, width: filterButton.frame.width, height: filterButton.frame.height)
-            } else {
-                filterButton.frame = CGRect(x: filterButton.frame.minX, y: filterButtonMinY, width: filterButton.frame.width, height: filterButton.frame.height)
-            }
+        if let userInfo = notification.userInfo as? [String:CGFloat],
+            let infoViewHeight = userInfo["filterFrameY"] {
+            let y = filterButtonMaxY - infoViewHeight
+            filterButton.frame = CGRect(x: filterButton.frame.minX, y: y, width: filterButton.frame.width, height: filterButton.frame.height)
         } else {
-            BaeminInfoData.shared.listBaeminInfo = Filter().filterManager(category: selectedCategory, range: selectedRangeTag, sort: selectedSortTag, baeminInfoDic: BaeminInfoData.shared.baeminInfoDic)
-            BaeminInfoData.shared.mapBaeminInfo = Filter().findSamePlace(baeminInfo: BaeminInfoData.shared.listBaeminInfo)
-            AnimationView.stopIndicator(delay: false)
+            filterButton.frame = CGRect(x: filterButton.frame.minX, y: filterButtonMinY, width: filterButton.frame.width, height: filterButton.frame.height)
         }
     }
     
@@ -102,10 +85,6 @@ class MainContainerViewController: UIViewController, FilterViewDelegate {
     
     @IBAction func filterButtonAction(_ sender: Any) {
         let filterViewController = UIStoryboard.filterViewStoryboard.instantiateViewController(withIdentifier: "FilterView") as! FilterViewController
-        filterViewController.delegate = self
-        filterViewController.selectedCategory = selectedCategory
-        filterViewController.selectedSortTag = selectedSortTag
-        filterViewController.selectedRangeTag = selectedRangeTag
         present(filterViewController, animated: true, completion: nil)
     }
 
@@ -118,7 +97,6 @@ extension MainContainerViewController: GMSAutocompleteViewControllerDelegate {
         dismiss(animated: true) { 
             AnimationView.startIndicator(target: self.view, image: "mapicon", alpha: 0.8)
         }
-//        dismiss(animated: true, completion: nil)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {

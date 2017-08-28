@@ -124,3 +124,11 @@ extension String {
         return newImage!
     }
 }
+
+extension Notification.Name {
+    static let location = Notification.Name("finishedCurrentLocation")
+    static let listBaeminInfo = Notification.Name("listBaeminInfo")
+    static let mapBaeminInfo = Notification.Name("mapBaeminInfo")
+    static let foodMenu = Notification.Name("finishedGetFoodMenu")
+    static let filterFrame = Notification.Name("changeFilterFrame")
+}
