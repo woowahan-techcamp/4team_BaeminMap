@@ -96,6 +96,31 @@ extension String {
         } else {
             return self
         }
+    }
+    
+    func drawPlusMarker() -> UIImage {
+        let textColor = UIColor.pointColor
+        let textFont = UIFont(name: "Helvetica Bold", size: 18)!
+        let image = #imageLiteral(resourceName: "emptyMarker")
+        let style = NSMutableParagraphStyle()
+        style.alignment = .center
         
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
+        
+        let textFontAttributes = [
+            NSFontAttributeName: textFont,
+            NSForegroundColorAttributeName: textColor,
+            NSParagraphStyleAttributeName: style
+            ] as [String : Any]
+        image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
+        
+        let rect = CGRect(x: 0, y: 6, width: image.size.width, height: image.size.height)
+        self.draw(in: rect, withAttributes: textFontAttributes)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
 }
