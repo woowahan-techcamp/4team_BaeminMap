@@ -68,7 +68,7 @@ class DetailViewController: UIViewController {
         self.tableView.isHidden = true
         
         Networking().getFoods(shopNo: baeminInfo.shopNumber)
-        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name.foodMenu, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
