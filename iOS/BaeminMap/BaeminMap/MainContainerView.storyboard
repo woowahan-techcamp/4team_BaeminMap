@@ -70,7 +70,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="배민여지도" id="SXz-h2-l1u">
-                        <barButtonItem key="rightBarButtonItem" image="listicon" style="plain" id="yfS-uM-AAN">
+                        <barButtonItem key="rightBarButtonItem" image="listicon" id="yfS-uM-AAN">
                             <connections>
                                 <action selector="toggleButtonAction:" destination="t57-W2-t7k" id="Xvq-Pt-ndL"/>
                             </connections>
@@ -104,22 +104,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MzZ-c5-9zB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-724" y="-181"/>
-        </scene>
-        <!--MapView-->
-        <scene sceneID="UGL-Rl-iQA">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MapView" referencedIdentifier="MapView" id="Tke-UX-WOr" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yj6-13-9Sf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-74" y="276"/>
-        </scene>
-        <!--ListView-->
-        <scene sceneID="8wn-AV-Qwa">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ListView" referencedIdentifier="ListView" id="vUg-tF-VVi" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5hz-O0-oAU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="88" y="276"/>
         </scene>
     </scenes>
     <resources>

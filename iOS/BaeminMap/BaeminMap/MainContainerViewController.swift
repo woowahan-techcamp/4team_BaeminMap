@@ -15,7 +15,7 @@ class MainContainerViewController: UIViewController {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var filterButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
-    
+
     var listViewController = UIStoryboard.listViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
     var mapViewController = UIStoryboard.mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
     var isListView = Bool()
