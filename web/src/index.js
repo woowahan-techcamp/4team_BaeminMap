@@ -158,7 +158,10 @@ navigator.geolocation.getCurrentPosition((position) => {
     moveMyCurrentLocation('.my-location', map)
 })
 
-const toggleFloatingButtonLocation = (floatButton) => {
+const toggleFloatingButtonLocation = (floatButton, visibleTarget) => {
+    if (visibleTarget.style.display !== 'block') {
+        return
+    }
     const floatButtonBottom = parseInt(floatButton.style.bottom.replace("px", ""))
     if (floatButtonBottom > 100) {
         floatButton.style.bottom = "40px";
@@ -177,7 +180,7 @@ document.querySelector("#listOnOff").addEventListener("click", () => {
         card.style.display = "none";
     }
     const floatButton = document.querySelector('.floating-button')
-    toggleFloatingButtonLocation(floatButton)
+    toggleFloatingButtonLocation(floatButton, card)
 })
 
 function cardClickListener() {
@@ -204,10 +207,11 @@ window.onclick = function (event) {
             map.resetHiddenList();
         }
     }
-    document.querySelector('#card').style.display = 'none'
     for (const marker of map.markers) {
         marker.setIcon(marker.categoryIcon)
     }
     const floatButton = document.querySelector('.floating-button')
-    toggleFloatingButtonLocation(floatButton)
+    const visibleTarget = document.querySelector('#card')
+    toggleFloatingButtonLocation(floatButton, visibleTarget)
+    visibleTarget.style.display = 'none'
 }
