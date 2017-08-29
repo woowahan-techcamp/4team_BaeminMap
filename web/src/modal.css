@@ -32,7 +32,6 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
-    display: none;
 }
 
 .close:hover,
@@ -51,9 +50,5 @@
         padding: 0;
         border: none;
         -webkit-overflow-scrolling: touch;
-    }
-
-    .close {
-        display: inherit;
     }
 }
