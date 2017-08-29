@@ -14,13 +14,13 @@ class Config {
             let plist = NSDictionary(contentsOfFile: path) else { return nil }
         return plist
     }()
-    
+
     static let googleMapKey: String = {
-        return plist?["GoogleMapApiKey"] as! String
+        plist?["GoogleMapApiKey"] as! String
     }()
-    
+
     static let standardURL: String = {
-        return plist?["standardURL"] as! String
+        plist?["standardURL"] as! String
     }()
-    
+
 }

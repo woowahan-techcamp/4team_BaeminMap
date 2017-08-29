@@ -17,7 +17,7 @@ extension UIStoryboard {
 }
 
 extension Double {
-    func roundTo(places:Int) -> Double {
+    func roundTo(places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
         return Darwin.round(self * divisor) / divisor
     }
@@ -38,11 +38,11 @@ extension UIColor {
 extension UIScrollView {
     func scrollToSection(y: CGFloat) {
         let bottomOffset = CGPoint(x: 0, y: contentOffset.y + y)
-        if(bottomOffset.y > 0) {
+        if bottomOffset.y > 0 {
             setContentOffset(bottomOffset, animated: true)
         }
     }
-    
+
     func scrollToPage(x: CGFloat, animated: Bool, after delay: TimeInterval) {
         let offset: CGPoint = CGPoint(x: x, y: 0)
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
@@ -61,7 +61,7 @@ extension UINavigationBar {
 }
 
 extension UILabel {
-    func checkPay(_ able : Bool) {
+    func checkPay(_ able: Bool) {
         self.layer.borderWidth = 1
         self.layer.borderColor = able ? UIColor.black.cgColor : UIColor.lightGray.cgColor
         self.textColor = able ? UIColor.black : UIColor.lightGray
@@ -97,30 +97,30 @@ extension String {
             return self
         }
     }
-    
+
     func drawPlusMarker() -> UIImage {
         let textColor = UIColor.pointColor
         let textFont = UIFont(name: "Helvetica Bold", size: 18)!
         let image = #imageLiteral(resourceName: "emptyMarker")
         let style = NSMutableParagraphStyle()
         style.alignment = .center
-        
+
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
-        
+
         let textFontAttributes = [
             NSFontAttributeName: textFont,
             NSForegroundColorAttributeName: textColor,
             NSParagraphStyleAttributeName: style
             ] as [String : Any]
         image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
-        
+
         let rect = CGRect(x: 0, y: 6, width: image.size.width, height: image.size.height)
         self.draw(in: rect, withAttributes: textFontAttributes)
-        
+
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         return newImage!
     }
 }

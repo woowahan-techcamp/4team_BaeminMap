@@ -10,10 +10,10 @@ import UIKit
 import AlamofireImage
 
 class ListViewController: UIViewController {
-    
+
     @IBOutlet weak var listView: UITableView!
     lazy var baeminInfo = BaeminInfoData.shared.listBaeminInfo
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         listView.delegate = self
@@ -21,29 +21,29 @@ class ListViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.listBaeminInfo, object: nil)
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func recieve(notification: Notification) {
         baeminInfo = BaeminInfoData.shared.listBaeminInfo
         listView.reloadData()
         listView.setContentOffset(CGPoint.zero, animated: false)
     }
-    
+
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return baeminInfo.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         let shop = baeminInfo[indexPath.row]
@@ -57,21 +57,21 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.ratingView.rating = shop.starPointAverage
         cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
-        
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = UIStoryboard.detailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
         detailViewController.baeminInfo = baeminInfo[indexPath.row]
         navigationController?.pushViewController(detailViewController, animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         let cell  = tableView.cellForRow(at: indexPath)
         cell?.contentView.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
     }
-    
+
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         let cell  = tableView.cellForRow(at: indexPath)
         cell?.contentView.backgroundColor = .clear

@@ -15,18 +15,18 @@ class Networking {
             "lat": latitude,
             "lng": longitude
         ]
-        
+
         Alamofire.request("\(Config.standardURL)/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result {
             case .success(let response):
                 var baeminInfo = [BaeminInfo]()
-                var baeminInfoDic = [String:[BaeminInfo]]()
+                var baeminInfoDic = [String: [BaeminInfo]]()
                 let contents = response as! [[String:Any]]
                 contents.forEach({ (content) in
                     let shop = BaeminInfo(JSON: content)
                     if let shop = shop {
                         baeminInfo.append(shop)
-                        if let _ = baeminInfoDic[shop.categoryName] {
+                        if baeminInfoDic[shop.categoryName] != nil {
                             baeminInfoDic[shop.categoryName]?.append(shop)
                         } else {
                             baeminInfoDic[shop.categoryName] = [shop]
@@ -42,7 +42,7 @@ class Networking {
             }
         }
     }
-    
+
     func getFoods(shopNo: Int) {
         Alamofire.request("\(Config.standardURL)/menu/\(shopNo)").responseJSON { (response) in
             switch response.result {
@@ -61,7 +61,7 @@ class Networking {
                         sections.append(Section(title: key, items: foods))
                     }
                 }
-                NotificationCenter.default.post(name: NSNotification.Name.foodMenu, object: self, userInfo: ["Sections" : sections])
+                NotificationCenter.default.post(name: NSNotification.Name.foodMenu, object: self, userInfo: ["Sections": sections])
             case .failure(let error):
                 print(String(describing: error))
             }

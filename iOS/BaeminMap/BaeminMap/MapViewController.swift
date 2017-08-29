@@ -11,10 +11,10 @@ import GoogleMaps
 import AlamofireImage
 
 class MapViewController: UIViewController {
-    
+
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
-    
+
     var location = Location.sharedInstance
     lazy var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
     var isZoom = true
@@ -34,7 +34,7 @@ class MapViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.mapBaeminInfo, object: nil)
         currentLocationButton.addTarget(self, action: #selector(moveToCurrentLocation), for: .touchUpInside)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         drawMap()
         if !isViewType {
@@ -45,7 +45,7 @@ class MapViewController: UIViewController {
         }
         redrawMap()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         if !isViewType {
             infoViewAnimate(isTap: false)
@@ -56,7 +56,7 @@ class MapViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func recieve(notification: Notification) {
         if notification.name == NSNotification.Name.location {
             mapView.clear()
@@ -68,7 +68,7 @@ class MapViewController: UIViewController {
             self.redrawMap()
         }
     }
-    
+
     func showDetailView() {
         let detailViewController = UIStoryboard.detailViewStoryboard.instantiateViewController(withIdentifier: "DetailView") as! DetailViewController
         if let shops = mapView.selectedMarker?.userData as? [BaeminInfo] {
@@ -77,12 +77,12 @@ class MapViewController: UIViewController {
             isViewType = true
         }
     }
-    
+
     func moveToCurrentLocation() {
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
         mapView.animate(to: camera)
     }
-    
+
     func drawMap() {
         location = Location.sharedInstance
         var camera = GMSCameraPosition()
@@ -95,7 +95,6 @@ class MapViewController: UIViewController {
         }
         mapView.camera = camera
     }
-    
 
     func drawCurrentLocation() {
         let marker = GMSMarker()
@@ -104,10 +103,10 @@ class MapViewController: UIViewController {
         marker.map = mapView
         marker.zIndex = 1
     }
-    
+
     func drawMarker(selectedMarker: GMSMarker?) {
         for(count, shop) in baeminInfo.enumerated() {
-            
+
             let marker = GMSMarker()
             marker.map = mapView
             marker.position = CLLocationCoordinate2D(latitude: shop.key.location["latitude"]!, longitude: shop.key.location["longitude"]!)
@@ -131,19 +130,19 @@ class MapViewController: UIViewController {
         }
         drawCurrentLocation()
     }
-    
+
     func redrawMap() {
         let selectedMarker = mapView.selectedMarker
         mapView.clear()
         drawMarker(selectedMarker: selectedMarker)
     }
-    
+
     func infoViewAnimate(isTap: Bool) {
         if isTap {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
                 self.infoView.frame = CGRect(x: 0, y: self.mapView.frame.maxY-110, width: self.mapView.frame.width, height: 105)
-                NotificationCenter.default.post(name: NSNotification.Name.filterFrame, object: self, userInfo: ["filterFrameY" : self.infoView.frame.height+20])
+                NotificationCenter.default.post(name: NSNotification.Name.filterFrame, object: self, userInfo: ["filterFrameY": self.infoView.frame.height+20])
                 self.mapView.layoutIfNeeded()
             }
         } else {
@@ -159,21 +158,21 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
+
         infoView.subviews.forEach { $0.removeFromSuperview() }
         guard let shops = marker.userData as? [BaeminInfo] else { return false }
-        
+
         infoViewAnimate(isTap: true)
-        
+
         if let selectedMarker = mapView.selectedMarker,
             let selectedShop = selectedMarker.userData as? [BaeminInfo] {
             selectedMarker.zIndex = 0
             selectedMarker.icon = selectedShop.count == 1 ? UIImage(named: selectedShop[0].categoryEnglishName) :
                 "+\(selectedShop.count)".drawPlusMarker()
         }
-        
+
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
-        
+
         infoView.delegate = self
         infoView.isScrollEnabled = true
         infoView.decelerationRate = UIScrollViewDecelerationRateFast
@@ -185,7 +184,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             cellminX = CGFloat(10)
             cellWidth = UIScreen.main.bounds.width-20
         }
-    
+
         infoView.contentOffset.x = 0
         for shop in shops {
             let cell = makePageCell(shop: shop)
@@ -197,16 +196,16 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoView.contentSize.width += 30
         pageControl.currentPage = 0
         pageControl.numberOfPages = shops.count
-        
+
         mapView.selectedMarker = marker
         marker.map = mapView
         marker.zIndex = 1
         marker.icon = UIImage(named: shops[0].categoryEnglishName+"Fill")
         mapView.animate(to: camera)
-        
+
         return true
     }
-    
+
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         infoViewAnimate(isTap: false)
         self.redrawMap()
@@ -231,7 +230,7 @@ extension MapViewController: UIScrollViewDelegate {
         let targetXContentOffset = Float(targetContentOffset.pointee.x)
         let contentWidth = Float(infoView.contentSize.width)
         var newPage = Float(self.pageControl.currentPage)
-    
+
         if velocity.x == 0 {
             newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
         } else {
@@ -239,19 +238,19 @@ extension MapViewController: UIScrollViewDelegate {
             if newPage < 0 {
                 newPage = 0
             }
-            if (newPage > contentWidth / pageWidth) {
+            if newPage > contentWidth / pageWidth {
                 newPage = ceil(contentWidth / pageWidth) - 1.0
             }
         }
         self.pageControl.currentPage = Int(newPage)
         let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
         targetContentOffset.pointee = point
-        
+
         if let shop = mapView.selectedMarker?.userData as? [BaeminInfo] {
             mapView.selectedMarker?.icon = UIImage(named: shop[pageControl.currentPage].categoryEnglishName+"Fill")
         }
     }
-    
+
     func makePageCell(shop: BaeminInfo) -> ListTableViewCell {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
         cell.layer.borderColor = UIColor.lightGray.cgColor
@@ -260,7 +259,7 @@ extension MapViewController: UIScrollViewDelegate {
         cell.moveButton.isEnabled = true
         cell.rightArrowImage.isHidden = true
         cell.moveButton.addTarget(self, action: #selector(showDetailView), for: .touchUpInside)
-        
+
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
             cell.shopImageView.af_setImage(withURL: URL(string: url)!)
