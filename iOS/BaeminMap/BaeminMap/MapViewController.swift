@@ -254,6 +254,8 @@ extension MapViewController: UIScrollViewDelegate {
     
     func makePageCell(shop: BaeminInfo) -> ListTableViewCell {
         let cell = Bundle.main.loadNibNamed("ListTableViewCell", owner: self, options: nil)?.first as! ListTableViewCell
+        cell.layer.borderColor = UIColor.lightGray.cgColor
+        cell.layer.borderWidth = 0.5
         cell.backgroundColor = UIColor.white
         cell.moveButton.isEnabled = true
         cell.rightArrowImage.isHidden = true
