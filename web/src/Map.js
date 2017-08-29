@@ -83,17 +83,31 @@ class Map {
         // TODO: on map 'zoom_changed', then change markers!
         map.addListener('zoom_changed', () => {
             this.resetMarkerAndInfo()
+            let topRankShopMarkerArr;
+            if(this.filteredData){
+                const topRankShop = Object.values(this.filteredData).slice(0, 30)
+                let topRankShopNumberArr = []
+                topRankShop.forEach((shop) => {
+                    topRankShopNumberArr.push(shop.shopNumber)
+                })
+                topRankShopMarkerArr = this.markers.filter((marker)=>{
+                    return topRankShopNumberArr.includes(marker.shopNumber)
+                })
+            }
+
             const pinMarkers = this.markers.slice(30)
             if (map.zoom >= 18) {
                 // 건물수준(좁게보기)
-                pinMarkers.forEach((marker) => {
+                this.markers.forEach((marker) => {
                     marker.setIcon(marker.categoryIcon)
                 })
             } else {
                 // 도로 구 수준(넓게보기)
-                pinMarkers.forEach((marker) => {
-                    marker.setIcon(marker.pinIcon)
-                    marker.zIndex = 0;
+                this.markers.forEach((marker) => {
+                    if(!topRankShopMarkerArr.includes(marker)){
+                        marker.setIcon(marker.pinIcon)
+                        marker.zIndex = 0;
+                    }
                 })
             }
         })
