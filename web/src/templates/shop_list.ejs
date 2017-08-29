@@ -5,7 +5,7 @@
 <div class="shop" id="<%= shop.shopNumber %>" data-shopnumber="<%= shop.shopNumber %>" data-coordinates="<%= coordinates %>">
     <a class="shop-layer" data-shopnumber="<%= shop.shopNumber %>" data-categoryenglishname="<%= shop.categoryEnglishName%>"></a>
     <div class="shop-image-wrapper">
-        <img data-normal="<%= shopLogoImageUrl %>" onerror="this.src='../static/default.png'" alt="">
+        <img src="<%= shopLogoImageUrl %>" onerror="this.src='../static/default.png'" alt="">
     </div>
     <div class="shop-abstract-wrapper">
         <span class="shop-distance">
