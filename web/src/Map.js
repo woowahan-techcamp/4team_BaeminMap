@@ -468,6 +468,11 @@ class Map {
             new ShopList("#shopList", filteredData, this)
             indicator.style.display = 'none'
             console.timeEnd("SortData")
+            if (filteredData[0] === undefined) {
+                document.querySelector('.no-shop-notification').classList.add('show');
+            } else {
+                document.querySelector('.no-shop-notification').classList.remove('show');
+            }
         })
     }
 }
