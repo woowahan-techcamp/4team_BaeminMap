@@ -169,11 +169,12 @@ class Map {
     }
 
     setMapOverLayerShow() {
-        document.querySelector('.layer').classList.add('show')
+        document.querySelector('.layer').classList.add('show');
+
     }
 
     setMapOverLayerHidden() {
-        document.querySelector(".layer").classList.remove('show')
+        document.querySelector(".layer").classList.remove('show');
     }
 
     setShopMarker(arr, apidata, duplicatedCoordinateList) {

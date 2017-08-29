@@ -32,6 +32,9 @@ function categoryFilterEvent(tar) {
             target.classList.add("selected");
         } else if (target.id !== "category-all" && target.classList.contains("selected")) {
             target.classList.remove("selected");
+            if (document.querySelectorAll(".category.selected")[0] === undefined) {
+                document.querySelector('#category-all').classList.add("selected")
+            }
         } else if (!target.classList.contains("selected")) {
             categoryAll.classList.remove("selected");
             target.classList.add("selected");
@@ -59,6 +62,8 @@ function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
                 filterReset(filterChecker, [".category", ".sort-option", "distance-option"]);
             } else if (e === arr[2]) {
                 //필터 내 적용버튼
+                //현재 설정 창을 업데이트
+                updateCurrentSettingHTML('.sort-option', '.distance-option')
                 filterSection.classList.remove('show')
                 overLayer.classList.remove('show')
                 //현재의 필터/정렬 옵션을 저장한다
@@ -115,6 +120,15 @@ function moveMyCurrentLocation(target, map){
         map.updatePosition(map.currentLocation);
         map.gmap.setZoom(18)
     })
+}
+
+function updateCurrentSettingHTML(sortClass, distanceClass) {
+    const sortOption = document.querySelector(sortClass+".selected");
+    const distanceOption = document.querySelector(distanceClass+".selected");
+    const sortHTML = document.querySelector('.filter-current-sort');
+    const distanceHTML = document.querySelector('.filter-current-distance')
+    sortHTML.innerHTML = sortOption.title
+    distanceHTML.innerHTML = distanceOption.title
 }
 
 // document.addEventListener('DOMContentLoaded', () => {

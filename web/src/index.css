@@ -92,12 +92,12 @@ body {
 
 .shop-list {
     width: 100%;
-    height: calc(100% - 30px);
+    height: calc(100% - 40px);
     overflow: scroll;
     background: #e9dfcc;
     z-index: 1;
     position: absolute;
-    top: 50px;
+    top: 40px;
     transition: 0.3s;
 }
 
@@ -213,10 +213,10 @@ body {
 
 .filter-controller {
     position: absolute;
-    bottom: calc(100% - 50px);
+    bottom: calc(100% - 40px);
     right: 0;
     width: 380px;
-    height: calc(100% + 50px);
+    height: calc(100% + 40px);
     background: white;
     text-align: center;
     z-index: 50;
@@ -240,7 +240,7 @@ body {
 }
 
 .filter-controller.show {
-    transform: translateY(calc(100% - 50px));
+    transform: translateY(calc(100% - 40px));
     height: 100%;
 }
 
@@ -249,13 +249,39 @@ body {
     overflow: scroll;
 }
 
-.filter-button-wrapper {
+.filter-button-and-setting-wrapper {
     position: absolute;
-    height: 50px;
     width: 100%;
+    height: 40px;
+    border-bottom: solid 1px #ebebeb;
+}
+
+.filter-current-setting {
+    position: absolute;
+    left: 0;
+    height: 40px;
+    width: 75%;
+    text-align: left;
+}
+
+.filter-current-setting-text {
+    line-height: 40px;
+    margin-left: 15px;
+    width: calc(100% - 15px);
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+
+.filter-button-wrapper {
+    margin: 0 0 0 0;
+    position: absolute;
+    right: 0;
+    height: 40px;
+    width: 25%;
     cursor: pointer;
     vertical-align: middle;
-    background-color: white;
+    background-color: #2ac1bc;
+    text-align: center;
 }
 
 .filter-button-wrapper > h1 {
@@ -264,12 +290,10 @@ body {
 }
 
 .filter-button-wrapper > img {
-    height: 40px;
-    margin: 5px 10px;
+    height: 30px;
+    margin: 5px 12px;
     padding: 5px;
     float: right;
-    border: 1px solid lightgray;
-    border-radius: 40px;
 }
 
 .filter-title {
