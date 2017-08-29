@@ -345,7 +345,6 @@ class Map {
                         // Desktop
                         if (_marker[shopLocationString]) {
                             // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
-                            this.resetHiddenList()
                             const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
                             //duplicated list 의 주소를 찍어줌
                             const notDuplicated = shopList
@@ -353,7 +352,6 @@ class Map {
                                 .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
                             notDuplicated.forEach(shop => shop.style.display = 'none')
                             this.gmap.setCenter(marker.getPosition())
-                            this.setMapOverLayerShow()
                             this.showDuplicateListNotification(marker)
                             document.querySelector(".shop-list").scrollTop = 0;
 
@@ -381,12 +379,18 @@ class Map {
     }
 
     showDuplicateListNotification(marker) {
-        const filter = document.querySelector('.filter-controller');
-        const adrressHTML = document.querySelector('.duplicate-list-address');
-        const numberHTML = document.querySelector('.duplicate-number')
-        filter.classList.add('hidden')
-        adrressHTML.innerHTML = marker.address
-        numberHTML.innerHTML = marker.duplicatedShopsNumber
+        if (ShopList.triggerChecker){
+            this.setMapOverLayerHidden()
+        } else {
+            console.log(ShopList.triggerChecker)
+            this.setMapOverLayerShow()
+            const filter = document.querySelector('.filter-controller');
+            const adrressHTML = document.querySelector('.duplicate-list-address');
+            const numberHTML = document.querySelector('.duplicate-number')
+            filter.classList.add('hidden')
+            adrressHTML.innerHTML = marker.address
+            numberHTML.innerHTML = marker.duplicatedShopsNumber
+        }
     }
 
     async showModal(shopNumber) {
@@ -404,6 +408,7 @@ class Map {
         })
         shopIndicator.style.display = 'none'
         modal.style.display = 'block'
+        ShopList.triggerChecker = false;
     }
 
     closeModal() {

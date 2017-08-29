@@ -213,8 +213,9 @@ window.onclick = function (event) {
     const modal = document.getElementById('modal');
     const span = document.getElementsByClassName("close")[0];
     if (event.target === modal || event.target === span) {
-        modal.style.display = "none";
+        modal.style.display = "none"
         if(window.innerWidth > 480){
+            modal.style.display = "none"
             map.resetMarkerAndInfo();
             map.setMapOverLayerHidden();
             map.resetHiddenList();
