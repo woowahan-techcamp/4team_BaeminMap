@@ -18,10 +18,13 @@ class Food: Mappable {
     private(set) var foodPrice: String!
     private(set) var imgUrl: String?
     private(set) var price: [String:String]!
-    
-    required init?(map: Map) {}
-    
-    init() {}
+
+    required init?(map: Map) {
+    }
+
+    init() {
+    }
+
     func mapping(map: Map) {
         shopFoodSeq <- map["shopFoodSeq"]
         shopFoodGrpSeq <- map["shopFoodGrpSeq"]
@@ -37,13 +40,13 @@ class Section {
     var open: Bool
     private(set) var items: [Food]
     private(set) var title: String
-    
+
     init(title: String, items: [Food]) {
         self.open = false
         self.items = items
         self.title = title
     }
-    
+
     convenience init() {
         self.init(title: "Section", items: [Food]())
     }

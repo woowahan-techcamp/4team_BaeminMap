@@ -9,7 +9,7 @@
 import UIKit
 
 class FilterCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var foodNameLabel: UILabel!
 
     override var isSelected: Bool {
@@ -19,7 +19,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
             foodNameLabel.textColor = isSelected ? UIColor.white : UIColor.lightGray
         }
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layer.cornerRadius = self.layer.frame.height/2
