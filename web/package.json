@@ -22,6 +22,7 @@
     "webpack-dev-server": "^2.6.1"
   },
   "dependencies": {
+    "layzr.js": "^2.2.2",
     "lodash": "^4.17.4"
   }
 }

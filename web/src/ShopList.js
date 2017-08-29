@@ -1,5 +1,6 @@
 import axios from 'axios'
-import * as _ from "lodash";
+import * as _ from "lodash"
+import Layzr from "layzr.js"
 
 
 class ShopList {
@@ -42,6 +43,11 @@ class ShopList {
         })
         //스크롤 및 선택된 리스트 초기화
         targetElement.scrollTop = 0;
+        const Layzr = new Layzr()
+        Layzr
+            .update()           // track initial elements
+            .check()            // check initial elements
+            .handlers(true)     // bind scroll and resize handlers
     }
 
     static searchTargetMarker(shopNumber, markersArr) {

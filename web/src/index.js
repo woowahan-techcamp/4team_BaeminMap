@@ -110,7 +110,7 @@ function toggleCSSOnClick(el, target, css) {
     })
 }
 
-function moveMyCurrentLocation(target, map){
+function moveMyCurrentLocation(target, map) {
     document.querySelector(target).addEventListener('click', () => {
         map.updatePosition(map.currentLocation);
         map.gmap.setZoom(18)
@@ -201,7 +201,7 @@ window.onclick = function (event) {
     const span = document.getElementsByClassName("close")[0];
     if (event.target === modal || event.target === span) {
         modal.style.display = "none";
-        if(window.innerWidth > 480){
+        if (window.innerWidth > 480) {
             map.resetMarkerAndInfo();
             map.setMapOverLayerHidden();
             map.resetHiddenList();
@@ -215,3 +215,11 @@ window.onclick = function (event) {
     toggleFloatingButtonLocation(floatButton, visibleTarget)
     visibleTarget.style.display = 'none'
 }
+
+// document.addEventListener('DOMContentLoaded', function (event) {
+//     const Layzr = new Layzr()
+//     Layzr
+//         .update()           // track initial elements
+//         .check()            // check initial elements
+//         .handlers(true)     // bind scroll and resize handlers
+// })
