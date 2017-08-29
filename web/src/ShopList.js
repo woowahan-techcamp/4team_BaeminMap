@@ -89,6 +89,7 @@ class ShopList {
     static showModalfromShopNumber(shopNumber) {
         this.map.showModal(shopNumber)
     }
+
 }
 
 export default ShopList

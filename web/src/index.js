@@ -131,6 +131,18 @@ function updateCurrentSettingHTML(sortClass, distanceClass) {
     distanceHTML.innerHTML = distanceOption.title
 }
 
+function setScrollTopButtonEvent(buttonClass, shopListClass) {
+    const shopList = document.querySelector(shopListClass)
+    const button = document.querySelector(buttonClass)
+    shopList.addEventListener('scroll', ()=>{
+        button.classList.add('show')
+        console.log("scroll!")
+        button.addEventListener('click', () => {
+            shopList.scrollTop = 0;
+        })
+    })
+}
+
 // document.addEventListener('DOMContentLoaded', () => {
 const options = {
     enableHighAccuracy: false,
@@ -169,6 +181,7 @@ navigator.geolocation.getCurrentPosition((position) => {
         apidata,
         condition
     );
+    setScrollTopButtonEvent('.move-top-scroll-button', '.shop-list')
     moveMyCurrentLocation('.my-location', map)
 })
 // Add Events on Click

@@ -177,6 +177,11 @@ class Map {
         document.querySelector(".layer").classList.remove('show');
     }
 
+    setScrollTopButtonHidden() {
+        const button = document.querySelector('.move-top-scroll-button');
+        button.classList.remove('show')
+    }
+
     setShopMarker(arr, apidata, duplicatedCoordinateList) {
         this.markers.forEach((i) => {
             i.setMap(null)
@@ -282,7 +287,7 @@ class Map {
                         if (document.querySelector(".selected-shop")) {
                             document.querySelector(".selected-shop").classList.remove("selected-shop");
                         }
-                        document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
+                        document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 40;
                         document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
                     }
                     if (parseInt(window.innerWidth) <= 480) {
@@ -350,6 +355,7 @@ class Map {
                             this.gmap.setCenter(marker.getPosition())
                             this.setMapOverLayerShow()
                             this.showDuplicateListNotification(marker)
+
                             if (notDuplicated.length === 0) {
                                 // 다 가려진 상태라면...!
                                 showModalAndMoveMap()
@@ -360,13 +366,13 @@ class Map {
                                 marker.setIcon(marker.filledIcon);
                                 marker.setZIndex(2);
                             }
-
                             //
                         } else {
                             this.resetHiddenList()
                             showModalAndMoveMap()
                         }
                     }
+                    this.setScrollTopButtonHidden()
                 });
                 this.markers.push(marker)
             }
