@@ -390,12 +390,17 @@
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62u-dv-3wL">
                                 <rect key="frame" x="0.0" y="667.33333333333348" width="414" height="68.666666666666629"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hj-x8-jG3">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="68.666666666666629"/>
+                                        <color key="backgroundColor" red="0.1647058824" green="0.75860267879999999" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="배달의민족 리뷰">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5E-u7-Ag2">
-                                        <rect key="frame" x="0.0" y="0.0" width="106.66666666666667" height="68.666666666666629"/>
+                                        <rect key="frame" x="207" y="0.0" width="207" height="68.666666666666629"/>
                                         <color key="backgroundColor" red="0.14217919109999999" green="0.65654301640000001" blue="0.6296300292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" priority="750" constant="106.5" id="3BA-fG-he7"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="전화주문">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -404,16 +409,9 @@
                                             <action selector="callOrderButtonAction:" destination="yAP-ia-alV" eventType="touchUpInside" id="49V-TQ-RUP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hj-x8-jG3">
-                                        <rect key="frame" x="106.66666666666666" y="0.0" width="307.33333333333337" height="68.666666666666629"/>
-                                        <color key="backgroundColor" red="0.1647058824" green="0.75860267879999999" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="배달의민족 앱으로 이동">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="8Hj-x8-jG3" firstAttribute="width" secondItem="W5E-u7-Ag2" secondAttribute="width" id="kfL-fb-iLK"/>
                                     <constraint firstAttribute="width" secondItem="62u-dv-3wL" secondAttribute="height" multiplier="320:53" id="tUM-iK-iNf"/>
                                 </constraints>
                             </stackView>
@@ -430,6 +428,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="baeminReviewButton" destination="8Hj-x8-jG3" id="VGS-Xv-dJT"/>
                         <outlet property="baroPayLabel" destination="tUX-g2-bea" id="PoP-ug-Oop"/>
                         <outlet property="bottomInfoView" destination="wyJ-pq-vls" id="yvH-da-Cib"/>
                         <outlet property="bottomViewHeight" destination="GYO-D4-TBt" id="ZW5-EQ-Sgx"/>
@@ -438,7 +437,6 @@
                         <outlet property="mainImageView" destination="bv3-RQ-DcK" id="hzF-Ni-QHP"/>
                         <outlet property="meetPayLabel" destination="ZV2-zJ-BTb" id="vhh-2X-pKH"/>
                         <outlet property="minOrderPriceLabel" destination="Zyp-61-F5U" id="Qx3-Ek-6NQ"/>
-                        <outlet property="moveToBaemin" destination="8Hj-x8-jG3" id="iYv-rk-k8h"/>
                         <outlet property="orderCountLabel" destination="4g6-9d-IXq" id="nCB-W2-hna"/>
                         <outlet property="reviewCountCEOLabel" destination="zJ6-uu-ufB" id="23i-1Z-UJt"/>
                         <outlet property="reviewCountLabel" destination="fBU-Uh-qvF" id="4xj-YK-P0J"/>

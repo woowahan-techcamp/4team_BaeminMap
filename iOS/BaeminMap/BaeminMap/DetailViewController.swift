@@ -24,7 +24,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var reviewCountCEOLabel: UILabel!
     @IBOutlet weak var minOrderPriceLabel: UILabel!
-    @IBOutlet weak var moveToBaemin: UIButton!
+    @IBOutlet weak var baeminReviewButton: UIButton!
     @IBOutlet weak var topInfoView: UIView!
     @IBOutlet weak var bottomInfoView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
@@ -55,6 +55,9 @@ class DetailViewController: UIViewController {
         baroPayLabel.checkPay(baeminInfo.useBaropay)
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
+        }
+        if baeminInfo.reviewCount == 0 {
+            baeminReviewButton.isHidden = true
         }
         if baeminInfo.starPointAverage == 0.0 {
             hiddenBottomInfoView()
@@ -99,11 +102,11 @@ class DetailViewController: UIViewController {
     }
     
     func showCallImage() {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-moveToBaemin.frame.height))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-baeminReviewButton.frame.height))
         imageView.contentMode = .center
         imageView.backgroundColor = UIColor.white
         imageView.image = #imageLiteral(resourceName: "callOrderDefault")
-        moveToBaemin.isHidden = true
+        baeminReviewButton.isHidden = true
         tableView.isUserInteractionEnabled = false
         tableView.addSubview(imageView)
     }
