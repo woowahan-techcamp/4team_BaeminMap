@@ -377,6 +377,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="Smg-wR-VbZ" secondAttribute="trailing" constant="7" id="TI3-0K-GVk"/>
                                                 <constraint firstItem="z0E-Bh-X4c" firstAttribute="top" secondItem="xZc-0a-zWX" secondAttribute="topMargin" constant="12" id="Uqi-FM-XgV"/>
                                                 <constraint firstItem="z0E-Bh-X4c" firstAttribute="leading" secondItem="xZc-0a-zWX" secondAttribute="leadingMargin" constant="7" id="cjA-R1-Nhh"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="z0E-Bh-X4c" secondAttribute="bottom" constant="12" id="iRv-kY-zMe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
