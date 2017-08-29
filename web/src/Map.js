@@ -382,6 +382,7 @@ class Map {
     showDuplicateListNotification(marker) {
         if (ShopList.triggerChecker){
             this.setMapOverLayerHidden()
+            this.resetHiddenList()
         } else {
             console.log(ShopList.triggerChecker)
             this.setMapOverLayerShow()
