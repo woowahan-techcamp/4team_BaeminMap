@@ -23,7 +23,7 @@ class MapViewController: UIViewController {
     var pageControl = UIPageControl()
     var infoView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY-69, width: UIScreen.main.bounds.width, height: 105)
+        scrollView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width, height: 105)
         return scrollView
     }()
     var noshopImage: UIImageView = {
