@@ -355,6 +355,7 @@ class Map {
                             this.gmap.setCenter(marker.getPosition())
                             this.setMapOverLayerShow()
                             this.showDuplicateListNotification(marker)
+                            document.querySelector(".shop-list").scrollTop = 0;
 
                             if (notDuplicated.length === 0) {
                                 // 다 가려진 상태라면...!
