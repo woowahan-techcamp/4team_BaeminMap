@@ -523,6 +523,19 @@ div.layer.show {
     z-index: 2;
 }
 
+.no-shop-notification {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 80px;
+    text-align: center;
+    background-color: white;
+}
+
+.no-shop-notification > img {
+    width: 90%;
+}
+
 @media (min-width: 480px) {
     .shop-link-btn:hover {
         cursor: pointer;

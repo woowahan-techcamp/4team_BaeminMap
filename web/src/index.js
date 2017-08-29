@@ -136,7 +136,6 @@ function setScrollTopButtonEvent(buttonClass, shopListClass) {
     const button = document.querySelector(buttonClass)
     shopList.addEventListener('scroll', ()=>{
         button.classList.add('show')
-        console.log("scroll!")
         button.addEventListener('click', () => {
             shopList.scrollTop = 0;
         })
