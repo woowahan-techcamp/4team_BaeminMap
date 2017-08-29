@@ -44,9 +44,8 @@ class ListViewController: UIViewController {
         }
         if baeminInfo.isEmpty {
             let rect = CGRect(x: 0, y: 0, width: listView.frame.width, height: listView.frame.height-82)
-            #imageLiteral(resourceName: "noshops").defaultImage(target: listView, frame: rect)
+            #imageLiteral(resourceName: "noshopman").defaultImage(target: listView, frame: rect)
         }
-
     }
 
 }

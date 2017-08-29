@@ -22,8 +22,15 @@ class MapViewController: UIViewController {
     var pageControl = UIPageControl()
     var infoView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width, height: 105)
+        scrollView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY-69, width: UIScreen.main.bounds.width, height: 105)
         return scrollView
+    }()
+    var noshopImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        imageView.image = #imageLiteral(resourceName: "noShopText")
+        imageView.contentMode = .center
+        return imageView
     }()
 
     override func viewDidLoad() {
@@ -106,7 +113,6 @@ class MapViewController: UIViewController {
 
     func drawMarker(selectedMarker: GMSMarker?) {
         for(count, shop) in baeminInfo.enumerated() {
-
             let marker = GMSMarker()
             marker.map = mapView
             marker.position = CLLocationCoordinate2D(latitude: shop.key.location["latitude"]!, longitude: shop.key.location["longitude"]!)
@@ -135,6 +141,16 @@ class MapViewController: UIViewController {
         let selectedMarker = mapView.selectedMarker
         mapView.clear()
         drawMarker(selectedMarker: selectedMarker)
+        if baeminInfo.isEmpty {
+            mapView.addSubview(noshopImage)
+            noshopImage.translatesAutoresizingMaskIntoConstraints = false
+            noshopImage.bottomAnchor.constraint(equalTo: mapView.bottomAnchor).isActive = true
+            noshopImage.widthAnchor.constraint(equalTo: mapView.widthAnchor).isActive = true
+            noshopImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        } else {
+            noshopImage.removeFromSuperview()
+        }
+
     }
 
     func infoViewAnimate(isTap: Bool) {

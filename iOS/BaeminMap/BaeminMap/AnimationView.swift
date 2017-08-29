@@ -86,5 +86,4 @@ class AnimationView: UIView {
             indicator.removeFromSuperview()
         }
     }
-
 }
