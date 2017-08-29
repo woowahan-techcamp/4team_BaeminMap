@@ -146,6 +146,7 @@ class Map {
     resetMarkerAndInfo() {
         if (this.xMarker) {
             this.xMarker.setIcon(this.xMarkerIcon)
+            this.xMarker.setZIndex(1);
         }
     }
 
@@ -189,6 +190,7 @@ class Map {
             let SelectedIconImg;
             let markerAddress;
             let duplicatedShopsNumber;
+            let markerZIndex = 1;
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
@@ -199,6 +201,7 @@ class Map {
                     SelectedIconImg = '../static/WebMarker/plusMarkerFill.png'
                     markerAddress = e.address + " " + e.addressDetail
                     duplicatedShopsNumber = duplicatedCoordinateList.lastIndexOf(shopLocationString) - duplicatedCoordinateList.indexOf(shopLocationString) + 1;
+                    markerZIndex = 2;
                 }
                 _marker[shopLocationString] = true
             } else {
@@ -239,7 +242,7 @@ class Map {
                 const marker = new google.maps.Marker({
                     position: position,
                     map: this.gmap,
-                    zIndex: 1,
+                    zIndex: markerZIndex,
                     category: e.categoryEnglishName,
                     shopNumber: e.shopNumber,
                     categoryIcon: {
