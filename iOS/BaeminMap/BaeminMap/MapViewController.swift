@@ -14,7 +14,8 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
-
+    @IBOutlet weak var currentLocationConstraint: NSLayoutConstraint!
+    
     var location = Location.sharedInstance
     lazy var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
     var isZoom = true
@@ -24,6 +25,13 @@ class MapViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width, height: 105)
         return scrollView
+    }()
+    var noshopImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        imageView.image = #imageLiteral(resourceName: "noShopText")
+        imageView.contentMode = .center
+        return imageView
     }()
 
     override func viewDidLoad() {
@@ -44,6 +52,7 @@ class MapViewController: UIViewController {
             isViewType = false
         }
         redrawMap()
+        showNoshop()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,6 +75,7 @@ class MapViewController: UIViewController {
             self.baeminInfo = BaeminInfoData.shared.mapBaeminInfo
             self.mapView.selectedMarker = nil
             self.redrawMap()
+            showNoshop()
         }
     }
 
@@ -105,8 +115,8 @@ class MapViewController: UIViewController {
     }
 
     func drawMarker(selectedMarker: GMSMarker?) {
+        guard let baeminInfo = baeminInfo else { return }
         for(count, shop) in baeminInfo.enumerated() {
-
             let marker = GMSMarker()
             marker.map = mapView
             marker.position = CLLocationCoordinate2D(latitude: shop.key.location["latitude"]!, longitude: shop.key.location["longitude"]!)
@@ -135,6 +145,18 @@ class MapViewController: UIViewController {
         let selectedMarker = mapView.selectedMarker
         mapView.clear()
         drawMarker(selectedMarker: selectedMarker)
+    }
+    
+    func showNoshop() {
+        guard let baeminInfo = baeminInfo else { return }
+        if baeminInfo.isEmpty {
+            mapView.addSubview(AnimationView.noshopView)
+            currentLocationConstraint.constant = 30
+            mapView.layoutIfNeeded()
+        } else {
+            AnimationView.noshopView.removeFromSuperview()
+            currentLocationConstraint.constant = 15
+        }
     }
 
     func infoViewAnimate(isTap: Bool) {

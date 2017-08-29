@@ -86,7 +86,9 @@ class DetailViewController: UIViewController {
         self.foodList = foodList
         tableView.isHidden = false
         if foodList.isEmpty {
-            showCallImage()
+            let rect = CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-baeminReviewButton.frame.height)
+            #imageLiteral(resourceName: "callOrderDefault").defaultImage(target: tableView, frame: rect)
+            baeminReviewButton.isHidden = true
         } else {
             if let index = self.foodList.index(where: { $0.title == "imageMenu" }) {
                 imageList = self.foodList.remove(at: index)
@@ -99,16 +101,6 @@ class DetailViewController: UIViewController {
         AnimationView.stopIndicator(delay: true)
         tableView.reloadData()
         collectionView.reloadData()
-    }
-
-    func showCallImage() {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-baeminReviewButton.frame.height))
-        imageView.contentMode = .center
-        imageView.backgroundColor = UIColor.white
-        imageView.image = #imageLiteral(resourceName: "callOrderDefault")
-        baeminReviewButton.isHidden = true
-        tableView.isUserInteractionEnabled = false
-        tableView.addSubview(imageView)
     }
 
     func hiddenBottomInfoView() {

@@ -18,8 +18,11 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         listView.delegate = self
         listView.dataSource = self
-
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.listBaeminInfo, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        showNoshop()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,8 +32,20 @@ class ListViewController: UIViewController {
 
     func recieve(notification: Notification) {
         baeminInfo = BaeminInfoData.shared.listBaeminInfo
+        showNoshop()
         listView.reloadData()
         listView.setContentOffset(CGPoint.zero, animated: false)
+    }
+    
+    func showNoshop() {
+        if listView.subviews.last is UIImageView {
+            listView.subviews.last?.removeFromSuperview()
+            listView.isUserInteractionEnabled = true
+        }
+        if baeminInfo.isEmpty {
+            let rect = CGRect(x: 0, y: 0, width: listView.frame.width, height: listView.frame.height-82)
+            #imageLiteral(resourceName: "noshopman").defaultImage(target: listView, frame: rect)
+        }
     }
 
 }
