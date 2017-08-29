@@ -13,7 +13,14 @@ class AnimationView: UIView {
     @IBOutlet weak var logoImageView: UIImageView!
 
     static var indicator = UIView()
-    static let imageView = UIImageView()
+    static let noshopView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 25)
+        imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        imageView.image = #imageLiteral(resourceName: "noShopText")
+        imageView.contentMode = .center
+        return imageView
+    }()
     
     override func awakeFromNib() {
         self.frame = UIScreen.main.bounds
@@ -86,23 +93,5 @@ class AnimationView: UIView {
         } else {
             indicator.removeFromSuperview()
         }
-    }
-    
-    static func startShowNoshop() -> UIImageView {
-        imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
-        imageView.image = #imageLiteral(resourceName: "noShopText")
-        imageView.contentMode = .center
-//        target.addSubview(imageView)
-        imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 25)
-        return imageView
-//        NotificationCenter.default.post(name: NSNotification.Name("changeLocationButton"), object: self)
-//        target.addSubview(imageView)
-//        constraint.constant = 30
-//        target.layoutIfNeeded()
-    }
-    
-    static func stopShowNoshop() {
-//        NotificationCenter.default.post(name: NSNotification.Name("changeLocationButton"), object: self)
-        imageView.removeFromSuperview()
     }
 }

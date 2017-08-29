@@ -40,7 +40,6 @@ class MapViewController: UIViewController {
         mapView.addSubview(infoView)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.location, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.mapBaeminInfo, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showNoshop), name: NSNotification.Name("changeLocationButton"), object: nil)
         currentLocationButton.addTarget(self, action: #selector(moveToCurrentLocation), for: .touchUpInside)
     }
 
@@ -60,9 +59,6 @@ class MapViewController: UIViewController {
         if !isViewType {
             infoViewAnimate(isTap: false)
         }
-        currentLocationConstraint.constant = 15
-        AnimationView.stopShowNoshop()
-//        noshopImage.removeFromSuperview()
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,6 +75,7 @@ class MapViewController: UIViewController {
             self.baeminInfo = BaeminInfoData.shared.mapBaeminInfo
             self.mapView.selectedMarker = nil
             self.redrawMap()
+            showNoshop()
         }
     }
 
@@ -118,6 +115,7 @@ class MapViewController: UIViewController {
     }
 
     func drawMarker(selectedMarker: GMSMarker?) {
+        guard let baeminInfo = baeminInfo else { return }
         for(count, shop) in baeminInfo.enumerated() {
             let marker = GMSMarker()
             marker.map = mapView
@@ -147,24 +145,17 @@ class MapViewController: UIViewController {
         let selectedMarker = mapView.selectedMarker
         mapView.clear()
         drawMarker(selectedMarker: selectedMarker)
-//        if baeminInfo.isEmpty {
-//            AnimationView.startShowNoshop(target: mapView, constraint: currentLocationConstraint)
-//        }
     }
     
     func showNoshop() {
+        guard let baeminInfo = baeminInfo else { return }
         if baeminInfo.isEmpty {
-            mapView.addSubview(AnimationView.startShowNoshop())
+            mapView.addSubview(AnimationView.noshopView)
             currentLocationConstraint.constant = 30
             mapView.layoutIfNeeded()
-//            mapView.addSubview(self.noshopImage)
-//            noshopImage.frame = CGRect(x: 0, y: 0, width: mapView.frame.width, height: 25)
-//            currentLocationConstraint.constant = 30
-//            mapView.layoutIfNeeded()
         } else {
-            AnimationView.stopShowNoshop()
+            AnimationView.noshopView.removeFromSuperview()
             currentLocationConstraint.constant = 15
-//            noshopImage.removeFromSuperview()
         }
     }
 

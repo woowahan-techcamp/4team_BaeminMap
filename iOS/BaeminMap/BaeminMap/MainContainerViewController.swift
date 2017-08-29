@@ -95,7 +95,7 @@ extension MainContainerViewController: GMSAutocompleteViewControllerDelegate {
         Location.sharedInstance = Location(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         Networking().getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
         dismiss(animated: true) {
-            AnimationView.stopShowNoshop()
+            AnimationView.noshopView.removeFromSuperview()
             AnimationView.startIndicator(target: self.view, image: "mapicon", alpha: 0.8)
         }
     }
