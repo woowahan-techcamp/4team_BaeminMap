@@ -382,7 +382,10 @@ class Map {
     showDuplicateListNotification(marker) {
         if (ShopList.triggerChecker){
             this.setMapOverLayerHidden()
-            this.resetHiddenList()
+            //list에서 발생한 클릭이벤트이지만, duplicated list 에서 발생한 이벤트일 경우 resetHiddenList를 해줘서 렌더링 되는 것을 보여주지 않는다.
+            if(!this.isDuplicatedList){
+                this.resetHiddenList();
+            }
         } else {
             console.log(ShopList.triggerChecker)
             this.setMapOverLayerShow()
