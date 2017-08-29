@@ -103,6 +103,7 @@ class BaeminInfoData {
     var mapBaeminInfo = [BaeminInfo: [BaeminInfo]]() {
         didSet {
             NotificationCenter.default.post(name: NSNotification.Name.mapBaeminInfo, object: self)
+            NotificationCenter.default.post(name: NSNotification.Name("changeLocationButton"), object: self)
         }
     }
 
