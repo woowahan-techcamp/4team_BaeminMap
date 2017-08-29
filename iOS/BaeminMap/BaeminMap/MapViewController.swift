@@ -178,12 +178,12 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoView.isScrollEnabled = true
         infoView.decelerationRate = UIScrollViewDecelerationRateFast
         
-        var cellminX = CGFloat(30)
-        var cellWidth = UIScreen.main.bounds.width-60
+        var cellminX = CGFloat(40)
+        var cellWidth = UIScreen.main.bounds.width-80
         if shops.count == 1 {
             infoView.isScrollEnabled = false
-            cellminX = CGFloat(5)
-            cellWidth = UIScreen.main.bounds.width-10
+            cellminX = CGFloat(10)
+            cellWidth = UIScreen.main.bounds.width-20
         }
     
         infoView.contentOffset.x = 0
@@ -268,8 +268,8 @@ extension MapViewController: UIScrollViewDelegate {
         cell.titleLabel.text = shop.shopName
         cell.translatesAutoresizingMaskIntoConstraints = false
         cell.titleLabel.trailingAnchor.constraint(equalTo: cell.infoView.trailingAnchor, constant: 0).isActive = true
-        cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
-        cell.ownerReviewLabel.text = "최근사장님댓글 \(String(shop.reviewCountCeo))"
+        cell.reviewLabel.text = "리뷰 \(String(shop.reviewCount))"
+        cell.ownerReviewLabel.text = "사장님댓글 \(String(shop.reviewCountCeo))"
         cell.ratingView.rating = shop.starPointAverage
         cell.distanceLabel.text = "\(shop.distance > 1 ? "\(distance)km" : "\(Int(distance))m")"
         cell.isPay(baro: shop.useBaropay, meet: shop.useMeetPay)
