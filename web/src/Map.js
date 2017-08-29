@@ -289,7 +289,10 @@ class Map {
                 marker.addListener('click', () => {
                     const showModalAndMoveMap = () => {
                         // Single
-                        this.showModal(e.shopNumber);
+                        if(!ShopList.triggerChecker){
+                            console.log('eventFromMarker!')
+                            this.showModal(e.shopNumber);
+                        }
                         this.resetMarkerAndInfo()
                         this.gmap.setCenter(marker.getPosition());
                         this.xMarker = marker;
