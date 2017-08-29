@@ -211,7 +211,7 @@ class Map {
             const iconImgObject = new Image()
             SelectedIconImgObject.addEventListener('load', (img) => {
                 if (window.innerWidth <= 480) {
-                    iconImgObject.addEventListener('load', (img) => {
+                    // iconImgObject.addEventListener('load', (img) => {
                         const markerWidth = img.target.naturalWidth / 3
                         const markerHeight = img.target.naturalHeight / 3
                         const markerSize = {
@@ -220,7 +220,7 @@ class Map {
                             icon: new google.maps.Size(markerWidth, markerHeight)
                         }
                         addMarkerListener(markerSize)
-                    })
+                    // })
                 } else {
                     const markerWidth = img.target.naturalWidth / 3
                     const markerHeight = img.target.naturalHeight / 3
@@ -236,7 +236,7 @@ class Map {
             iconImgObject.src = iconImg
 
             const addMarkerListener = (markerSize) => {
-                const marker = new google.maps.Marker({
+                let markerOption = {
                     position: position,
                     map: this.gmap,
                     zIndex: 1,
@@ -261,7 +261,14 @@ class Map {
                     address: markerAddress,
                     "duplicatedShopsNumber" : duplicatedShopsNumber
                     // TODO: 기본 아이콘 변경
-                })
+                }
+
+                    // labelContent: ""+number,
+                    // labelAnchor: new google.maps.Point(3, 30),
+                    // labelClass: "mapIconLabel", // the CSS class for the label
+                    // labelInBackground: false
+
+                const marker = new google.maps.Marker(markerOption)
                 marker.addListener('click', () => {
                     const showModalAndMoveMap = () => {
                         // Single
@@ -391,8 +398,12 @@ class Map {
                 allCategoryFoodList: response.data
             })
         })
-        shopIndicator.style.display = 'none'
         modal.style.display = 'block'
+        await this.hideIndicator(shopIndicator)
+    }
+
+    async hideIndicator(shopIndicator) {
+        shopIndicator.style.display = 'none'
     }
 
     closeModal() {

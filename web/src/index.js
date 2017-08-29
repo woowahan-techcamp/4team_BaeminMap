@@ -157,17 +157,27 @@ navigator.geolocation.getCurrentPosition((position) => {
     );
     moveMyCurrentLocation('.my-location', map)
 })
+
+const toggleFloatingButtonLocation = (floatButton) => {
+    const floatButtonBottom = parseInt(floatButton.style.bottom.replace("px", ""))
+    if (floatButtonBottom > 100) {
+        floatButton.style.bottom = "40px";
+    } else {
+        floatButton.style.bottom = "140px";
+    }
+}
+
 // Add Events on Click
 // click el, target, css class
 toggleCSSOnClick('#listOnOff', '#list', 'mobile-hidden')
 toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
 document.querySelector("#listOnOff").addEventListener("click", () => {
     const card = document.querySelector("#card")
-    const floatButton = document.querySelector('.floating-button')
     if (card.style.display === "block") {
         card.style.display = "none";
-        floatButton.style.bottom = "40px";
     }
+    const floatButton = document.querySelector('.floating-button')
+    toggleFloatingButtonLocation(floatButton)
 })
 
 function cardClickListener() {
@@ -194,4 +204,10 @@ window.onclick = function (event) {
             map.resetHiddenList();
         }
     }
+    document.querySelector('#card').style.display = 'none'
+    for (const marker of map.markers) {
+        marker.setIcon(marker.categoryIcon)
+    }
+    const floatButton = document.querySelector('.floating-button')
+    toggleFloatingButtonLocation(floatButton)
 }
