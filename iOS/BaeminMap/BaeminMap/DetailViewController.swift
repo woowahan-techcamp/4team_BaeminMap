@@ -24,7 +24,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var reviewCountCEOLabel: UILabel!
     @IBOutlet weak var minOrderPriceLabel: UILabel!
-    @IBOutlet weak var moveToBaemin: UIButton!
+    @IBOutlet weak var baeminReviewButton: UIButton!
     @IBOutlet weak var topInfoView: UIView!
     @IBOutlet weak var bottomInfoView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
@@ -42,6 +42,7 @@ class DetailViewController: UIViewController {
         
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorInset.right = 15
         
         navigationItem.title = baeminInfo.shopName
         
@@ -54,6 +55,9 @@ class DetailViewController: UIViewController {
         baroPayLabel.checkPay(baeminInfo.useBaropay)
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
+        }
+        if baeminInfo.reviewCount == 0 {
+            baeminReviewButton.isHidden = true
         }
         if baeminInfo.starPointAverage == 0.0 {
             hiddenBottomInfoView()
@@ -98,11 +102,11 @@ class DetailViewController: UIViewController {
     }
     
     func showCallImage() {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-moveToBaemin.frame.height))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-baeminReviewButton.frame.height))
         imageView.contentMode = .center
         imageView.backgroundColor = UIColor.white
         imageView.image = #imageLiteral(resourceName: "callOrderDefault")
-        moveToBaemin.isHidden = true
+        baeminReviewButton.isHidden = true
         tableView.isUserInteractionEnabled = false
         tableView.addSubview(imageView)
     }
@@ -127,6 +131,13 @@ class DetailViewController: UIViewController {
             UIApplication.shared.open(url)
         }
     }
+    
+    @IBAction func baeminReviewButtonAction(_ sender: UIButton) {
+        if let url = URL(string: "https://www.baemin.com/shop/\(baeminInfo.shopNumber!)#review") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
