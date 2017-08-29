@@ -14,7 +14,8 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
-
+    @IBOutlet weak var currentLocationConstraint: NSLayoutConstraint!
+    
     var location = Location.sharedInstance
     lazy var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
     var isZoom = true
@@ -141,16 +142,19 @@ class MapViewController: UIViewController {
         let selectedMarker = mapView.selectedMarker
         mapView.clear()
         drawMarker(selectedMarker: selectedMarker)
+        showNoshop()
+    }
+    
+    func showNoshop() {
         if baeminInfo.isEmpty {
-            mapView.addSubview(noshopImage)
-            noshopImage.translatesAutoresizingMaskIntoConstraints = false
-            noshopImage.bottomAnchor.constraint(equalTo: mapView.bottomAnchor).isActive = true
-            noshopImage.widthAnchor.constraint(equalTo: mapView.widthAnchor).isActive = true
-            noshopImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            mapView.addSubview(self.noshopImage)
+            noshopImage.frame = CGRect(x: 0, y: 0, width: mapView.frame.width, height: 25)
+            currentLocationConstraint.constant = 30
+            mapView.layoutIfNeeded()
         } else {
+            currentLocationConstraint.constant = 15
             noshopImage.removeFromSuperview()
         }
-
     }
 
     func infoViewAnimate(isTap: Bool) {
