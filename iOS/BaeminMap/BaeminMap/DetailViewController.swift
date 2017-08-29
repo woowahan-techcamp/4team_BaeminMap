@@ -42,6 +42,7 @@ class DetailViewController: UIViewController {
         
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorInset.right = 15
         
         navigationItem.title = baeminInfo.shopName
         
