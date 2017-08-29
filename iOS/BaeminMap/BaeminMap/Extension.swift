@@ -132,3 +132,15 @@ extension Notification.Name {
     static let foodMenu = Notification.Name("finishedGetFoodMenu")
     static let filterFrame = Notification.Name("changeFilterFrame")
 }
+
+extension UIImage {
+    func defaultImage(target: UIView, frame: CGRect) {
+        let imageView = UIImageView()
+        imageView.frame = frame
+        imageView.contentMode = .center
+        imageView.backgroundColor = UIColor.white
+        imageView.image = self
+        target.isUserInteractionEnabled = false
+        target.addSubview(imageView)
+    }
+}
