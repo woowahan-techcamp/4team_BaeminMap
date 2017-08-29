@@ -138,6 +138,9 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
                  selectedCategory.remove(at: index)
             }
         }
+        if selectedCategory.isEmpty {
+            collectionView.selectItem(at: [0, 0], animated: false, scrollPosition: .top)
+        }
     }
     
 }
