@@ -15,7 +15,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var currentLocationConstraint: NSLayoutConstraint!
-    
+
     var location = Location.sharedInstance
     lazy var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
     var isZoom = true
@@ -25,13 +25,6 @@ class MapViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width, height: 105)
         return scrollView
-    }()
-    var noshopImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
-        imageView.image = #imageLiteral(resourceName: "noShopText")
-        imageView.contentMode = .center
-        return imageView
     }()
 
     override func viewDidLoad() {
@@ -146,7 +139,7 @@ class MapViewController: UIViewController {
         mapView.clear()
         drawMarker(selectedMarker: selectedMarker)
     }
-    
+
     func showNoshop() {
         guard let baeminInfo = baeminInfo else { return }
         if baeminInfo.isEmpty {
@@ -198,7 +191,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoView.delegate = self
         infoView.isScrollEnabled = true
         infoView.decelerationRate = UIScrollViewDecelerationRateFast
-        
+
         var cellminX = CGFloat(40)
         var cellWidth = UIScreen.main.bounds.width-80
         if shops.count == 1 {

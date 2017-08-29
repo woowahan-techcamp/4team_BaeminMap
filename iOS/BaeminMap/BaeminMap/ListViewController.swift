@@ -20,7 +20,7 @@ class ListViewController: UIViewController {
         listView.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.listBaeminInfo, object: nil)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         showNoshop()
     }
@@ -36,7 +36,7 @@ class ListViewController: UIViewController {
         listView.reloadData()
         listView.setContentOffset(CGPoint.zero, animated: false)
     }
-    
+
     func showNoshop() {
         if listView.subviews.last is UIImageView {
             listView.subviews.last?.removeFromSuperview()

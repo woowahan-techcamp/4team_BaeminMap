@@ -21,7 +21,7 @@ class AnimationView: UIView {
         imageView.contentMode = .center
         return imageView
     }()
-    
+
     override func awakeFromNib() {
         self.frame = UIScreen.main.bounds
         deliverymanImageView.frame = CGRect(x: self.frame.maxY, y: deliverymanImageView.frame.minY, width: deliverymanImageView.frame.width, height: deliverymanImageView.frame.height)
