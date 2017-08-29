@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var currentLocationConstraint: NSLayoutConstraint!
 
     var location = Location.sharedInstance
-    lazy var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
+    var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
     var isZoom = true
     var isViewType = false
     var pageControl = UIPageControl()
