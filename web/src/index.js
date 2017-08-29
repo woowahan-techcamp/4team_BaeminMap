@@ -214,8 +214,9 @@ window.onclick = function (event) {
     const span = document.getElementsByClassName("close")[0];
     if (event.target === modal || event.target === span) {
         modal.style.display = "none"
-        if(window.innerWidth > 480){
-            modal.style.display = "none"
+        if(window.innerWidth > 480 && event.target === span && map.isDuplicatedList === true){
+            map.setMapOverLayerShow();
+        }else if(window.innerWidth > 480){
             map.resetMarkerAndInfo();
             map.setMapOverLayerHidden();
             map.resetHiddenList();

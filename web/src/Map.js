@@ -165,6 +165,7 @@ class Map {
             this.resetMarkerAndInfo();
             layer.classList.remove('show');
             filterSection.classList.remove('show')
+            this.isDuplicatedList = false;
         })
     }
 
@@ -387,6 +388,7 @@ class Map {
             const filter = document.querySelector('.filter-controller');
             const adrressHTML = document.querySelector('.duplicate-list-address');
             const numberHTML = document.querySelector('.duplicate-number')
+            this.isDuplicatedList = true;
             filter.classList.add('hidden')
             adrressHTML.innerHTML = marker.address
             numberHTML.innerHTML = marker.duplicatedShopsNumber
