@@ -131,6 +131,13 @@ class DetailViewController: UIViewController {
             UIApplication.shared.open(url)
         }
     }
+    
+    @IBAction func baeminReviewButtonAction(_ sender: UIButton) {
+        if let url = URL(string: "https://www.baemin.com/shop/\(baeminInfo.shopNumber!)#review") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

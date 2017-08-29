@@ -397,6 +397,9 @@
                                         <state key="normal" title="배달의민족 리뷰">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="baeminReviewButtonAction:" destination="yAP-ia-alV" eventType="touchUpInside" id="XSv-uE-ugE"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5E-u7-Ag2">
                                         <rect key="frame" x="207" y="0.0" width="207" height="68.666666666666629"/>
