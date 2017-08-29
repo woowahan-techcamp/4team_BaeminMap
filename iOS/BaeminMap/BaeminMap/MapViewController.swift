@@ -194,7 +194,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             cellminX += cellWidth+10
             infoView.contentSize.width = cellminX
         }
-        infoView.contentSize.width += 10
+        infoView.contentSize.width += 30
         pageControl.currentPage = 0
         pageControl.numberOfPages = shops.count
         
@@ -225,7 +225,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
 
 extension MapViewController: UIScrollViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let itemWidth = (scrollView.frame.size.width - 60)
+        let itemWidth = (scrollView.frame.size.width - 80)
         let itemSpacing = CGFloat(10)
         let pageWidth = Float(itemWidth + itemSpacing)
         let targetXContentOffset = Float(targetContentOffset.pointee.x)
