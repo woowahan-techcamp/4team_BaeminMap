@@ -3,44 +3,47 @@ import * as _ from "lodash";
 
 
 class ShopList {
-    constructor(targetSelector, arr, mapInstance) {
+    constructor(targetSelector, arr, mapInstance, isFirstCall) {
         console.log('ShopList init!')
         const markersArr = mapInstance.markers
         this.map = mapInstance
-        this.createShopTemplateDOM(targetSelector, arr, markersArr)
+        this.createShopTemplateDOM(targetSelector, arr, markersArr, isFirstCall)
     }
 
-    createShopTemplateDOM(targetSelector, arr, markersArr) {
+    createShopTemplateDOM(targetSelector, arr, markersArr, isFirstCall) {
         axios.get('/src/templates/shop_list.ejs').then((response) => {
             const shopTemplate = _.template(response.data)
-            this.renderTemplate(shopTemplate, targetSelector, arr, markersArr)
+            this.renderTemplate(shopTemplate, targetSelector, arr, markersArr, isFirstCall)
         })
     }
 
-    renderTemplate(shopTemplate, targetSelector, arr, markersArr) {
+    renderTemplate(shopTemplate, targetSelector, arr, markersArr, isFirstCall) {
         const targetElement = document.querySelector(targetSelector)
         targetElement.innerHTML = shopTemplate({data: arr})
-        targetElement.addEventListener('click', (e) => {
-            if (window.innerWidth <= 480) {
-                this.map.showModal(e.target.dataset.shopnumber)
-            } else {
-                e.preventDefault()
-                ShopList.triggerChecker = true;
-                const target = e.target;
-                if (!target.matches('a.shop-layer')) {
-                    return false
-                } else if (document.querySelector(".selected-shop")) {
-                    //기존 선택된 shop의 포커싱을 초기화
-                    document.querySelector(".selected-shop").classList.remove("selected-shop")
+        console.log(isFirstCall)
+        if(isFirstCall){
+            targetElement.addEventListener('click', (e) => {
+                if (window.innerWidth <= 480) {
+                    this.map.showModal(e.target.dataset.shopnumber)
+                } else {
+                    e.preventDefault()
+                    ShopList.triggerChecker = true;
+                    const target = e.target;
+                    if (!target.matches('a.shop-layer')) {
+                        return false
+                    } else if (document.querySelector(".selected-shop")) {
+                        //기존 선택된 shop의 포커싱을 초기화
+                        document.querySelector(".selected-shop").classList.remove("selected-shop")
+                    }
+                    ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(target.dataset.shopnumber, markersArr))
+                    target.classList.add(".selected-shop");
+                    //targetPosition은 선택한 target의 위치를 구한다. 이후 40을 빼주는건 버튼 영역때문에 하드코딩한것
+                    targetElement.scrollTop += target.getBoundingClientRect().top - 40;
+                    // TODO: 상점 리스트 클릭시 마커 띄워주기
+                    this.map.showModal(target.dataset.shopnumber)
                 }
-                ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(target.dataset.shopnumber, markersArr))
-                target.classList.add(".selected-shop");
-                //targetPosition은 선택한 target의 위치를 구한다. 이후 40을 빼주는건 버튼 영역때문에 하드코딩한것
-                targetElement.scrollTop += target.getBoundingClientRect().top - 40;
-                // TODO: 상점 리스트 클릭시 마커 띄워주기
-                this.map.showModal(target.dataset.shopnumber)
-            }
-        })
+            })
+        }
         //스크롤 및 선택된 리스트 초기화
         targetElement.scrollTop = 0;
     }

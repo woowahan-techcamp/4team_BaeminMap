@@ -439,11 +439,7 @@ class Map {
         modal.style.display = 'none'
     }
 
-    reloadMap(distance, pos, apidata, key, order, categoryList) {
-        //reloadMap 초기에 마커에 걸린 모든 이벤트들을 제거하여 같은 이벤트들이 마커에 적용되지 않게한다.
-        this.markers.forEach((marker) => {
-            this.gmap.event.clearListeners(marker, 'click');
-        })
+    reloadMap(distance, pos, apidata, key, order, categoryList, isFirstCall) {
         indicator.style.display = ''
         this.gmap.setZoom(18)
         // Reset markers
@@ -490,7 +486,7 @@ class Map {
             this.filteredData = filteredData
             this.duplicatedData = getDuplicatedCoordinateList(makeArrayToSet(filteredData))
             this.setShopMarker(filteredData, apidata, this.duplicatedData)
-            new ShopList("#shopList", filteredData, this)
+            new ShopList("#shopList", filteredData, this, isFirstCall)
             indicator.style.display = 'none'
             console.timeEnd("SortData")
             if (filteredData[0] === undefined) {

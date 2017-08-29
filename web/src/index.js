@@ -167,7 +167,7 @@ navigator.geolocation.getCurrentPosition((position) => {
     // Default Condition: distance
     let condition = 'distance'
     // Get all data and render them
-    map.reloadMap(distance, pos, apidata, condition)
+    map.reloadMap(distance, pos, apidata, condition, undefined, undefined, true)
     categoryFilterEvent(".category-list");
     sortByOption(".sort-option-list", "sort");
     sortByOption(".distance-option-list", condition);
