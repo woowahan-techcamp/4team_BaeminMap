@@ -35,7 +35,7 @@ class ShopList {
                 ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(target.dataset.shopnumber, markersArr))
                 target.classList.add(".selected-shop");
                 //targetPosition은 선택한 target의 위치를 구한다. 이후 50을 빼주는건 버튼 영역때문에 하드코딩한것
-                targetElement.scrollTop += target.getBoundingClientRect().top - 50;
+                targetElement.scrollTop += target.getBoundingClientRect().top - 40;
                 // TODO: 상점 리스트 클릭시 마커 띄워주기
                 this.map.showModal(target.dataset.shopnumber)
             }

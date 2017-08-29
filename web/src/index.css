@@ -564,7 +564,7 @@ div.layer.show {
 
     .duplicate-list-notification {
         background-color: rgb(42, 42, 42);
-        height: 50px;
+        height: 40px;
         width: 100%;
         margin: 0 0 0 0;
         font-size: 13px;
@@ -572,7 +572,7 @@ div.layer.show {
     }
 
     .duplicate-list-notification > span {
-        line-height: 50px;
+        line-height: 40px;
         color: #969696;
         text-overflow: ellipsis;
     }
