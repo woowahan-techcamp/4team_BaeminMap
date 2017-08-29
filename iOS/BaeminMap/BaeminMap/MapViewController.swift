@@ -30,8 +30,8 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         mapView.addSubview(infoView)
-        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("finishedCurrentLocation"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("mapBaeminInfo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.location, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.mapBaeminInfo, object: nil)
         currentLocationButton.addTarget(self, action: #selector(moveToCurrentLocation), for: .touchUpInside)
     }
     
@@ -58,9 +58,10 @@ class MapViewController: UIViewController {
     }
     
     func recieve(notification: Notification) {
-        if notification.name == NSNotification.Name("finishedCurrentLocation") {
+        if notification.name == NSNotification.Name.location {
             mapView.clear()
             drawMap()
+            drawCurrentLocation()
         } else {
             self.baeminInfo = BaeminInfoData.shared.mapBaeminInfo
             self.mapView.selectedMarker = nil
@@ -93,7 +94,6 @@ class MapViewController: UIViewController {
             camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17.0)
         }
         mapView.camera = camera
-        drawCurrentLocation()
     }
     
 
@@ -102,10 +102,10 @@ class MapViewController: UIViewController {
         marker.position = CLLocationCoordinate2D(latitude: location.latitude-0.00001, longitude: location.longitude)
         marker.icon = #imageLiteral(resourceName: "currentLocation")
         marker.map = mapView
+        marker.zIndex = 1
     }
     
     func drawMarker(selectedMarker: GMSMarker?) {
-        drawCurrentLocation()
         for(count, shop) in baeminInfo.enumerated() {
             
             let marker = GMSMarker()
@@ -129,6 +129,7 @@ class MapViewController: UIViewController {
                 marker.zIndex = 0
             }
         }
+        drawCurrentLocation()
     }
     
     func redrawMap() {
@@ -138,21 +139,18 @@ class MapViewController: UIViewController {
     }
     
     func infoViewAnimate(isTap: Bool) {
-        let parentView = parent as! MainContainerViewController
-        let filterButtonFrame = parentView.filterButton.frame
         if isTap {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
                 self.infoView.frame = CGRect(x: 0, y: self.mapView.frame.maxY-110, width: self.mapView.frame.width, height: 105)
-//                let y = parentView.filterButtonFrameY - self.infoView.frame.height+20
-                NotificationCenter.default.post(name: NSNotification.Name("changeFilterFrame"), object: self, userInfo: ["filterFrameY" : self.infoView.frame.height+20])
+                NotificationCenter.default.post(name: NSNotification.Name.filterFrame, object: self, userInfo: ["filterFrameY" : self.infoView.frame.height+20])
                 self.mapView.layoutIfNeeded()
             }
         } else {
             UIView.animate(withDuration: 0.4) {
                 self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                 self.infoView.frame = CGRect(x: 5, y: UIScreen.main.bounds.maxY, width: UIScreen.main.bounds.width-10, height: 105)
-                NotificationCenter.default.post(name: NSNotification.Name("changeFilterFrame"), object: self)
+                NotificationCenter.default.post(name: NSNotification.Name.filterFrame, object: self)
                 self.mapView.layoutIfNeeded()
             }
         }
@@ -178,6 +176,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         
         infoView.delegate = self
         infoView.isScrollEnabled = true
+        infoView.decelerationRate = UIScrollViewDecelerationRateFast
         
         var cellminX = CGFloat(30)
         var cellWidth = UIScreen.main.bounds.width-60
@@ -196,6 +195,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
             infoView.contentSize.width = cellminX
         }
         infoView.contentSize.width += 10
+        pageControl.currentPage = 0
         pageControl.numberOfPages = shops.count
         
         mapView.selectedMarker = marker
@@ -231,7 +231,7 @@ extension MapViewController: UIScrollViewDelegate {
         let targetXContentOffset = Float(targetContentOffset.pointee.x)
         let contentWidth = Float(infoView.contentSize.width)
         var newPage = Float(self.pageControl.currentPage)
-        
+    
         if velocity.x == 0 {
             newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
         } else {

@@ -19,7 +19,7 @@ class ListViewController: UIViewController {
         listView.delegate = self
         listView.dataSource = self
 
-        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name("listBaeminInfo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recieve), name: NSNotification.Name.listBaeminInfo, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,6 +30,7 @@ class ListViewController: UIViewController {
     func recieve(notification: Notification) {
         baeminInfo = BaeminInfoData.shared.listBaeminInfo
         listView.reloadData()
+        listView.setContentOffset(CGPoint.zero, animated: false)
     }
     
 }
