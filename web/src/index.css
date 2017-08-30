@@ -588,6 +588,10 @@ div.layer.show {
         margin: 0 0 0 0;
         font-size: 13px;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: white;
     }
 
     .duplicate-list-notification > span {
