@@ -60,8 +60,6 @@
                 <span>
                     <% if (virtualPhoneNumber) { %>
                     <%= virtualPhoneNumber %>
-                    <% } else if (phoneNumber.startsWith('9')) { %>
-                    <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
                     <% } else { %>
                     <%= phoneNumber %>
                     <% } %>

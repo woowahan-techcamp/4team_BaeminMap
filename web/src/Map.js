@@ -1,5 +1,6 @@
 import ShopList from './ShopList'
 import CardSlider from './CardSlider'
+import Util from './Util'
 import axios from 'axios'
 import * as _ from "lodash";
 
@@ -422,6 +423,15 @@ class Map {
         const shopDetailData = this.filteredData.filter((i) => {
             return i.shopNumber == shopNumber
         })[0]
+        if (shopDetailData.virtualPhoneNumber) {
+            shopDetailData.virtualPhoneNumber = Util.autoHypenPhone(shopDetailData.virtualPhoneNumber)
+        } else if (shopDetailData.phoneNumber) {
+            let phoneNumber = shopDetailData.phoneNumber
+            if (phoneNumber.startsWith('9')) {
+                phoneNumber = phoneNumber.replace(phoneNumber.charAt(0), '0')
+            }
+            shopDetailData.phoneNumber = Util.autoHypenPhone(phoneNumber)
+        }
         modal.innerHTML = _.template(this.shopDetailTemplate)(shopDetailData)
         await this.apidata.getShopFoodData(shopNumber).then((response) => {
             const foodDetails = document.querySelector('#foodDetails')
