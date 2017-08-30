@@ -452,7 +452,7 @@ div.layer.show {
     position: fixed;
     left: calc(50% - 88px);
     bottom: 40px;
-    width: 233px;
+    width: 176px;
 }
 
 .floating-button > div {

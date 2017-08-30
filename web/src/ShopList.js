@@ -1,6 +1,6 @@
 import axios from 'axios'
-import * as _ from "lodash";
-
+import * as _ from "lodash"
+import Layzr from 'layzr.js'
 
 class ShopList {
     constructor(targetSelector, arr, mapInstance, isFirstCall) {

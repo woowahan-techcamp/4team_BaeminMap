@@ -160,6 +160,9 @@ class Map {
     resetMarkerAndInfo() {
         if (this.xMarker) {
             this.xMarker.setIcon(this.xMarkerIcon)
+            if (this.xMarker.labelInfo) {
+                this.xMarker.setLabel(this.xMarker.labelInfo)
+            }
             this.xMarker.setZIndex(1);
         }
     }
@@ -197,7 +200,7 @@ class Map {
         button.classList.remove('show')
     }
 
-    setShopMarker(arr, apidata, duplicatedCoordinateList) {
+    setShopMarker(arr, apidata, duplicatedCoordinateList, duplicatedCoordinateDict) {
         this.markers.forEach((i) => {
             i.setMap(null)
         })
@@ -215,7 +218,7 @@ class Map {
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
-                iconImg = '../static/WebMarker/plusMarker.png'
+                iconImg = '../static/blankMarker.png'
                 if (window.innerWidth <= 480) {
                     SelectedIconImg = '../static/WebMarker/' + e.categoryEnglishName + 'Fill.png'
                 } else {
@@ -231,20 +234,20 @@ class Map {
             }
             const position = {"lat": e.location.latitude, "lng": e.location.longitude}
 
+            const duplicatedShopsAmount = duplicatedCoordinateDict[shopLocationString]
+
             const SelectedIconImgObject = new Image()
             const iconImgObject = new Image()
             SelectedIconImgObject.addEventListener('load', (img) => {
                 if (window.innerWidth <= 480) {
-                    iconImgObject.addEventListener('load', (img) => {
-                        const markerWidth = img.target.naturalWidth / 3
-                        const markerHeight = img.target.naturalHeight / 3
-                        const markerSize = {
-                            categoryIcon: new google.maps.Size(markerWidth, markerHeight),
-                            filledIcon: new google.maps.Size(markerWidth, markerHeight),
-                            icon: new google.maps.Size(markerWidth, markerHeight)
-                        }
-                        addMarkerListener(markerSize)
-                    })
+                    const markerWidth = img.target.naturalWidth / 3
+                    const markerHeight = img.target.naturalHeight / 3
+                    const markerSize = {
+                        categoryIcon: new google.maps.Size(markerWidth, markerHeight),
+                        filledIcon: new google.maps.Size(markerWidth, markerHeight),
+                        icon: new google.maps.Size(markerWidth, markerHeight)
+                    }
+                    addMarkerListener(markerSize, duplicatedShopsAmount)
                 } else {
                     const markerWidth = img.target.naturalWidth / 3
                     const markerHeight = img.target.naturalHeight / 3
@@ -252,15 +255,16 @@ class Map {
                         categoryIcon: new google.maps.Size(markerWidth, markerHeight),
                         filledIcon: new google.maps.Size(markerWidth, markerHeight),
                         icon: new google.maps.Size(markerWidth, markerHeight),
+                        label: new google.maps.Point(0, 0)
                     }
-                    addMarkerListener(markerSize)
+                    addMarkerListener(markerSize, duplicatedShopsAmount)
                 }
             })
             SelectedIconImgObject.src = SelectedIconImg
             iconImgObject.src = iconImg
 
-            const addMarkerListener = (markerSize) => {
-                const marker = new google.maps.Marker({
+            const addMarkerListener = (markerSize, duplicatedShopsAmount) => {
+                let markerOption = {
                     position: position,
                     map: this.gmap,
                     zIndex: markerZIndex,
@@ -280,12 +284,31 @@ class Map {
                     },
                     icon: {
                         url: iconImg,
-                        scaledSize: markerSize.icon
+                        scaledSize: markerSize.icon,
+                        // labelOrigin: markerSize.label
                     },
                     address: markerAddress,
-                    "duplicatedShopsNumber" : duplicatedShopsNumber
+                    duplicatedShopsNumber: duplicatedShopsNumber,
+                    duplicatedShopsAmount: duplicatedShopsAmount
                     // TODO: 기본 아이콘 변경
-                })
+                }
+                if (duplicatedShopsAmount) {
+                    Object.assign(markerOption, {
+                        label: {
+                            text: `+ ${duplicatedShopsAmount}`,
+                            color: '#2ac1bc',
+                            fontSize: '15px',
+                        },
+                        labelInfo: {
+                            text: `+ ${duplicatedShopsAmount}`,
+                            color: '#2ac1bc',
+                            fontSize: '15px',
+                        }
+                    })
+                }
+
+                new google.maps.Marker
+                const marker = new google.maps.Marker(markerOption)
                 marker.addListener('click', () => {
                     const showModalAndMoveMap = () => {
                         // Single
@@ -353,8 +376,13 @@ class Map {
                         this.resetMarkerAndInfo()
                         this.xMarkerIcon = marker.icon
                         this.xMarker = marker;
-                        //선택된 마커를 fill 마커로 변경
-                        marker.setIcon(marker.filledIcon);
+                        console.log(marker.label)
+                        if (marker.label) {
+                            marker.setLabel(undefined);
+                            marker.setIcon(marker.filledIcon);
+                        } else {
+                            marker.setIcon(marker.filledIcon);
+                        }
                         // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                         marker.setZIndex(2);
                         // 마커 클릭시 모달 보이면 안됨
@@ -429,8 +457,12 @@ class Map {
                 allCategoryFoodList: response.data
             })
         })
-        shopIndicator.style.display = 'none'
         modal.style.display = 'block'
+        await this.hideIndicator(shopIndicator)
+    }
+
+    async hideIndicator(shopIndicator) {
+        shopIndicator.style.display = 'none'
         ShopList.triggerChecker = false;
     }
 
@@ -484,8 +516,10 @@ class Map {
                 this.sleep(100)
             }
             this.filteredData = filteredData
-            this.duplicatedData = getDuplicatedCoordinateList(makeArrayToSet(filteredData))
-            this.setShopMarker(filteredData, apidata, this.duplicatedData)
+            const _gdcl = getDuplicatedCoordinateList(makeArrayToSet(filteredData))
+            this.duplicatedData = _gdcl.duplicatedCoordinateList
+            this.duplicatedDataDict = _gdcl.duplicatedCoordinateDict
+            this.setShopMarker(filteredData, apidata, this.duplicatedData, this.duplicatedDataDict)
             new ShopList("#shopList", filteredData, this, isFirstCall)
             indicator.style.display = 'none'
             console.timeEnd("SortData")
@@ -506,6 +540,7 @@ const getDuplicatedCoordinateList = (array) => {
     const shopLocationSet = array[0]
     const shopList = array[1]
     const duplicatedCoordinateList = []
+    const duplicatedCoordinateDict = {}
     shopLocationSet.forEach((shop) => {
         const shopLocationString = `${shop.location.latitude}_${shop.location.longitude}`
         const _count = shopList.filter(
@@ -517,9 +552,13 @@ const getDuplicatedCoordinateList = (array) => {
         ).length
         if (_count > 1) {
             duplicatedCoordinateList.push(shopLocationString)
+            duplicatedCoordinateDict[shopLocationString] = _count
         }
     })
-    return duplicatedCoordinateList
+    return {
+        duplicatedCoordinateList: duplicatedCoordinateList,
+        duplicatedCoordinateDict: duplicatedCoordinateDict
+    }
 }
 
 export default Map

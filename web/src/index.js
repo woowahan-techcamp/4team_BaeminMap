@@ -115,7 +115,7 @@ function toggleCSSOnClick(el, target, css) {
     })
 }
 
-function moveMyCurrentLocation(target, map){
+function moveMyCurrentLocation(target, map) {
     document.querySelector(target).addEventListener('click', () => {
         map.updatePosition(map.currentLocation);
         map.gmap.setZoom(18)
@@ -123,8 +123,8 @@ function moveMyCurrentLocation(target, map){
 }
 
 function updateCurrentSettingHTML(sortClass, distanceClass) {
-    const sortOption = document.querySelector(sortClass+".selected");
-    const distanceOption = document.querySelector(distanceClass+".selected");
+    const sortOption = document.querySelector(sortClass + ".selected");
+    const distanceOption = document.querySelector(distanceClass + ".selected");
     const sortHTML = document.querySelector('.filter-current-sort');
     const distanceHTML = document.querySelector('.filter-current-distance')
     sortHTML.innerHTML = sortOption.title
@@ -134,7 +134,7 @@ function updateCurrentSettingHTML(sortClass, distanceClass) {
 function setScrollTopButtonEvent(buttonClass, shopListClass) {
     const shopList = document.querySelector(shopListClass)
     const button = document.querySelector(buttonClass)
-    shopList.addEventListener('scroll', ()=>{
+    shopList.addEventListener('scroll', () => {
         button.classList.add('show')
         button.addEventListener('click', () => {
             shopList.scrollTop = 0;
@@ -183,17 +183,30 @@ navigator.geolocation.getCurrentPosition((position) => {
     setScrollTopButtonEvent('.move-top-scroll-button', '.shop-list')
     moveMyCurrentLocation('.my-location', map)
 })
+
+const toggleFloatingButtonLocation = (floatButton, visibleTarget) => {
+    if (visibleTarget.style.display !== 'block') {
+        return
+    }
+    const floatButtonBottom = parseInt(floatButton.style.bottom.replace("px", ""))
+    if (floatButtonBottom > 100) {
+        floatButton.style.bottom = "40px";
+    } else {
+        floatButton.style.bottom = "140px";
+    }
+}
+
 // Add Events on Click
 // click el, target, css class
 toggleCSSOnClick('#listOnOff', '#list', 'mobile-hidden')
 toggleCSSOnClick('#filterOnOff', '.filter-controller', 'show')
 document.querySelector("#listOnOff").addEventListener("click", () => {
     const card = document.querySelector("#card")
-    const floatButton = document.querySelector('.floating-button')
     if (card.style.display === "block") {
         card.style.display = "none";
-        floatButton.style.bottom = "40px";
     }
+    const floatButton = document.querySelector('.floating-button')
+    toggleFloatingButtonLocation(floatButton, card)
 })
 
 function cardClickListener() {
@@ -214,12 +227,19 @@ window.onclick = function (event) {
     const span = document.getElementsByClassName("close")[0];
     if (event.target === modal || event.target === span) {
         modal.style.display = "none"
-        if(window.innerWidth > 480 && event.target === span && map.isDuplicatedList === true){
+        if (window.innerWidth > 480 && event.target === span && map.isDuplicatedList === true) {
             map.setMapOverLayerShow();
-        }else if(window.innerWidth > 480){
+        } else if (window.innerWidth > 480) {
             map.resetMarkerAndInfo();
             map.setMapOverLayerHidden();
             map.resetHiddenList();
         }
     }
+    for (const marker of map.markers) {
+        marker.setIcon(marker.categoryIcon)
+    }
+    const floatButton = document.querySelector('.floating-button')
+    const visibleTarget = document.querySelector('#card')
+    toggleFloatingButtonLocation(floatButton, visibleTarget)
+    visibleTarget.style.display = 'none'
 }
