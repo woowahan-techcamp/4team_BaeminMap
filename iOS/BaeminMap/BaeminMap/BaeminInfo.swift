@@ -100,7 +100,7 @@ class BaeminInfoData {
             NotificationCenter.default.post(name: NSNotification.Name.listBaeminInfo, object: self)
         }
     }
-    var mapBaeminInfo: [BaeminInfo: [BaeminInfo]]? {
+    var mapBaeminInfo: [[BaeminInfo]]? {
         didSet {
             NotificationCenter.default.post(name: NSNotification.Name.mapBaeminInfo, object: self)
         }

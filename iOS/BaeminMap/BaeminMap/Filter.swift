@@ -67,13 +67,17 @@ class Filter {
     }
 
     func findSamePlace() {
-        var samePlaceShops = [BaeminInfo: [BaeminInfo]]()
+        var temp = [BaeminInfo: [BaeminInfo]]()
+        var samePlaceShops = [[BaeminInfo]]()
         for shop in BaeminInfoData.shared.listBaeminInfo {
-            if let key = samePlaceShops[shop] {
-                samePlaceShops[key[0]]?.append(shop)
+            if let key = temp[shop] {
+                temp[key[0]]?.append(shop)
             } else {
-                samePlaceShops[shop] = [shop]
+                temp[shop] = [shop]
             }
+        }
+        for shops in temp.sorted(by: { $0.key.distance < $1.key.distance }) {
+            samePlaceShops.append(shops.value)
         }
         BaeminInfoData.shared.mapBaeminInfo = samePlaceShops
     }

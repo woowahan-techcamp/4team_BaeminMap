@@ -111,21 +111,21 @@ class MapViewController: UIViewController {
         for(count, shop) in baeminInfo.enumerated() {
             let marker = GMSMarker()
             marker.map = mapView
-            marker.position = CLLocationCoordinate2D(latitude: shop.key.location["latitude"]!, longitude: shop.key.location["longitude"]!)
+            marker.position = CLLocationCoordinate2D(latitude: shop[0].location["latitude"]!, longitude: shop[0].location["longitude"]!)
             let index = pageControl.currentPage
             if let selectedShop = selectedMarker?.userData as? [BaeminInfo],
-                shop.key == selectedShop[index] || shop.value.contains(selectedShop[index]) {
+                shop[0] == selectedShop[index] || shop.contains(selectedShop[index]) {
                 marker.icon = UIImage(named: selectedShop[index].categoryEnglishName+"Fill")
                 marker.userData = selectedShop
                 marker.zIndex = 1
                 mapView.selectedMarker = marker
             } else {
-                if shop.value.count == 1 {
-                    marker.userData = [shop.value[0]]
-                    marker.icon = count < 30 || isZoom ? UIImage(named: shop.value[0].categoryEnglishName) : #imageLiteral(resourceName: "smallMarker")
+                if shop.count == 1 {
+                    marker.userData = [shop[0]]
+                    marker.icon = count < 15 || isZoom ? UIImage(named: shop[0].categoryEnglishName) : #imageLiteral(resourceName: "smallMarker")
                 } else {
-                    marker.userData = shop.value
-                    marker.icon = "+\(shop.value.count)".drawPlusMarker()
+                    marker.userData = shop
+                    marker.icon = isZoom ? "+\(shop.count)".drawPlusMarker() : #imageLiteral(resourceName: "smallMarker")
                 }
                 marker.zIndex = 0
             }
