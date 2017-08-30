@@ -172,12 +172,16 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-
         infoView.subviews.forEach { $0.removeFromSuperview() }
-        guard let shops = marker.userData as? [BaeminInfo] else { return false }
-
-        infoViewAnimate(isTap: true)
-
+        if marker.position.latitude+0.00001 == location.latitude && marker.position.longitude == location.longitude {
+            DispatchQueue.main.async {
+                self.infoViewAnimate(isTap: false)
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.infoViewAnimate(isTap: true)
+            }
+        }
         if let selectedMarker = mapView.selectedMarker,
             let selectedShop = selectedMarker.userData as? [BaeminInfo] {
             selectedMarker.zIndex = 0
@@ -185,7 +189,10 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
                 "+\(selectedShop.count)".drawPlusMarker()
         }
 
+        guard let shops = marker.userData as? [BaeminInfo] else { return false }
+
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: mapView.camera.zoom > 17 ? mapView.camera.zoom : 17)
+        mapView.animate(to: camera)
 
         infoView.delegate = self
         infoView.isScrollEnabled = true
@@ -215,7 +222,6 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         marker.map = mapView
         marker.zIndex = 1
         marker.icon = UIImage(named: shops[0].categoryEnglishName+"Fill")
-        mapView.animate(to: camera)
 
         return true
     }
@@ -276,7 +282,6 @@ extension MapViewController: UIScrollViewDelegate {
 
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
-//            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
             cell.shopImageView.af_setImage(withURL: URL(string: url)!, completion: { (_) in
                 cell.shopImageView.isHidden = false
             })
