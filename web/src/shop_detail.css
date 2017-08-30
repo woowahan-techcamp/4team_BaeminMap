@@ -189,16 +189,16 @@
 }
 
 .pay {
-    padding: 3px;
+    padding: 4px;
     border-radius: 50px;
-    border: solid 1px #848484;
+    border: solid 1px #AAAAAA;
     margin-right: 5px;
+    color: #AAAAAA;
 }
 
 .canPay {
-    background-color: #2ac1bc;
-    border: solid 1px #2ac1bc;
-    color: white;
+    border: solid 1px black;
+    color: black;
 }
 
 .shop-detail-thumb {
@@ -206,8 +206,8 @@
 }
 
 .shop-detail-thumb-img {
-    width: auto;
-    height: 100%;
+    height: auto;
+    max-width: 100%;
 }
 
 .shop-detail-noti {
@@ -281,6 +281,8 @@
 .imgMenuName {
     width: 100%;
     display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -317,4 +319,8 @@
     font-size: 90%;
     font-weight: 400;
     color: #2ac1bc;
+}
+
+.no-menu-image {
+    margin-top: 30%;
 }

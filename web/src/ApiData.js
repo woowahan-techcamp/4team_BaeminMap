@@ -2,12 +2,12 @@ import axios from 'axios'
 
 export default class ApiData {
     constructor(position) {
-        this.baseURL = "https://baeminmap2.testi.kr"
+        this.baseURL = "https://pzldoy5f61.execute-api.ap-northeast-2.amazonaws.com/latest"
         this.getShopURL = this.baseURL + "/shops"
-        this.init(position)
+        this.initData(position)
     }
 
-    init(position) {
+    initData(position) {
         this.data = null
         this.shopData = null
         if (position) {
@@ -18,7 +18,6 @@ export default class ApiData {
                 lng: '127.1137412'
             }
         }
-        this.getShopData(this.position)
     }
 
     sleep(ms) {
@@ -58,39 +57,35 @@ export default class ApiData {
         this.data = response.data
     }
 
-    getShopFoodData(shopNumber){
+    getShopFoodData(shopNumber) {
         return axios.get(
-            "https://baeminmap.testi.kr/menu/"+shopNumber
+            this.baseURL + "/menu/" + shopNumber
         )
     }
 
     async getShopListAll(distance, key, order) {
-        console.time('wait for data')
         while (!this.data) {
             await this.sleep(200)
         }
-        console.timeEnd('wait for data')
-        console.time('getShopListAll')
         const _list = this.data.shopArray
-        const result = _list.sort(this.compareValues(key, order)).filter((el) => {return el.distance < distance})
-        console.timeEnd('getShopListAll')
+        const result = _list.sort(this.compareValues(key, order)).filter((el) => {
+            return el.distance < distance
+        })
         return result
     }
 
     async getShopListByCategoryList(distance, categoryList, key, order) {
-        console.time('wait for category data')
         while (!this.data) {
             await this.sleep(200)
         }
-        console.timeEnd('wait for category data')
         const _list = []
-        console.time('getShopListByCategoryList')
         for (const i of categoryList) {
             for (const j of this.data.shops[i]) {
                 _list.push(j)
             }
         }
-        console.timeEnd('getShopListByCategoryList')
-        return _list.sort(this.compareValues(key, order)).filter((el) => {return el.distance < distance})
+        return _list.sort(this.compareValues(key, order)).filter((el) => {
+            return el.distance < distance
+        })
     }
 }

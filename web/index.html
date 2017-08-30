@@ -42,19 +42,19 @@
             <div class="line"></div>
             <div class="sort-option-wrapper">
                 <ul class="sort-option-list">
-                    <li id="sort-option-distance" class="option sort-option selected"><img src="./static/check.png"
+                    <li id="sort-option-distance" class="option sort-option selected" title="가까운 순"><img src="./static/check.png"
                                                                                            class="check-img">가까운 순
                     </li>
-                    <li id="sort-option-orderCount" class="option sort-option"><img src="./static/check.png"
+                    <li id="sort-option-orderCount" class="option sort-option" title="주문 많은 순"><img src="./static/check.png"
                                                                                     class="check-img">주문 많은 순
                     </li>
-                    <li id="sort-option-starPointAverage" class="option sort-option"><img src="./static/check.png"
+                    <li id="sort-option-starPointAverage" class="option sort-option" title="리뷰 좋은 순"><img src="./static/check.png"
                                                                                           class="check-img">리뷰 좋은 순
                     </li>
-                    <li id="sort-option-viewCount" class="option sort-option"><img src="./static/check.png"
+                    <li id="sort-option-viewCount" class="option sort-option" title="인기 많은 순"><img src="./static/check.png"
                                                                                    class="check-img">인기 많은 순
                     </li>
-                    <li id="sort-option-favoriteCount" class="option sort-option"><img src="./static/check.png"
+                    <li id="sort-option-favoriteCount" class="option sort-option" title="즐겨찾기 많은 순"><img src="./static/check.png"
                                                                                        class="check-img">즐겨찾기 많은 순
                     </li>
                 </ul>
@@ -62,30 +62,46 @@
             <div class="line"></div>
             <div class="distance-option-wrapper">
                 <ul class="distance-option-list">
-                    <li id="distance-option-300" class="option distance-option selected" data-distance="0.3"><img
+                    <li id="distance-option-300" class="option distance-option selected" data-distance="0.3" title="근처 업소만 보기"><img
                             src="./static/check.png"
                             class="check-img">근처 업소만
                         보기 (300m)
                     </li>
-                    <li id="distance-option-700" class="option distance-option" data-distance="0.7"><img
+                    <li id="distance-option-700" class="option distance-option" data-distance="0.7" title="멀리까지"><img
                             src="./static/check.png"
                             class="check-img">멀리까지 (700m)
                     </li>
-                    <li id="distance-option-1500" class="option distance-option" data-distance="1.5"><img
+                    <li id="distance-option-1500" class="option distance-option" data-distance="1.5" title="머얼리까지"><img
                             src="./static/check.png"
                             class="check-img">머어얼리까지 (1.5km)
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="filter-button-wrapper mobile-hidden">
-            <h2 style="margin-top:10px; color: white;">Filter <img
-                    style="position: absolute;height: 17px; width: auto;right:10px; top:14px;"
-                    src="./static/angle-down.png"></h2>
+        <div class="filter-button-and-setting-wrapper mobile-hidden">
+            <div class="filter-current-setting mobile-hidden">
+            <span class="filter-current-setting-text">
+                <strong>현재설정: </strong>
+                <span class="filter-current-sort">가까운 순</span>/<span class="filter-current-distance">근처업소만 보기</span>
+            </span>
+            </div>
+            <div class="filter-button-wrapper mobile-hidden">
+                <img src="./static/filterDesktop.png" alt="">
+            </div>
         </div>
     </div>
     <div id="list" class="mobile-hidden">
-        <div class="shop-list-back-all-list mobile-hidden">
+        <div class="no-shop-notification">
+            <img src="./static/noShopMan.png">
+        </div>
+        <div class="move-top-scroll-button mobile-hidden">^</div>
+        <div class="duplicate-list-notification mobile-hidden">
+            <span>
+                <span class="duplicate-list-address"></span>
+                에 모여있는
+                <span class="duplicate-number"></span>
+                <span>개</span>의 배달업소 리스트
+            </span>
         </div>
         <div class="shop-list" id="shopList">
             <!-- TODO: 이부분이 템플릿으로 -->
@@ -122,6 +138,41 @@
 
 <div id="card" class="mobile-visible"></div>
 <div id="modal" class="modal map-layout"></div>
+<div id="static" style="display: none">
+    <div id="web-marker-icons">
+        <img src="/static/WebMarker/chicken.png" alt="" id="chicken">
+        <img src="/static/WebMarker/chickenFill.png" alt="" id="chickenFill">
+        <img src="/static/WebMarker/Chinese.png" alt="" id="Chinese">
+        <img src="/static/WebMarker/ChineseFill.png" alt="" id="ChineseFill">
+        <img src="/static/WebMarker/Dosirak.png" alt="" id="Dosirak">
+        <img src="/static/WebMarker/DosirakFill.png" alt="" id="DosirakFill">
+        <img src="/static/WebMarker/fastFood.png" alt="" id="fastFood">
+        <img src="/static/WebMarker/fastFoodFill.png" alt="" id="fastFoodFill">
+        <img src="/static/WebMarker/Japanese.png" alt="" id="Japanese">
+        <img src="/static/WebMarker/JapaneseFill.png" alt="" id="JapaneseFill">
+        <img src="/static/WebMarker/Jokbal.png" alt="" id="Jokbal">
+        <img src="/static/WebMarker/JokbalFill.png" alt="" id="JokbalFill">
+        <img src="/static/WebMarker/Korean.png" alt="" id="Korean">
+        <img src="/static/WebMarker/KoreanFill.png" alt="" id="KoreanFill">
+        <img src="/static/WebMarker/NightSnack.png" alt="" id="NightSnack">
+        <img src="/static/WebMarker/NightSnackFill.png" alt="" id="NightSnackFill">
+        <img src="/static/WebMarker/pizza.png" alt="" id="pizza">
+        <img src="/static/WebMarker/pizzaFill.png" alt="" id="pizzaFill">
+        <img src="/static/WebMarker/plusMarker.png" alt="" id="plusMarker">
+        <img src="/static/WebMarker/plusMarkerFill.png" alt="" id="plusMarkerFill">
+        <img src="/static/WebMarker/Snack.png" alt="" id="Snack">
+        <img src="/static/WebMarker/SnackFill.png" alt="" id="SnackFill">
+        <img src="/static/WebMarker/Zzim_Tang.png" alt="" id="Zzim_Tang">
+        <img src="/static/WebMarker/Zzim_TangFill.png" alt="" id="Zzim_TangFill">
+        <img src="/static/pin.png" alt="" id="pin">
+        <img src="/static/blankMarker.png" alt="" id="blankMarker">
+        <img src="/static/backbutton.png" alt="" id="backbutton">
+        <img src="/static/img-star.png" alt="" id="img-star">
+        <img src="/static/mapBtn.png" alt="mapBtn">
+        <img src="/static/listBtn.png" alt="listBtn">
+        <img src="/static/currentSearch.png" alt="currentSearch">
+    </div>
+</div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP-cvYfe02ZIu5Df-_Y3mhhqRuxf9DuBw&libraries=places"
         type="text/javascript"></script>

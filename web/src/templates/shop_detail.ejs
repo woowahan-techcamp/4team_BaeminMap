@@ -25,7 +25,7 @@
         <div class="shop-detail-info">
             <div class="shop-detail-thumb">
                 <% const shopLogo = shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr') %>
-                <img src="<%= shopLogo %>" onerror="this.src='../static/default.png'" class="shop-detail-thumb-img">
+                <img src="<%= shopLogo %>" onerror="this.src='../static/noImage.png'; this.style='width: 100%; height: auto;'; this.class='no-shop-logo'" class="shop-detail-thumb-img">
             </div>
             <% if(parseInt(starPointAverage) !== 0) { %>
             <div class="shop-detail-info-abstract">
@@ -60,8 +60,6 @@
                 <span>
                     <% if (virtualPhoneNumber) { %>
                     <%= virtualPhoneNumber %>
-                    <% } else if (phoneNumber.startsWith('9')) { %>
-                    <%= phoneNumber.replace(phoneNumber.charAt(0), '0') %>
                     <% } else { %>
                     <%= phoneNumber %>
                     <% } %>
@@ -73,7 +71,7 @@
     </div>
 
     <div class="shop-link-btn-wrapper">
-        <a href="https://www.baemin.com/shop/<%= shopNumber %>" class="shop-link-btn">
+        <a href="https://www.baemin.com/shop/<%= shopNumber %>" class="shop-link-btn" target="_blank">
             <button class="shop-link-btn">주문하러가기</button>
         </a>
     </div>

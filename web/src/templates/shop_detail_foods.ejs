@@ -1,5 +1,6 @@
 <% if(Object.keys(allCategoryFoodList).length === 0) { %>
-<img src="../static/callPlease.png" style="width:100%;height: auto">
+<% document.querySelector('.shop-detail-info').innerHTML = "" %>
+<img src="../static/callPlease.png" style="width:100%;height: auto" class="no-menu-image">
 <% } else { %>
 <% if(allCategoryFoodList.imageMenu){
     const imageMenu = allCategoryFoodList.imageMenu
@@ -8,7 +9,7 @@
 <div class="imgFood">
     <% _.each(imageMenu, (imgFood) => { %>
     <div class="imgMenu">
-        <img class="menuImage" src="<%= imgFood.imgUrl %>" onerror="this.src='../static/default.png'">
+        <img class="menuImage" src="<%= imgFood.imgUrl.replace('http://', 'https://') %>" onerror="this.src='../static/noImage.png'">
         <div class="imgMenuInfo">
             <span class="imgMenuName"><%= imgFood.foodNm %></span>
             <strong class="imgMenuPrice"><%= imgFood.foodPrice %>원</strong>

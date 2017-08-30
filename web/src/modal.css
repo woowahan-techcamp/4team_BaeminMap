@@ -25,16 +25,6 @@
     right: 0;
 }
 
-@media (max-width: 480px) {
-    .modal-content {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        border: none;
-        -webkit-overflow-scrolling: touch;
-    }
-}
 
 /* The Close Button */
 .close {
@@ -49,4 +39,16 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: none;
+        -webkit-overflow-scrolling: touch;
+    }
 }
