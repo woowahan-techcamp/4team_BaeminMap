@@ -289,6 +289,7 @@ class Map {
                 marker.addListener('click', () => {
                     const showModalAndMoveMap = () => {
                         // Single
+                        console.log(marker)
                         if(!ShopList.triggerChecker){
                             this.showModal(e.shopNumber);
                         }
@@ -443,6 +444,8 @@ class Map {
     }
 
     reloadMap(distance, pos, apidata, key, order, categoryList, isFirstCall) {
+        this.xMarker = false;
+        this.xMarkerIcon = false;
         indicator.style.display = ''
         this.gmap.setZoom(18)
         // Reset markers

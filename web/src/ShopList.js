@@ -30,7 +30,7 @@ class ShopList {
                     if (!target.matches('a.shop-layer')) {
                         return false
                     }
-                    ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(target.dataset.shopnumber, markersArr))
+                    ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(target.dataset.shopnumber, this.map.markers))
                     //targetPosition은 선택한 target의 위치를 구한다. 이후 40을 빼주는건 버튼 영역때문에 하드코딩한것
                     targetElement.scrollTop += target.getBoundingClientRect().top - 40;
                     // TODO: 상점 리스트 클릭시 마커 띄워주기
