@@ -9,7 +9,7 @@
 <div class="imgFood">
     <% _.each(imageMenu, (imgFood) => { %>
     <div class="imgMenu">
-        <img class="menuImage" src="<%= imgFood.imgUrl %>" onerror="this.src='../static/noImage.png'">
+        <img class="menuImage" src="<%= imgFood.imgUrl.replace('http://', 'https://') %>" onerror="this.src='../static/noImage.png'">
         <div class="imgMenuInfo">
             <span class="imgMenuName"><%= imgFood.foodNm %></span>
             <strong class="imgMenuPrice"><%= imgFood.foodPrice %>원</strong>

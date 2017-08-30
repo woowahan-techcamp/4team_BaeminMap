@@ -238,7 +238,7 @@ window.onclick = function (event) {
             map.resetHiddenList();
         }
     }
-    if (window.innerWidth > 480) return false;
+    if (window.innerWidth > 480) return true;
     const xm = map.xMarker
     xm.setIcon(map.xMarkerIcon)
     const floatButton = document.querySelector('.floating-button')
