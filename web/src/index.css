@@ -538,8 +538,8 @@ div.layer.show {
 }
 
 .no-shop-notification > img {
-    margin-top: 80px;
-    width: 80%;
+    margin-top: 50%;
+    width: 50%;
 }
 
 @media (min-width: 480px) {
