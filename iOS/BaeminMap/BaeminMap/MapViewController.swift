@@ -14,9 +14,10 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
+    @IBOutlet weak var currentLocationConstraint: NSLayoutConstraint!
 
     var location = Location.sharedInstance
-    lazy var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
+    var baeminInfo = BaeminInfoData.shared.mapBaeminInfo
     var isZoom = true
     var isViewType = false
     var pageControl = UIPageControl()
@@ -44,6 +45,7 @@ class MapViewController: UIViewController {
             isViewType = false
         }
         redrawMap()
+        showNoshop()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,6 +68,7 @@ class MapViewController: UIViewController {
             self.baeminInfo = BaeminInfoData.shared.mapBaeminInfo
             self.mapView.selectedMarker = nil
             self.redrawMap()
+            showNoshop()
         }
     }
 
@@ -105,8 +108,8 @@ class MapViewController: UIViewController {
     }
 
     func drawMarker(selectedMarker: GMSMarker?) {
+        guard let baeminInfo = baeminInfo else { return }
         for(count, shop) in baeminInfo.enumerated() {
-
             let marker = GMSMarker()
             marker.map = mapView
             marker.position = CLLocationCoordinate2D(latitude: shop.key.location["latitude"]!, longitude: shop.key.location["longitude"]!)
@@ -135,6 +138,18 @@ class MapViewController: UIViewController {
         let selectedMarker = mapView.selectedMarker
         mapView.clear()
         drawMarker(selectedMarker: selectedMarker)
+    }
+
+    func showNoshop() {
+        guard let baeminInfo = baeminInfo else { return }
+        if baeminInfo.isEmpty {
+            mapView.addSubview(AnimationView.noshopView)
+            currentLocationConstraint.constant = 30
+            mapView.layoutIfNeeded()
+        } else {
+            AnimationView.noshopView.removeFromSuperview()
+            currentLocationConstraint.constant = 15
+        }
     }
 
     func infoViewAnimate(isTap: Bool) {
@@ -176,7 +191,7 @@ extension MapViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
         infoView.delegate = self
         infoView.isScrollEnabled = true
         infoView.decelerationRate = UIScrollViewDecelerationRateFast
-        
+
         var cellminX = CGFloat(40)
         var cellWidth = UIScreen.main.bounds.width-80
         if shops.count == 1 {

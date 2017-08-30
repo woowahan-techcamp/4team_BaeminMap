@@ -24,7 +24,7 @@ class Filter {
         findSamePlace()
     }
 
-    func filter(baeminInfoDic: [String:[BaeminInfo]], selected: [String]) -> [BaeminInfo] {
+    func filter(baeminInfoDic: [String: [BaeminInfo]], selected: [String]) -> [BaeminInfo] {
         var filterArray = [BaeminInfo]()
         if selected.isEmpty {
             baeminInfoDic.forEach({ (shops) in

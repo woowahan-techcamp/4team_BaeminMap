@@ -13,6 +13,14 @@ class AnimationView: UIView {
     @IBOutlet weak var logoImageView: UIImageView!
 
     static var indicator = UIView()
+    static let noshopView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 25)
+        imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        imageView.image = #imageLiteral(resourceName: "noShopText")
+        imageView.contentMode = .center
+        return imageView
+    }()
 
     override func awakeFromNib() {
         self.frame = UIScreen.main.bounds
@@ -86,5 +94,4 @@ class AnimationView: UIView {
             indicator.removeFromSuperview()
         }
     }
-
 }

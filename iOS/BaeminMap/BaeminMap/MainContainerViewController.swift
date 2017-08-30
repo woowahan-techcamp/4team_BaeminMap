@@ -14,6 +14,7 @@ class MainContainerViewController: UIViewController {
     @IBOutlet weak var toggleButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var filterButtonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerView: UIView!
 
     var listViewController = UIStoryboard.listViewStoryboard.instantiateViewController(withIdentifier: "ListView") as! ListViewController
     var mapViewController = UIStoryboard.mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as! MapViewController
@@ -27,6 +28,14 @@ class MainContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addChildViewController(listViewController)
+        listViewController.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
+        containerView.addSubview(listViewController.view)
+        listViewController.didMove(toParentViewController: self)
+        addChildViewController(mapViewController)
+        mapViewController.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
+        containerView.addSubview(mapViewController.view)
+        mapViewController.didMove(toParentViewController: self)
         AnimationView.startLaunchView(target: self)
         NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name.filterFrame, object: nil)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: String(), style: .plain, target: nil, action: nil)
@@ -66,7 +75,7 @@ class MainContainerViewController: UIViewController {
     @IBAction func toggleButtonAction(_ sender: UIBarButtonItem) {
         let newView: UIViewController
         let oldView = childViewControllers.last
-
+        print(childViewControllers)
         if isListView {
             newView = mapViewController
             toggleButton.image = #imageLiteral(resourceName: "listicon")
@@ -95,6 +104,7 @@ extension MainContainerViewController: GMSAutocompleteViewControllerDelegate {
         Location.sharedInstance = Location(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         Networking().getBaeminInfo(latitude: Location.sharedInstance.latitude, longitude: Location.sharedInstance.longitude)
         dismiss(animated: true) {
+            AnimationView.noshopView.removeFromSuperview()
             AnimationView.startIndicator(target: self.view, image: "mapicon", alpha: 0.8)
         }
     }
