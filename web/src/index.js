@@ -234,11 +234,9 @@ window.onclick = function (event) {
             map.resetHiddenList();
         }
     }
-    for (const marker of map.markers) {
-        if (marker.icon.url !== marker.categoryIcon.url) {
-            marker.setIcon(marker.categoryIcon)
-        }
-    }
+    if (window.innerWidth > 480) return false;
+    const xm = map.xMarker
+    xm.setIcon(map.xMarkerIcon)
     const floatButton = document.querySelector('.floating-button')
     const visibleTarget = document.querySelector('#card')
     toggleFloatingButtonLocation(floatButton, visibleTarget)
