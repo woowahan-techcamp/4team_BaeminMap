@@ -542,6 +542,11 @@ div.layer.show {
     width: 50%;
 }
 
+img.no-shop-logo {
+    width: 100vh;
+    height: auto;
+}
+
 @media (min-width: 480px) {
     .shop-link-btn:hover {
         cursor: pointer;

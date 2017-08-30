@@ -137,7 +137,6 @@ class Map {
             const bounds = new google.maps.LatLngBounds();
             places.forEach((place) => {
                 if (!place.geometry) {
-                    console.log("Returned place contains no geometry");
                     return;
                 }
 
@@ -290,7 +289,6 @@ class Map {
                     const showModalAndMoveMap = () => {
                         // Single
                         if(!ShopList.triggerChecker){
-                            console.log('eventFromMarker!')
                             this.showModal(e.shopNumber);
                         }
                         this.resetMarkerAndInfo()
@@ -302,11 +300,7 @@ class Map {
                         // 선택된 마커 z-index 값 부여를 통해 지도 위에서 가시성 확보
                         marker.setZIndex(2);
                         //리스트 연동부분
-                        if (document.querySelector(".selected-shop")) {
-                            document.querySelector(".selected-shop").classList.remove("selected-shop");
-                        }
                         document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 40;
-                        document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
                     }
                     if (parseInt(window.innerWidth) <= 480) {
                         // Mobile
@@ -404,7 +398,6 @@ class Map {
                 this.resetHiddenList();
             }
         } else {
-            console.log(ShopList.triggerChecker)
             this.setMapOverLayerShow()
             const filter = document.querySelector('.filter-controller');
             const adrressHTML = document.querySelector('.duplicate-list-address');
@@ -443,12 +436,10 @@ class Map {
         indicator.style.display = ''
         this.gmap.setZoom(18)
         // Reset markers
-        console.time("Marker Reset")
         for (let i of this.markers) {
             i.setMap(null)
         }
         this.markers = []
-        console.timeEnd("Marker Reset")
 
 
         // if starPointAverage: reverse
@@ -457,8 +448,6 @@ class Map {
         } else {
             order = 'desc'
         }
-
-        console.time("GetData")
         // Get new data from my new position
         const posString = `${pos.lng}_${pos.lat}`
         const currentPositionString = `${this.currentLocation.lng}_${this.currentLocation.lat}`
@@ -467,13 +456,8 @@ class Map {
             this.updatePosition(pos)
         }
         this.gmap.setCenter(this.currentLocation)
-        console.time("Update My Position")
         // Update my Position
-        console.timeEnd("Update My Position")
-        console.timeEnd("GetData")
         let sortedData = null
-
-        console.time("SortData")
         if (categoryList) {
             sortedData = apidata.getShopListByCategoryList(distance, categoryList, key, order)
         } else {
@@ -488,7 +472,6 @@ class Map {
             this.setShopMarker(filteredData, apidata, this.duplicatedData)
             new ShopList("#shopList", filteredData, this, isFirstCall)
             indicator.style.display = 'none'
-            console.timeEnd("SortData")
             if (filteredData[0] === undefined) {
                 document.querySelector('.no-shop-notification').classList.add('show');
             } else {

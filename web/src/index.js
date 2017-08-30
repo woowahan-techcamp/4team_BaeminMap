@@ -138,7 +138,6 @@ function setScrollTopButtonEvent(buttonClass, shopListClass) {
         shopList.scrollTop = 0;
     })
     shopList.addEventListener('scroll', (e)=>{
-        console.log(e)
         if (e.target.scrollTop === 0 ){
             map.setScrollTopButtonHidden()
         } else {
