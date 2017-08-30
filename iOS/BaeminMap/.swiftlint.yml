@@ -1,0 +1,55 @@
+# rule identifiers to exclude from running
+disabled_rules:
+  - discarded_notification_center_observer
+  - dynamic_inline
+  - file_length
+  - for_where
+  - force_cast
+  - generic_type_name
+  - implicit_getter
+  - legacy_cggeometry_functions
+  - legacy_constant
+  - force_unwrapping
+
+# rule identifiers to opt in
+opt_in_rules:
+  - closure_spacing
+  - empty_count
+  - force_unwrapping
+  - implicit_return
+
+
+# special configuration for rules 
+colon:
+  flexible_right_spacing: true
+  apply_to_dictionaries: false
+
+cyclomatic_complexity:
+  warning: 10
+  error: 20
+  ignores_case_statements: false
+
+function_body_length:
+  warning: 40
+  error: 100
+
+function_parameter_count:
+  warning: 5
+  error: 8
+
+large_tuple:
+  warning: 2
+  error: 3
+
+line_length:
+  warning: 250
+  error: 300
+  ignores_urls: false
+  ignores_function_declarations: false
+  ignores_comments: false
+
+identifier_name:
+  min_length: 1
+
+excluded:
+  - Pods

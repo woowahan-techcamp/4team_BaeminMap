@@ -1,0 +1,320 @@
+.shop-detail-wrapper {
+    width: 50%;
+    min-width: 480px;
+    margin: 0 auto;
+}
+
+.shop-detail-scroll > h2 {
+    text-align: center;
+    font-weight: 800;
+    font-size: 40px;
+    margin: 20px 0 5px;
+}
+
+.module {
+    border-bottom: 1px solid #ccc;
+}
+
+.module > ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    list-style: none outside none;
+}
+
+.module > ul > li {
+    margin: 0;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #dddddd;
+}
+
+.module > ul > li:nth-last-child(1) {
+    border-bottom: none;
+}
+
+.checkbox {
+    display: none;
+}
+
+.toggle-box {
+    width: calc(100% - 20px);
+    margin: 10px auto;
+}
+
+.toggle-label {
+    display: block;
+    cursor: pointer;
+    padding: 12px 17px;
+    color: whitesmoke;
+    background-color: rgb(76, 76, 76);
+    font-weight: 400;
+}
+
+.toggle-label:hover {
+    background-color: #554444;
+}
+
+.toggle-label:after {
+    content: '˅';
+    float: right;
+    line-height: 25px;
+    right: 0;
+    font-size: 30px;
+    margin-top: 7px;
+}
+
+.toggle-content {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: ease 0.2s;
+}
+
+.checkbox:checked ~ .toggle-content {
+    max-height: 1000px;
+}
+
+.checkbox:checked + .toggle-label:after {
+    content: "˄";
+}
+
+.shop-detail-info {
+    width: calc(100% - 20px);
+    height: auto;
+    margin: 10px auto 0;
+}
+
+.shop-detail {
+    margin: auto;
+    float: left;
+    width: 33%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.shop-detail > span {
+    font-size: 120%;
+    color: #848484;
+}
+
+.shop-detail > .shop-comment-counts {
+    font-size: 140%;
+    margin-top: 15px;
+    color: #333333;
+    line-height: 1.5em;
+}
+
+.shop-star > span {
+    font-size: 250%;
+    color: #2abfba;
+}
+
+.shop-detail-star {
+    margin-left: 15px;
+}
+
+.shop-detail-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    min-width: 0;
+    height: 100vh;
+}
+
+.shop-detail-scroll > h2 {
+    text-align: center;
+    font-weight: 800;
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.shop-detail-scroll {
+    height: calc(100% - 100px);
+    overflow-y: scroll;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.shop-detail-name {
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.shop-detail-name > h2 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 0 0;
+    padding-top: 15px;
+}
+
+.close {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background: url("../static/backbutton.png");
+    background-size: 30px 30px;
+
+}
+
+.shop-detail-backbutton {
+    width: 30px;
+    heigth: 30px;
+}
+
+.shop-head {
+    height: 35px;
+    border-top: solid 1px #848484;
+    margin: 0 0 0 0;
+    padding-top: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.shop-head-left {
+    margin-left: 10px;
+    float: left;
+}
+
+.shop-head-right {
+    float: right;
+}
+
+.pay {
+    padding: 3px;
+    border-radius: 50px;
+    border: solid 1px #848484;
+    margin-right: 5px;
+}
+
+.canPay {
+    background-color: #2ac1bc;
+    border: solid 1px #2ac1bc;
+    color: white;
+}
+
+.shop-detail-thumb {
+    text-align: center;
+}
+
+.shop-detail-thumb-img {
+    width: auto;
+    height: 100%;
+}
+
+.shop-detail-noti {
+    background-color: #848484;
+    color: #f4f4f4;
+    padding: 4px;
+}
+
+.shop-phone {
+    margin-bottom: 20px;
+}
+
+.toggle-box {
+    width: 100%;
+    margin: auto 0px 10px 0px;
+}
+
+.toggle-label:hover {
+    background-color: rgb(76, 76, 76);
+}
+
+.shop-detail-info-abstract {
+    display: block;
+    width: 100%;
+    height: 65px;
+    margin-top: 15px;
+}
+
+.shop-detail-oneline-info {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.shop-link-btn-wrapper {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.shop-link-btn {
+    color: whitesmoke;
+    font-size: 16px;
+    height: 50px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background-color: #2abfba;
+}
+
+.imgMenu {
+    width: 45%;
+    height: auto;
+    border: solid 1px #ddd;
+    display: inline-block;
+    margin-left: 3%;
+    margin-bottom: 10px;
+}
+
+.menuImage {
+    width: 100%;
+    height: auto;
+}
+
+.imgMenuInfo {
+    padding-left: 7px;
+}
+
+.imgMenuName {
+    width: 100%;
+    display: inline-block;
+    text-overflow: ellipsis;
+}
+
+.imgMenuPrice {
+    width: 100%;
+    display: inline-block;
+    text-overflow: ellipsis;
+}
+
+#foodDetails {
+    display: block;
+}
+
+.food-list-content {
+    display: flex;
+    height: auto;
+}
+
+.food-list-left {
+    vertical-align: middle;
+    flex: 3;
+    font-weight: 500;
+}
+
+.food-list-right {
+    display: block;
+    vertical-align: middle;
+    flex: 2;
+}
+
+.food-list-right > span {
+    display: block;
+    text-align: right;
+    font-size: 90%;
+    font-weight: 400;
+    color: #2ac1bc;
+}

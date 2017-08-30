@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="txK-gb-xXy">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--배민여지도-->
+        <scene sceneID="8HV-Ho-GfV">
+            <objects>
+                <viewController storyboardIdentifier="MainContainerView" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t57-W2-t7k" customClass="MainContainerViewController" customModule="BaeminMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="O7q-im-fz3"/>
+                        <viewControllerLayoutGuide type="bottom" id="tFe-n3-k0z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FY3-xD-dl7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hA-hzT">
+                                <rect key="frame" x="0.0" y="102" width="320" height="466"/>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70i-Jq-OTW">
+                                <rect key="frame" x="0.0" y="64" width="320" height="38"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="52K-7v-8Fr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <size key="titleShadowOffset" width="3" height="3"/>
+                                <state key="normal" title="지번, 도로명, 건물명을 검색하세요." image="findicon">
+                                    <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchLocationButtonAction:" destination="t57-W2-t7k" eventType="touchUpInside" id="kfl-lx-w3n"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhp-he-Rvg">
+                                <rect key="frame" x="118" y="486" width="84" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="2nK-3x-yfZ"/>
+                                    <constraint firstAttribute="height" constant="40" id="EUd-pb-FBu"/>
+                                </constraints>
+                                <state key="normal" image="filtericon">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterButtonAction:" destination="t57-W2-t7k" eventType="touchUpInside" id="lfe-HB-8JX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bhp-he-Rvg" firstAttribute="centerX" secondItem="FY3-xD-dl7" secondAttribute="centerX" id="2y6-mp-Vcj"/>
+                            <constraint firstItem="70i-Jq-OTW" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="A1S-NP-uJU"/>
+                            <constraint firstItem="tFe-n3-k0z" firstAttribute="top" secondItem="bhp-he-Rvg" secondAttribute="bottom" constant="42" id="Egt-mK-BzN"/>
+                            <constraint firstAttribute="trailing" secondItem="70i-Jq-OTW" secondAttribute="trailing" id="Twt-Hz-lNB"/>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="leading" secondItem="FY3-xD-dl7" secondAttribute="leading" id="U8h-ji-mqk"/>
+                            <constraint firstItem="tFe-n3-k0z" firstAttribute="top" secondItem="toJ-hA-hzT" secondAttribute="bottom" id="cgC-PN-AU0"/>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="width" secondItem="FY3-xD-dl7" secondAttribute="width" id="kdG-HJ-qzs"/>
+                            <constraint firstItem="70i-Jq-OTW" firstAttribute="top" secondItem="O7q-im-fz3" secondAttribute="bottom" id="qaW-g9-AFT"/>
+                            <constraint firstItem="toJ-hA-hzT" firstAttribute="top" secondItem="70i-Jq-OTW" secondAttribute="bottom" id="tc5-41-ZiZ"/>
+                            <constraint firstAttribute="trailing" secondItem="toJ-hA-hzT" secondAttribute="trailing" id="xPJ-2u-0dP"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="배민여지도" id="SXz-h2-l1u">
+                        <barButtonItem key="rightBarButtonItem" image="listicon" id="yfS-uM-AAN">
+                            <connections>
+                                <action selector="toggleButtonAction:" destination="t57-W2-t7k" id="Xvq-Pt-ndL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="containerView" destination="toJ-hA-hzT" id="POK-a4-86l"/>
+                        <outlet property="filterButton" destination="bhp-he-Rvg" id="Qfd-F0-MRN"/>
+                        <outlet property="filterButtonConstraint" destination="Egt-mK-BzN" id="vQx-AA-ekH"/>
+                        <outlet property="toggleButton" destination="yfS-uM-AAN" id="gE3-2j-hcg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OrU-0u-SlF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="28" y="-180"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Wy8-Q1-z8l">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="txK-gb-xXy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TPD-bd-XrS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="t57-W2-t7k" kind="relationship" relationship="rootViewController" id="MDu-wQ-9CG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MzZ-c5-9zB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-724" y="-181"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="filtericon" width="102" height="48"/>
+        <image name="findicon" width="16" height="15"/>
+        <image name="listicon" width="20" height="15"/>
+    </resources>
+</document>
