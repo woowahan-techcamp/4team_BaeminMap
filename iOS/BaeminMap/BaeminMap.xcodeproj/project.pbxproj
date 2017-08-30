@@ -229,6 +229,7 @@
 				B5562BCB1F381D2500A1BDE2 /* Resources */,
 				67AC4992F5E8FC4D4690C020 /* [CP] Embed Pods Frameworks */,
 				097177E8C414938F978F2DE9 /* [CP] Copy Pods Resources */,
+				98759E5B1F552758009DEA97 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -251,6 +252,7 @@
 				TargetAttributes = {
 					B5562BCC1F381D2500A1BDE2 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = B3PWYBKFUK;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -338,6 +340,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		98759E5B1F552758009DEA97 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -480,7 +495,7 @@
 			baseConfigurationReference = 6C87EA71F5610B9EEE828EC2 /* Pods-BaeminMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = BaeminMap/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -495,7 +510,7 @@
 			baseConfigurationReference = EC3E510CB2473C0F23F76DBC /* Pods-BaeminMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = BaeminMap/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

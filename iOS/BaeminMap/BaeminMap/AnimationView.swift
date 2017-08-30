@@ -11,13 +11,21 @@ import UIKit
 class AnimationView: UIView {
     @IBOutlet weak var deliverymanImageView: UIImageView!
     @IBOutlet weak var logoImageView: UIImageView!
-    
+
     static var indicator = UIView()
-    
+    static let noshopView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 25)
+        imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        imageView.image = #imageLiteral(resourceName: "noShopText")
+        imageView.contentMode = .center
+        return imageView
+    }()
+
     override func awakeFromNib() {
         self.frame = UIScreen.main.bounds
         deliverymanImageView.frame = CGRect(x: self.frame.maxY, y: deliverymanImageView.frame.minY, width: deliverymanImageView.frame.width, height: deliverymanImageView.frame.height)
-        
+
         UIView.animate(withDuration: 1, delay: 0, options: .repeat, animations: {
             self.logoImageView.frame = CGRect(x: self.logoImageView.frame.minX, y: self.logoImageView.frame.minY-10, width: self.logoImageView.frame.width, height: self.logoImageView.frame.height)
         }, completion: nil)
@@ -29,30 +37,30 @@ class AnimationView: UIView {
             }, completion: nil)
         }
     }
-    
+
     static func startLaunchView(target: MainContainerViewController) {
         let launchView = UINib(nibName: "LaunchView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
         target.view.addSubview(launchView)
         target.navigationController?.isNavigationBarHidden = true
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3.5) {
             launchView.removeFromSuperview()
-            if target.baeminInfo.isEmpty {
+            if BaeminInfoData.shared.baeminInfo.isEmpty {
                 startIndicator(target: target.view, image: "mapicon", alpha: 0.8)
             }
             target.navigationController?.isNavigationBarHidden = false
         }
     }
-    
+
     static func startIndicator(target: UIView, image: String, alpha: CGFloat) {
         indicator = UIView()
         indicator.frame = UIScreen.main.bounds
         indicator.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
         indicator.backgroundColor = UIColor(white: 1, alpha: alpha)
-        
+
         let hudView = UIView()
         hudView.frame.size = CGSize(width: 100, height: 80)
         hudView.center = indicator.center
-        
+
         let loadingView = UIImageView()
         loadingView.frame.size = CGSize(width: 50, height: 60)
         loadingView.contentMode = .center
@@ -69,14 +77,14 @@ class AnimationView: UIView {
         messageLabel.font = UIFont.systemFont(ofSize: 14, weight: 2)
         messageLabel.sizeToFit()
         messageLabel.center.x = hudView.frame.width/2
-        
+
         hudView.addSubview(loadingView)
         hudView.addSubview(messageLabel)
         indicator.addSubview(hudView)
-        
+
         target.addSubview(indicator)
     }
-    
+
     static func stopIndicator(delay: Bool) {
         if delay {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
@@ -86,5 +94,4 @@ class AnimationView: UIView {
             indicator.removeFromSuperview()
         }
     }
-    
 }

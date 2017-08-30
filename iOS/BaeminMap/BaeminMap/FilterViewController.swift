@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol FilterViewDelegate {
-    func selected(category: [String], sortTag: Int, rangeTag: Int)
-}
-
 class FilterViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -20,16 +16,15 @@ class FilterViewController: UIViewController {
     @IBOutlet var rangeButton: [UIButton]!
     @IBOutlet var sortCheckImageView: [UIImageView]!
     @IBOutlet var rangeCheckImageView: [UIImageView]!
-    
-    var delegate: FilterViewDelegate!
-    var selectedCategory = [String]()
-    var selectedSortTag = Int()
-    var selectedRangeTag = Int()
+
+    var selectedCategory = Filter.category
+    var selectedSortTag = Filter.sortTag
+    var selectedRangeTag = Filter.rangeTag
     var category = ["전체", "치킨", "중식", "피자", "한식", "분식", "족발,보쌈", "야식", "찜,탕", "돈까스,회,일식", "도시락", "패스트푸드"]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = true
@@ -43,7 +38,7 @@ class FilterViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func checkSelected() {
         if selectedCategory.isEmpty {
             collectionView.selectItem(at: [0, 0], animated: false, scrollPosition: .top)
@@ -53,14 +48,14 @@ class FilterViewController: UIViewController {
             }
         }
     }
-    
+
     func checkSelected(sortTag: Int, rangeTag: Int) {
         sortCheckImageView[sortTag].isHidden = false
         sortButton[sortTag].setTitleColor(UIColor.pointColor, for: .normal)
         rangeCheckImageView[rangeTag].isHidden = false
         rangeButton[rangeTag].setTitleColor(UIColor.pointColor, for: .normal)
     }
-    
+
     @IBAction func selectedSort(_ sender: UIButton) {
         if sender == sortButton[sender.tag] {
             for i in 0..<sortButton.count {
@@ -79,27 +74,30 @@ class FilterViewController: UIViewController {
         }
         sender.setTitleColor(UIColor.pointColor, for: .normal)
     }
-    
+
     @IBAction func confirmButtonAction(_ sender: Any) {
-        delegate.selected(category: selectedCategory, sortTag: selectedSortTag, rangeTag: selectedRangeTag)
+        Filter.category = selectedCategory
+        Filter.sortTag = selectedSortTag
+        Filter.rangeTag = selectedRangeTag
+        Filter().filterManager()
         dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func cancelButtonAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
+
 }
 
 extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return category.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FilterCollectionViewCell
         cell.foodNameLabel.text = category[indexPath.item]
-        
+
         return cell
     }
 
@@ -107,20 +105,20 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let width = category[indexPath.item].unicodeScalars.count * 10 + 25
         return CGSize(width: width, height: 30)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             if !selectedCategory.isEmpty {
                 for item in collectionView.indexPathsForSelectedItems! {
-                    collectionView.deselectItem(at: item , animated: false)
+                    collectionView.deselectItem(at: item, animated: false)
                 }
                 collectionView.selectItem(at: [0, 0], animated: false, scrollPosition: .top)
                 selectedCategory.removeAll()
@@ -130,7 +128,7 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
             selectedCategory.append(category[indexPath.item])
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             collectionView.selectItem(at: [0, 0], animated: false, scrollPosition: .top)
@@ -140,6 +138,9 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
                  selectedCategory.remove(at: index)
             }
         }
+        if selectedCategory.isEmpty {
+            collectionView.selectItem(at: [0, 0], animated: false, scrollPosition: .top)
+        }
     }
-    
+
 }

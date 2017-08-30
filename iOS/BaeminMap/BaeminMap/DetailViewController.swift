@@ -10,7 +10,7 @@ import UIKit
 import Cosmos
 
 class DetailViewController: UIViewController {
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var topView: UIView!
@@ -24,36 +24,40 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var reviewCountCEOLabel: UILabel!
     @IBOutlet weak var minOrderPriceLabel: UILabel!
-    @IBOutlet weak var moveToBaemin: UIButton!
+    @IBOutlet weak var baeminReviewButton: UIButton!
     @IBOutlet weak var topInfoView: UIView!
     @IBOutlet weak var bottomInfoView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
-    
+
     var baeminInfo = BaeminInfo()
     var foodList = [Section]()
     var imageList = Section()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+        tableView.separatorInset.right = 15
+
         navigationItem.title = baeminInfo.shopName
-        
+
         AnimationView.startIndicator(target: self.view, image: baeminInfo.categoryEnglishName, alpha: 1)
-        
+
         orderCountLabel.text = baeminInfo.orderCount.convertCountPlus()
         favoriteCountLabel.text = baeminInfo.favoriteCount.convertCountPlus()
-        
+
         meetPayLabel.checkPay(baeminInfo.useMeetPay)
         baroPayLabel.checkPay(baeminInfo.useBaropay)
         if let url = baeminInfo.shopLogoImageUrl {
             mainImageView.af_setImage(withURL: URL(string: url)!)
+        }
+        if baeminInfo.reviewCount == 0 {
+            baeminReviewButton.isHidden = true
         }
         if baeminInfo.starPointAverage == 0.0 {
             hiddenBottomInfoView()
@@ -64,25 +68,27 @@ class DetailViewController: UIViewController {
             reviewCountCEOLabel.text = String(baeminInfo.reviewCountCeo)
             minOrderPriceLabel.text = "최소주문금액: \(String(baeminInfo.minimumOrderPrice))원"
         }
-        
+
         self.tableView.isHidden = true
-        
+
         Networking().getFoods(shopNo: baeminInfo.shopNumber)
-        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name("finishedGetFoodMenus"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receive), name: NSNotification.Name.foodMenu, object: nil)
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func receive(notification: Notification) {
         guard let userInfo = notification.userInfo,
             let foodList = userInfo["Sections"] as? [Section] else { return }
         self.foodList = foodList
         tableView.isHidden = false
         if foodList.isEmpty {
-            showCallImage()
+            let rect = CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-baeminReviewButton.frame.height)
+            #imageLiteral(resourceName: "callOrderDefault").defaultImage(target: tableView, frame: rect)
+            baeminReviewButton.isHidden = true
         } else {
             if let index = self.foodList.index(where: { $0.title == "imageMenu" }) {
                 imageList = self.foodList.remove(at: index)
@@ -96,28 +102,18 @@ class DetailViewController: UIViewController {
         tableView.reloadData()
         collectionView.reloadData()
     }
-    
-    func showCallImage() {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: topInfoView.frame.maxY, width: tableView.frame.width, height: tableView.frame.height-moveToBaemin.frame.height))
-        imageView.contentMode = .center
-        imageView.backgroundColor = UIColor.white
-        imageView.image = #imageLiteral(resourceName: "callOrderDefault")
-        moveToBaemin.isHidden = true
-        tableView.isUserInteractionEnabled = false
-        tableView.addSubview(imageView)
-    }
-    
+
     func hiddenBottomInfoView() {
         topView.frame.size.height = topView.frame.height - bottomInfoView.frame.height
         bottomViewHeight.constant = 0
         bottomInfoView.isHidden = true
     }
-    
+
     func hiddenCollectionView() {
         topView.frame.size.height = topView.frame.height - collectionView.frame.height + 10
         collectionView.isHidden = true
     }
-    
+
     @IBAction func callOrderButtonAction(_ sender: UIButton) {
         if let virtualNumber = baeminInfo.virtualPhoneNumber,
             let url = URL(string: "tel://\(virtualNumber)") {
@@ -127,6 +123,13 @@ class DetailViewController: UIViewController {
             UIApplication.shared.open(url)
         }
     }
+
+    @IBAction func baeminReviewButtonAction(_ sender: UIButton) {
+        if let url = URL(string: "https://www.baemin.com/shop/\(baeminInfo.shopNumber!)#review") {
+            UIApplication.shared.open(url)
+        }
+    }
+
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -145,27 +148,27 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 }
             }
         }
-        
+
         collectionView.frame = CGRect(x: 0, y: collectionView.frame.minY, width: collectionView.contentSize.width, height: collectionView.contentSize.height)
         topView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: collectionView.frame.maxY)
-        
+
         let count = imageList.items.count < 6 ? imageList.items.count : 6
         if indexPath.item == count-1 {
             tableView.reloadData()
         }
-        
+
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageList.items.count < 6 ? imageList.items.count : 6
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+
         let width = (collectionView.bounds.width - 30) / 2
         let height = ( 15 * width ) / 14
-        
+
         return CGSize(width: width, height: height)
     }
 }
@@ -174,7 +177,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return foodList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableViewCell", for: indexPath) as! DetailTableViewCell
         let food = foodList[indexPath.section].items[indexPath.row]
@@ -190,33 +193,33 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         cell.priceLabel.text = str
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 33
     }
-    
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ExpandableTableViewHeader()
         header.titleLabel.text = foodList[section].title
-        
+
         header.section = section
         header.delegate = self
-        
+
         if foodList[header.section].open == true {
             header.arrowImage.image = #imageLiteral(resourceName: "arrow_top")
         }
-        
+
         return header
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return foodList[section].open ? foodList[section].items.count : 0
     }
-    
+
 }
 
 extension DetailViewController: ExpandableTableViewHeaderDelegate {

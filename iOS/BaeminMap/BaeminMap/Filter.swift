@@ -9,16 +9,22 @@
 import UIKit
 
 class Filter {
-    func filterManager(category: [String], range: Int, sort: Int, baeminInfoDic: [String:[BaeminInfo]]) -> [BaeminInfo] {
+    static var category = [String]()
+    static var sortTag = Int()
+    static var rangeTag = Int()
+
+    func filterManager() {
         var resultBaeminInfo = [BaeminInfo]()
-        resultBaeminInfo = filter(baeminInfoDic: baeminInfoDic, selected: category)
-        resultBaeminInfo = filterRange(baeminInfo: resultBaeminInfo, selected: range)
-        resultBaeminInfo = sortManager(baeminInfo: resultBaeminInfo, selected: sort)
-        
-        return resultBaeminInfo
+        let baeminInfoDic = BaeminInfoData.shared.baeminInfoDic
+        resultBaeminInfo = filter(baeminInfoDic: baeminInfoDic, selected: Filter.category)
+        resultBaeminInfo = filterRange(baeminInfo: resultBaeminInfo, selected: Filter.rangeTag)
+        resultBaeminInfo = sortManager(baeminInfo: resultBaeminInfo, selected: Filter.sortTag)
+
+        BaeminInfoData.shared.listBaeminInfo = resultBaeminInfo
+        findSamePlace()
     }
-    
-    func filter(baeminInfoDic: [String:[BaeminInfo]], selected: [String]) -> [BaeminInfo] {
+
+    func filter(baeminInfoDic: [String: [BaeminInfo]], selected: [String]) -> [BaeminInfo] {
         var filterArray = [BaeminInfo]()
         if selected.isEmpty {
             baeminInfoDic.forEach({ (shops) in
@@ -31,10 +37,10 @@ class Filter {
                 }
             }
         }
-        
+
         return filterArray
     }
-    
+
     func filterRange(baeminInfo: [BaeminInfo], selected: Int) -> [BaeminInfo] {
         var range = Double()
         switch selected {
@@ -44,7 +50,7 @@ class Filter {
         }
         return baeminInfo.filter { $0.distance <= range }
     }
-    
+
     func sortManager(baeminInfo: [BaeminInfo], selected: Int) -> [BaeminInfo] {
         switch selected {
         case 0:
@@ -52,23 +58,23 @@ class Filter {
         case 1:
             return baeminInfo.sorted(by: { $0.orderCount > $1.orderCount })
         case 2:
-            return baeminInfo.sorted(by: {$0.starPointAverage > $1.starPointAverage })
+            return baeminInfo.sorted(by: { $0.starPointAverage > $1.starPointAverage })
         case 3:
             return baeminInfo.sorted(by: { $0.viewCount > $1.viewCount })
         default:
             return baeminInfo.sorted(by: { $0.favoriteCount > $1.favoriteCount })
         }
     }
-    
-    func findSamePlace(baeminInfo: [BaeminInfo]) -> [BaeminInfo:[BaeminInfo]] {
-        var samePlaceShops = [BaeminInfo:[BaeminInfo]]()
-        for shop in baeminInfo {
+
+    func findSamePlace() {
+        var samePlaceShops = [BaeminInfo: [BaeminInfo]]()
+        for shop in BaeminInfoData.shared.listBaeminInfo {
             if let key = samePlaceShops[shop] {
                 samePlaceShops[key[0]]?.append(shop)
             } else {
                 samePlaceShops[shop] = [shop]
             }
         }
-        return samePlaceShops
+        BaeminInfoData.shared.mapBaeminInfo = samePlaceShops
     }
 }

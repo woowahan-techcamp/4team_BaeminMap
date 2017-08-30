@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="txK-gb-xXy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="txK-gb-xXy">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,9 +23,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hA-hzT">
                                 <rect key="frame" x="0.0" y="102" width="320" height="466"/>
-                                <connections>
-                                    <segue destination="Tke-UX-WOr" kind="embed" id="Cog-Oi-dhx"/>
-                                </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70i-Jq-OTW">
                                 <rect key="frame" x="0.0" y="64" width="320" height="38"/>
@@ -73,14 +70,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="배민여지도" id="SXz-h2-l1u">
-                        <barButtonItem key="rightBarButtonItem" image="listicon" style="plain" id="yfS-uM-AAN">
+                        <barButtonItem key="rightBarButtonItem" image="listicon" id="yfS-uM-AAN">
                             <connections>
                                 <action selector="toggleButtonAction:" destination="t57-W2-t7k" id="Xvq-Pt-ndL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="containerView" destination="toJ-hA-hzT" id="POK-a4-86l"/>
                         <outlet property="filterButton" destination="bhp-he-Rvg" id="Qfd-F0-MRN"/>
+                        <outlet property="filterButtonConstraint" destination="Egt-mK-BzN" id="vQx-AA-ekH"/>
                         <outlet property="toggleButton" destination="yfS-uM-AAN" id="gE3-2j-hcg"/>
                     </connections>
                 </viewController>
@@ -105,22 +104,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MzZ-c5-9zB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-724" y="-181"/>
-        </scene>
-        <!--MapView-->
-        <scene sceneID="UGL-Rl-iQA">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MapView" referencedIdentifier="MapView" id="Tke-UX-WOr" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yj6-13-9Sf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-74" y="276"/>
-        </scene>
-        <!--ListView-->
-        <scene sceneID="8wn-AV-Qwa">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ListView" referencedIdentifier="ListView" id="vUg-tF-VVi" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5hz-O0-oAU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="88" y="276"/>
         </scene>
     </scenes>
     <resources>

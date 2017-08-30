@@ -11,8 +11,8 @@ import ObjectMapper
 
 class BaeminInfo: Mappable, Hashable {
     var hashValue: Int { get { return (location["latitude"]! + location["longitude"]!).hashValue } }
-    
-    static func ==(lhs: BaeminInfo, rhs: BaeminInfo) -> Bool {
+
+    static func == (lhs: BaeminInfo, rhs: BaeminInfo) -> Bool {
         return lhs.location == rhs.location
     }
 
@@ -47,11 +47,13 @@ class BaeminInfo: Mappable, Hashable {
     private(set) var location: [String:Double]!
     private(set) var distance: Double!
     private(set) var shopLogoImageUrl: String?
-    
-    required init?(map: Map) {}
-    
-    init() { }
-  
+
+    required init?(map: Map) {
+    }
+
+    init() {
+    }
+
     func mapping(map: Map) {
         shopNumber <- map["shopNumber"]
         shopName <- map["shopName"]
@@ -85,5 +87,23 @@ class BaeminInfo: Mappable, Hashable {
         distance <- map["distance"]
         shopLogoImageUrl <- map["shopLogoImageUrl"]
     }
-    
+
+}
+
+class BaeminInfoData {
+    static let shared = BaeminInfoData()
+
+    var baeminInfo = [BaeminInfo]()
+    var baeminInfoDic = [String: [BaeminInfo]]()
+    var listBaeminInfo = [BaeminInfo]() {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name.listBaeminInfo, object: self)
+        }
+    }
+    var mapBaeminInfo: [BaeminInfo: [BaeminInfo]]? {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name.mapBaeminInfo, object: self)
+        }
+    }
+
 }

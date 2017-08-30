@@ -53,7 +53,7 @@
         </view>
     </objects>
     <resources>
-        <image name="deliveryman" width="142" height="152"/>
+        <image name="deliveryman" width="246" height="264"/>
         <image name="logo" width="195" height="121"/>
         <image name="teamName" width="68" height="19"/>
     </resources>

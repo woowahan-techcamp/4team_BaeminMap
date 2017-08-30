@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UUW-Et-0Bz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UUW-Et-0Bz">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -47,6 +47,7 @@
                     </view>
                     <connections>
                         <outlet property="currentLocationButton" destination="K1x-TL-twi" id="HfU-QP-SOh"/>
+                        <outlet property="currentLocationConstraint" destination="oGK-Fp-rvR" id="V4b-Iy-aic"/>
                         <outlet property="mapView" destination="XYr-eW-xtd" id="6Rv-7N-PiK"/>
                     </connections>
                 </viewController>
