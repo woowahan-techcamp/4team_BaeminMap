@@ -276,9 +276,12 @@ extension MapViewController: UIScrollViewDelegate {
 
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
-            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+//            cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+            cell.shopImageView.af_setImage(withURL: URL(string: url)!, completion: { (_) in
+                cell.shopImageView.isHidden = false
+            })
         } else {
-            cell.shopImageView.image = #imageLiteral(resourceName: "defaultImage")
+            cell.shopImageView.isHidden = false
         }
         cell.titleLabel.text = shop.shopName
         cell.translatesAutoresizingMaskIntoConstraints = false
