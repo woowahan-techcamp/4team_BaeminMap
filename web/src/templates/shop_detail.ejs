@@ -25,7 +25,7 @@
         <div class="shop-detail-info">
             <div class="shop-detail-thumb">
                 <% const shopLogo = shopLogoImageUrl.replace('http://woowahan1.vipweb.kr', 'https://baeminmap3.testi.kr') %>
-                <img src="<%= shopLogo %>" onerror="this.src='../static/noImage.png'; this.style='width: 100%'" class="shop-detail-thumb-img">
+                <img src="<%= shopLogo %>" onerror="this.src='../static/noImage.png'; this.style='width: 100%; height: auto;'; this.class='no-shop-logo'" class="shop-detail-thumb-img">
             </div>
             <% if(parseInt(starPointAverage) !== 0) { %>
             <div class="shop-detail-info-abstract">

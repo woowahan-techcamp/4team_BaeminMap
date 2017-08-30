@@ -4,7 +4,6 @@ import * as _ from "lodash";
 
 class ShopList {
     constructor(targetSelector, arr, mapInstance, isFirstCall) {
-        console.log('ShopList init!')
         const markersArr = mapInstance.markers
         this.map = mapInstance
         this.createShopTemplateDOM(targetSelector, arr, markersArr, isFirstCall)
@@ -20,7 +19,6 @@ class ShopList {
     renderTemplate(shopTemplate, targetSelector, arr, markersArr, isFirstCall) {
         const targetElement = document.querySelector(targetSelector)
         targetElement.innerHTML = shopTemplate({data: arr})
-        console.log(isFirstCall)
         if(isFirstCall){
             targetElement.addEventListener('click', (e) => {
                 if (window.innerWidth <= 480) {
@@ -31,12 +29,8 @@ class ShopList {
                     const target = e.target;
                     if (!target.matches('a.shop-layer')) {
                         return false
-                    } else if (document.querySelector(".selected-shop")) {
-                        //기존 선택된 shop의 포커싱을 초기화
-                        document.querySelector(".selected-shop").classList.remove("selected-shop")
                     }
                     ShopList.triggerMarkerEvent(ShopList.searchTargetMarker(target.dataset.shopnumber, markersArr))
-                    target.classList.add(".selected-shop");
                     //targetPosition은 선택한 target의 위치를 구한다. 이후 40을 빼주는건 버튼 영역때문에 하드코딩한것
                     targetElement.scrollTop += target.getBoundingClientRect().top - 40;
                     // TODO: 상점 리스트 클릭시 마커 띄워주기
@@ -53,7 +47,6 @@ class ShopList {
             return e.shopNumber == shopNumber
         })
         if (targetMarkerArr.length != []) {
-            console.log(targetMarkerArr[0])
             return targetMarkerArr[0]
         } else {
             return markersArr.filter((e) => {

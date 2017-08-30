@@ -134,11 +134,15 @@ function updateCurrentSettingHTML(sortClass, distanceClass) {
 function setScrollTopButtonEvent(buttonClass, shopListClass) {
     const shopList = document.querySelector(shopListClass)
     const button = document.querySelector(buttonClass)
-    shopList.addEventListener('scroll', ()=>{
-        button.classList.add('show')
-        button.addEventListener('click', () => {
-            shopList.scrollTop = 0;
-        })
+    button.addEventListener('click', () => {
+        shopList.scrollTop = 0;
+    })
+    shopList.addEventListener('scroll', (e)=>{
+        if (e.target.scrollTop === 0 ){
+            map.setScrollTopButtonHidden()
+        } else {
+            button.classList.add('show')
+        }
     })
 }
 

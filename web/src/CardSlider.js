@@ -51,7 +51,6 @@ class CardSlider {
 
     smoothCardMoveEnding(shopData) {
         // 드래그
-        console.log("Touched!")
         const windowWidth = parseInt(window.innerWidth)
         const distance = this.getChangedTouchDistance(shopData.changedTouches[0].screenX)
         const maxPosition = -(window.innerWidth * (this.sliderWrapper.children.length))

@@ -206,8 +206,8 @@
 }
 
 .shop-detail-thumb-img {
-    width: auto;
-    height: 100%;
+    height: auto;
+    max-width: 100%;
 }
 
 .shop-detail-noti {
@@ -281,6 +281,8 @@
 .imgMenuName {
     width: 100%;
     display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
