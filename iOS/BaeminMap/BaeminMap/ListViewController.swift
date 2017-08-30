@@ -12,7 +12,7 @@ import AlamofireImage
 class ListViewController: UIViewController {
 
     @IBOutlet weak var listView: UITableView!
-    lazy var baeminInfo = BaeminInfoData.shared.listBaeminInfo
+    var baeminInfo = BaeminInfoData.shared.listBaeminInfo
 
     override func viewDidLoad() {
         super.viewDidLoad()

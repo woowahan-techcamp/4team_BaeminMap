@@ -28,6 +28,10 @@ class MainContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addChildViewController(listViewController)
+        listViewController.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
+        containerView.addSubview(listViewController.view)
+        listViewController.didMove(toParentViewController: self)
         addChildViewController(mapViewController)
         mapViewController.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
         containerView.addSubview(mapViewController.view)
