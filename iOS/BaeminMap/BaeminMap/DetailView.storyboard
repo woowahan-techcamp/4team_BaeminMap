@@ -59,7 +59,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="만나서결제" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZV2-zJ-BTb">
-                                                    <rect key="frame" x="289" y="11.333333333333371" width="60" height="18"/>
+                                                    <rect key="frame" x="289" y="11.333333333333336" width="60" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18.5" id="ELK-9v-DaM"/>
                                                         <constraint firstAttribute="width" constant="60" id="cNL-jX-C2J"/>

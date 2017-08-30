@@ -56,7 +56,6 @@ class MapViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func recieve(notification: Notification) {
@@ -278,6 +277,8 @@ extension MapViewController: UIScrollViewDelegate {
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
             cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+        } else {
+            cell.shopImageView.image = #imageLiteral(resourceName: "defaultImage")
         }
         cell.titleLabel.text = shop.shopName
         cell.translatesAutoresizingMaskIntoConstraints = false

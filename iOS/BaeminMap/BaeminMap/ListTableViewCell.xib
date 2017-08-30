@@ -124,7 +124,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="U2O-gF-AEe">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U2O-gF-AEe">
                         <rect key="frame" x="8" y="9" width="84" height="84"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="U2O-gF-AEe" secondAttribute="height" multiplier="1:1" id="0jc-2f-bFB"/>
@@ -165,7 +165,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="defaultImage" width="300" height="300"/>
         <image name="rightArrowicon" width="12" height="22"/>
     </resources>
 </document>

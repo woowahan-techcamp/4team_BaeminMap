@@ -65,6 +65,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let distance = shop.distance.convertDistance()
         if let url = shop.shopLogoImageUrl {
             cell.shopImageView.af_setImage(withURL: URL(string: url)!)
+        } else {
+            cell.shopImageView.image = #imageLiteral(resourceName: "defaultImage")
         }
         cell.titleLabel.text = shop.shopName
         cell.reviewLabel.text = "최근리뷰 \(String(shop.reviewCount))"
