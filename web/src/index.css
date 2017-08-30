@@ -246,7 +246,8 @@ body {
 
 .filter-content {
     height: 100vh;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .filter-button-and-setting-wrapper {
