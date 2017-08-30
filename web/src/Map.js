@@ -83,17 +83,31 @@ class Map {
         // TODO: on map 'zoom_changed', then change markers!
         map.addListener('zoom_changed', () => {
             this.resetMarkerAndInfo()
+            let topRankShopMarkerArr;
+            if(this.filteredData){
+                const topRankShop = Object.values(this.filteredData).slice(0, 30)
+                let topRankShopNumberArr = []
+                topRankShop.forEach((shop) => {
+                    topRankShopNumberArr.push(shop.shopNumber)
+                })
+                topRankShopMarkerArr = this.markers.filter((marker)=>{
+                    return topRankShopNumberArr.includes(marker.shopNumber)
+                })
+            }
+
             const pinMarkers = this.markers.slice(30)
             if (map.zoom >= 18) {
                 // 건물수준(좁게보기)
-                pinMarkers.forEach((marker) => {
+                this.markers.forEach((marker) => {
                     marker.setIcon(marker.categoryIcon)
                 })
             } else {
                 // 도로 구 수준(넓게보기)
-                pinMarkers.forEach((marker) => {
-                    marker.setIcon(marker.pinIcon)
-                    marker.zIndex = 0;
+                this.markers.forEach((marker) => {
+                    if(!topRankShopMarkerArr.includes(marker)){
+                        marker.setIcon(marker.pinIcon)
+                        marker.zIndex = 0;
+                    }
                 })
             }
         })
@@ -149,6 +163,7 @@ class Map {
             if (this.xMarker.labelInfo) {
                 this.xMarker.setLabel(this.xMarker.labelInfo)
             }
+            this.xMarker.setZIndex(1);
         }
     }
 
@@ -167,15 +182,22 @@ class Map {
             this.resetMarkerAndInfo();
             layer.classList.remove('show');
             filterSection.classList.remove('show')
+            this.isDuplicatedList = false;
         })
     }
 
     setMapOverLayerShow() {
-        document.querySelector('.layer').classList.add('show')
+        document.querySelector('.layer').classList.add('show');
+
     }
 
     setMapOverLayerHidden() {
-        document.querySelector(".layer").classList.remove('show')
+        document.querySelector(".layer").classList.remove('show');
+    }
+
+    setScrollTopButtonHidden() {
+        const button = document.querySelector('.move-top-scroll-button');
+        button.classList.remove('show')
     }
 
     setShopMarker(arr, apidata, duplicatedCoordinateList, duplicatedCoordinateDict) {
@@ -192,6 +214,7 @@ class Map {
             let SelectedIconImg;
             let markerAddress;
             let duplicatedShopsNumber;
+            let markerZIndex = 1;
             // TODO: 중복인 아이콘으로 변경할것
             if (duplicatedCoordinateList.includes(shopLocationString)) {
                 if (_marker[shopLocationString]) return true
@@ -202,6 +225,7 @@ class Map {
                     SelectedIconImg = '../static/WebMarker/plusMarkerFill.png'
                     markerAddress = e.address + " " + e.addressDetail
                     duplicatedShopsNumber = duplicatedCoordinateList.lastIndexOf(shopLocationString) - duplicatedCoordinateList.indexOf(shopLocationString) + 1;
+                    markerZIndex = 2;
                 }
                 _marker[shopLocationString] = true
             } else {
@@ -243,7 +267,7 @@ class Map {
                 let markerOption = {
                     position: position,
                     map: this.gmap,
-                    zIndex: 1,
+                    zIndex: markerZIndex,
                     category: e.categoryEnglishName,
                     shopNumber: e.shopNumber,
                     categoryIcon: {
@@ -288,7 +312,10 @@ class Map {
                 marker.addListener('click', () => {
                     const showModalAndMoveMap = () => {
                         // Single
-                        this.showModal(e.shopNumber);
+                        if(!ShopList.triggerChecker){
+                            console.log('eventFromMarker!')
+                            this.showModal(e.shopNumber);
+                        }
                         this.resetMarkerAndInfo()
                         this.gmap.setCenter(marker.getPosition());
                         this.xMarker = marker;
@@ -301,7 +328,7 @@ class Map {
                         if (document.querySelector(".selected-shop")) {
                             document.querySelector(".selected-shop").classList.remove("selected-shop");
                         }
-                        document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 50;
+                        document.querySelector(".shop-list").scrollTop += document.getElementById(e.shopNumber).getBoundingClientRect().top - 40;
                         document.getElementById(e.shopNumber).childNodes[1].classList.add("selected-shop");
                     }
                     if (parseInt(window.innerWidth) <= 480) {
@@ -364,7 +391,6 @@ class Map {
                         // Desktop
                         if (_marker[shopLocationString]) {
                             // Duplicated 마커 선택시 리스트를 바꿔주자. (이 좌표만 남기고 싹 지우자)
-                            this.resetHiddenList()
                             const shopList = Array.prototype.slice.call(document.querySelectorAll('.shop'))
                             //duplicated list 의 주소를 찍어줌
                             const notDuplicated = shopList
@@ -372,8 +398,9 @@ class Map {
                                 .filter(shop => shop.style.display !== 'none') // 만약 다 가려졌으면 length는 0이 된다
                             notDuplicated.forEach(shop => shop.style.display = 'none')
                             this.gmap.setCenter(marker.getPosition())
-                            this.setMapOverLayerShow()
                             this.showDuplicateListNotification(marker)
+                            document.querySelector(".shop-list").scrollTop = 0;
+
                             if (notDuplicated.length === 0) {
                                 // 다 가려진 상태라면...!
                                 showModalAndMoveMap()
@@ -384,13 +411,13 @@ class Map {
                                 marker.setIcon(marker.filledIcon);
                                 marker.setZIndex(2);
                             }
-
                             //
                         } else {
                             this.resetHiddenList()
                             showModalAndMoveMap()
                         }
                     }
+                    this.setScrollTopButtonHidden()
                 });
                 this.markers.push(marker)
             }
@@ -398,12 +425,23 @@ class Map {
     }
 
     showDuplicateListNotification(marker) {
-        const filter = document.querySelector('.filter-controller');
-        const adrressHTML = document.querySelector('.duplicate-list-address');
-        const numberHTML = document.querySelector('.duplicate-number')
-        filter.classList.add('hidden')
-        adrressHTML.innerHTML = marker.address
-        numberHTML.innerHTML = marker.duplicatedShopsNumber
+        if (ShopList.triggerChecker){
+            this.setMapOverLayerHidden()
+            //list에서 발생한 클릭이벤트이지만, duplicated list 에서 발생한 이벤트일 경우 resetHiddenList를 해줘서 렌더링 되는 것을 보여주지 않는다.
+            if(!this.isDuplicatedList){
+                this.resetHiddenList();
+            }
+        } else {
+            console.log(ShopList.triggerChecker)
+            this.setMapOverLayerShow()
+            const filter = document.querySelector('.filter-controller');
+            const adrressHTML = document.querySelector('.duplicate-list-address');
+            const numberHTML = document.querySelector('.duplicate-number')
+            this.isDuplicatedList = true;
+            filter.classList.add('hidden')
+            adrressHTML.innerHTML = marker.address
+            numberHTML.innerHTML = marker.duplicatedShopsNumber
+        }
     }
 
     async showModal(shopNumber) {
@@ -425,6 +463,7 @@ class Map {
 
     async hideIndicator(shopIndicator) {
         shopIndicator.style.display = 'none'
+        ShopList.triggerChecker = false;
     }
 
     closeModal() {
@@ -432,7 +471,7 @@ class Map {
         modal.style.display = 'none'
     }
 
-    reloadMap(distance, pos, apidata, key, order, categoryList) {
+    reloadMap(distance, pos, apidata, key, order, categoryList, isFirstCall) {
         indicator.style.display = ''
         this.gmap.setZoom(18)
         // Reset markers
@@ -481,9 +520,14 @@ class Map {
             this.duplicatedData = _gdcl.duplicatedCoordinateList
             this.duplicatedDataDict = _gdcl.duplicatedCoordinateDict
             this.setShopMarker(filteredData, apidata, this.duplicatedData, this.duplicatedDataDict)
-            new ShopList("#shopList", filteredData, this)
+            new ShopList("#shopList", filteredData, this, isFirstCall)
             indicator.style.display = 'none'
             console.timeEnd("SortData")
+            if (filteredData[0] === undefined) {
+                document.querySelector('.no-shop-notification').classList.add('show');
+            } else {
+                document.querySelector('.no-shop-notification').classList.remove('show');
+            }
         })
     }
 }

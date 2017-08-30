@@ -42,19 +42,19 @@
             <div class="line"></div>
             <div class="sort-option-wrapper">
                 <ul class="sort-option-list">
-                    <li id="sort-option-distance" class="option sort-option selected"><img src="./static/check.png"
+                    <li id="sort-option-distance" class="option sort-option selected" title="가까운 순"><img src="./static/check.png"
                                                                                            class="check-img">가까운 순
                     </li>
-                    <li id="sort-option-orderCount" class="option sort-option"><img src="./static/check.png"
+                    <li id="sort-option-orderCount" class="option sort-option" title="주문 많은 순"><img src="./static/check.png"
                                                                                     class="check-img">주문 많은 순
                     </li>
-                    <li id="sort-option-starPointAverage" class="option sort-option"><img src="./static/check.png"
+                    <li id="sort-option-starPointAverage" class="option sort-option" title="리뷰 좋은 순"><img src="./static/check.png"
                                                                                           class="check-img">리뷰 좋은 순
                     </li>
-                    <li id="sort-option-viewCount" class="option sort-option"><img src="./static/check.png"
+                    <li id="sort-option-viewCount" class="option sort-option" title="인기 많은 순"><img src="./static/check.png"
                                                                                    class="check-img">인기 많은 순
                     </li>
-                    <li id="sort-option-favoriteCount" class="option sort-option"><img src="./static/check.png"
+                    <li id="sort-option-favoriteCount" class="option sort-option" title="즐겨찾기 많은 순"><img src="./static/check.png"
                                                                                        class="check-img">즐겨찾기 많은 순
                     </li>
                 </ul>
@@ -62,28 +62,39 @@
             <div class="line"></div>
             <div class="distance-option-wrapper">
                 <ul class="distance-option-list">
-                    <li id="distance-option-300" class="option distance-option selected" data-distance="0.3"><img
+                    <li id="distance-option-300" class="option distance-option selected" data-distance="0.3" title="근처 업소만 보기"><img
                             src="./static/check.png"
                             class="check-img">근처 업소만
                         보기 (300m)
                     </li>
-                    <li id="distance-option-700" class="option distance-option" data-distance="0.7"><img
+                    <li id="distance-option-700" class="option distance-option" data-distance="0.7" title="멀리까지"><img
                             src="./static/check.png"
                             class="check-img">멀리까지 (700m)
                     </li>
-                    <li id="distance-option-1500" class="option distance-option" data-distance="1.5"><img
+                    <li id="distance-option-1500" class="option distance-option" data-distance="1.5" title="머얼리까지"><img
                             src="./static/check.png"
                             class="check-img">머어얼리까지 (1.5km)
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="filter-button-wrapper mobile-hidden">
-            <h1>배민여지도</h1>
-            <img src="./static/filterDesktop.png" alt="">
+        <div class="filter-button-and-setting-wrapper mobile-hidden">
+            <div class="filter-current-setting mobile-hidden">
+            <span class="filter-current-setting-text">
+                <strong>현재설정: </strong>
+                <span class="filter-current-sort">가까운 순</span>/<span class="filter-current-distance">근처업소만 보기</span>
+            </span>
+            </div>
+            <div class="filter-button-wrapper mobile-hidden">
+                <img src="./static/filterDesktop.png" alt="">
+            </div>
         </div>
     </div>
     <div id="list" class="mobile-hidden">
+        <div class="no-shop-notification">
+            <img src="./static/noShopMan.png">
+        </div>
+        <div class="move-top-scroll-button mobile-hidden">^</div>
         <div class="duplicate-list-notification mobile-hidden">
             <span>
                 <span class="duplicate-list-address"></span>

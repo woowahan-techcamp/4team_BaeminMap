@@ -32,6 +32,9 @@ function categoryFilterEvent(tar) {
             target.classList.add("selected");
         } else if (target.id !== "category-all" && target.classList.contains("selected")) {
             target.classList.remove("selected");
+            if (document.querySelectorAll(".category.selected")[0] === undefined) {
+                document.querySelector('#category-all').classList.add("selected")
+            }
         } else if (!target.classList.contains("selected")) {
             categoryAll.classList.remove("selected");
             target.classList.add("selected");
@@ -59,6 +62,8 @@ function filterEvent(arr, filter, layer, map, pos, apidata, condition) {
                 filterReset(filterChecker, [".category", ".sort-option", "distance-option"]);
             } else if (e === arr[2]) {
                 //필터 내 적용버튼
+                //현재 설정 창을 업데이트
+                updateCurrentSettingHTML('.sort-option', '.distance-option')
                 filterSection.classList.remove('show')
                 overLayer.classList.remove('show')
                 //현재의 필터/정렬 옵션을 저장한다
@@ -117,6 +122,26 @@ function moveMyCurrentLocation(target, map) {
     })
 }
 
+function updateCurrentSettingHTML(sortClass, distanceClass) {
+    const sortOption = document.querySelector(sortClass + ".selected");
+    const distanceOption = document.querySelector(distanceClass + ".selected");
+    const sortHTML = document.querySelector('.filter-current-sort');
+    const distanceHTML = document.querySelector('.filter-current-distance')
+    sortHTML.innerHTML = sortOption.title
+    distanceHTML.innerHTML = distanceOption.title
+}
+
+function setScrollTopButtonEvent(buttonClass, shopListClass) {
+    const shopList = document.querySelector(shopListClass)
+    const button = document.querySelector(buttonClass)
+    shopList.addEventListener('scroll', () => {
+        button.classList.add('show')
+        button.addEventListener('click', () => {
+            shopList.scrollTop = 0;
+        })
+    })
+}
+
 // document.addEventListener('DOMContentLoaded', () => {
 const options = {
     enableHighAccuracy: false,
@@ -142,7 +167,7 @@ navigator.geolocation.getCurrentPosition((position) => {
     // Default Condition: distance
     let condition = 'distance'
     // Get all data and render them
-    map.reloadMap(distance, pos, apidata, condition)
+    map.reloadMap(distance, pos, apidata, condition, undefined, undefined, true)
     categoryFilterEvent(".category-list");
     sortByOption(".sort-option-list", "sort");
     sortByOption(".distance-option-list", condition);
@@ -155,6 +180,7 @@ navigator.geolocation.getCurrentPosition((position) => {
         apidata,
         condition
     );
+    setScrollTopButtonEvent('.move-top-scroll-button', '.shop-list')
     moveMyCurrentLocation('.my-location', map)
 })
 
@@ -200,8 +226,10 @@ window.onclick = function (event) {
     const modal = document.getElementById('modal');
     const span = document.getElementsByClassName("close")[0];
     if (event.target === modal || event.target === span) {
-        modal.style.display = "none";
-        if (window.innerWidth > 480) {
+        modal.style.display = "none"
+        if (window.innerWidth > 480 && event.target === span && map.isDuplicatedList === true) {
+            map.setMapOverLayerShow();
+        } else if (window.innerWidth > 480) {
             map.resetMarkerAndInfo();
             map.setMapOverLayerHidden();
             map.resetHiddenList();
@@ -215,11 +243,3 @@ window.onclick = function (event) {
     toggleFloatingButtonLocation(floatButton, visibleTarget)
     visibleTarget.style.display = 'none'
 }
-
-// document.addEventListener('DOMContentLoaded', function (event) {
-//     const Layzr = new Layzr()
-//     Layzr
-//         .update()           // track initial elements
-//         .check()            // check initial elements
-//         .handlers(true)     // bind scroll and resize handlers
-// })
