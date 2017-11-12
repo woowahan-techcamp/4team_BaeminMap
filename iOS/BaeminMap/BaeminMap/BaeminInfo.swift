@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import ObjectMapper
+//import ObjectMapper
 
-class BaeminInfo: Mappable, Hashable {
+class BaeminInfo: Hashable, Codable {
     var hashValue: Int { get { return (location["latitude"]! + location["longitude"]!).hashValue } }
 
     static func == (lhs: BaeminInfo, rhs: BaeminInfo) -> Bool {
@@ -47,46 +47,6 @@ class BaeminInfo: Mappable, Hashable {
     private(set) var location: [String:Double]!
     private(set) var distance: Double!
     private(set) var shopLogoImageUrl: String?
-
-    required init?(map: Map) {
-    }
-
-    init() {
-    }
-
-    func mapping(map: Map) {
-        shopNumber <- map["shopNumber"]
-        shopName <- map["shopName"]
-        categoryId <- map["categoryId"]
-        categoryName <- map["categoryName"]
-        categoryEnglishName <- map["categoryEnglishName"]
-        address <- map["address"]
-        addressDetail <- map["addressDetail"]
-        phoneNumber <- map["phoneNumber"]
-        virtualPhoneNumber <- map["virtualPhoneNumber"]
-        shopMenuCount <- map["shopMenuCount"]
-        franchiseMenuCount <- map["franchiseMenuCount"]
-        viewCount <- map["viewCount"]
-        favoriteCount <- map["favoriteCount"]
-        callCount <- map["callCount"]
-        orderCount <- map["orderCount"]
-        shopScore <- map["shopScore"]
-        starPointAverage <- map["starPointAverage"]
-        reviewCount <- map["reviewCount"]
-        reviewCountCeo <- map["reviewCountCeo"]
-        reviewCountImage <- map["reviewCountImage"]
-        minimumOrderPrice <- map["minimumOrderPrice"]
-        closeDayDescription <- map["closeDayDescription"]
-        deliveryInformation <- map["deliveryInformation"]
-        shopIntroduction <- map["shopIntroduction"]
-        useBaropay <- map["useBaropay"]
-        useMeetPay <- map["useMeetPay"]
-        useCardPay <- map["useCardPay"]
-        shopOpened <- map["shopOpened"]
-        location <- map["location"]
-        distance <- map["distance"]
-        shopLogoImageUrl <- map["shopLogoImageUrl"]
-    }
 
 }
 

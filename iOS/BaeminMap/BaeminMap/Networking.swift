@@ -18,21 +18,17 @@ class Networking {
 
         Alamofire.request("\(Config.standardURL)/shops", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in
             switch response.result {
-            case .success(let response):
-                var baeminInfo = [BaeminInfo]()
+            case .success:
+                guard let jsonData = response.data,
+                    let baeminInfo = try? JSONDecoder().decode([BaeminInfo].self, from: jsonData) else { return }
                 var baeminInfoDic = [String: [BaeminInfo]]()
-                let contents = response as! [[String:Any]]
-                contents.forEach({ (content) in
-                    let shop = BaeminInfo(JSON: content)
-                    if let shop = shop {
-                        baeminInfo.append(shop)
-                        if baeminInfoDic[shop.categoryName] != nil {
-                            baeminInfoDic[shop.categoryName]?.append(shop)
-                        } else {
-                            baeminInfoDic[shop.categoryName] = [shop]
-                        }
+                for shop in baeminInfo {
+                    if baeminInfoDic[shop.categoryName] != nil {
+                        baeminInfoDic[shop.categoryName]?.append(shop)
+                    } else {
+                        baeminInfoDic[shop.categoryName] = [shop]
                     }
-                })
+                }
                 BaeminInfoData.shared.baeminInfo = baeminInfo
                 BaeminInfoData.shared.baeminInfoDic = baeminInfoDic
                 Filter().filterManager()
